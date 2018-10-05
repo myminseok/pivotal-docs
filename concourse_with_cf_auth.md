@@ -17,7 +17,7 @@ uaac client add concourse_to_pcf \
   --authorized_grant_types "authorization_code,refresh_token" \
   --access_token_validity 3600 \
   --refresh_token_validity 3600 \
-  --secret changeme \
+  --secret <password_conconourse_to_pcf> \
   --redirect_uri https://<pcf.com>/sky/issuer/callback
 
 ~~~
@@ -55,7 +55,7 @@ bosh -e d deploy -n --no-redact -d concourse concourse.yml \
   --var local_user.username=admin \
   --var local_user.password=<password> \
   --var cf_client_id=concourse_to_pcf \
-  --var cf_client_secret=<password> \
+  --var cf_client_secret=<password_conconourse_to_pcf> \
   --var cf_api_url=https://api.<system.pcf.url> \
   -l ./<opsmanager.ca>
 
