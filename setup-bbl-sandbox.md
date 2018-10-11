@@ -8,6 +8,26 @@ su bl-v6.10.3_linux_x86-64 /usr/local/bin/bbl
 bbl
 ~~~
 
+## set shell to jumpbox user
+
+jumpbox계정에  /bin/bash를 추가합니다.
+~~~
+$ sudo vipw
+
+jumpbox:x:110:115::/home/jumpbox:/bin/bash
+
+~~~
+
+## default settng
+
+~~~
+vi ~/.profile
+
+set -o vi
+PS1='$(pwd) $ '
+sudo mount -o remount,exec /tmp
+~~~
+
 ## bbl
 bbl명령이 에러나는 것을 방지하기 위해
 ~~~증상
