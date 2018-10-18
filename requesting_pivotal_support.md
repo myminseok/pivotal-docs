@@ -22,5 +22,6 @@
 ## 기술지원 이메일 양식
 특별한 양식은 없으나 아래의 정보를 포함하시면 신속한 지원이 가능합니다.
 - 고객정보(Pivotal Customer Number: AN-xxxxx)
-- 겪고 있는 문제점 설명, 비즈니스 영향도 등.
+- 겪고 있는 문제점 설명, 비즈니스 영향도 등
+- error log
 - 환경정보: IaaS정보 (AWS,vsphere...) , PCF Opsman버젼, PAS버젼, 관련 Tile버젼
