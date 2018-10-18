@@ -7,22 +7,27 @@
 ![Diego Architecture](https://docs.pivotal.io/pivotalcf/2-2/concepts/images/diego/diego-flow-other.png)
 
 ## 설명 
+
 0. cf push명령으로 application 배포요청(https통신)
 1. Cloud Controller컴포넌가 요청을 받아 Diego Brain컴포넌트에게 애플리케이션 스테이징(droplet을 빌드하는 작업)을하도록 요청.
-2. Diego Brain컴포넌트은 요청을 해석하여 Task와 LRP로 구분하고 BBS컴포넌트에게 요청
-
-* LRP(LongRunningProcess): 애플리케이션 처럼 지속적으로 떠있어야하는 프로세스<br>
-* Task: 실행했다가 종료되는일회성 프로세스
-
+2. Diego Brain컴포넌트은 요청을 해석하여 Task와 LRP로 구분하고 BBS컴포넌트에게 요청<br>
+. LRP(LongRunningProcess): 애플리케이션 처럼 지속적으로 떠있어야하는 프로세스<br>
+. Task: 실행했다가 종료되는일회성 프로세스
 3. BBS컴포넌트는  Diego Brain컴포넌트 내의 Auctioneer프로세스에게 Task와 LRP요청을 전달
 4. Auctioneer프로세스는 Auction알고리즘에 따라 낙찰된 Cell에 요청
-
-*  Auction알고리즘: https://docs.pivotal.io/pivotalcf/2-2/concepts/diego/diego-auction.html
-
+. Auction알고리즘: https://docs.pivotal.io/pivotalcf/2-2/concepts/diego/diego-auction.html
 5. Diego Brain컴포넌트내의 Executor프로세스는 Garden 컨테이너를 생성
 6. BBS컴포넌트는 Garden 컨테이너의 상태를 주기적으로 체크하여 가용성을 유지
 7. Cell컴포넌트내의 Metron Agent프로세스는 Garden 컨네이네에서 발생되는 모든 로그, 메트릭을 Loggregator아키텍처에 전달
 8. Cell컴포넌트내의 route-emitter는애플리케이션의 도메인URL과 Diego 컨테이너의 IP정보를 goRouter컴포넌트에 등록하여 서비스로 노출.
+
+### Auction알고리즘 결정 로직
+* Auction알고리즘 참고: https://docs.pivotal.io/pivotalcf/2-2/concepts/diego/diego-auction.html
+1. 애플리케이션에 맞는 소프트웨어 스택을 가진 Cell 중에서 여유 자원이 있는 Cell을 검색
+2. 가용존(Availability Zone) 중에서 같은 애플리케이션이 없는 가용존에 있는 Cell을 검색
+3. 같은 가용존에서 같은 애플리케이션이 없는 Cell을 선택
+4. 같은 가용존에서 여유 자원이 있는 Cell을 선택
+
 
 # 참고
 - 아래 경로의 다이어그램은 클릭하시면 해당 도움말 페이지로 이동하는 다이어그램입니다.
