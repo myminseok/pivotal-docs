@@ -2,10 +2,9 @@
 https://docs.pivotal.io/pivotalcf/2-2/security/pcf-infrastructure/api-cert-rotation.html
 
 ```
-ssh into ops manager VM.
+# ssh into ops manager VM.
 
 $ uaac target https://<opsman.domain.url>/uaa --skip-ssl-validation
-
 Target: https://<opsman.domain.url>/uaa
 Context: admin, from client opsman
 
@@ -19,7 +18,6 @@ Successfully fetched token via owner password grant.
 Context: admin, from client opsman
 
 $ uaac context
-
 [1]*[https://<opsman.domain.url>/uaa]
   skip_ssl_validation: true
 
@@ -32,10 +30,79 @@ $ uaac context
       scope: opsman.admin scim.me uaa.admin clients.admin
       jti: 
 
-
 $ export TOKEN="<uaac context의 결과에서 access_token을 붙여넣음>"
 
+
+# ops manager root CA조회
 $ curl -k https://<opsman.domain.url>/api/v0/certificate_authorities -H "Authorization: Bearer $TOKEN"
-{"certificate_authorities":[{"guid":"xxx","issuer":"Pivotal","created_on":"2018-10-10T05:29:46Z","expires_on":"2022-10-10T05:29:46Z","active":true,
-"cert_pem":"-----BEGIN CERTIFICATE-----\n xxxxxxx -----END CERTIFICATE-----\n"}]}
+HTTP/1.1 200 OK
+{
+  "certificate_authorities": [
+    {
+      "guid": "f7bc18f34f2a7a9403c3",
+      "issuer": "Pivotal",
+      "created_on": "2017-01-09",
+      "expires_on": "2021-01-09",
+      "active": true,
+      "cert_pem": "-----BEGIN CERTIFICATE-----\nMIIC+zCCAeOgAwIBAgI....etc"
+    }
+  ]
+}
+
+# 만료 예정 인증서 조회
+$ curl "https://OPS-MAN-FQDN/api/v0/deployed/certificates?expires_within=6m" \
+      -H "Authorization: Bearer YOUR-UAA-ACCESS-TOKEN"
+     
+     
+# ops manager에 새로운  root CA생성
+$ curl "https://OPS-MAN-FQDN/api/v0/certificate_authorities/generate" \
+  -X POST \
+  -H "Authorization: Bearer YOUR-UAA-ACCESS-TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{}'
+
+
+# ops manager root CA조회
+$ curl -k https://<opsman.domain.url>/api/v0/certificate_authorities -H "Authorization: Bearer $TOKEN"
+
+HTTP/1.1 200 OK
+{
+  "certificate_authorities": [
+    {
+      "guid": "f7bc18f34f2a7a9403c3",
+      "issuer": "Pivotal",
+      "created_on": "2017-01-09",
+      "expires_on": "2021-01-09",
+      "active": true,
+      "cert_pem": "-----BEGIN CERTIFICATE-----\nMIIC+zCCAeOgAwIBAgI....etc"
+    }
+    {
+      "guid": "a8ee01e33e3e3e3303e3",
+      "issuer": "Pivotal",
+      "created_on": "2017-04-09",
+      "expires_on": "2021-04-09",
+      "active": false,
+      "cert_pem": "-----BEGIN CERTIFICATE-----\zBBBC+eAAAe1gAwAAAeZ....etc"
+    }
+  ]
+}
+
+# Ops Manager UI에 로그인 to https://OPS-MAN-FQDN 
+
+# BOSH Director tile> Config>  Recreate All VMs 체크
+
+# Apply Changes
+
+
+
+# 적용 후 ops manager root CA조회
+$ curl -k https://<opsman.domain.url>/api/v0/certificate_authorities -H "Authorization: Bearer $TOKEN"
+
+# 만료 예정 인증서 조회
+$ curl "https://OPS-MAN-FQDN/api/v0/deployed/certificates?expires_within=6m" \
+      -H "Authorization: Bearer YOUR-UAA-ACCESS-TOKEN"
+     
+
+
+  
 ```
