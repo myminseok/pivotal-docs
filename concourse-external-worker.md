@@ -6,18 +6,30 @@ ssh into ops manager
 bosh -e d cloud-config > cloud-config.yml
 vi cloud-config.yml
 
+# aws의 경우
 vm_extensions:
 - cloud_properties:
     ephemeral_disk:
       size: 102400
       type: gp2
   name: 100GB_ephemeral_disk
+  
+# vsphere의 경우
+ vm_extensions:
+- cloud_properties: {}
+  name: public_ip
+- cloud_properties:
+    disk: 102400
+  name: 100GB_ephemeral_disk  
+  
 bosh -e d update-cloud-config  ./cloud-config.yml
 
 ubuntu@ip-192-168-0-7:~$ bosh -e d cloud-config | grep 100G
   name: 100GB_ephemeral_disk
   
  ```
+
+  
  
 # prepare external concourse bosh deployment script (deploy_external_worker.sh)
 reference: https://github.com/concourse/concourse-bosh-deployment/tree/master/cluster
