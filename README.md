@@ -12,5 +12,3 @@ Pivotal Cloud Foundry 문서
 - [PAS의 사용자 인증을 통해 concourse로그인하도록 설정하기](concourse_with_cf_auth.md)
 - [PAS 수동 설치](install-pas-on-aws.md)
 - [PAS 자동 설치](install-pas-on-aws-automation.md)
-- 
-
