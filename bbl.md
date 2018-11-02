@@ -24,6 +24,11 @@ aws iam put-user-policy --user-name "bbl-user" \
 aws iam create-access-key --user-name "bbl-user"
 ~~~
 
+## concourse terraform 수정
+```
+cd <BBL_WORK_FOLDER>/terraform/
+wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/bbl-terraform/aws/concourse-lb_override.tf
+```
 
 ## bbl up
 bbl up명령으로 aws상에 설정을 생성합니다. 다음 명령은 vpc, security group, nat VM, concourse용 load balancer,  jumpbox, bosh direcor vm 등을 생성합니다.
