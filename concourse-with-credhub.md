@@ -244,15 +244,20 @@ fly -t sandbox workers
 ~~~
 
 ### concourse credhub test sample pipeline
+
+
 ```
-- set credhub:
+wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.1.0/credhub-linux-2.1.0.tgz
+
 wget  https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/target-concourse-credhub.sh
 
 export CONCOURSE_URL=https://
 source ./target-concourse-credhub.sh
 
-
 ```
+
+
+
 
 concourse -> credhub test sample pipeline
 
