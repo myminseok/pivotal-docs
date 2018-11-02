@@ -1,4 +1,14 @@
 [bbl(bosh-bootloader)를 사용한 control-plane 생성](bbl.md) 과정에서 만들어진 control-plane의 sandbox에서 작업을 할 수 있도록 환경설정을 합니다.
+<br>
+
+##각종 cli 설치
+- 참고: https://github.com/cloudfoundry/bosh-bootloader
+- bosh-cli : https://bosh.io/docs/cli-v2/
+- bosh create-env dependencies: https://bosh.io/docs/cli-v2-install/#additional-dependencies
+- terraform >= 0.11.0 : https://github.com/hashicorp/terraform/releases
+- ruby (necessary for bosh create-env) > 2.4: sudo apt-get update && sudo apt-get install ruby-full
+- uaac : gem install cf-uaac
+
 
 ## bbl client설치
 ~~~
@@ -42,6 +52,10 @@ mv /tmp/bbl-terraform /tmp/bbl-terraform.orig
 ~~~
 ## bosh cli설치
 - [jumpbox에 bosh cli환경 설정](install_bosh_cli.md)
+
+
+
+
 
 ## /tmp폴더에 실행모드 부여(ubuntu 14.6 trusty)
 bbl up으로 생성되는 jumpbox는 /tmp mount에 noexec설정이 되어 있어서 이 폴더에 있는 실행파일의 실행이 불가능합니다.
