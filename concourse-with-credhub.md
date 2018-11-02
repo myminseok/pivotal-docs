@@ -1,9 +1,11 @@
 
 control-plane에서 사용할 concourse를 설치할 것입니다.
 - https://github.com/cloudfoundry-incubator/credhub-cli/releases
+- https://github.com/pivotalservices/concourse-credhub
 - https://github.com/pivotal-cf/pcf-pipelines/tree/master/docs/samples/colocated-credhub-ops
 - https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/samples/concourse-with-credhub.yml
 - https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md
+
 
 
 ## bbl env 로딩
