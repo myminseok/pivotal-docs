@@ -1,4 +1,5 @@
 ubuntu기반의 Jumpbox에 bosh cli를 설치하기 위한 가이드입니다.
+ruby v2.4 이하일 경우만 실행합니다.
 
 ubuntu 16기반으로 작성되었습니다.
 
