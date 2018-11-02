@@ -97,6 +97,9 @@ https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md
       -o operations/add-credhub-uaa-to-web.yml
 
 
+cd concourse-bosh-deployment
+cat https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/versions.yml >> ./versions.yml
+
 ./deploy-concourse.sh
 ~~~
   
@@ -251,17 +254,10 @@ wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.1
 
 wget  https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/target-concourse-credhub.sh
 
-export CONCOURSE_URL=https://
+export CONCOURSE_URL=https://<concourse -lb-url>
 source ./target-concourse-credhub.sh
 
 ```
-
-
-
-
-concourse -> credhub test sample pipeline
-
-
 
 https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md#sample-pipeline
 
