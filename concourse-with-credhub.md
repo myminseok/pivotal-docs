@@ -25,7 +25,9 @@ cd concourse-bosh-deployment/cluster
 실제 수정된 샘플은 https://github.com/myminseok/concourse-bosh-deployment-aws를 참조합니다.
 
 
-## concourse 설치하기
+# concourse 설치하기
+
+## bosh-credhub연동버전
 
 ###  bosh deployment script 준비
 
@@ -125,13 +127,52 @@ bosh -e d deploy -n --no-redact -d concourse concourse.yml \
 
 ~~~
 
+
+## concourse-web-credhub연동버전
+
+
 ### concourse 설치하기
 
 ~~~
 # bbl 설치 폴더로 이동
 eval "$(bbl print-env)"
 
-#concourse-bosh-deployment/cluster 폴더로 이동
+# concourse-bosh-deployment/cluster/operations 폴더로 이동
+
+wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/operations/add-credhub-uaa-to-web.yml
+
+공인인증서가 없으면 concourse pipeline돌릴때 에러나므로 operations/credhub.yml파일에 insecure_skip_verify 옵션추가
+위치 참조용 release spec
+
+# 하기 내용으로 수정
+- type: replace
+  path: /instance_groups/name=web/jobs/name=atc/properties/credhub?
+  value:
+    url: ((credhub_url))
+    client_id: ((credhub_client_id))
+    client_secret: ((credhub_client_secret))
+    tls:
+      ca_cert:
+        certificate: ((credhub_ca_cert))
+      insecure_skip_verify: true
+      
+      
+# concourse-bosh-deployment/cluster 폴더로 이동
+설정파일 생성
+https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md
+
+ bosh deploy -d concourse concourse.yml \
+      -l ../versions.yml \
+      -l vars.yml \
+      -o operations/basic-auth.yml \
+      -o operations/privileged-http.yml \
+      -o operations/privileged-https.yml \
+      -o operations/tls.yml \
+      -o aws-tls-vars.yml \
+      -o operations/web-network-extension.yml \
+      -o operations/add-credhub-uaa-to-web.yml
+
+
 ./deploy-concourse.sh
 ~~~
   
