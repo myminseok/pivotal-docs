@@ -100,6 +100,11 @@ https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md
 cd concourse-bosh-deployment
 cat https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/versions.yml >> ./versions.yml
 
+https://bosh.io/stemcells/
+bosh upload-stemcell --sha1 c8b65794ca4c45773b6fe23b3d447dde520f07b0 \
+  https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=170.3
+  
+  
 ./deploy-concourse.sh
 ~~~
   
