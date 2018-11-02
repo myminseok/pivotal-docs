@@ -11,9 +11,12 @@ su bl-v6.10.3_linux_x86-64 /usr/local/bin/bbl
 bbl
 ~~~
 - bosh-cli : https://bosh.io/docs/cli-v2/ 
+  https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-linux-amd64
 * bosh-cli(ruby v2.4이하일 경우): [bosh cli환경 설정](install_bosh_cli.md)
 - bosh create-env dependencies: https://bosh.io/docs/cli-v2-install/#additional-dependencies
-- terraform >= 0.11.0 : https://github.com/hashicorp/terraform/releases
+sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt1-dev libxml2-dev libssl-dev  libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
+
+- terraform >= 0.11.0 : https://www.terraform.io/downloads.html
 - ruby (necessary for bosh create-env) > 2.4: sudo apt-get update && sudo apt-get install ruby-full
 - uaac : gem install cf-uaac
 
