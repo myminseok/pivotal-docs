@@ -244,7 +244,19 @@ fly -t sandbox workers
 ~~~
 
 ### concourse credhub test sample pipeline
+```
+- set credhub:
+wget  https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/target-concourse-credhub.sh
+
+export CONCOURSE_URL=https://
+source ./target-concourse-credhub.sh
+
+
+```
+
 concourse -> credhub test sample pipeline
+
+
 
 https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md#sample-pipeline
 
