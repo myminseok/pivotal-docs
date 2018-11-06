@@ -32,3 +32,9 @@ fly -t sandbox login -c <concourse-url> -u <username> -p <password> -k
 cd pcf-pipelines/tree/master/install-pcf/aws
 fly -t target sp -p install-pcf -c pipeline.yml -l ../../../params-aws.yml
 ~~~
+
+
+## 사설인증서 생성하기
+ARN을 빠르게 만들기 위해서 sampivotal.com 도메인으로 서명된 사설인증서를 만들어서 AWS Cert Manager에 import했습니다.
+사설인증서를 만드는 스크립트는 아래를 참조하세요
+https://github.com/myminseok/generate-self-signed-cert
