@@ -1,3 +1,10 @@
+mysql turnneling 
+```
+https://docs.cloudfoundry.org/devguide/deploy-apps/ssh-services.html
+$ cf ssh -L <localport>:<remotedb>:3306 YOUR-HOST-APP
+$ mysql -u <username> -h 0 -p -D <database> -P <localport>
+```
+
 https://github.com/cloudfoundry-attic/vcap
 
 python support docs: https://github.com/cloudfoundry-attic/vcap/blob/master/docs/python.md
