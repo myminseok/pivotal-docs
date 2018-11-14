@@ -1,7 +1,7 @@
 
 # cloud foundry의 loggregator에서 수집한 메트릭, 이벤트, 로그를 외부로 전송하기
-cloud foundry의 loggregator에서 수집한 메트릭, 이벤트, 로그는 firehose를 통해 수집할 수 있습니다. 
-(Nozzles are programs which consume data from the Loggregator Firehose. Nozzles can be configured to select, buffer, and transform data, and forward it to other applications and services. Example nozzles include the following)
+cloud foundry의 loggregator에서 수집한 메트릭, 이벤트, 로그는 firehose를 통해 제공됩니다.(https://docs.pivotal.io/pivotalcf/2-3/loggregator/architecture.html)  아래와 같은 nozzle을 연결하면 데이터를 추출할 수 있습니다.
+
 1) The Datadog nozzle, which publishes metrics coming from the Firehose to Datadog: https://github.com/cloudfoundry-incubator/datadog-firehose-nozzle
 2) Syslog nozzle, which filters out log messages coming from the Firehose and sends it to a syslog server: https://github.com/cloudfoundry-community/firehose-to-syslog
 nozzle을 구현하여 수집할 수 있으며 여기서는 두가지 방법으로 수집하는 방법을 설명합니다.
@@ -117,8 +117,6 @@ cf logs firehose-to-syslog  => 에러없이 아래의 로그가 나오면 syslog
    2018-11-14T15:50:39.06+0900 [APP/PROC/WEB/0] OUT [2018-11-14 06:50:39.069556675 +0000 UTC] Connected to Syslog Server! Connecting to Firehose.
    
 ```
-
-
 
 ### PCF KPI 확인
 https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#cell
