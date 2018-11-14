@@ -6,6 +6,11 @@ cloud foundry의 loggregator에서 수집한 메트릭, 이벤트, 로그는 fir
 2) Syslog nozzle, which filters out log messages coming from the Firehose and sends it to a syslog server: https://github.com/cloudfoundry-community/firehose-to-syslog
 nozzle을 구현하여 수집할 수 있으며 여기서는 두가지 방법으로 수집하는 방법을 설명합니다.
 
+## PCF Key Performance Indicator
+
+https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#cell
+
+
 ## cf nozzle plugin
 
 https://docs.cloudfoundry.org/loggregator/cli-plugin.html#add
@@ -114,4 +119,14 @@ cf logs firehose-to-syslog  => 에러없이 아래의 로그가 나오면 syslog
 ```
 
 
+
+### PCF KPI 확인
+https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#cell
+```
+$ cd /var/log/
+$ tail -f syslog | grep CapacityRemainingMemory
+Nov 14 16:23:44 10.10.12.51  2018-11-14T07:23:44Z c5cdf522-0ea3-4658-5932-b56b doppler[17]: {"cf_origin":"firehose","deployment":"cf","event_type":"ValueMetric","ip":"10.10.12.51","job":"diego_cell","job_index":"ed084dc3-12d2-4036-b690-875233e11b07","level":"info","msg":"","name":"CapacityRemainingMemory","origin":"rep","time":"2018-11-14T07:23:44Z","unit":"MiB","value":10152}
+Nov 14 16:23:45 10.10.12.51  2018-11-14T07:23:45Z c5cdf522-0ea3-4658-5932-b56b doppler[17]: {"cf_origin":"firehose","deployment":"cf","event_type":"ValueMetric","ip":"10.10.12.37","job":"diego_cell","job_index":"4c976cec-a48b-4c91-be38-77f697e415ce","level":"info","msg":"","name":"CapacityRemainingMemory","origin":"rep","time":"2018-11-14T07:23:45Z","unit":"MiB","value":5172}
+
+```
     
