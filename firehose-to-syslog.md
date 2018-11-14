@@ -1,10 +1,10 @@
+
+# cloud foundry의 loggregator에서 수집한 메트릭, 이벤트, 로그를 외부로 전송하기
 cloud foundry의 loggregator에서 수집한 메트릭, 이벤트, 로그는 firehose를 통해 수집할 수 있습니다. 
 (Nozzles are programs which consume data from the Loggregator Firehose. Nozzles can be configured to select, buffer, and transform data, and forward it to other applications and services. Example nozzles include the following)
 1) The Datadog nozzle, which publishes metrics coming from the Firehose to Datadog: https://github.com/cloudfoundry-incubator/datadog-firehose-nozzle
 2) Syslog nozzle, which filters out log messages coming from the Firehose and sends it to a syslog server: https://github.com/cloudfoundry-community/firehose-to-syslog
 nozzle을 구현하여 수집할 수 있으며 여기서는 두가지 방법으로 수집하는 방법을 설명합니다.
-
-
 
 ## cf nozzle plugin
 
