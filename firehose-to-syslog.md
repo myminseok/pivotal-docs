@@ -123,6 +123,10 @@ cf logs firehose-to-syslog  => 에러없이 아래의 로그가 나오면 syslog
 ### PCF KPI 확인
 https://docs.pivotal.io/pivotalcf/2-3/monitoring/kpi.html#cell
 ```
+Remaining Memory Available — Cell Memory Chunks Available: rep.CapacityRemainingMemory
+```
+
+```
 $ cd /var/log/
 $ tail -f syslog | grep CapacityRemainingMemory
 Nov 14 16:23:44 10.10.12.51  2018-11-14T07:23:44Z c5cdf522-0ea3-4658-5932-b56b doppler[17]: {"cf_origin":"firehose","deployment":"cf","event_type":"ValueMetric","ip":"10.10.12.51","job":"diego_cell","job_index":"ed084dc3-12d2-4036-b690-875233e11b07","level":"info","msg":"","name":"CapacityRemainingMemory","origin":"rep","time":"2018-11-14T07:23:44Z","unit":"MiB","value":10152}
