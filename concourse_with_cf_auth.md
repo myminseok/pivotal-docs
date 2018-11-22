@@ -18,7 +18,7 @@ uaac client add concourse_to_pcf \
   --access_token_validity 3600 \
   --refresh_token_validity 3600 \
   --secret <password_conconourse_to_pcf> \
-  --redirect_uri https://<pcf.com>/sky/issuer/callback
+  --redirect_uri https://<concourse>/sky/issuer/callback
 
 ~~~
 
