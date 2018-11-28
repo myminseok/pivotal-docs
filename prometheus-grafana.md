@@ -54,20 +54,22 @@ helm ls
 ## deploy prometheus
 
 ### prepare Persistent Volume Storage
-Download the StorageClass spec for your cloud provider.
+Download the StorageClass spec for your cloud provider. 
+
 ```
 wget https://raw.githubusercontent.com/cloudfoundry-incubator/kubo-ci/master/specs/storage-class-vsphere.yml
 
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: prometheus-storage                         <== put any name here...
+  name: prometheus-storage                         
 provisioner: kubernetes.io/vsphere-volume
-allowVolumeExpansion: true                      <== resizable...
+allowVolumeExpansion: true                      
 parameters:
   diskformat: zeroedthick
 ```  
-https://kubernetes.io/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/
+- metadata.name: put any name
+- allowVolumeExpansion: true ref:https://kubernetes.io/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/
 
 ```
 kubectl create -f ./storage-class-vsphere.yml
