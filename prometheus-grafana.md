@@ -50,7 +50,54 @@ helm ls
 Download the StorageClass spec for your cloud provider.
 ```
 wget https://raw.githubusercontent.com/cloudfoundry-incubator/kubo-ci/master/specs/storage-class-vsphere.yml
-kubectl create -f storage-class-vsphere.yml
+kubectl create -f ./storage-class-vsphere.yml
 ```
-###
+### helm prometheus deployment
+https://github.com/helm/charts/tree/master/stable/prometheus
+
+```
+wget https://raw.githubusercontent.com/helm/charts/master/stable/prometheus/values.yaml
+edit values.yml
+or
+https://github.com/myminseok/prometheus-grafana
+
+server:
+  ingress:
+    enabled: true
+    annotations:
+       kubernetes.io/ingress.class: nginx
+       kubernetes.io/tls-acme: 'true'
+    hosts:
+       - prometheus.pksdemo.net
+    tls:
+       - secretName: prometheus-server-tls
+         hosts:
+           - prometheus.pksdemo.net
+
+  persistentVolume:
+    enabled: true
+    size: 4Gi
+  ## Prometheus data retention period (i.e 360h)
+  retention: ""
+  
+alertmanager:
+  persistentVolume:
+    enabled: true
+    size: 2Gi
+```
+
+### deploy
+```
+# helm del --purge prometheus
+
+helm install --name prometheus --set alertmanager.persistentVolume.storageClass=ci-storage,server.persistentVolume.storageClass=ci-storage -f ./helm-prometheus.yml stable/prometheus
+
+```
+
+
+
+https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#monitoring-compute-resource-usage
+
+## TODO
+how to exclude some useless metrics before collecting.
 
