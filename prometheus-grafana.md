@@ -140,6 +140,12 @@ plugins:
   - grafana-kubernetes-app
     
 ```
+#### manually upload plugin
+http://docs.grafana.org/plugins/installation/ <br>
+https://grafana.com/grafana/download?platform=windows
+```
+grafana-cli --pluginUrl https://nexus.company.com/grafana/plugins/<plugin-id>-<plugin-version>.zip plugins install <plugin-id>
+```
 
 ### deploy
 ```
