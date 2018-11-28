@@ -5,13 +5,14 @@ monitoring k8s cluster using prometheus and grafana.
 - pivotal cloud foundry opsman ui> pivotal container service> plan > check above option > apply changes.
 - public internet access env from k8s cluster to dockerhub.
 
-## access to k8s dashboard
+## access to k8s dashboard from local PC
 ```
 pks login
 pks clusters
 pks get-credentials <cluster-name>
 kubectl proxy
-http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+
+open http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 ```
 ## prepare local PC or jumpbox
 ###  helm
@@ -248,5 +249,5 @@ rate(container_network_transmit_bytes_total{pod_name=~"$pod"}[2m])
 https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#monitoring-compute-resource-usage
 
 ## TODO
-how to exclude some useless metrics before collecting.
+how to exclude some useless metrics before collecting to prometheus?
 
