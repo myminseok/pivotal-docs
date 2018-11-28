@@ -16,7 +16,7 @@ open http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernet
 ```
 ## prepare local PC or jumpbox
 ###  helm
-https://docs.helm.sh/using_helm/#installing-helm<br>
+https://docs.helm.sh/using_helm/#installing-helm <br>
 download(linux amd64): https://github.com/helm/helm/releases, https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
 
 ### tiller
@@ -140,15 +140,6 @@ plugins:
   - grafana-kubernetes-app
     
 ```
-#### manually upload plugin (after grafana installation)
-- http://docs.grafana.org/plugins/installation
-- grafana-cli(windows amd64): https://grafana.com/grafana/download?platform=windows
-- grafana-cli(linux): wget https://dl.grafana.com/oss/release/grafana_5.3.4_amd64.deb 
-- or https://github.com/myminseok/prometheus-grafana/
-
-```
-grafana-cli --pluginUrl https://nexus.company.com/grafana/plugins/<plugin-id>-<plugin-version>.zip plugins install <plugin-id>
-```
 
 ### deploy
 ```
@@ -201,6 +192,7 @@ configuration> datasource> add data source
 - plugin: https://grafana.com/plugins/grafana-kubernetes-app
 - https://github.com/coreos/prometheus-operator/tree/master/helm/grafana
 
+
 #### enable plugin dashboard 
 https://github.com/grafana/kubernetes-app#connecting-to-your-cluster
 - configuration> plugins> kubernetes > config> "enable"
@@ -218,6 +210,7 @@ kubernetes> clusters > new cluster
 - TLS Auth details: get cert/key from k8s master vm.<br>
   ssh into k8s master > /var/vcap/jobs/kube-apiserver/config/var/vcap/jobs/prometheus.pem prometneus-key.pem, 
 ```
+
 # ssh opsman vm 
 # ssh into k8s master
 bosh deployments
@@ -244,6 +237,52 @@ kubernetes> clusters
 
 
 ## troubleshooting
+
+### setup helm chart server
+https://medium.com/@maanadev/how-set-up-a-helm-chart-repository-using-apache-web-server-670ffe0e63c7
+
+#### prepare ubuntu vm 
+https://github.com/myminseok/ubuntu.apt.cache/blob/master/README.md
+
+#### download helm chart on vm & setup nginx
+
+```
+cd /var/www/helm
+mkdir -p index/charts
+helm fetch stable/grafana -d ./index/charts
+helm fetch stable/prometheus -d ./index/charts
+helm repo index index/ --url http://127.0.0.1:8879
+```
+https://github.com/myminseok/ubuntu.apt.cache/blob/master/README.md#setup-nginx
+
+#### helm repo add local
+
+```
+helm repo add local http://127.0.0.1:8879/charts
+
+helm repo list
+NAME  	URL
+stable	https://kubernetes-charts.storage.googleapis.com
+local 	http://127.0.0.1:8879/charts
+```
+now use 'local' instead of stable
+
+
+### manually upload plugin (after grafana installation)
+```
+kubectl get pods
+kubectl cp ./grafana-kubernetes-app-31da38a.tar.gz grafana-65b4bcc6fb-8rd67:/var/lib/grafana/plugins
+kubectl exec -it <grafana-pod> -- /bin/bash
+
+- http://docs.grafana.org/plugins/installation
+- grafana-cli(windows amd64): https://grafana.com/grafana/download?platform=windows
+- grafana-cli(linux): wget https://dl.grafana.com/oss/release/grafana_5.3.4_amd64.deb 
+- or https://github.com/myminseok/prometheus-grafana/
+
+```
+grafana-cli --pluginUrl https://nexus.company.com/grafana/plugins/<plugin-id>-<plugin-version>.zip plugins install <plugin-id>
+grafana-cli --pluginUrl grafana-kubernetes-app-31da38a.zip plugins install grafana-kubernetes-app
+
 
 ### network chart doesn't show metrics
 - grafana ui> kubernetes> clusters> my-cluster> container view > network(inbound) > edit>
