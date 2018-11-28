@@ -53,8 +53,22 @@ helm ls
 Download the StorageClass spec for your cloud provider.
 ```
 wget https://raw.githubusercontent.com/cloudfoundry-incubator/kubo-ci/master/specs/storage-class-vsphere.yml
+
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: monitor-storage                         <== put any name here...
+provisioner: kubernetes.io/vsphere-volume
+allowVolumeExpansion: true                      <== resizable...
+parameters:
+  diskformat: zeroedthick
+```  
+https://kubernetes.io/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/
+
+```
 kubectl create -f ./storage-class-vsphere.yml
 ```
+
 ### helm prometheus deployment
 https://github.com/helm/charts/tree/master/stable/prometheus
 
