@@ -76,14 +76,16 @@ kubectl create -f ./storage-class-vsphere.yml
 ```
 
 ### helm prometheus deployment
-https://github.com/helm/charts/tree/master/stable/prometheus
-
+- guide: https://github.com/helm/charts/tree/master/stable/prometheus
+#### download deployment file and edit
 ```
 wget https://raw.githubusercontent.com/helm/charts/master/stable/prometheus/values.yaml
 edit values.yml
 or
-https://github.com/myminseok/prometheus-grafana
-
+https://github.com/myminseok/prometheus-grafana/blob/master/helm-prometheus.yml
+```
+- helm-prometheus.yml
+```
 server:
   ingress:
     enabled: true
@@ -109,7 +111,7 @@ alertmanager:
     size: 2Gi
 ```
 
-### deploy
+#### deploy
 ```
 # helm del --purge prometheus
 
@@ -119,7 +121,7 @@ helm install --name prometheus --set alertmanager.persistentVolume.storageClass=
 wait until pods bound to volume. it takes time.
 check namesspace event from k8s dashboard for troubleshooting.
 
-### test prometheus
+#### test prometheus
 
 ```
 $ kubectl get pods
@@ -147,17 +149,16 @@ open 127.0.0.1:9090
 
 IMPORTANT: for airgapped environment, see install plugin while deploying pod (airgapped environment)
 
-### helm grafana deployment
-
-https://github.com/helm/charts/tree/master/stable/grafana
-
+#### helm grafana deployment
+- guide: https://github.com/helm/charts/tree/master/stable/grafana
+- download deployment file
 ```
 wget https://raw.githubusercontent.com/helm/charts/master/stable/grafana/values.yaml
 or
 https://github.com/myminseok/prometheus-grafana/blob/master/helm-grafana.yml
 ```
 
-vi helm-grafana.yml
+- vi helm-grafana.yml
 ```
 ### install plugin while deploying pod (airgapped environment)
 # 1. download plugin from https://grafana.com/plugins/grafana-kubernetes-app/installation
@@ -173,7 +174,7 @@ plugins:
     
 ```
 
-### deploy
+#### deploy
 ```
 helm del --purge grafana
 
@@ -183,7 +184,7 @@ helm install --name grafana  -f ./helm-grafana.yml stable/grafana
 
 ## set up grafana dashboard
 
-### access grafana dashboard
+#### access grafana dashboard
 
 ```
 kubectl get pods
@@ -204,7 +205,7 @@ open 127.0.0.1:3000
 admin / [password from the shell]
 
 
-### configure grafana dashboard
+#### configure grafana dashboard
 
 configuration> datasource> add data source
 - name: prometheus
@@ -220,7 +221,7 @@ configuration> datasource> add data source
 
 "Save & Test"
 
-### grafana-kubernetes-app plugin
+#### grafana-kubernetes-app plugin
 - plugin: https://grafana.com/plugins/grafana-kubernetes-app
 - https://github.com/coreos/prometheus-operator/tree/master/helm/grafana
 
@@ -271,13 +272,12 @@ kubernetes> clusters
 ## troubleshooting
 
 ### setup helm chart server
-https://medium.com/@maanadev/how-set-up-a-helm-chart-repository-using-apache-web-server-670ffe0e63c7
+- guide: https://medium.com/@maanadev/how-set-up-a-helm-chart-repository-using-apache-web-server-670ffe0e63c7
 
 #### prepare ubuntu vm 
 https://github.com/myminseok/ubuntu.apt.cache/blob/master/README.md
 
 #### download helm chart on vm & setup nginx
-
 ```
 cd /var/www/helm
 mkdir -p index/charts
@@ -288,7 +288,6 @@ helm repo index index/ --url http://127.0.0.1:8879
 https://github.com/myminseok/ubuntu.apt.cache/blob/master/README.md#setup-nginx
 
 #### helm repo add local
-
 ```
 helm repo add local http://127.0.0.1:8879/charts
 
