@@ -3,7 +3,9 @@ monitoring k8s cluster using prometheus and grafana.
 ## prerequisite
 - prepare k8s cluster. k8s cluster should be deployed with "Enable Privileged Containers", "Disable DenyEscalatingExec" option in PKS plan.
 - pivotal cloud foundry opsman ui> pivotal container service> plan > check above option > apply changes.
-- public internet access env from k8s cluster to dockerhub.
+- public internet access env from k8s cluster to dockerhub. 
+- for airgapped-environment, see "setup helm chart server" in this doc.
+
 
 ## access to k8s dashboard from local PC
 ```
@@ -16,11 +18,13 @@ open http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernet
 ```
 ## prepare local PC or jumpbox
 ###  helm
-https://docs.helm.sh/using_helm/#installing-helm <br>
-download(linux amd64): https://github.com/helm/helm/releases, https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
+- guide: https://docs.helm.sh/using_helm/#installing-helm
+- cli download: https://github.com/helm/helm/releases,
+- cli linux amd64:  https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-linux-amd64.tar.gz
+- cli windows amd64: https://storage.googleapis.com/kubernetes-helm/helm-v2.11.0-windows-amd64.zip
 
-### tiller
-rbac-config.yaml 
+### tiller (helm server module)
+vi rbac-config.yaml 
 ```
 apiVersion: v1
 kind: ServiceAccount
@@ -57,7 +61,7 @@ wget https://raw.githubusercontent.com/cloudfoundry-incubator/kubo-ci/master/spe
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
-  name: monitor-storage                         <== put any name here...
+  name: prometheus-storage                         <== put any name here...
 provisioner: kubernetes.io/vsphere-volume
 allowVolumeExpansion: true                      <== resizable...
 parameters:
@@ -107,7 +111,7 @@ alertmanager:
 ```
 # helm del --purge prometheus
 
-helm install --name prometheus --set alertmanager.persistentVolume.storageClass=ci-storage,server.persistentVolume.storageClass=ci-storage -f ./helm-prometheus.yml stable/prometheus
+helm install --name prometheus --set alertmanager.persistentVolume.storageClass=prometheus-storage,server.persistentVolume.storageClass=prometheus-storage -f ./helm-prometheus.yml stable/prometheus
 
 ```
 wait until pods bound to volume. it takes time.
@@ -139,31 +143,43 @@ open 127.0.0.1:9090
 
 ## deploy grafana
 
+IMPORTANT: for airgapped environment, see install plugin while deploying pod (airgapped environment)
+
 ### helm grafana deployment
+
 https://github.com/helm/charts/tree/master/stable/grafana
 
 ```
 wget https://raw.githubusercontent.com/helm/charts/master/stable/grafana/values.yaml
-edit values.yml
 or
-https://github.com/myminseok/prometheus-grafana
+https://github.com/myminseok/prometheus-grafana/blob/master/helm-grafana.yml
 ```
 
+vi helm-grafana.yml
 ```
+### install plugin while deploying pod (airgapped environment)
+# 1. download plugin from https://grafana.com/plugins/grafana-kubernetes-app/installation
+# 2. place grafana-kubernetes-app-31da38a.zip to local webserver
+# 3. vi helm-grafana.yml
+
+## Extra environment variables that will be pass onto deployment pods
+env:
+  GF_PLUGIN_URL: https://github.com/myminseok/prometheus-grafana/raw/master/grafana-kubernetes-app-31da38a.zip
+
 plugins:
-  - grafana-kubernetes-app
+  - grafana-kubernetes-app 
     
 ```
 
 ### deploy
 ```
-# helm del --purge grafana
+helm del --purge grafana
 
 helm install --name grafana  -f ./helm-grafana.yml stable/grafana
 
 ```
 
-## setting up grafana dashboard
+## set up grafana dashboard
 
 ### access grafana dashboard
 
