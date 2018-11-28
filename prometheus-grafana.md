@@ -268,18 +268,20 @@ local 	http://127.0.0.1:8879/charts
 now use 'local' instead of stable
 
 
+### install plugin while deploying pod (airgapped environment)
+1. download plugin from https://grafana.com/plugins/grafana-kubernetes-app/installation
+2. place grafana-kubernetes-app-31da38a.zip to local webserver
+3. vi helm-grafana.yml
+```
+## Extra environment variables that will be pass onto deployment pods
+env:
+  GF_PLUGIN_URL: https://github.com/myminseok/prometheus-grafana/raw/master/grafana-kubernetes-app-31da38a.zip
+```
+4. deploy pod.
+
+
 ### manually upload plugin (after grafana installation)
 ```
-kubectl get pods
-kubectl cp ./grafana-kubernetes-app-31da38a.tar.gz grafana-65b4bcc6fb-8rd67:/var/lib/grafana/plugins
-kubectl exec -it <grafana-pod> -- /bin/bash
-
-- http://docs.grafana.org/plugins/installation
-- grafana-cli(windows amd64): https://grafana.com/grafana/download?platform=windows
-- grafana-cli(linux): wget https://dl.grafana.com/oss/release/grafana_5.3.4_amd64.deb 
-- or https://github.com/myminseok/prometheus-grafana/
-
-
 grafana-cli --pluginUrl https://nexus.company.com/grafana/plugins/<plugin-id>-<plugin-version>.zip plugins install <plugin-id>
 
 export GF_PLUGIN_URL=https://github.com/myminseok/prometheus-grafana/raw/master/grafana-kubernetes-app-31da38a.zip
@@ -298,6 +300,14 @@ rate(container_network_transmit_bytes_total{pod_name=~"$pod"}[2m])
 ```
 - check prometheus server ui for the container_network_transmit_bytes_total metric.
 
+### file upload to pod
+```
+kubectl get pods
+kubectl cp ./grafana-kubernetes-app-31da38a.tar.gz grafana-65b4bcc6fb-8rd67:/var/lib/grafana/plugins
+kubectl exec -it <grafana-pod> -- /bin/bash
+
+
+```
 ### k8s troubleshooting
 https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/#monitoring-compute-resource-usage
 
