@@ -140,9 +140,12 @@ plugins:
   - grafana-kubernetes-app
     
 ```
-#### manually upload plugin
-http://docs.grafana.org/plugins/installation/ <br>
-https://grafana.com/grafana/download?platform=windows
+#### manually upload plugin (after grafana installation)
+- http://docs.grafana.org/plugins/installation
+- grafana-cli(windows amd64): https://grafana.com/grafana/download?platform=windows
+- grafana-cli(linux): wget https://dl.grafana.com/oss/release/grafana_5.3.4_amd64.deb 
+- or https://github.com/myminseok/prometheus-grafana/
+
 ```
 grafana-cli --pluginUrl https://nexus.company.com/grafana/plugins/<plugin-id>-<plugin-version>.zip plugins install <plugin-id>
 ```
