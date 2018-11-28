@@ -279,10 +279,15 @@ kubectl exec -it <grafana-pod> -- /bin/bash
 - grafana-cli(linux): wget https://dl.grafana.com/oss/release/grafana_5.3.4_amd64.deb 
 - or https://github.com/myminseok/prometheus-grafana/
 
-```
-grafana-cli --pluginUrl https://nexus.company.com/grafana/plugins/<plugin-id>-<plugin-version>.zip plugins install <plugin-id>
-grafana-cli --pluginUrl grafana-kubernetes-app-31da38a.zip plugins install grafana-kubernetes-app
 
+grafana-cli --pluginUrl https://nexus.company.com/grafana/plugins/<plugin-id>-<plugin-version>.zip plugins install <plugin-id>
+
+export GF_PLUGIN_URL=https://github.com/myminseok/prometheus-grafana/raw/master/grafana-kubernetes-app-31da38a.zip
+grafana-cli plugins install grafana-kubernetes-app
+
+grafana-cli --pluginUrl https://github.com/myminseok/prometheus-grafana/raw/master/grafana-kubernetes-app-31da38a.zip plugins install grafana-kubernetes-app
+
+```
 
 ### network chart doesn't show metrics
 - grafana ui> kubernetes> clusters> my-cluster> container view > network(inbound) > edit>
