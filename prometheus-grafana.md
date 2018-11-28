@@ -2,7 +2,7 @@ monitoring k8s cluster using prometheus and grafana.
 
 ## prerequisite
 - prepare k8s cluster. k8s cluster should be deployed with "Enable Privileged Containers", "Disable DenyEscalatingExec" option in PKS plan.
-- (opsman ui> pivotal container service> plan > check above option > apply changes.
+- pivotal cloud foundry opsman ui> pivotal container service> plan > check above option > apply changes.
 - public internet access env from k8s cluster to dockerhub.
 
 ## access to k8s dashboard
