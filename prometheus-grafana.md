@@ -48,6 +48,7 @@ subjects:
 ```
 kubectl create -f rbac-config.yaml
 helm init --service-account tiller
+helm init --service-account tiller --tiller-image=<harbor_url>/<your_project>/tiller:v2.11.0 --stable-repo-url=http://<your.helm.server>/ --force-upgrade --upgrade --debug
 helm ls
 ```
 
