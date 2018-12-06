@@ -68,9 +68,11 @@ provisioner: kubernetes.io/vsphere-volume
 allowVolumeExpansion: true                      
 parameters:
   diskformat: zeroedthick
+  datastore: <SHARED-DATASTORE-NAME>
 ```  
 - metadata.name: put any name
 - allowVolumeExpansion: true ref:https://kubernetes.io/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/
+- SHARED-DATASTORE-NAME: shared storage to store data which is registered in vcenter. put single datastore.
 
 ```
 kubectl create -f ./storage-class-vsphere.yml
@@ -89,22 +91,40 @@ https://github.com/myminseok/prometheus-grafana/blob/master/helm-prometheus.yml
 ```
 server:
   ingress:
-    enabled: true
-    annotations:
-       kubernetes.io/ingress.class: nginx
-       kubernetes.io/tls-acme: 'true'
-    hosts:
-       - prometheus.pksdemo.net
-    tls:
-       - secretName: prometheus-server-tls
-         hosts:
-           - prometheus.pksdemo.net
+    enabled: false <== no need for internal access. use LoadBalancer type instead for public access.
+    annotations: []
+    #   kubernetes.io/ingress.class: nginx
+    #   kubernetes.io/tls-acme: 'true'
+    hosts: []
+    #   - prometheus.pksdemo.net
+    tls: []
+    #   - secretName: prometheus-server-tls
+    #     hosts:
+    #       - prometheus.pksdemo.net
 
-  persistentVolume:
-    enabled: true
-    size: 4Gi
-  ## Prometheus data retention period (i.e 360h)
-  retention: ""
+
+ 
+ 
+610   persistentVolume:
+614     enabled: true
+638       size: 4Gi
+    
+676   service:
+677     annotations: {}
+678     labels: {}
+679     clusterIP: ""
+680
+681     ## List of IP addresses at which the Prometheus server service is available
+682     ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
+683     ##
+684     externalIPs: []
+685
+686     loadBalancerIP: ""
+687     loadBalancerSourceRanges: []
+688     servicePort: 80
+689     type: ClusterIP
+     ## Prometheus data retention period (i.e 360h)
+697  retention: ""
   
 alertmanager:
   persistentVolume:
