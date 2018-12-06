@@ -72,7 +72,7 @@ parameters:
 ```  
 - metadata.name: put any name
 - allowVolumeExpansion: true ref:https://kubernetes.io/blog/2018/07/12/resizing-persistent-volumes-using-kubernetes/
-- SHARED-DATASTORE-NAME: shared storage to store data which is registered in vcenter. put single datastore.
+- SHARED-DATASTORE-NAME(optional): shared storage to store data which is registered in vcenter. put single datastore.
 
 ```
 kubectl create -f ./storage-class-vsphere.yml
@@ -181,6 +181,12 @@ https://github.com/myminseok/prometheus-grafana/blob/master/helm-grafana.yml
 
 - vi helm-grafana.yml
 ```
+ 59 service:
+ 60   type: ClusterIP  <=== change to LoadBalancer for external access.(optional)
+ 61   port: 80
+ 62   annotations: {}
+ 63   labels: {}
+ 
 ### install plugin while deploying pod (airgapped environment)
 # 1. download plugin from https://grafana.com/plugins/grafana-kubernetes-app/installation
 # 2. place grafana-kubernetes-app-31da38a.zip to local webserver
