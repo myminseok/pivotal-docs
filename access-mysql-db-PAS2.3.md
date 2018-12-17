@@ -1,7 +1,7 @@
 ## ssh into opsmanager VM
 
 
-## ssh into mysql db in PAS2.3
+## ssh into mysql VM in PAS2.3
 ```
 $ bosh deployments
 
