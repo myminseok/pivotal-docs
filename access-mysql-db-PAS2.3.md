@@ -1,4 +1,4 @@
-## ssh into opsmanager
+## ssh into opsmanager VM
 
 
 ## ssh into mysql db in PAS2.3
