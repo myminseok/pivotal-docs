@@ -7,12 +7,30 @@
 
 
 ### ulimit release업로드
-https://github.com/pivotal-cf/ulimit-release
+ulimit을 변경하는 addon release를 만들어야합니다. 이 경우는 미리 만들어진 https://github.com/pivotal-cf/ulimit-release를 사용하겠습니다.
+
+```
+wget https://github.com/pivotal-cf/ulimit-release/releases/download/v1/ulimit.tgz
+
+$ bosh upload-release ulimit.tgz
+
+#업로드 확인
+$ bosh releases
+Name                    Version  Commit Hash
+ulimit                  1*       8691641
+
+(*) Currently deployed
+(+) Uncommitted changes
+
+1 releases
+
+Succeeded
+
+```
+
 
 ###  runtime-config파일 준비합니다.
 아래와 같은 파일을 생성합니다.
-
-! 주의사항은  nofile 설정값을 32768 이하로 설정하세요. 에러납니다.
 
 vi ulimit-runtime-config.yml
 
@@ -34,6 +52,11 @@ addons:
 #    deployments:
 #    - concourse
 ```
+
+
+! 주의사항은  nofile 설정값을 32768 이하로 설정하세요. 에러납니다.
+! release version을 bosh releases의 결과에 맞춰주세요.
+
 
 ###  bosh의 runtime-config를 갱신합니다.
 
@@ -62,7 +85,6 @@ Succeeded
 
 ### deployment 다시 배포하기.
 addon을 적용할 deployment를 다시 배포하면 addon이 적용되면서 다시 생성됩니다.
-
 
 ```
 $ ./deploy-vsphere.sh
@@ -113,32 +135,17 @@ Task 628 Duration 00:00:34
 Task 628 done
 
 Succeeded
+
+
+```
+
+### 변경 내용 확인하기
+
+```
 pivotal@ubuntu:~/concourse-bosh-deployment-aws/cluster$ bosh -d concourse ssh web
 Using environment '10.10.10.200' as client 'admin'
-
-Using deployment 'concourse'
-
-Task 629. Done
-Unauthorized use is strictly prohibited. All access and activity
-is subject to logging and monitoring.
-Welcome to Ubuntu 16.04.5 LTS (GNU/Linux 4.15.0-36-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-The programs included with the Ubuntu system are free software;
-the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.
-
-Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
-applicable law.
-
-Last login: Mon Jan  7 14:34:42 2019 from 10.10.10.199
-To run a command as administrator (user "root"), use "sudo <command>".
-See "man sudo_root" for details.
 
 web/928d0c17-663c-41a1-b4ca-c5039140335e:~$ ulimit -n
 32768
 
-₩₩₩
+```
