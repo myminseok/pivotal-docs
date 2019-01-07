@@ -1,7 +1,8 @@
 
 # BOSH로 배포한 VM의 설정을 일괄로 변경하기
-이 문서는 BOSH로 배포한 VM에 공통 패키지 설치, OS설정 변경등의 작업을 일괄로 관리할 수 있게하는 방법에 대해 설명합니다.
+이 문서는 BOSH로 배포한 VM에 공통 패키지 설치, OS설정 변경등의 작업(add-on)을 일괄로 관리할 수 있게하는 방법에 대해 설명합니다.
 이 기능은 기본적으로 BOSH의 runtime-config 기능을 사용하는 것입니다. 자세한 사항은 https://bosh.io/docs/runtime-config/를 참고하세요.
+기본으로 제공하는 add-on은 https://bosh.io/docs/addons-common/ 를 참고하세요.
 
 ## ulimit설정 변경 예시
 
