@@ -7,7 +7,7 @@
 
 
 ### ulimit release업로드
-ulimit을 변경하는 addon release를 만들어야합니다. 이 경우는 미리 만들어진 https://github.com/pivotal-cf/ulimit-release를 사용하겠습니다.
+ulimit을 변경하는 addon release를 만들어야합니다. 이 경우는 미리 만들어진 https://github.com/pivotal-cf/ulimit-release 를 사용하겠습니다.
 
 ```
 wget https://github.com/pivotal-cf/ulimit-release/releases/download/v1/ulimit.tgz
