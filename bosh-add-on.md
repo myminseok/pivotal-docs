@@ -58,7 +58,7 @@ addons:
 ! 주의사항은  nofile 설정값을 32768 이하로 설정하세요.이 값은 linux system 설정인 RLIMIT_NOFILE값을 따릅니다.
 이 값을 변경하려면 ulimit release를 수정하여 패키징합니다. 수정할 곳은 https://github.com/pivotal-cf/ulimit-release/blob/master/src/pivotal_prlimit/pivotal_prlimit.c 입니다.
 
-! release version을 bosh releases의 결과에 맞춰주세요.
+! release version은 위의 bosh releases 명령의 결과에 맞춰주세요.
 
 
 ###  bosh의 runtime-config를 갱신합니다.
