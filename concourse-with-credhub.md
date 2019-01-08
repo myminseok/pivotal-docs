@@ -31,6 +31,8 @@ cd concourse-bosh-deployment/cluster
 
 ## colocate concourse-web-credhub연동버전
 
+### aws
+
 ~~~
 # bbl 설치 폴더로 이동
 eval "$(bbl print-env)"
@@ -56,18 +58,12 @@ wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/
       
       
       
-# bosh에 worker vm type추가
+# (필요시) bosh에 worker vm type추가 
 
 /workspace/dojo-concourse-bosh-deployment/cluster$ bosh cloud-config > bosh-cloud-config.yml
 vi bosh-cloud-config.yml
 
 vm_types:
-- cloud_properties:
-    ephemeral_disk:
-      size: 10240
-      type: gp2
-    instance_type: m4.large
-  name: default
 - cloud_properties:
     ephemeral_disk:
       size: 102400
@@ -79,34 +75,56 @@ vm_types:
 
 
 
-
 # concourse-bosh-deployment/cluster 폴더로 이동
 설정파일 생성
 https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md
 
 
- bosh deploy -d concourse concourse.yml \
-      -l ../versions.yml \
-      -l vars.yml \
-      -o operations/basic-auth.yml \
-      -o operations/privileged-http.yml \
-      -o operations/privileged-https.yml \
-      -o operations/tls.yml \
-      -o aws-tls-vars.yml \
-      -o operations/web-network-extension.yml \
-      -o operations/add-credhub-uaa-to-web.yml
-
-
-cd concourse-bosh-deployment
-cat https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/versions.yml >> ./versions.yml
+cd concourse-bosh-deployment/cluster
+wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/versions.yml 
+cat versions.yml  >> ../versions.yml
 
 https://bosh.io/stemcells/
 bosh upload-stemcell --sha1 c8b65794ca4c45773b6fe23b3d447dde520f07b0 \
   https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=170.3
   
-  
+
+
+vi deploy-concourse.sh
+
+export concourse_elb=xxxx
+bosh deploy -n --no-redact -d concourse concourse.yml \
+  -l ../versions.yml \
+  --vars-store cluster-creds.yml \
+  -o operations/basic-auth.yml \
+  -o operations/privileged-http.yml \
+  -o operations/privileged-https.yml \
+  -o operations/tls.yml \
+  -o operations/tls-vars.yml \
+  -o operations/scale.yml \
+  -o operations/worker-ephemeral-disk.yml \
+  -o operations/add-credhub-uaa-to-web.yml \
+  -o operations/container-placement-strategy-random.yml \
+  --var network_name=private \
+  --var external_host=$concourse_elb \
+  --var external_url=https://$concourse_elb \
+  --var web_vm_type=default \
+  --var worker_ephemeral_disk=100GB_ephemeral_disk \
+  --var worker_vm_type=default \
+  --var db_vm_type=default \
+  --var db_persistent_disk_type=10GB \
+  --var web_instances=1 \
+  --var worker_instances=1 \
+  --var deployment_name=concourse \
+  --var local_user.username= \
+  --var local_user.password= \
+  --var external_lb_common_name=$concourse_elb \
+  --var concourse_host=$concourse_elb
+
+
 ./deploy-concourse.sh
 ~~~
+
   
   
 ## bosh-credhub연동버전
