@@ -10,6 +10,8 @@
 
 ### ulimit release업로드
 ulimit을 변경하는 addon release를 만들어야합니다. 이 경우는 미리 만들어진 https://github.com/pivotal-cf/ulimit-release 를 사용하겠습니다.
+사실 https://github.com/cloudfoundry/os-conf-release가 더 많은 기능을 가지고 있으나 여기서는 간단하게 ulimit-release를 사용합니다.
+
 
 ```
 wget https://github.com/pivotal-cf/ulimit-release/releases/download/v1/ulimit.tgz
