@@ -329,5 +329,19 @@ jobs:
  - [PAS의 사용자 인증을 통해 concourse로그인하도록 설정하기](concourse_with_cf_auth.md)
 
  
+ 
+ 
+## set env.
+```
+vi ~/.profile.sh
+
+pushd .
+cd ~/workspace/controlplane
+eval "$(bbl print-env)"
+popd
+
+source ~/workspace/concourse-bosh-deployment/cluster/target-concourse-credhub.sh
+
+```
   
   
