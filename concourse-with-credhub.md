@@ -336,7 +336,7 @@ jobs:
 vi ~/.profile.sh
 
 pushd .
-cd ~/workspace/controlplane
+cd ~/workspace/bbl
 eval "$(bbl print-env)"
 popd
 
