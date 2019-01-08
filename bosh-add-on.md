@@ -4,6 +4,7 @@
 이 기능은 기본적으로 BOSH의 runtime-config 기능을 사용하는 것입니다. 자세한 사항은 https://bosh.io/docs/runtime-config/를 참고하세요.
 기본으로 제공하는 add-on은 https://bosh.io/docs/addons-common/ 를 참고하세요.
 
+
 ## ulimit설정 변경 예시
 
 
@@ -87,10 +88,10 @@ Succeeded
 ```
 
 ### deployment 다시 배포하기.
-addon을 적용할 deployment를 다시 배포하면 addon이 적용되면서 다시 생성됩니다.
+addon을 적용할 기존 deployment를 다시 배포하면 addon이 적용되면서 다시 생성됩니다. 이때 기존 deployment yml은 변경할 필요가 없습니다.
 
 ```
-$ ./deploy-vsphere.sh
+$ bosh deploy my-concourse.yml
 Using environment '10.10.10.200' as client 'admin'
 
 Using deployment 'concourse'
@@ -145,7 +146,7 @@ Succeeded
 ### 변경 내용 확인하기
 
 ```
-pivotal@ubuntu:~/concourse-bosh-deployment-aws/cluster$ bosh -d concourse ssh web
+$ bosh -d concourse ssh web
 Using environment '10.10.10.200' as client 'admin'
 
 web/928d0c17-663c-41a1-b4ca-c5039140335e:~$ ulimit -n
