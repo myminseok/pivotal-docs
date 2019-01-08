@@ -153,3 +153,9 @@ web/928d0c17-663c-41a1-b4ca-c5039140335e:~$ ulimit -n
 32768
 
 ```
+
+## 참고
+- https://bosh.io/docs/runtime-config/
+- https://bosh.io/docs/addons-common/ 
+- https://github.com/cloudfoundry/os-conf-release
+
