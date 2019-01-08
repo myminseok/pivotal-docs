@@ -25,6 +25,8 @@ aws iam create-access-key --user-name "bbl-user"
 ~~~
 
 ## concourse terraform 수정
+https://github.com/pivotalservices/concourse-credhub/tree/master/bbl-terraform/
+
 ```
 cd <BBL_WORK_FOLDER>/terraform/
 wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/bbl-terraform/aws/concourse-lb_override.tf
