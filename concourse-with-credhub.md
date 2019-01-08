@@ -105,9 +105,14 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   -o operations/worker-ephemeral-disk.yml \
   -o operations/add-credhub-uaa-to-web.yml \
   -o operations/container-placement-strategy-random.yml \
+  -o operations/web-network-extension.yml \
+  --var web_network_name=private \
+  --var web_network_vm_extension=lb 
   --var network_name=private \
   --var external_host=$concourse_elb \
   --var external_url=https://$concourse_elb \
+  --var external_lb_common_name=$concourse_elb \
+  --var concourse_host=$concourse_elb 
   --var web_vm_type=default \
   --var worker_ephemeral_disk=100GB_ephemeral_disk \
   --var worker_vm_type=default \
@@ -117,9 +122,9 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   --var worker_instances=1 \
   --var deployment_name=concourse \
   --var local_user.username= \
-  --var local_user.password= \
-  --var external_lb_common_name=$concourse_elb \
-  --var concourse_host=$concourse_elb
+  --var local_user.password= 
+
+
 
 
 ./deploy-concourse.sh
