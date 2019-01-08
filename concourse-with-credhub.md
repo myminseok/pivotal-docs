@@ -280,6 +280,16 @@ wget  https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master
 export CONCOURSE_URL=https://<concourse -lb-url>
 source ./target-concourse-credhub.sh
 
+$ crehub api
+# credhub set -t value -n /concourse/main/test/hello -v test
+
+$ credhub get -n /concourse/main/test/hello
+id: 3cd51b78-426f-4145-b94e-baacf16c383d
+name: /concourse/main/test/hello
+type: value
+value: test
+
+
 ```
 
 https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md#sample-pipeline
