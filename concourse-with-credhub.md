@@ -107,7 +107,7 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   -o operations/container-placement-strategy-random.yml \
   -o operations/web-network-extension.yml \
   --var web_network_name=private \
-  --var web_network_vm_extension=lb 
+  --var web_network_vm_extension=lb \
   --var network_name=private \
   --var external_host=$concourse_elb \
   --var external_url=https://$concourse_elb \
