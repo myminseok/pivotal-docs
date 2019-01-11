@@ -1,6 +1,6 @@
 
 control-plane에서 사용할 concourse를 설치할 것입니다.
-- https://github.com/concourse/concourse-bosh-deployment/tree/master/cluster
+- https://github.com/concourse/concourse-bosh-deployment/
 - https://github.com/cloudfoundry-incubator/credhub-cli/releases
 - https://github.com/pivotalservices/concourse-credhub
 - https://github.com/pivotal-cf/pcf-pipelines/tree/master/docs/samples/colocated-credhub-ops
