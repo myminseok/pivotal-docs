@@ -3,21 +3,31 @@
 
 ## 각종 cli 설치
 - 참고: https://github.com/cloudfoundry/bosh-bootloader
+
 - bbl client설치
-~~~
+```
 wget https://github.com/cloudfoundry/bosh-bootloader/releases/download/v6.10.3/bbl-v6.10.3_linux_x86-64
 chmod +x bl-v6.10.3_linux_x86-64
 su bl-v6.10.3_linux_x86-64 /usr/local/bin/bbl
 bbl
-~~~
-- bosh-cli : https://bosh.io/docs/cli-v2/ 
-  https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-linux-amd64
-* bosh-cli(ruby v2.4이하일 경우): [bosh cli환경 설정](install_bosh_cli.md)
-- bosh create-env dependencies: https://bosh.io/docs/cli-v2-install/#additional-dependencies
-sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt1-dev libxml2-dev libssl-dev  libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
+```
 
-- terraform >= 0.11.0 : https://www.terraform.io/downloads.html
-- ruby (necessary for bosh create-env) > 2.4: sudo apt-get update && sudo apt-get install ruby-full
+- bosh-cli 
+https://bosh.io/docs/cli-v2/
+```
+wget  https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-linux-amd64
+
+```
+
+- bosh-cli dependencies (install_bosh_cli.md)
+
+- terraform
+https://www.terraform.io/downloads.html
+version should be >= 0.11.0  
+```
+wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+```
+
 - uaac : gem install cf-uaac
 
 
