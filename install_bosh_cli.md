@@ -1,7 +1,7 @@
 ubuntu기반의 Jumpbox에 bosh cli를 설치하기 위한 가이드입니다.
-ruby v2.4 이하일 경우만 실행합니다.
+OS의 ruby v2.4 이하일 경우만 실행합니다.
 
-ubuntu 16기반으로 작성되었습니다.
+ubuntu 16 LTS 기반으로 작성되었습니다.
 
 http://bosh.io/docs/init-vsphere/
 https://github.com/cloudfoundry/bosh-deployment
@@ -13,8 +13,8 @@ sudo -i
 ```
 
 
-## 필수 라이브러리 설치
-
+## 필수 라이브러리 설치 bosh create-env dependencies
+https://bosh.io/docs/cli-v2-install/#additional-dependencies
 ```
 apt-get update
 
@@ -23,21 +23,35 @@ apt-get install build-essential zlibc zlib1g-dev ruby ruby-dev \
   sqlite3 zlib1g-dev libcurl4-openssl-dev \
   build-essential make curl \
   -y
-
+  
 ```
 
-## ruby설치
-bosh는 ruby2.4이상이 필요하기 때문에 RVM을 사용합니다.
 
+## install ruby v2.4+
+bosh cli for create-env command requires ruby v2.4+
+we will use RVM for ruby installation.
+
+### install RVM env.
+run as root
 ```
-apt-get remove ruby
-command curl -sSL https://rvm.io/mpapis.asc | sudo gpg --import -
+apt-get update
+apt-get remove ruby -y
+
+command curl -sSL https://rvm.io/pkuczynski.asc | sudo gpg --import -
+
 curl -L https://get.rvm.io | bash -s stable
+
 source /etc/profile.d/rvm.sh
+
 rvm install ruby
+
+$ ruby -v
+ruby 2.6.0p0 (2018-12-25 revision 66547) [x86_64-linux]
+
 ```
 
-## gem 설치
+
+### install gem
 
 ```
 gem install nokogiri -v '1.8.2'
@@ -48,11 +62,16 @@ update_rubygems
 ```
 
 
-## rvm환경 로딩
+### loading rvm env
 jumpbox에서 ruby가 설치된 rvm환경을 로딩하는 명령입니다.
 이후 bosh명령을 실행할 수 있습니다.
-~/.bashrc에 추가하면 편리합니다.
+~/.profile 추가하면 편리합니다.
 
+vi ~/.profile
 ```
 source /etc/profile.d/rvm.sh
+```
+
+```
+sudo apt-get update && sudo apt-get install ruby-full
 ```
