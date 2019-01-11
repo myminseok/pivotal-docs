@@ -67,8 +67,12 @@ jumpbox에서 ruby가 설치된 rvm환경을 로딩하는 명령입니다.
 이후 bosh명령을 실행할 수 있습니다.
 ~/.profile 추가하면 편리합니다.
 
-vi ~/.profile
 ```
+vi ~/.profile
+
+...
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+
 source /etc/profile.d/rvm.sh
 ```
 
