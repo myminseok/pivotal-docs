@@ -1,5 +1,6 @@
 
 control-plane에서 사용할 concourse를 설치할 것입니다.
+- https://github.com/concourse/concourse-bosh-deployment/tree/master/cluster
 - https://github.com/cloudfoundry-incubator/credhub-cli/releases
 - https://github.com/pivotalservices/concourse-credhub
 - https://github.com/pivotal-cf/pcf-pipelines/tree/master/docs/samples/colocated-credhub-ops
@@ -24,7 +25,7 @@ git clone https://github.com/concourse/concourse-bosh-deployment
 cd concourse-bosh-deployment/cluster
 ~~~
 
-실제 수정된 샘플은 https://github.com/myminseok/concourse-bosh-deployment-aws를 참조합니다.
+실제 수정된 샘플은 https://github.com/myminseok/concourse-bosh-deployment-v4.2.1 를 참조합니다.
 
 
 # concourse 설치하기
@@ -33,12 +34,15 @@ cd concourse-bosh-deployment/cluster
 
 ### aws
 
-~~~
+```
 # bbl 설치 폴더로 이동
 eval "$(bbl print-env)"
 
-# concourse-bosh-deployment/cluster/operations 폴더로 이동
+git clone https://github.com/concourse/concourse-bosh-deployment
 
+cd /workspace/dojo-concourse-bosh-deployment/cluster/
+
+cd /workspace/dojo-concourse-bosh-deployment/cluster/operations/
 wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/operations/add-credhub-uaa-to-web.yml
 
 공인인증서가 없으면 concourse pipeline돌릴때 에러나므로 operations/credhub.yml파일에 insecure_skip_verify 옵션추가
@@ -126,9 +130,48 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
 
 
 
-
 ./deploy-concourse.sh
-~~~
+
+```
+
+
+# test concourse
+
+```
+wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.1.0/credhub-linux-2.1.0.tgz
+
+wget  https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/target-concourse-credhub.sh
+
+bbl lbs
+
+export CONCOURSE_URL=https://<concourse -lb-url>
+source ./target-concourse-credhub.sh
+
+$ crehub api
+# credhub set -t value -n /concourse/main/test/hello -v test
+
+$ credhub get -n /concourse/main/test/hello
+id: 3cd51b78-426f-4145-b94e-baacf16c383d
+name: /concourse/main/test/hello
+type: value
+value: test
+
+```
+
+
+###  set env.
+```
+vi ~/.profile.sh
+
+pushd .
+cd ~/workspace/bbl
+eval "$(bbl print-env)"
+popd
+
+source ~/workspace/concourse-bosh-deployment/cluster/target-concourse-credhub.sh
+
+```
+
 
   
   
@@ -252,6 +295,8 @@ eval "$(bbl print-env)"
 bosh -d concourse recreate worker
 ~~~
 
+
+
 ## concourse사용하기.
 
 ### fly cli설치
@@ -294,7 +339,6 @@ name: /concourse/main/test/hello
 type: value
 value: test
 
-
 ```
 
 https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md#sample-pipeline
@@ -336,17 +380,6 @@ jobs:
  
  
  
-## set env.
-```
-vi ~/.profile.sh
 
-pushd .
-cd ~/workspace/bbl
-eval "$(bbl print-env)"
-popd
-
-source ~/workspace/concourse-bosh-deployment/cluster/target-concourse-credhub.sh
-
-```
   
   
