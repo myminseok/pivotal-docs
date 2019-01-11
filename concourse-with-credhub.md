@@ -116,7 +116,7 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   --var external_host=$concourse_elb \
   --var external_url=https://$concourse_elb \
   --var external_lb_common_name=$concourse_elb \
-  --var concourse_host=$concourse_elb 
+  --var concourse_host=$concourse_elb \
   --var web_vm_type=default \
   --var worker_ephemeral_disk=100GB_ephemeral_disk \
   --var worker_vm_type=default \
