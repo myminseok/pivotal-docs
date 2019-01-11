@@ -7,8 +7,8 @@
 - bbl client설치
 ```
 wget https://github.com/cloudfoundry/bosh-bootloader/releases/download/v6.10.3/bbl-v6.10.3_linux_x86-64
-chmod +x bl-v6.10.3_linux_x86-64
-su bl-v6.10.3_linux_x86-64 /usr/local/bin/bbl
+chmod +x bbl-v6.10.3_linux_x86-64
+sudo mv bbl-v6.10.3_linux_x86-64 /usr/local/bin/bbl
 bbl
 ```
 
@@ -16,6 +16,9 @@ bbl
 https://bosh.io/docs/cli-v2/
 ```
 wget  https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-linux-amd64
+chmod +x bosh-cli-5.3.1-linux-amd64
+sudo mv bosh-cli-5.3.1-linux-amd64 /usr/local/bin/bosh
+bosh
 
 ```
 
@@ -26,10 +29,16 @@ https://www.terraform.io/downloads.html
 version should be >= 0.11.0  
 ```
 wget https://releases.hashicorp.com/terraform/0.11.11/terraform_0.11.11_linux_amd64.zip
+unzip terraform_0.11.11_linux_amd64.zip
+sudo mv terraform /usr/local/bin/terraform
+
 ```
 
-- uaac : gem install cf-uaac
-
+- uaac 
+should be run after intallation ruby v2.4+ and gem
+```
+gem install cf-uaac
+```
 
 
 ## set shell to jumpbox user
