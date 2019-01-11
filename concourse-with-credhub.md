@@ -99,7 +99,7 @@ vi deploy-concourse.sh
 export concourse_elb=xxxx
 bosh deploy -n --no-redact -d concourse concourse.yml \
   -l ../versions.yml \
-  --vars-store cluster-creds.yml \
+  --vars-store cluster-creds.yml \ <=== remove this to store into bosh credhub.
   -o operations/basic-auth.yml \
   -o operations/privileged-http.yml \
   -o operations/privileged-https.yml \
