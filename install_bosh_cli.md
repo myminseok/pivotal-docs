@@ -19,7 +19,7 @@ sudo -i
 apt-get update
 
 apt-get install build-essential zlibc zlib1g-dev ruby ruby-dev \
-  openssl libxslt-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev \ 
+  openssl libxslt-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev \
   sqlite3 zlib1g-dev libcurl4-openssl-dev \
   build-essential make curl \
   -y
