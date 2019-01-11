@@ -22,7 +22,8 @@ bosh
 
 ```
 
-- bosh-cli dependencies (install_bosh_cli.md)
+- bosh-cli dependencies 
+[bosh-cli dependencies](install_bosh_cli.md)
 
 - terraform
 https://www.terraform.io/downloads.html
