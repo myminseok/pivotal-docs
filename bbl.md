@@ -16,6 +16,7 @@ brew install bbl
 사용자는 aws console또는 shell상에서 만들수 있습니다.
 사용자의 권하는 자동화의 범위에 따라서 튜닝해주어야합니다.
 참고 문서: https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/getting-started-aws.md
+https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/getting-started-azure.md
 ~~~
 aws iam create-user --user-name "bbl-user"
 aws iam put-user-policy --user-name "bbl-user" \
