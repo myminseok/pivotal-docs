@@ -2,8 +2,9 @@ Local PC에 bbl을 위한 환경을 설정하는 것을 설명합니다.
 참고 문서: https://github.com/cloudfoundry/bosh-bootloader
 
 ## azure cli 
-https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/getting-started-aws.md
-
+```
+brew install azure-cli
+```
 
 ## for azure account
 
