@@ -2,6 +2,16 @@
 <br>
 
 ## installing all CLIs
+
+```
+sudo su
+apt update
+apt-get install unzip
+
+```
+
+
+
 - 참고: https://github.com/cloudfoundry/bosh-bootloader
 
 - bbl client설치
