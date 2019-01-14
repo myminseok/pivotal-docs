@@ -8,8 +8,8 @@ brew install azure-cli
 
 ## for azure account
 
-reference: https://docs.pivotal.io/pivotalcf/2-4/om/azure/prepare-env-manual.html
-https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/getting-started-azure.md
+- reference: https://docs.pivotal.io/pivotalcf/2-4/om/azure/prepare-env-manual.html
+- https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/getting-started-azure.md
 
 ```
 az account list  ==> tenantId
