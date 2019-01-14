@@ -1,7 +1,7 @@
 [bbl(bosh-bootloader)를 사용한 control-plane 생성](bbl.md) 과정에서 만들어진 control-plane의 sandbox에서 작업을 할 수 있도록 환경설정을 합니다.
 <br>
 
-## 각종 cli 설치
+## installing all CLIs
 - 참고: https://github.com/cloudfoundry/bosh-bootloader
 
 - bbl client설치
@@ -142,3 +142,34 @@ mount
 
 결과에서  /tmp에 noexec가 없어야합니다.
 ~~~
+
+
+* generating ssh -key
+```
+Pivotals-iMac-2:~ labsproject$ ssh-keygen 
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/labsproject/.ssh/id_rsa): 
+Created directory '/Users/labsproject/.ssh'.
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+Your identification has been saved in /Users/labsproject/.ssh/id_rsa.
+Your public key has been saved in /Users/labsproject/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:ma+fMsG2/n9Yo+v8MO6ilyPk2/2Z+FrHdqsQQEI56tM labsproject@Pivotals-iMac-2.local
+The key's randomart image is:
++---[RSA 2048]----+
+|      .o..       |
+|       oo        |
+|      . ..       |
+|     .   o.      |
+|    . ..S  .     |
+|     o E=.  . o. |
+|      .+ o.oo+..=|
+|        *o==+=.=o|
+|       .=X=*@OB. |
++----[SHA256]-----+
+Pivotals-iMac-2:~ labsproject$ ls ~/.ssh/
+id_rsa		id_rsa.pub
+
+
+```
