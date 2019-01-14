@@ -51,6 +51,13 @@ should be run after intallation ruby v2.4+ and gem
 gem install cf-uaac
 ```
 
+## mount disk
+```
+fdisk -l
+mkfs.ext4 /dev/sdc
+mkdir /store
+mount /dev/sdc /store
+```
 
 ## set shell to jumpbox user
 
