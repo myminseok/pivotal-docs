@@ -1,3 +1,5 @@
+!! In azure env, try to use unique jumpbox name instead of 'jumpbox', because bbl will get confused with your jumpbox when bbl will create a bbl jumpbox.
+
 [bbl(bosh-bootloader)를 사용한 control-plane 생성](bbl.md) 과정에서 만들어진 control-plane의 sandbox에서 작업을 할 수 있도록 환경설정을 합니다.
 <br>
 
