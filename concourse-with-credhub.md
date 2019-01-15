@@ -79,11 +79,6 @@ vm_types:
 
 
 
-# concourse-bosh-deployment/cluster 폴더로 이동
-설정파일 생성
-https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/concourse.md
-
-
 cd concourse-bosh-deployment/cluster
 wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/versions.yml 
 cat versions.yml  >> ../versions.yml
@@ -148,7 +143,8 @@ export CONCOURSE_URL=https://<concourse -lb-url>
 source ./target-concourse-credhub.sh
 
 $ crehub api
-# credhub set -t value -n /concourse/main/test/hello -v test
+
+$ credhub set -t value -n /concourse/main/test/hello -v test
 
 $ credhub get -n /concourse/main/test/hello
 id: 3cd51b78-426f-4145-b94e-baacf16c383d
@@ -330,8 +326,9 @@ wget  https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master
 export CONCOURSE_URL=https://<concourse -lb-url>
 source ./target-concourse-credhub.sh
 
-$ crehub api
-# credhub set -t value -n /concourse/main/test/hello -v test
+$ credhub api
+
+$ credhub set -t value -n /concourse/main/test/hello -v test
 
 $ credhub get -n /concourse/main/test/hello
 id: 3cd51b78-426f-4145-b94e-baacf16c383d
