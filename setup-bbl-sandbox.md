@@ -48,7 +48,12 @@ sudo mv terraform /usr/local/bin/terraform
 - uaac 
 should be run after intallation ruby v2.4+ and gem
 ```
+# as root
+# source /etc/profile.d/rvm.sh
 gem install cf-uaac
+
+uaac
+
 ```
 
 ## mount disk
