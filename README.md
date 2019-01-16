@@ -8,7 +8,7 @@ Pivotal Cloud Foundry 문서
 
 - [jumpbox에 환경 설정](setup-bbl-sandbox.md)
 
-- [bbl(bosh-bootloader) aws 를 사용한 control-plane 생성](bbl.md)
+- [bbl(bosh-bootloader)-aws 를 사용한 control-plane 생성](bbl.md)
 - [bbl-azure](bbl-azure.md)
 
 - [concourse-with-credhub 설치](concourse-with-credhub.md)
