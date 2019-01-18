@@ -19,7 +19,7 @@ apt-get install unzip
 
 https://github.com/cloudfoundry/bosh-bootloader
 
-- bbl installation
+- bbl 
 ```
 wget https://github.com/cloudfoundry/bosh-bootloader/releases/download/v6.10.3/bbl-v6.10.3_linux_x86-64
 chmod +x bbl-v6.10.3_linux_x86-64
