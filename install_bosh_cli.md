@@ -60,10 +60,9 @@ update_rubygems
 ```
 
 
-### loading rvm env
-jumpbox에서 ruby가 설치된 rvm환경을 로딩하는 명령입니다.
-이후 bosh명령을 실행할 수 있습니다.
-~/.profile 추가하면 편리합니다.
+###  to enable RVM environment
+RVM is tool for managing multiple ruby environment in OS.
+put following to ~/.profile to enable RVM env.
 
 ```
 vi ~/.profile
