@@ -179,7 +179,9 @@ source ~/workspace/concourse-bosh-deployment/cluster/target-concourse-credhub.sh
 ```
 
 
-  
+============================================================
+
+following architecture is not recommended
   
 ## concourse and bosh-credhub
 
