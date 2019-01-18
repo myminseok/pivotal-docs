@@ -79,6 +79,7 @@ mount /dev/sdc /store
 Following is optional settings 
 
 *  generating ssh -key
+* for windows, use PuttyGen: https://www.ssh.com/ssh/putty/windows/puttygen
 ```
 Pivotals-iMac-2:~ labsproject$ ssh-keygen 
 Generating public/private rsa key pair.
