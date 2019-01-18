@@ -1,6 +1,6 @@
 
-## aws resource quota(limit)
-enlarge resource limit of EC2:
+## check aws resource quota(limit)
+extend resource limit of EC2:
 https://docs.pivotal.io/pivotalcf/2-3/customizing/aws.html
 ```
 vpc=> 5 free
@@ -11,8 +11,20 @@ m4.large: 20
 r4.large: 20
 ```
 
-## 설치용 와일드카드 도메인 준비
-prepare a wildcard domain for PAS foundation.
+
+## check azure resource quota(limit)
+extend resource limit: https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf_azure.html#raising-quota
+```
+We would like to raise our ARM (Azure Resource Manager) core limits.
+Requested quantity of ARM Cores: 100
+Requested region: japan central
+VM Types to be used: F1s, F2s, F4s, DS11v2, DS12v2 VM count to 100 vms.
+allocate 1 TB of standard storage.
+```
+
+
+
+## (for production env) prepare a wildcard domain for PAS foundation.
 ```
 *.pcfdemo.net
 *.apps.pcfdemo.net
@@ -21,30 +33,62 @@ prepare a wildcard domain for PAS foundation.
 *.login.system.pcfdemo.net
 ```
 
-## 사설인증서 생성하기
-ARN을 빠르게 만들기 위해서 sampivotal.com 도메인으로 서명된 사설인증서를 만들어서 AWS Cert Manager에 import했습니다.
-사설인증서를 만드는 스크립트는 아래를 참조하세요
-https://github.com/myminseok/generate-self-signed-cert
-
-
-## pivnet 가입.
-sign up for network.pivotal.io -> get pivnet_token
+## sign up for network.pivotal.io 
+get pivnet_token
 
 
 
-## 파이프라인 편집
+## prepare storeage account on azure
+
+storage is used by pcf-pipeline to store terraform.states file
+```
+az group create --name "my_terraform_gr" --location "japaneast"
+az storage account create --name "my_terraform" --resource-group "my_terraform_gr" --location "japaneast" --sku "Standard_LRS"
+az storage account keys list --account-name my_terraform --resource-group my_terraform_gr
+az storage container create --name terraformstate --account-name my_terraform
+```
+
+## set variables to credhub
+
+```
+wget  https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/target-concourse-credhub.sh
+bbl lbs
+export CONCOURSE_URL=https://<concourse -lb-url>
+source ./target-concourse-credhub.sh
+
+$ crehub api
+credhub set -t ssh -n /concourse/main/install-pcf-azure/git_private_key_ssh -p ~/.ssh/id_rsa
+credhub set -t ssh -n /concourse/main/install-pcf-azure/pcf_ssh_key -p ~/.ssh/id_rsa -u ~/.ssh/id_rsa.pub
+
+
+```
+
+
+## edit pcf-install concourse pipeline
 
 ~~~
 git clone https://github.com/pivotal-cf/pcf-pipelines
+cd ./pcf-pipelines
+git checkout v0.23.12
+git checkout -b pcf-2.4
+cd ./install-pcf/azure
+
+vi params.yml
+
+# azure_vm_admin value should match with user ID used to create the certs pcf_ssh_key_pub.
+# The user ID will appear towards the end of the public key.
+azure_vm_admin: ubuntu
+
+
+# Optional - if your git repo requires an SSH key.
+git_private_key: ((git_private_key_ssh.private_key))
+
+# SSH keys for Operations Manager director
+pcf_ssh_key_pub: ((pcf_ssh_key.public_key))
+pcf_ssh_key_priv: ((pcf_ssh_key.private_key))
+  
 ~~~
 
-### aws seoul region에 맞게 수정
-- aws seoul region의 경우 az1, az2만 있으므로 az3제거하기
-- NAT AMI변경
-- Dev용으로 RDS대신 internal mysql사용하도록 변경
-- PAS VM의 instance갯수를 조절할 수 있게 수정
-
-위 내용을 반영한 수정된 파이프라인 참고: https://github.com/myminseok/pcf-pipelines-minseok
 
 
 ## fly cli설치
