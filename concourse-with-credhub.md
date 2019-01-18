@@ -180,15 +180,15 @@ source ~/workspace/concourse-bosh-deployment/cluster/target-concourse-credhub.sh
 
   
   
-## concourse and  bosh-credhub
+## concourse and bosh-credhub
 
 ###  bosh deployment script 
 
 #### concourse v3.14.1.0 on aws 
 
-반복하여 실행해야 하므로 아래 내용으로 deploy.sh스크립트를 생성합니다. 
+vi deploy.sh
 ~~~
-export concourse_elb=<bbl lbs명령으로 추출한 concourse elb url>
+export concourse_elb=<concourse elb url>
 
 bosh deploy -n --no-redact -d concourse concourse.yml \
   -l ../versions.yml \
@@ -235,7 +235,6 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   # credhub_url: bbl director-address
   # credhub_client_id, credhub_client_secret: 앞에서 추가한 사용자정보
   # credhub_ca.ca파일:
-    bbl 설치 폴더로 이동
     eval "$(bbl print-env)"
     bosh int ./vars/director_vars_stores.yml --path /credhub_ca/ca > credhub_ca.ca
     위 명령으로 credhub인증서를 추출한 후 아래 포맷으로 credhub_ca.ca 파일에 저장.
