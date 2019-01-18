@@ -73,6 +73,3 @@ PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 source /etc/profile.d/rvm.sh
 ```
 
-```
-sudo apt-get update && sudo apt-get install ruby-full
-```
