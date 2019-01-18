@@ -58,11 +58,9 @@ bbl lbs
 ```
 
 
+## refrenence
 
-
-
-
-참고: https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/advanced-configuration.md
-참고: https://github.com/myminseok/bbl-template
+- https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/advanced-configuration.md
+- https://github.com/myminseok/bbl-template
 
 
