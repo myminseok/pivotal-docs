@@ -1,20 +1,22 @@
 
 
-Pivotal Cloud Foundry 문서
+Pivotal Cloud Foundry Documentation
 
-## 목차
-- [control plane 아키텍처](control-plane.md) 
-- [BOSH가이드](introduction_to_bosh.md)
+# Intro
+- [control plane Architecture](control-plane.md) 
+- [BOSH Guide](introduction_to_bosh.md)
 
-- [jumpbox에 환경 설정](setup-bbl-sandbox.md)
+# Jumpbox
+- [Setting up jumpbox](setup-bbl-sandbox.md)
 
-- [bbl(bosh-bootloader)-aws 를 사용한 control-plane 생성](bbl.md)
+# control-plane
+- [bbl(bosh-bootloader)-aws  ](bbl.md)
 - [bbl-azure](bbl-azure.md)
+- [concourse-with-credhub](concourse-with-credhub.md)
+- [concourse external worker](concourse-external-worker.md)
 
-- [concourse-with-credhub 설치](concourse-with-credhub.md)
-- [concourse external worker 설치](concourse-external-worker.md)
+# PAS
 
-
-- [PAS의 사용자 인증을 통해 concourse로그인하도록 설정하기](concourse_with_cf_auth.md)
-- [PAS 수동 설치](install-pas-on-aws.md)
-- [PAS 자동 설치](install-pas-on-aws-automation.md)
+- [PAS-installing manually](install-pas-on-aws.md)
+- [PAS with concourse on AWS](install-pas-on-aws-automation.md)
+- [bind users in concourse with PAS](concourse_with_cf_auth.md)
