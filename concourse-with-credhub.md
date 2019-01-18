@@ -4,14 +4,6 @@ This document explains how to install concourse cluster.
 ## prerequisites.
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 
-## reference documents
-- https://github.com/concourse/concourse-bosh-deployment/
-- https://github.com/cloudfoundry-incubator/credhub-cli/releases
-- https://github.com/pivotalservices/concourse-credhub
-- https://github.com/pivotal-cf/pcf-pipelines/tree/master/docs/samples/colocated-credhub-ops
-- https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/samples/concourse-with-credhub.yml
-- https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md
-
 ## loading bbl environment variables(jumpbox)
 
 - [bbl(bosh-bootloader)-aws  ](bbl.md)
@@ -161,7 +153,7 @@ fly -t sandbox workers
 
 ~~~
 
-### concourse credhub test sample pipeline
+### sample concourse pipeline
 
 https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/samples/hello-credhub.yml
 ~~~
@@ -223,7 +215,7 @@ value: test
 ```
 
 
-### concourse credhub test sample pipeline
+###  sample pipeline using credhub
 
 https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md#sample-pipeline
 
@@ -293,3 +285,11 @@ eval "$(bbl print-env)"
 bosh -d concourse recreate worker
 ~~~
 
+
+## reference documents
+- https://github.com/concourse/concourse-bosh-deployment/
+- https://github.com/cloudfoundry-incubator/credhub-cli/releases
+- https://github.com/pivotalservices/concourse-credhub
+- https://github.com/pivotal-cf/pcf-pipelines/tree/master/docs/samples/colocated-credhub-ops
+- https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/samples/concourse-with-credhub.yml
+- https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md
