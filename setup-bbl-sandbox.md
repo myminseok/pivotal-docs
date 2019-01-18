@@ -28,6 +28,7 @@ bbl
 ```
 
 - bosh-cli 
+
 https://bosh.io/docs/cli-v2/
 ```
 wget  https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-linux-amd64
@@ -38,9 +39,11 @@ bosh
 ```
 
 - bosh-cli dependencies 
+
 [bosh-cli dependencies](install_bosh_cli.md)
 
 - terraform
+
 https://www.terraform.io/downloads.html
 version should be >= 0.11.0  
 ```
@@ -52,6 +55,7 @@ terraform
 ```
 
 - uaac 
+
 should be run after intallation ruby v2.4+ and gem
 ```
 # as root
