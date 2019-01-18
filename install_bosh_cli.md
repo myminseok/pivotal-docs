@@ -30,7 +30,9 @@ bosh cli for create-env command requires ruby v2.4+
 we will use RVM for ruby installation.
 
 ### install RVM env.
-run as root
+- RVM is tool for managing multiple ruby environment in OS.
+- put following to ~/.profile to enable RVM env.
+- run as root
 ```
 apt-get update
 apt-get remove ruby -y
@@ -61,8 +63,6 @@ update_rubygems
 
 
 ###  to enable RVM environment
-RVM is tool for managing multiple ruby environment in OS.
-put following to ~/.profile to enable RVM env.
 
 ```
 vi ~/.profile
