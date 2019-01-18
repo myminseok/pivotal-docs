@@ -15,7 +15,7 @@ apt-get install unzip
 
 ```
 
-## installing all CLIs
+## installing all Utilities
 
 https://github.com/cloudfoundry/bosh-bootloader
 
