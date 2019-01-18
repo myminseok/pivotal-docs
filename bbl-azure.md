@@ -1,17 +1,15 @@
-Local PC에 bbl을 위한 환경을 설정하는 것을 설명합니다.
-참고 문서: https://github.com/cloudfoundry/bosh-bootloader
 
-## azure cli 
+
+## prepare for azure account (local Mac)
+- reference: https://docs.pivotal.io/pivotalcf/2-4/om/azure/prepare-env-manual.html
+
+
+### azure cli 
 https://docs.pivotal.io/pivotalcf/2-2/om/azure/prepare-env-manual.html
 https://portal.azure.com/
 ```
 brew install azure-cli
 ```
-
-## prepare for azure account
-
-- reference: https://docs.pivotal.io/pivotalcf/2-4/om/azure/prepare-env-manual.html
-
 
 ```
 az login
@@ -26,6 +24,11 @@ az role assignment create --assignee "SERVICE-PRINCIPAL-NAME" \
 az login --username YOUR-APPLICATION-ID --password <CLIENT-PASS> --service-principal --tenant <TENANT-ID>
 
 ```
+
+Local PC에 bbl을 위한 환경을 설정하는 것을 설명합니다.
+참고 문서: https://github.com/cloudfoundry/bosh-bootloader
+
+
 
 ## set azure env to bbl.
 - https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/getting-started-azure.md
