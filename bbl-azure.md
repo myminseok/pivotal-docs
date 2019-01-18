@@ -23,6 +23,10 @@ az role assignment create --assignee "SERVICE-PRINCIPAL-NAME" \
 
 az login --username YOUR-APPLICATION-ID --password <CLIENT-PASS> --service-principal --tenant <TENANT-ID>
 
+az provider register --namespace Microsoft.Storage
+az provider register --namespace Microsoft.Network
+az provider register --namespace Microsoft.Compute
+
 ```
 
 
@@ -61,6 +65,6 @@ bbl lbs
 ## refrenence
 
 - https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/advanced-configuration.md
-- https://github.com/myminseok/bbl-template
+
 
 
