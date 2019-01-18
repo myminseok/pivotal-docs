@@ -56,7 +56,7 @@ terraform
 
 ### uaac 
 
-should be run after intallation ruby v2.4+ and gem
+install uaac after installing ruby v2.4+ and gem ([bosh-cli dependencies](install_bosh_cli.md)
 ```
 # as root
 # source /etc/profile.d/rvm.sh
