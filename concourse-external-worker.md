@@ -76,7 +76,7 @@ bosh -e d deploy -d concourse-external-worker external-worker.yml \
   -l ./external-worker-secret.yml
 ```
 
-# after deployment, checkout if the worker is registered on concourse
+# after deployment, checkout if the worker node is registered on concourse
 ```
-fly  -t cp-1 workers)
+fly -t dev  workers
 ```
