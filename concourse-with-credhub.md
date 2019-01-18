@@ -13,47 +13,50 @@ This document explains how to install concourse cluster.
 - https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md
 
 ## loading bbl environment variables(jumpbox)
-to run bbl on jumpbox, bbl requires 
-이 작업은 jumpbox에서 실행합니다.따라서 jumpbox에서 bbl환경정보가 로딩되어있어야합니다. 
 
-[loading bbl env](bbl.md#bbl-env-%EB%A1%9C%EB%94%A9)
+- [bbl(bosh-bootloader)-aws  ](bbl.md)
+- [bbl-azure](bbl-azure.md)
 
-## git cli설치
+## install git cli (jumpbox)
 https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-## concourse deployment script 복제
-임의의 경로에 폴더를 생성하고 다음 명령을 실행합니다.
-~~~
+## clone concourse bosh deployment 
+
+```
+mkdir ~/workspace/
+cd workspace
 git clone https://github.com/concourse/concourse-bosh-deployment
 
-# 고가용성을 위해 cluster형태로 설치할 것입니다.
+# we will install concourse 'cluster' for HA
 cd concourse-bosh-deployment/cluster
-~~~
+```
 
-실제 수정된 샘플은 https://github.com/myminseok/concourse-bosh-deployment-v4.2.1 를 참조합니다.
+reference:https://github.com/myminseok/concourse-bosh-deployment-v4.2.1
 
 
-# concourse 설치하기
+# install concourse cluster
 
-## colocate concourse-web-credhub연동버전
+## colocate credhub on concourse-web VM
 
 ### aws
 
 ```
-# bbl 설치 폴더로 이동
+# loading bbl environment variable 
+cd ~/workspacce/bbl
 eval "$(bbl print-env)"
 
-git clone https://github.com/concourse/concourse-bosh-deployment
-
+# move to concourse-bosh-deployment directory
+# git clone https://github.com/concourse/concourse-bosh-deployment
 cd /workspace/dojo-concourse-bosh-deployment/cluster/
 
+# add add-credhub-uaa-to-web.yml ops file
 cd /workspace/dojo-concourse-bosh-deployment/cluster/operations/
 wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/operations/add-credhub-uaa-to-web.yml
 
-공인인증서가 없으면 concourse pipeline돌릴때 에러나므로 operations/credhub.yml파일에 insecure_skip_verify 옵션추가
-위치 참조용 release spec
+# modify operations/credhub.yml to disable ssl validation for private-certificate.
+vi opera
+tions/credhub.yml 
 
-# 하기 내용으로 수정
 - type: replace
   path: /instance_groups/name=web/jobs/name=atc/properties/credhub?
   value:
@@ -63,11 +66,11 @@ wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/
     tls:
       ca_cert:
         certificate: ((credhub_ca_cert))
-      insecure_skip_verify: true
+      insecure_skip_verify: true     <=====   disable ssl validation for private-certificate.
       
       
       
-# (필요시) bosh에 worker vm type추가 
+# (optional) check and update bosh vm types to bosh director vm.
 
 /workspace/dojo-concourse-bosh-deployment/cluster$ bosh cloud-config > bosh-cloud-config.yml
 vi bosh-cloud-config.yml
@@ -78,25 +81,27 @@ vm_types:
       size: 102400
       type: gp2
     instance_type: m4.large
-  name: disk_100G_type
+  name: 100GB_ephemeral_disk
 
 -  ~/workspace/dojo-concourse-bosh-deployment/cluster$ bosh update-cloud-config ./bosh-cloud-config.yml
 
 
-
+# add credhub release version info 
 cd concourse-bosh-deployment/cluster
 wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/versions.yml 
 cat versions.yml  >> ../versions.yml
 
+# upload stemcell to bosh director vm.
 https://bosh.io/stemcells/
 bosh upload-stemcell --sha1 c8b65794ca4c45773b6fe23b3d447dde520f07b0 \
   https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=170.3
   
 
+# edit deploy script.
 
 vi deploy-concourse.sh
 
-export concourse_elb=xxxx
+export concourse_elb=xxxx <-- put dns or ip only (no https://)
 bosh deploy -n --no-redact -d concourse concourse.yml \
   -l ../versions.yml \
   --vars-store cluster-creds.yml \ <=== remove this to store into bosh credhub.
@@ -176,9 +181,9 @@ source ~/workspace/concourse-bosh-deployment/cluster/target-concourse-credhub.sh
 
   
   
-## bosh-credhub연동버전
+## concourse and  bosh-credhub
 
-###  bosh deployment script 준비
+###  bosh deployment script 
 
 #### concourse v3.14.1.0 on aws 
 
@@ -279,18 +284,18 @@ bosh -e d deploy -n --no-redact -d concourse concourse.yml \
 
   
   
-### 배포된 concourse를 삭제하려면
+### delete bosh concourse deployment
 ~~~
-# bbl 설치 폴더로 이동
+# move to bbl direcftory
 eval "$(bbl print-env)"
 
 bosh delete-deployment -d concourse
 ~~~
 
-### worker vm만 다시 만들려면
+### recreate worker vm
 
 ~~~
-# bbl 설치 폴더로 이동
+# move to bbl direcftory
 eval "$(bbl print-env)"
 
 bosh -d concourse recreate worker
@@ -298,9 +303,9 @@ bosh -d concourse recreate worker
 
 
 
-## concourse사용하기.
+## how to use concourse
 
-### fly cli설치
+### fly cli
 ~~~
 fly client download(linux):
 wget https://github.com/concourse/concourse/releases/download/v4.2.1/fly_linux_amd64
@@ -309,14 +314,14 @@ wget https://github.com/concourse/concourse/releases/download/v4.2.1/fly_linux_a
 ### fly login
 
 ~~~
-fly -t sandbox login -c <concourse elb url> -u <concourse설치시 지정한 user id> -p <concourse설치시 지정한 password> -k
+fly -t sandbox login -c <concourse elb url> -u <concourse user id> -p <concourse password> -k
 
 fly targets
 
 fly -t sandbox status
 
 fly -t sandbox workers
-=> worker 목록이 나오면 정상로그인된 것임.
+
 
 ~~~
 
@@ -374,10 +379,10 @@ jobs:
  
  ~~~
  
- 웹브라우져로 확인.
+wheck with web browser
 
-## PAS의 사용자를 concourse에 연동하기
- - [PAS의 사용자 인증을 통해 concourse로그인하도록 설정하기](concourse_with_cf_auth.md)
+## bind concourse user with PAS UAA
+- [bind users in concourse with PAS](concourse_with_cf_auth.md)
 
  
  
