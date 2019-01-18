@@ -1,6 +1,6 @@
 
 
-## prepare for azure account (local Mac)
+## Prepare for azure account (local Mac)
 - reference: https://docs.pivotal.io/pivotalcf/2-4/om/azure/prepare-env-manual.html
 
 
