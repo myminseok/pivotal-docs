@@ -1,5 +1,10 @@
 
-control-plane에서 사용할 concourse를 설치할 것입니다.
+This document explains how to install concourse cluster.
+
+## prerequisites.
+- [Setting up jumpbox](setup-bbl-sandbox.md)
+
+## reference documents
 - https://github.com/concourse/concourse-bosh-deployment/
 - https://github.com/cloudfoundry-incubator/credhub-cli/releases
 - https://github.com/pivotalservices/concourse-credhub
@@ -7,11 +12,11 @@ control-plane에서 사용할 concourse를 설치할 것입니다.
 - https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/samples/concourse-with-credhub.yml
 - https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md
 
-
-
-## bbl env 로딩
+## loading bbl environment variables(jumpbox)
+to run bbl on jumpbox, bbl requires 
 이 작업은 jumpbox에서 실행합니다.따라서 jumpbox에서 bbl환경정보가 로딩되어있어야합니다. 
-[bbl env 로딩](bbl.md#bbl-env-%EB%A1%9C%EB%94%A9)을 참고합니다.
+
+[loading bbl env](bbl.md#bbl-env-%EB%A1%9C%EB%94%A9)
 
 ## git cli설치
 https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
