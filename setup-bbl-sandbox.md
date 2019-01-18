@@ -81,7 +81,7 @@ Following is optional settings
 *  generating ssh -key
 * for windows, use PuttyGen: https://www.ssh.com/ssh/putty/windows/puttygen
 ```
-Pivotals-iMac-2:~ labsproject$ ssh-keygen 
+$ ssh-keygen 
 Generating public/private rsa key pair.
 Enter file in which to save the key (/Users/labsproject/.ssh/id_rsa): 
 Created directory '/Users/labsproject/.ssh'.
@@ -90,7 +90,7 @@ Enter same passphrase again:
 Your identification has been saved in /Users/labsproject/.ssh/id_rsa.
 Your public key has been saved in /Users/labsproject/.ssh/id_rsa.pub.
 The key fingerprint is:
-SHA256:ma+fMsG2/n9Yo+v8MO6ilyPk2/2Z+FrHdqsQQEI56tM labsproject@Pivotals-iMac-2.local
+SHA256:xxxxx M labsproject@Pivotals-iMac-2.local
 The key's randomart image is:
 +---[RSA 2048]----+
 |      .o..       |
@@ -103,7 +103,7 @@ The key's randomart image is:
 |        *o==+=.=o|
 |       .=X=*@OB. |
 +----[SHA256]-----+
-Pivotals-iMac-2:~ labsproject$ ls ~/.ssh/
+$ ls ~/.ssh/
 id_rsa		id_rsa.pub
 
 
