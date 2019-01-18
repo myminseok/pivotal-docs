@@ -19,7 +19,7 @@ apt-get install unzip
 
 https://github.com/cloudfoundry/bosh-bootloader
 
-- bbl 
+### bbl 
 ```
 wget https://github.com/cloudfoundry/bosh-bootloader/releases/download/v6.10.3/bbl-v6.10.3_linux_x86-64
 chmod +x bbl-v6.10.3_linux_x86-64
@@ -27,7 +27,7 @@ sudo mv bbl-v6.10.3_linux_x86-64 /usr/local/bin/bbl
 bbl
 ```
 
-- bosh-cli 
+### bosh-cli 
 
 https://bosh.io/docs/cli-v2/
 ```
@@ -38,11 +38,11 @@ bosh
 
 ```
 
-- bosh-cli dependencies 
+### bosh-cli dependencies 
 
 [bosh-cli dependencies](install_bosh_cli.md)
 
-- terraform
+### terraform
 
 https://www.terraform.io/downloads.html
 version should be >= 0.11.0  
@@ -54,7 +54,7 @@ terraform
 
 ```
 
-- uaac 
+### uaac 
 
 should be run after intallation ruby v2.4+ and gem
 ```
@@ -75,6 +75,7 @@ mount /dev/sdc /store
 ```
 
 =====================================================================
+
 Following is optional settings 
 
 *  generating ssh -key
