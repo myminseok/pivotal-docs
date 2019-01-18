@@ -1,5 +1,5 @@
 
-## aws limit 설정
+## aws resource quota(limit)
 enlarge resource limit of EC2:
 https://docs.pivotal.io/pivotalcf/2-3/customizing/aws.html
 ```
