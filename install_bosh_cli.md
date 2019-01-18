@@ -1,19 +1,17 @@
-ubuntu기반의 Jumpbox에 bosh cli를 설치하기 위한 가이드입니다.
-OS의 ruby v2.4 이하일 경우만 실행합니다.
 
-ubuntu 16 LTS 기반으로 작성되었습니다.
+This documents is for installing ruby 2.4+ on  ubuntu 16 LTS 
 
 http://bosh.io/docs/init-vsphere/
 https://github.com/cloudfoundry/bosh-deployment
 
-## root로 전환
+## as root
 
 ```
 sudo -i
 ```
 
 
-## 필수 라이브러리 설치 bosh create-env dependencies
+## for bosh create-env dependencies
 https://bosh.io/docs/cli-v2-install/#additional-dependencies
 ```
 apt-get update
