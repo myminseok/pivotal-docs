@@ -3,13 +3,13 @@
 Pivotal Cloud Foundry Documentation
 
 # Intro
-- [control plane Architecture](control-plane.md) 
+- [Control Plane Architecture](control-plane.md) 
 - [BOSH Guide](introduction_to_bosh.md)
 
 # Jumpbox
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 
-# control-plane
+# Control-plane
 - [bbl(bosh-bootloader)-aws  ](bbl.md)
 - [bbl-azure](bbl-azure.md)
 - [concourse-with-credhub](concourse-with-credhub.md)
