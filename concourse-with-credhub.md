@@ -38,14 +38,13 @@ reference:https://github.com/myminseok/concourse-bosh-deployment-v4.2.1
 
 ## colocate credhub on concourse-web VM
 
-### aws
 
 ```
 # loading bbl environment variable 
 cd ~/workspacce/bbl
 eval "$(bbl print-env)"
 
-# move to concourse-bosh-deployment directory
+# go to concourse-bosh-deployment directory
 # git clone https://github.com/concourse/concourse-bosh-deployment
 cd /workspace/dojo-concourse-bosh-deployment/cluster/
 
