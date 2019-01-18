@@ -66,6 +66,14 @@ credhub set -t ssh -n /concourse/main/install-pcf-azure/pcf_ssh_key -p ~/.ssh/id
 
 ## edit pcf-install concourse pipeline
 
+- for Seoul region( for two azs): https://github.com/myminseok/pcf-pipelines-minseok   
+```
+use AMI from opsmanager-aws in network.pivotal.io
+```
+
+- for Tokyo region: git clone https://github.com/pivotal-cf/pcf-pipelines  -> cd pcf-pipelines/install-pcf/aws
+- for azure :https://github.com/pivotal-cf/pcf-pipelines -> cd pcf-pipelines/install-pcf/azure
+
 ~~~
 git clone https://github.com/pivotal-cf/pcf-pipelines
 cd ./pcf-pipelines
@@ -91,32 +99,17 @@ pcf_ssh_key_priv: ((pcf_ssh_key.private_key))
 
 
 
-## fly cli설치
+## fly cli
 ~~~
 fly client download(linux):
 wget https://github.com/concourse/concourse/releases/download/v4.2.1/fly_linux_amd64
 ~~~
 
-### fly 로그인
+### fly login
 
 ~~~
 fly -t sandbox login -c <concourse-url> -u <username> -p <password> -k 
-~~~
 
-## concourse에 파이프라인 생성하기
-
-### for Seoul region( for two azs)
-https://github.com/myminseok/pcf-pipelines-minseok
-
-### for Tokyo region
-git clone https://github.com/pivotal-cf/pcf-pipelines
-cd pcf-pipelines/install-pcf/aws
-
-## edit params.yml
-use AMI from opsmanager-aws in network.pivotal.io
-
-비밀번호가 담긴 파일은 별도 파라미터 파일로 관리하거나 credhub에 보관하도록 합니다.
-~~~
 cd pcf-pipelines/tree/master/install-pcf/aws
 fly -t target sp -p install-pcf -c pipeline.yml -l ../../../params-aws.yml
 ~~~
