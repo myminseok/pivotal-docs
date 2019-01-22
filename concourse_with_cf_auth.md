@@ -1,5 +1,7 @@
-https://docs.pivotal.io/p-concourse/4-x/authenticating.html
-https://docs.pivotal.io/p-concourse/4-x/authenticating.html#config-cf
+## reference
+
+- https://docs.pivotal.io/p-concourse/4-x/authenticating.html
+
 
 ## pcf uaa에  concourse용 uaa client생성
 
@@ -69,3 +71,16 @@ bosh -e d deploy -n --no-redact -d concourse concourse.yml \
       ...
       -----END CERTIFICATE-----
 ~~~
+
+
+## set team to concourse
+
+- https://docs.pivotal.io/p-concourse/4-x/authenticating.html#config-cf
+
+```
+$ fly set-team -n my-team \
+    --cf-user my-username \
+    --cf-org my-org \
+    --cf-space my-org:my-space
+```    
+    
