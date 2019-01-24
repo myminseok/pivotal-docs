@@ -4,6 +4,8 @@
 * overall architure(TBD): access boundary, uaa topology
 * Understanding Cloud Foundry Security(isolation segments in PAS): https://docs.pivotal.io/pivotalcf/2-4/concepts/security.html
 
+
+
 # User management & integration in reference architecture 
 * user management on PAS: https://docs.pivotal.io/pivotalcf/2-4/uaa/uaa-user-management.html
 * user management on opsmanager https://docs.pivotal.io/pivotalcf/2-4/customizing/opsman-users.html
@@ -26,6 +28,9 @@ understanding container security: https://docs.pivotal.io/pivotalcf/2-4/concepts
 # PCF security engineering
 * PCF security engineering documentation: https://docs.pivotal.io/pivotalcf/2-2/security/process/security-lifecycle.html
 * release lifecycle flowchart:  https://github.com/pivotal-cf/docs-pcf-security/blob/2.2/images/triage-flowchart.png
+
+# concourse related
+* concourse architecture(component role): https://concourse-ci.org/concepts.html
 
 # Credhub related
 * credhub api docs  http://credhub-api.cfapps.io/version/2.1/
