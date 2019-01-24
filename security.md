@@ -1,12 +1,10 @@
 
 
-# overall security in reference architecture 
-* access boundary
-* uaa topology
-* isolation segments in PAS
-* Understanding Cloud Foundry Security https://docs.pivotal.io/pivotalcf/2-4/concepts/security.html
+# Overall security in reference architecture 
+* overall architure(TBD): access boundary, uaa topology
+* Understanding Cloud Foundry Security(isolation segments in PAS): https://docs.pivotal.io/pivotalcf/2-4/concepts/security.html
 
-# user management on each component
+# user management in reference architecture 
 * user management on PAS: https://docs.pivotal.io/pivotalcf/2-4/uaa/uaa-user-management.html
 * user management on opsmanager https://docs.pivotal.io/pivotalcf/2-4/customizing/opsman-users.html
 * user management on concourse https://docs.pivotal.io/p-concourse/4-x/authenticating.html
