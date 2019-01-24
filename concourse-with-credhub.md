@@ -1,6 +1,10 @@
 
 This document explains how to install concourse cluster.
 
+## Concourse concept
+* concourse architecture: https://concourse-ci.org/concepts.html
+
+
 ## prerequisites.
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 
