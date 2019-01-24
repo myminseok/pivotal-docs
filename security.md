@@ -9,7 +9,10 @@ In [Control Plane Architecture](control-plane.md) , security topics are scattere
 
 
 # User management & integration
-* user management on PAS: https://docs.pivotal.io/pivotalcf/2-4/uaa/uaa-user-management.html
+* user management on PAS: 
+- using uaac: https://docs.pivotal.io/pivotalcf/2-4/uaa/uaa-user-management.html
+- using cf cli: https://docs.pivotal.io/pivotalcf/2-4/adminguide/cli-user-management.html
+
 * user management on opsmanager https://docs.pivotal.io/pivotalcf/2-4/customizing/opsman-users.html
 * user management on concourse https://docs.pivotal.io/p-concourse/4-x/authenticating.html
 * user management on credhub with UAA: http://credhub-api.cfapps.io/version/2.1/#authentication
