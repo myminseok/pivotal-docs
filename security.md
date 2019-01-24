@@ -1,5 +1,5 @@
 
-In control-plane reference architecture, security topics are scattered and it is hard to understand the relationship. this document covers all security topics in one place and helps to understand overall concepts.
+In control-plane reference architecture, security topics are scattered and it is hard to understand the relationship among each areas. this document covers all security topics in one place and helps to understand overall concepts.
 
 
 # Overall security in reference architecture 
