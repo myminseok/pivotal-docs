@@ -1,16 +1,19 @@
 
+In control-plane reference architecture, security topics are scattered and it is hard to understand the relationship. this document covers all security topics in one place and helps to understand overall concepts.
+
 
 # Overall security in reference architecture 
-* overall architure(TBD): access boundary, uaa topology
+* overall architure(TBD): access boundary, uaa topology, isolation segments
 * Understanding Cloud Foundry Security(isolation segments in PAS): https://docs.pivotal.io/pivotalcf/2-4/concepts/security.html
 
 
 
-# User management & integration in reference architecture 
+# User management & integration
 * user management on PAS: https://docs.pivotal.io/pivotalcf/2-4/uaa/uaa-user-management.html
 * user management on opsmanager https://docs.pivotal.io/pivotalcf/2-4/customizing/opsman-users.html
 * user management on concourse https://docs.pivotal.io/p-concourse/4-x/authenticating.html
 * user management on credhub with UAA: http://credhub-api.cfapps.io/version/2.1/#authentication
+* hands on (TBD)
 
 # Credhub & uaa integration
 * co-locate credhub with concourse(web) https://github.com/myminseok/pivotal-docs/blob/master/concourse-with-credhub.md
