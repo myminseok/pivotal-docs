@@ -29,9 +29,6 @@ understanding container security: https://docs.pivotal.io/pivotalcf/2-4/concepts
 * PCF security engineering documentation: https://docs.pivotal.io/pivotalcf/2-2/security/process/security-lifecycle.html
 * release lifecycle flowchart:  https://github.com/pivotal-cf/docs-pcf-security/blob/2.2/images/triage-flowchart.png
 
-# concourse related
-* concourse architecture(component role): https://concourse-ci.org/concepts.html
-
 # Credhub related
 * credhub api docs  http://credhub-api.cfapps.io/version/2.1/
 * credhub service broker scenario on PAS: https://content.pivotal.io/blog/enterprise-architects-its-time-to-learn-how-the-credhub-service-broker-applies-the-principle-of-least-privilege-to-your-secrets
