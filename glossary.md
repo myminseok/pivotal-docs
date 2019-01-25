@@ -40,4 +40,4 @@ http://bosh.io
 6. routes: domains에 sub-domain으로 할당되어 애플리케이션과 바인드 되는 서비스 주소를 말함. PAS(Pivotal Application Service)에서 하나의 애플리케이션은 여러개의 route를 가질 수 있고 셀프서비스로 조작이 가능하다.  ex) myapp.shared-domain.example.com
 7. service: MySQL, Redis, RabbitMQ등과 같이 애플리케이션에서 사용할 수 있는 백엔드 서비스를 말함. PAS(Pivotal Application Service)상의 마켓플레이스에 노출되어 셀프서비스로 service instance를 생성할 수 있다. 이런 서비스는 bosh-release로 만들어지는데 플랫폼 관리자에 의해 관리된다.
 8. service instance: service로 부터 생성된 instance. 두가지 셀프서비스 모델이 있는데,  MySQL for PCF의 경우 운영자에 의해 미리 만들어진 공용 MySQL클러스터에 self-service로 schema, user만 만들어 사용하는 것과, self-service로 독립적인 MySQL클러스터를 생성(provisioning)할 수 있다.
-9. UAA: cloud foundry의 프로젝트 중의 하나로 OAuth2프로토콜을 기반으로 사용자의 인증을 담당한다.(User Authentication and Authorization)
+9. UAA: cloud foundry의 프로젝트 중의 하나로 OAuth2프로토콜을 기반으로 사용자의 인증을 담당한다.(User Account Authentication)
