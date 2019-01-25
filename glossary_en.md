@@ -12,19 +12,15 @@
 # Continuous build / distribution (CI / CD) related terms
 1. control plane: A set of tools for automated management of multiple platforms deployed and operating in the cloud (Pivotal Cloud Foundry Platform, MySQL Platform, Pivotal Ops Manager, etc.). It mainly includes Jumpbox (work VM), concourse (CI / CD tool.course-ci.org), docker registry, S3 and git repo as needed.
 https://docs.pivotal.io/pivotalcf/2-0/refarch/control.html#placement
-2. JumpBox: A VM that acts as a single access point for the platform(PAS, Control-Plane) . http://bosh.io/docs/terminology/#jumpbox
-3. BOSH: An open source tool for the development, deployment, and operation of large-scale distributed clusters utilizing the cloud. Key features include: 1) Directly control creation, deletion, and modification of resources such as VM, Disk, and Network through CPI (Cloud Provider Interface) provided by IaaS providers such as AWS, GCP, Azure, vmware and openstack Therefore, provisioning the cluster directly. (BOSH release) 2) You can create a distribution of the software (platform package) that constitutes the cluster. (BOSH release)
-http://bosh.io
-4. BOSH RELEASE: A distribution of the software (platform package, configuration template) that makes up the cluster. It is created through bosh. http://bosh.io/docs/terminology/#release
-5. stemcell: VM OS image + bosh agent http://bosh.io/docs/terminology/#stemcell
-6. bosh deployment manifest: Configuration information for deploying bosh release http://bosh.io/docs/terminology/#manifest
-7. bosh deployment: The cluster that bosh deployed using the stemcell + bosh release + bosh deployment manifest. Check with the bosh deployments command.
-8. concourse: An open source persistent build / persistent distribution (CI / CD) tool created by Pivotal. The pipeline is managed as source code, so you can instantly create pipelines and manage change history anytime and anywhere. concourse-ci.org
-9. CI / CD Pipeline: An automated workflow from the build-to-deployment stage of the software to a concourse or jenkins.
+2. jumpBox: A VM that acts as a single access point for the platform(PAS, Control-Plane) . http://bosh.io/docs/terminology/#jumpbox
+3. BOSH: An open source tool for the development, deployment, and operation of large-scale distributed clusters utilizing the cloud. Key features include: 1) Directly control creation, deletion, and modification of resources such as VM, Disk, and Network through CPI (Cloud Provider Interface) provided by IaaS providers such as AWS, GCP, Azure, vmware and openstack Therefore, provisioning the cluster directly. 2) You can create a distribution of the software (platform package) that constitutes the cluster(BOSH release). http://bosh.io
+4. CI / CD Pipeline: An automated workflow from the build-to-deployment stage of the software to a concourse or jenkins.
 10. credhub: An open source encrypted repository tool created by pivotal. It is a key-value repository that can generate, store, and retrieve certificates, passwords, and so on. Concatenation with UAA (concourse, PAS) Stores authentication information managed by UAA to enhance security of platform data. You can enhance security by storing authentication information in conjunction with the developer's application. https://github.com/pivotal-cf/credhub-release
-11. BBL: Abbreviation of Bosh BootLoader, CLI tool for automatic network creation through jumpbox, bosh, terraform https://github.com/cloudfoundry/bosh-bootloader
-12. BBR: Abbreviation for Bosh Backup and Restore. CLI tool for backing up and restoring BOSH deployment and BOSH director https://github.com/cloudfoundry-incubator/bosh-backup-and-restore
-13. Errand: This is a job that executes only once when executing bosh deployment, for example deployment testcase, deployment compile, etc. http://bosh.io/docs/terminology/#errand
+5. concourse: An open source persistent build / persistent distribution (CI / CD) tool created by Pivotal. The pipeline is managed as source code, so you can instantly create pipelines and manage change history anytime and anywhere. concourse-ci.org
+6. BBL: Abbreviation of Bosh BootLoader, CLI tool for automatic network creation through jumpbox, bosh, terraform https://github.com/cloudfoundry/bosh-bootloader
+7. BBR: Abbreviation for Bosh Backup and Restore. CLI tool for backing up and restoring BOSH deployment and BOSH director https://github.com/cloudfoundry-incubator/bosh-backup-and-restore
+
+
 
 # Pivotal Cloud Foundry related terms
 
@@ -42,4 +38,9 @@ Applications are automatically published and sub-domains are published. ex) myap
 
 
 # BOSH related terms
-https://bosh.io/docs/terminology
+1. https://bosh.io/docs/terminology
+2. BOSH RELEASE: A distribution of the software (platform package, configuration template) that makes up the cluster. It is created through bosh. http://bosh.io/docs/terminology/#release
+3. stemcell: VM OS image + bosh agent http://bosh.io/docs/terminology/#stemcell
+4. bosh deployment manifest: Configuration information for deploying bosh release http://bosh.io/docs/terminology/#manifest
+5. bosh deployment: The cluster that bosh deployed using the stemcell + bosh release + bosh deployment manifest. Check with the bosh deployments command.
+6. Errand: This is a job that executes only once when executing bosh deployment, for example deployment testcase, deployment compile, etc. http://bosh.io/docs/terminology/#errand
