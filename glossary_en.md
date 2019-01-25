@@ -9,11 +9,10 @@
 7. pair programming: one of the methods of agile methodology. By doing the same thing on the same computer, I have the purpose of making my decisions, the benefits of sharing / communicating high quality code and products, knowledge, and ultimately creating a sustainable organization.
 8. persona: Represents the character of the role. developer, platform engineer, etc.
 
-
 # Continuous build / distribution (CI / CD) related terms
 1. control plane: A set of tools for automated management of multiple platforms deployed and operating in the cloud (Pivotal Cloud Foundry Platform, MySQL Platform, Pivotal Ops Manager, etc.). It mainly includes Jumpbox (work VM), concourse (CI / CD tool.course-ci.org), docker registry, S3 and git repo as needed.
 https://docs.pivotal.io/pivotalcf/2-0/refarch/control.html#placement
-2. JumpBox: Task VM. http://bosh.io/docs/terminology/#jumpbox
+2. JumpBox: A VM that acts as a single access point for the platform(PAS, Control-Plane) . http://bosh.io/docs/terminology/#jumpbox
 3. BOSH: An open source tool for the development, deployment, and operation of large-scale distributed clusters utilizing the cloud. Key features include: 1) Directly control creation, deletion, and modification of resources such as VM, Disk, and Network through CPI (Cloud Provider Interface) provided by IaaS providers such as AWS, GCP, Azure, vmware and openstack Therefore, provisioning the cluster directly. (BOSH release) 2) You can create a distribution of the software (platform package) that constitutes the cluster. (BOSH release)
 http://bosh.io
 4. BOSH RELEASE: A distribution of the software (platform package, configuration template) that makes up the cluster. It is created through bosh. http://bosh.io/docs/terminology/#release
@@ -40,3 +39,7 @@ Applications are automatically published and sub-domains are published. ex) myap
 7. service: A backend service that can be used by applications such as MySQL, Redis, and RabbitMQ. It is exposed to marketplace on PAS (Pivotal Application Service) and can create service instance with self-service. These services are created by bosh-release and are managed by the platform administrator.
 8. service instance: An instance created from service. There are two self-service models: MySQL for PCF can create self-service-only schemas, users, and self-service independent MySQL clusters in a public MySQL cluster pre-built by the operator .
 9. UAA: One of cloud foundry's projects, it is responsible for user authentication based on OAuth2 protocol (User Account Authentication)
+
+
+# BOSH related terms
+https://bosh.io/docs/terminology
