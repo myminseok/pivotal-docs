@@ -63,8 +63,8 @@ export CONCOURSE_URL=https://<concourse -lb-url>
 source ./target-concourse-credhub.sh
 
 $ crehub api
-credhub set -t ssh -n /concourse/main/install-pcf-azure/git_private_key_ssh -p ~/.ssh/id_rsa
-credhub set -t ssh -n /concourse/main/install-pcf-azure/pcf_ssh_key -p ~/.ssh/id_rsa -u ~/.ssh/id_rsa.pub
+credhub set -t ssh -n /concourse/main/install-pcf/git_private_key_ssh -p ~/.ssh/id_rsa
+credhub set -t ssh -n /concourse/main/install-pcf/pcf_ssh_key -p ~/.ssh/id_rsa -u ~/.ssh/id_rsa.pub
 
 
 ```
@@ -124,6 +124,8 @@ wget https://github.com/concourse/concourse/releases/download/v4.2.1/fly_linux_a
 fly -t sandbox login -c <concourse-url> -u <username> -p <password> -k 
 
 cd pcf-pipelines/tree/master/install-pcf/aws
+
+## pipeline name should be match with the param name in the credhub. ex) /concourse/main/install-pcf/*
 fly -t target sp -p install-pcf -c pipeline.yml -l ../../../params-aws.yml
 ~~~
 
