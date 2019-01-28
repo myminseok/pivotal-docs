@@ -11,3 +11,5 @@
 # Component role(PAS)
 * component roll (PAS): https://docs.pivotal.io/pivotalcf/2-4/concepts/architecture/index.html
 * diego architecture: https://docs.pivotal.io/pivotalcf/2-4/concepts/diego/diego-architecture.html
+
+* http://htmlpreview.github.io/?https://raw.githubusercontent.com/cloudfoundry/diego-design-notes/master/clickable-diego-overview/clickable-diego-overview.html
