@@ -130,6 +130,13 @@ cd pcf-pipelines/tree/master/install-pcf/aws
 
 ## pipeline name should be match with the param name in the credhub. ex) /concourse/main/install-pcf/*
 fly -t target sp -p install-pcf -c pipeline.yml -l ../../../params-aws.yml
+
+
+# run 
+1. bootstrap-terraform-state
+2. create-infrastructure
+3. setup your DNS for your pcf domain.  dig opsman.<your pcf domain>
+4. run config-opsman-auth
 ~~~
 
 
