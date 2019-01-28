@@ -137,6 +137,7 @@ fly -t target sp -p install-pcf -c pipeline.yml -l ../../../params-aws.yml
 2. create-infrastructure
 3. setup your DNS for your pcf domain.  dig opsman.<your pcf domain>
 4. run config-opsman-auth
+5.
 ~~~
 
 
