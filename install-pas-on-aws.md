@@ -7,7 +7,7 @@ https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf-aws-manual-config.html
 # AWS IAM 
 
 # AWS limit
-IAM limit (VM) : 50개
+IAM limit (VM) : 50
 vpc
 eip
 
