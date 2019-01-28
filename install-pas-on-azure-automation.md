@@ -110,6 +110,11 @@ terraform_azure_storage_account_name: <-- $ az storage account create --name "my
 # Disable HTTP on gorouters (true|false)
 disable_http_proxy: true
 
+# If enabled HAProxy will forward all requests to the router over TLS (enable|disable)
+haproxy_forward_tls: false
+
+
+
 # Support for the X-Forwarded-Client-Cert header. Possible values: (load_balancer|ha_proxy|router)
 routing_tls_termination: router
 
