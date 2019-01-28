@@ -91,7 +91,22 @@ cd ./install-pcf/azure
 
 vi params.yml
 
-# azure_vm_admin value should match with user ID used to create the certs pcf_ssh_key_pub.
+# Prefix to use for Terraform-managed infrastructure, e.g. 'pcf-terraform'
+# Must be globally unique.
+# check following blobs are available using curl.
+# pipeline will remove special character and use initial 10 characters
+# azure_terraform_prefix+ "root"
+# azure_terraform_prefix+ "infra"
+# azure_terraform_prefix+ azure_storage_account_name
+# azure_terraform_prefix+ "vms1"
+# azure_terraform_prefix+ "vms2"
+# azure_terraform_prefix+ "vms3"
+$ curl https://<YOUR-STORAGE-ACCOUNT-NAME>.blob.core.windows.net/
+
+azure_terraform_prefix: minseokterr
+
+
+# azure_vm_admin value should match with user ID used to create the certs "pcf_ssh_key_pub"
 # The user ID will appear towards the end of the public key.
 azure_vm_admin: ubuntu
 
@@ -110,6 +125,19 @@ azure_storage_container_name:  <-- $ az storage container create --name terrafor
 terraform_azure_storage_access_key:   <-- key from $ az storage account keys list --account-name <YOUR-STORAGE-ACCOUNT-NAME>
 terraform_azure_storage_account_name: <-- $ az storage account create --name "my_terraform"
   
+  
+# Domain Names for ERT
+pcf_ert_domain: dev.pksdemo.net # This is your base domain you wish to access PCF from. For example, pcf.example.com
+system_domain: sys.dev.pksdemo.net  # e.g. system.pcf.example.com
+apps_domain: apps.dev.pksdemo.net   # e.g. apps.pcf.example.com
+
+
+# Disable HTTP on gorouters (true|false)
+disable_http_proxy: true
+
+# Support for the X-Forwarded-Client-Cert header. Possible values: (load_balancer|ha_proxy|router)
+routing_tls_termination: router
+
 ~~~
 
 
