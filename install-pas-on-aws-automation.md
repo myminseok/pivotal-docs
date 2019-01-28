@@ -63,8 +63,11 @@ export CONCOURSE_URL=https://<concourse -lb-url>
 source ./target-concourse-credhub.sh
 
 $ crehub api
-credhub set -t ssh -n /concourse/main/install-pcf/git_private_key_ssh -p ~/.ssh/id_rsa
-credhub set -t ssh -n /concourse/main/install-pcf/pcf_ssh_key -p ~/.ssh/id_rsa -u ~/.ssh/id_rsa.pub
+$ credhub find
+
+## if you don't have ssh key for github.com, run ssh-keygen and register ~/.ssh/id_rsa.pub to github.com
+$ credhub set -t ssh -n /concourse/main/install-pcf/git_private_key_ssh -p ~/.ssh/id_rsa
+$ credhub set -t ssh -n /concourse/main/install-pcf/pcf_ssh_key -p ~/.ssh/id_rsa -u ~/.ssh/id_rsa.pub
 
 
 ```
