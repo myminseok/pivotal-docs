@@ -40,8 +40,14 @@ get pivnet_token
 
 ## prepare storeage account on azure
 
-storage is used by pcf-pipeline to store terraform.states file
+storage is used by pcf-pipeline to store terraform.states file <br>
+
 ```
+storage account name is unigue name, check if it is available.
+$ curl https://<YOUR-STORAGE-ACCOUNT-NAME>.blob.core.windows.net/
+curl: (6) Could not resolve host: https://<YOUR-STORAGE-ACCOUNT-NAME>.blob.core.windows.net/
+
+
 az group create --name "my_terraform_gr" --location "japaneast"
 az storage account create --name "my_terraform" --resource-group "my_terraform_gr" --location "japaneast" --sku "Standard_LRS"
 az storage account keys list --account-name my_terraform --resource-group my_terraform_gr
@@ -94,6 +100,13 @@ git_private_key: ((git_private_key_ssh.private_key))
 # SSH keys for Operations Manager director
 pcf_ssh_key_pub: ((pcf_ssh_key.public_key))
 pcf_ssh_key_priv: ((pcf_ssh_key.private_key))
+
+
+
+# Storage account and container that will be used for your terraform state
+azure_storage_container_name:  <-- $ az storage container create --name terraformstate 
+terraform_azure_storage_access_key:   <-- key from $ az storage account keys list --account-name <YOUR-STORAGE-ACCOUNT-NAME>
+terraform_azure_storage_account_name: <-- $ az storage account create --name "my_terraform"
   
 ~~~
 
