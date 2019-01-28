@@ -11,17 +11,6 @@ m4.large: 20
 r4.large: 20
 ```
 
-## check azure resource quota(limit)
-extend resource limit: https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf_azure.html#raising-quota
-```
-We would like to raise our ARM (Azure Resource Manager) core limits.
-Requested quantity of ARM Cores: 100
-Requested region: japan central
-VM Types to be used: F1s, F2s, F4s, DS11v2, DS12v2 VM count to 100 vms.
-allocate 1 TB of standard storage.
-```
-
-
 
 ## (for production env) prepare a wildcard domain for PAS foundation.
 ```
@@ -35,23 +24,6 @@ allocate 1 TB of standard storage.
 ## sign up for network.pivotal.io 
 get pivnet_token
 
-
-
-## prepare storeage account on azure
-
-storage is used by pcf-pipeline to store terraform.states file <br>
-
-```
-storage account name is unigue name, check if it is available.
-$ curl https://<YOUR-STORAGE-ACCOUNT-NAME>.blob.core.windows.net/
-curl: (6) Could not resolve host: https://<YOUR-STORAGE-ACCOUNT-NAME>.blob.core.windows.net/
-
-
-az group create --name "my_terraform_gr" --location "japaneast"
-az storage account create --name "my_terraform" --resource-group "my_terraform_gr" --location "japaneast" --sku "Standard_LRS"
-az storage account keys list --account-name my_terraform --resource-group my_terraform_gr
-az storage container create --name terraformstate --account-name my_terraform
-```
 
 ## set variables to credhub
 
@@ -80,35 +52,21 @@ use AMI from opsmanager-aws in network.pivotal.io
 ```
 
 - for Tokyo region: git clone https://github.com/pivotal-cf/pcf-pipelines  -> cd pcf-pipelines/install-pcf/aws
-- for azure :https://github.com/pivotal-cf/pcf-pipelines -> cd pcf-pipelines/install-pcf/azure
 
 ~~~
 git clone https://github.com/pivotal-cf/pcf-pipelines
 cd ./pcf-pipelines
 git checkout v0.23.12
 git checkout -b pcf-2.4
-cd ./install-pcf/azure
+cd ./install-pcf/aws
 
 vi params.yml
 
 # Prefix to use for Terraform-managed infrastructure, e.g. 'pcf-terraform'
 # Must be globally unique.
 # check following blobs are available using curl.
-# pipeline will remove special character and use initial 10 characters
-# azure_terraform_prefix+ "root"
-# azure_terraform_prefix+ "infra"
-# azure_terraform_prefix+ azure_storage_account_name
-# azure_terraform_prefix+ "vms1"
-# azure_terraform_prefix+ "vms2"
-# azure_terraform_prefix+ "vms3"
-$ curl https://<YOUR-STORAGE-ACCOUNT-NAME>.blob.core.windows.net/
 
 azure_terraform_prefix: minseokterr
-
-
-# azure_vm_admin value should match with user ID used to create the certs "pcf_ssh_key_pub"
-# The user ID will appear towards the end of the public key.
-azure_vm_admin: ubuntu
 
 
 # Optional - if your git repo requires an SSH key.
@@ -119,24 +77,9 @@ pcf_ssh_key_pub: ((pcf_ssh_key.public_key))
 pcf_ssh_key_priv: ((pcf_ssh_key.private_key))
 
 
-
-# Storage account and container that will be used for your terraform state
-azure_storage_container_name:  <-- $ az storage container create --name terraformstate 
-terraform_azure_storage_access_key:   <-- key from $ az storage account keys list --account-name <YOUR-STORAGE-ACCOUNT-NAME>
-terraform_azure_storage_account_name: <-- $ az storage account create --name "my_terraform"
-  
-  
-# Domain Names for ERT
-pcf_ert_domain: dev.pksdemo.net # This is your base domain you wish to access PCF from. For example, pcf.example.com
-system_domain: sys.dev.pksdemo.net  # e.g. system.pcf.example.com
-apps_domain: apps.dev.pksdemo.net   # e.g. apps.pcf.example.com
-
-
 # Disable HTTP on gorouters (true|false)
 disable_http_proxy: true
 
-# Support for the X-Forwarded-Client-Cert header. Possible values: (load_balancer|ha_proxy|router)
-routing_tls_termination: router
 
 ~~~
 
