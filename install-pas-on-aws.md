@@ -1,9 +1,7 @@
 
 
-# manually installing PAS
-https://docs.pivotal.io/pivotalcf/2-2/customizing/pcf-aws-manual-config.html
-
-https://github.com/pivotal-cf/pcf-pipelines
+# manually installing PAS guide
+https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf-aws-manual-config.html
 
 
 # AWS IAM 
