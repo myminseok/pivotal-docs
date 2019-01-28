@@ -115,7 +115,7 @@ haproxy_forward_tls: false
 
 
 # The lb value can be obtained by prepending "web-lb" with "azure_terraform_prefix". For example, if your "azure_terraform_prefix" is "test", then the "ha_proxy_lb_name" is "test-web-lb".
-ha_proxy_lb_name: 
+ha_proxy_lb_name: <== this should be blank, 'azure_terraform_prefix'-web-lb will be set automatically.
 
 
 
