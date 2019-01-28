@@ -11,7 +11,6 @@ m4.large: 20
 r4.large: 20
 ```
 
-
 ## check azure resource quota(limit)
 extend resource limit: https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf_azure.html#raising-quota
 ```
