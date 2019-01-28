@@ -14,11 +14,11 @@ r4.large: 20
 
 ## (for production env) prepare a wildcard domain for PAS foundation.
 ```
-*.pcfdemo.net
-*.apps.pcfdemo.net
-*.system.pcfdemo.net
-*.uaa.system.pcfdemo.net
-*.login.system.pcfdemo.net
+*.<your domain>
+*.apps.<your domain>
+*.system.<your domain>
+*.uaa.system.<your domain>
+*.login.system.<your domain>
 ```
 
 ## sign up for network.pivotal.io 
