@@ -19,4 +19,5 @@ Pivotal Cloud Foundry Documentation
 
 - [PAS-installing manually](install-pas-on-aws.md)
 - [PAS with concourse on AWS](install-pas-on-aws-automation.md)
+- [PAS with concourse on Azure](install-pas-on-azure-automation.md)
 - [bind users in concourse with PAS](concourse_with_cf_auth.md)
