@@ -13,11 +13,11 @@ allocate 1 TB of standard storage.
 
 ## (for production env) prepare a wildcard domain for PAS foundation.
 ```
-*.pcfdemo.net
-*.apps.pcfdemo.net
-*.system.pcfdemo.net
-*.uaa.system.pcfdemo.net
-*.login.system.pcfdemo.net
+*.<your domain>
+*.apps.<your domain>
+*.system.<your domain>
+*.uaa.system.<your domain>
+*.login.system.<your domain>
 ```
 
 ## sign up for network.pivotal.io 
@@ -107,12 +107,6 @@ terraform_azure_storage_access_key:   <-- key from $ az storage account keys lis
 terraform_azure_storage_account_name: <-- $ az storage account create --name "my_terraform"
   
   
-# Domain Names for ERT
-pcf_ert_domain: dev.pksdemo.net # This is your base domain you wish to access PCF from. For example, pcf.example.com
-system_domain: sys.dev.pksdemo.net  # e.g. system.pcf.example.com
-apps_domain: apps.dev.pksdemo.net   # e.g. apps.pcf.example.com
-
-
 # Disable HTTP on gorouters (true|false)
 disable_http_proxy: true
 
