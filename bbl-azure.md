@@ -33,6 +33,8 @@ az provider register --namespace Microsoft.Compute
 
 ```
 
+or  use az-automation https://github.com/genevieve/az-automation
+
 
 ## set azure env to bbl.
 - https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/getting-started-azure.md
