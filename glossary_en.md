@@ -11,7 +11,7 @@
 
 # Continuous build / distribution (CI / CD) related terms
 1. control plane: A set of tools for automated management of multiple platforms deployed and operating in the cloud (Pivotal Cloud Foundry Platform, MySQL Platform, Pivotal Ops Manager, etc.). It mainly includes Jumpbox (work VM), concourse (CI / CD tool.course-ci.org), docker registry, S3 and git repo as needed.
-https://docs.pivotal.io/pivotalcf/2-0/refarch/control.html#placement
+https://docs.pivotal.io/pivotalcf/2-4/refarch/azure/azure_ref_arch.html#refarchs
 2. CI / CD Pipeline: An automated workflow from the build-to-deployment stage of the software to a concourse or jenkins.
 3. concourse: An open source persistent build / persistent distribution (CI / CD) tool created by Pivotal. The pipeline is managed as source code, so you can instantly create pipelines and manage change history anytime and anywhere. concourse-ci.org
 4. jumpBox: A VM that acts as a single access point for the platform(PAS, Control-Plane) . http://bosh.io/docs/terminology/#jumpbox
