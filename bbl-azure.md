@@ -2,15 +2,15 @@
 
 ## Prepare for azure account (local Mac)
 - reference: https://docs.pivotal.io/pivotalcf/2-4/om/azure/prepare-env-manual.html
+- https://portal.azure.com/
 
+### install azure cli 
 
-### azure cli 
-https://docs.pivotal.io/pivotalcf/2-2/om/azure/prepare-env-manual.html
-https://portal.azure.com/
 ```
 brew install azure-cli
 ```
 
+### setup az account for PCF
 ```
 az login
 az account list  ==> tenantId
