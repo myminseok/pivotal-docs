@@ -13,7 +13,11 @@ brew install azure-cli
 - reference: https://docs.pivotal.io/pivotalcf/2-4/om/azure/prepare-env-manual.html
 ```
 az login
+
 az account list  ==> tenantId
+
+az account set --subscription SUBSCRIPTION-ID
+
 az ad app create ==> will create  appId==client_id
 
 az ad sp create --id YOUR-APPLICATION-ID         ==> will create servicePrincipalNames
