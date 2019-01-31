@@ -70,13 +70,15 @@ uaac
 
 ```
 
-## mount disk
+## mount disk temporailry.
 ```
 fdisk -l
 mkfs.ext4 /dev/sdc
 mkdir /store
 mount /dev/sdc /store
 ```
+## mount on VM boot
+https://confluence.jaytaala.com/display/TKB/Mount+drive+in+linux+and+set+auto-mount+at+boot
 
 =====================================================================
 
