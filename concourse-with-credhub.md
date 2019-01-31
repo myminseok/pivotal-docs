@@ -88,9 +88,17 @@ cat versions.yml  >> ../versions.yml
 
 # upload stemcell to bosh director vm.
 https://bosh.io/stemcells/
+
+## azure
+bosh upload-stemcell --sha1 0f5e2d934c3dc3628b06ba7a5dc25a04a91f5cfb \
+  https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=250.4
+  
+  
+## aws
 bosh upload-stemcell --sha1 c8b65794ca4c45773b6fe23b3d447dde520f07b0 \
   https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=170.3
   
+
 
 # edit deploy script.
 
