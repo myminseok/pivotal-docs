@@ -60,7 +60,10 @@ terraform
 install uaac after installing ruby v2.4+ and gem ([bosh-cli dependencies](install_bosh_cli.md)
 ```
 # as root
-# source /etc/profile.d/rvm.sh
+
+# activate the rvm env.
+source /etc/profile.d/rvm.sh
+
 gem install cf-uaac
 
 uaac
