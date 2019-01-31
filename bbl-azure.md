@@ -56,6 +56,8 @@ export BBL_AZURE_TENANT_ID=
 source bbl-env.sh
 
 bbl up --lb-type concourse
+bbl up --lb-type concourse --name my-first-bbl
+
 ```
 
 ## load bbl env after bbl up.
