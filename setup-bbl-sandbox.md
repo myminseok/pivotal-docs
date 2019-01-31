@@ -5,7 +5,7 @@ create a single VM on target IaaS(Azure, AWS, GCP...)
 - 1~2 cpu, 2Gmem, 100Disk(persistent)
 - OS: ubuntu 16.04 LTS
 - vm name:  any name (but in azure env, try to use unique jumpbox name instead of 'jumpbox', because bbl will get confused with your jumpbox when bbl will create a bbl jumpbox)
-- set port 22 for ssh access to the Jumpbox VM.
+- set port 22 for ssh access to the Jumpbox VM. (!!! best practice: limit ssh  access to limited CIDR by setting source IP in security group)
 
 ## update os dependency.
 ```
