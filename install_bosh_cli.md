@@ -65,6 +65,9 @@ update_rubygems
 ###  to enable RVM environment
 
 ```
+
+# switch user to actual jumpbox user
+
 vi ~/.profile
 
 ...
