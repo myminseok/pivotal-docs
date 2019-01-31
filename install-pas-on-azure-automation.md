@@ -9,7 +9,13 @@ VM Types to be used: F1s, F2s, F4s, DS11v2, DS12v2 VM count to 100 vms.
 allocate 1 TB of standard storage.
 ```
 
+## prepare ssh-key for opsman
 
+username should be match with azure_vm_admin in 'params.yml' of pcf-pipelines
+```
+ssh-keygen -f pcf_ssh_key -C ubuntu
+
+```
 
 ## (for production env) prepare a wildcard domain for PAS foundation.
 ```
