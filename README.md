@@ -10,7 +10,7 @@ Pivotal Cloud Foundry Documentation
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 
 # Control-plane
-- [bbl(bosh-bootloader)-aws  ](bbl.md)
+- [bbl-aws (bosh-bootloader)](bbl.md)
 - [bbl-azure](bbl-azure.md)
 - [concourse-with-credhub](concourse-with-credhub.md)
 - [concourse external worker](concourse-external-worker.md)
