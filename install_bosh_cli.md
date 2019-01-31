@@ -64,9 +64,12 @@ update_rubygems
 
 ###  to enable RVM environment
 
+- switch user to actual jumpbox user
+
+- edit ~/.profile
 ```
 
-# switch user to actual jumpbox user
+
 
 vi ~/.profile
 
@@ -74,5 +77,11 @@ vi ~/.profile
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 source /etc/profile.d/rvm.sh
+
+```
+- activate the change
+
+```
+$ source ~/.profile
 ```
 
