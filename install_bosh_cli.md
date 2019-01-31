@@ -68,12 +68,10 @@ update_rubygems
 
 - edit ~/.profile
 ```
-
-
-
 vi ~/.profile
 
 ...
+
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 source /etc/profile.d/rvm.sh
