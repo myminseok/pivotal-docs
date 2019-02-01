@@ -268,7 +268,7 @@ wheck with web browser
  
 ###  set env.
 ```
-vi ~/.profile.sh
+vi ~/.profile
 
 pushd .
 cd ~/workspace/bbl
