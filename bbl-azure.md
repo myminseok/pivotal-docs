@@ -50,6 +50,8 @@ export BBL_AZURE_TENANT_ID=
 
 ```
 
+
+
 ## bbl up
 
 ```
@@ -59,6 +61,37 @@ bbl up --lb-type concourse
 bbl up --lb-type concourse --name my-first-bbl
 
 ```
+
+
+
+## (Optional) concourse lb security group control
+
+```
+source bbl-env.sh
+
+bbl plan --lb-type concourse --name my-first-bbl
+
+vi ./terraform/security-group-override.tf
+
+resource "azurerm_network_security_rule" "concourse-http" {
+  name                        = "${var.env_id}-concourse-http"
+  priority                    = 209
+  direction                   = "Inbound"
+  access                      = "Deny"    <----Allow to Deny
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = "${azurerm_resource_group.bosh.name}"
+  network_security_group_name = "${azurerm_network_security_group.bosh.name}"
+}
+
+
+bbl up --lb-type concourse --name my-first-bbl
+```
+
+
 
 ## load bbl env after bbl up.
 
@@ -73,6 +106,5 @@ bbl lbs
 ## refrenence
 
 - https://github.com/cloudfoundry/bosh-bootloader/blob/master/docs/advanced-configuration.md
-
 
 
