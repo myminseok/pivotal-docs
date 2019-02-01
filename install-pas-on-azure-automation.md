@@ -76,6 +76,14 @@ git checkout v0.23.12
 git checkout -b pcf-2.4
 cd ./install-pcf/azure
 
+## edit pipelines
+
+install-pcf/azure/terraform/c0-azure-base/loadbalancing_alb.tf
+install-pcf/azure/terraform/c0-azure-base/security_group.tf
+
+
+
+## edit pipeline params
 vi params.yml
 
 # Prefix to use for Terraform-managed infrastructure, e.g. 'pcf-terraform'
