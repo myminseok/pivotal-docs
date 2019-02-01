@@ -102,6 +102,18 @@ bbl lbs
 
 ```
 
+###  set env.
+```
+vi ~/.profile.sh
+
+pushd .
+cd ~/workspace/bbl
+eval "$(bbl print-env)"
+popd
+
+```
+  
+  
 
 ## refrenence
 
