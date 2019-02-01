@@ -148,7 +148,8 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
 ### fly cli
 ~~~
 fly client download(linux):
-wget https://github.com/concourse/concourse/releases/download/v4.2.1/fly_linux_amd64
+wget https://github.com/concourse/concourse/releases/download/v4.2.2/fly_linux_amd64
+
 ~~~
 
 ### fly login
