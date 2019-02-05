@@ -69,12 +69,21 @@ $ credhub set -t ssh -n /concourse/main/install-pcf/pcf_ssh_key -p ~/.ssh/id_rsa
 
 - for azure :https://github.com/pivotal-cf/pcf-pipelines -> cd pcf-pipelines/install-pcf/azure
 
+- https://github.com/pivotal-cf/pcf-pipelines pipeline for azure has a bug that router vm doesn't register to web lb automatically. it has been patched to https://github.com/myminseok/pcf-pipelines-minseok pcf2.4-azure-minseok branch. 
+reference: https://github.com/myminseok/pcf-pipelines-minseok/commit/68f0b4fb5dc814541dbdacddaaa58906869a1b4f
+
 ~~~
+
 git clone https://github.com/pivotal-cf/pcf-pipelines
 cd ./pcf-pipelines
 git checkout v0.23.12
 git checkout -b pcf-2.4
 cd ./install-pcf/azure
+
+# patch the pipeline 
+https://github.com/myminseok/pcf-pipelines-minseok/commit/68f0b4fb5dc814541dbdacddaaa58906869a1b4f
+
+
 
 ## edit pipelines
 
