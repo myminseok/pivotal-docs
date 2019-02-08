@@ -12,7 +12,6 @@ r4.large: 20
 ```
 ## prepare contron-plane(concourse)
 - [bbl-aws](bbl.md)
-- [bbl-azure](bbl-azure.md)
 - [concourse-with-credhub](concourse-with-credhub.md)
 
 
