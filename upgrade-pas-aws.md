@@ -1,10 +1,22 @@
-## PAS 업그레이드 순서
+## PAS Major 업그레이드 순서
+PAS에서 Major업그레이드는 2.3.x -> 2.4.x로 업그레이드하는 것을 말.
 https://docs.pivotal.io/pivotalcf/2-3/upgrading/checklist.html#top
 
-1. 버전간 호환성 검사
+### 순서
+1. 버전간 호환성 검사 
+- https://docs.pivotal.io/resources/product-compatibility-matrix.pdf
 2. Ops Manager의 서비스 타일 업그레이드
-3. Ops Manager 업그레이드
-4. PAS 업그레이드
+- 중요: 서비스 타일내에서 업그레이드 순서를 반드시 지켜야합니다.: 예) PCC 1.4.1+ -> 1.5.1+ -> 1.6.1+
+3. Ops Manager에서 export settings
+- Ops manager UI> account > export settings
+4. Ops Manager 업그레이드
+- 새로운 opsman vm 생성: 예) 2.3.x -> 2.4.x
+5. export settings 입포트
+- 3에서 export한 setting을 새로운 opsman UI에서 import한 후 apply change.
+6. PAS upgrade
+- 2.3.x -> 2.4.x
+
+선택적으로 3,4,5,6는 concourse pipeline으로 자동화 가능한데, 다음은 그 파이프라인을 구성하는 방법을 설명합니다.
 
 ## PAS 업그레이드 파이프라인 구성
 1. Ops Manager 업그레이드 파이프라인
