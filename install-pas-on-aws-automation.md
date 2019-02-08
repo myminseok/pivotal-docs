@@ -10,6 +10,10 @@ c4.large: 20
 m4.large: 20
 r4.large: 20
 ```
+## prepare contron-plane(concourse)
+- [bbl-aws](bbl.md)
+- [bbl-azure](bbl-azure.md)
+- [concourse-with-credhub](concourse-with-credhub.md)
 
 
 ## (for production env) prepare a wildcard domain for PAS foundation.
