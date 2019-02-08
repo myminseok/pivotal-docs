@@ -1,5 +1,5 @@
 ## PAS Major 업그레이드 순서
-PAS에서 Major업그레이드는 2.3.x -> 2.4.x로 업그레이드하는 것을 말.
+PAS에서 Major업그레이드는 2.3.x -> 2.4.x로 업그레이드하는 것을 말합니다.
 https://docs.pivotal.io/pivotalcf/2-3/upgrading/checklist.html#top
 
 ### 순서
