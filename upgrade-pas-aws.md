@@ -16,11 +16,13 @@ https://docs.pivotal.io/pivotalcf/2-3/upgrading/checklist.html#top
 4. Ops Manager 업그레이드
 - 새로운 opsman vm 생성: 예) 2.3.x -> 2.4.x
 5. export settings 입포트
-- 3에서 export한 setting을 새로운 opsman UI에서 import한 후 apply change.
+- 위 3 에서 export한 setting을 새로운 opsman UI에서 import한 후 apply change.
+![image](https://github.com/myminseok/pivotal-docs/blob/master/upgrade-pas/newopsman-import-old-pas.png)
 6. PAS upgrade
 - 2.3.x -> 2.4.x
 
 선택적으로 3,4,5,6는 concourse pipeline으로 자동화 가능한데, 다음은 그 파이프라인을 구성하는 방법을 설명합니다.
+![image](https://github.com/myminseok/pivotal-docs/blob/master/upgrade-pas/concourse-pipeline-upgrade-opsman.png)
 
 ## PAS 업그레이드 파이프라인 구성
 1. Ops Manager 업그레이드 파이프라인
@@ -127,3 +129,6 @@ product_version_regex: ^2\.3\.[0-9]+$
 ```
 /workspace/pcf-pipelines/upgrade-tile$ fly -t concourse sp -p upgrade-pas -c pipeline.yml -l params.yml
 ```
+
+
+
