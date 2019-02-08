@@ -3,10 +3,14 @@ PAS에서 Major업그레이드는 2.3.x -> 2.4.x로 업그레이드하는 것을
 https://docs.pivotal.io/pivotalcf/2-3/upgrading/checklist.html#top
 
 ### 순서
+0. PCF 정합성 점검
+- opsman UI에서 apply change를 수행하여 VM수준에서 문제가 없어야함.
 1. 버전간 호환성 검사 
 - https://docs.pivotal.io/resources/product-compatibility-matrix.pdf
 2. Ops Manager의 서비스 타일 업그레이드
-- 중요: 서비스 타일내에서 업그레이드 순서를 반드시 지켜야합니다.: 예) PCC 1.4.1+ -> 1.5.1+ -> 1.6.1+
+- 서비스 타일내에서 업그레이드 순서를 반드시 지켜야합니다.: 예) PCC 1.4.1+ -> 1.5.1+ -> 1.6.1+
+- tile의 settings탭의 errand에서 upgrade instance옵션이  활성화합니다.
+- tile별로 하나씩 업그레이드하고 apply change를 합니다.(한꺼번에 여러 tile을 갱신하는 것은 관리상 좋지 않습니다.)
 3. Ops Manager에서 export settings
 - Ops manager UI> account > export settings
 4. Ops Manager 업그레이드
