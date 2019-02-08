@@ -9,6 +9,12 @@ VM Types to be used: F1s, F2s, F4s, DS11v2, DS12v2 VM count to 100 vms.
 allocate 1 TB of standard storage.
 ```
 
+## prepare contron-plane(concourse)
+- [bbl-azure](bbl-azure.md)
+- [concourse-with-credhub](concourse-with-credhub.md)
+
+
+
 ## prepare ssh-key for opsman
 
 username should be match with azure_vm_admin in 'params.yml' of pcf-pipelines
