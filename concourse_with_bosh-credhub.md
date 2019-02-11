@@ -5,6 +5,27 @@
 
 #### concourse v3.14.1.0 on aws 
 
+#### add credhub user to bosh uaa
+```
+3) create uaac client https://docs.cloudfoundry.org/uaa/uaa-user-management.html
+
+$ uaac target https://10.0.0.6:8443 --skip-ssl-validation
+$ uaac token client get uaa_admin -s <uaa password> => password는 bbl > vars/director_vars_store.yaml참조
+
+사용자 추가시 권한 참조: https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md#uaa-client-setup
+
+$ uaac client add concourse_to_credhub --authorities "credhub.read,credhub.write" --scope "" --authorized-grant-types "client_credentials"
+
+bosh credhub test
+jumpbox로 ssh 접속
+download credhub cli: https://github.com/cloudfoundry-incubator/credhub-cli/releases
+$ ./credhub api -s https://10.0.0.6:8844 --ca-cert ./credhub.ca --skip-tls-validation
+$ ./credhub login --client-name=concourse_to_credhub --client-secret=<credhub password>  => credhub인증정보는 bbl > vars/director_vars_store.yaml참조
+
+
+```
+
+#### deploy
 vi deploy.sh
 ~~~
 export concourse_elb=<concourse elb url>
