@@ -137,6 +137,7 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   --var local_user.password= 
 
 
+## external_url: for uaa(8443), credhub(8844) . starts with https:// 
 
 ./deploy-concourse.sh
 
