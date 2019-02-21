@@ -1,4 +1,15 @@
-## ssh into opsmanager VM
+
+## using cf ssh tunneling
+```
+https://docs.cloudfoundry.org/devguide/deploy-apps/ssh-services.html
+$ cf ssh -L <localport>:<remotedb>:3306 YOUR-HOST-APP
+$ mysql -u <username> -h 0 -p -D <database> -P <localport>
+```
+
+https://github.com/cloudfoundry-attic/vcap
+
+
+## ssh through bosh in opsmanager VM
 
 
 ## ssh into mysql VM in PAS2.3
