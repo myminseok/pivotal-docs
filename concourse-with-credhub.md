@@ -104,7 +104,7 @@ bosh upload-stemcell --sha1 c8b65794ca4c45773b6fe23b3d447dde520f07b0 \
 
 vi deploy-concourse.sh
 
-export concourse_elb=xxxx <-- put dns or ip only (no https://)
+export concourse_elb=xxxx <-- put domain name, no IP(it will not work with uaa login) (no https://)
 bosh deploy -n --no-redact -d concourse concourse.yml \
   -l ../versions.yml \
   --vars-store cluster-creds.yml \ <=== remove this to store into bosh credhub.
