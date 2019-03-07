@@ -184,3 +184,27 @@ ID: admin
 password: Ops Manager UI > Pivotal Application Service tile> credentials tab > UAA / admnin  Credentials 클릭하여 내용을 복사
 ```
 
+- 샘플애플리케이션 배포
+
+```
+cf login -a api.system.<PCF-DOMAIN> --skip-ssl-validation
+
+git clone https://github.com/myminseok/spring-music
+
+cd spring-music
+
+cf push -f manifest.yml
+
+cf apps
+
+name                 requested state   instances   memory   disk   urls
+spring-music         started           1/1         1G       1G     spring-music-chatty-ardvark.apps.xxxx.net
+```
+
+
+(선택적) bosh cloud-check에 deployment이름을 지정하여 VM상태 점검합니다. 
+bosh cloud-check 실행중에 VM이상이 발견되면 가이드에 따라 복구합니다. 가이드: https://bosh.io/docs/cck/ 를 참조합니다.
+```
+ubuntu@opsmanager-2-4:~$ bosh -d  cf-c8399c1d00f7742d47a1 cloud-check 
+Performing cloud check...
+```
