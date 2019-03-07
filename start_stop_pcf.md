@@ -208,3 +208,19 @@ bosh cloud-check 실행중에 VM이상이 발견되면 가이드에 따라 복�
 ubuntu@opsmanager-2-4:~$ bosh -d  cf-c8399c1d00f7742d47a1 cloud-check 
 Performing cloud check...
 ```
+
+## bosh resurrector plugin 상태
+
+bosh tasks이력에 'scan and fix' task가 있는지 확인합니다. (https://bosh.io/docs/resurrector/#audit)
+```
+bosh tasks -ar | grep scan
+
+```
+
+bosh resurrection state를 "on"으로 해줍니다.
+```
+bosh update-resurrection  on -d cf-c8399c1d00f7742d47a1
+Using environment '10.10.10.21' as client 'ops_manager'
+
+Succeeded
+```
