@@ -49,8 +49,10 @@ Succeeded
 
 
 ## PAS 중지 순서
-
-#### 0. PAS VM 정합성 점검
+#### 0. 장애 예방을 위해 정지 전에 [bbr](https://docs.pivotal.io/pivotalcf/2-4/customizing/backup-restore/backup-pcf-bbr.html)을 통해 백업을 해야합니다.
+#### 1. opsmanager vm에 ssh 접속
+#### 2. bosh director login
+#### 3. PAS VM 정합성 점검
 1. opsmanager vm에 ssh 접속
 2. bosh deployment 목록 추출.
 ```
@@ -114,15 +116,14 @@ No problems found
 
 ```
 
-#### 1. 분산 시스템 VM을 1개로 scale down
+#### 4. 분산 시스템 VM을 1개로 scale down
 1. Ops Manager UI > Pivotal Application Service tile> resource config tab 
 2. 분산 시스템 VM을 1개로 scale down
 - concul_server
 - mysql
 3. Ops Manager UI main page에서 'apply changes' 클릭.
 
-#### 2. 모든 PAS VM 중지.
-
+#### 5. 모든 PAS VM 중지.
 - bosh deployment 목록 추출.
 ```
 ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
@@ -138,9 +139,21 @@ bosh -d cf-c8399c1d00f7742d47a1 stop --hard
 
 ```
 
-## PAS 기동 순서
+#### 5. bosh director VM 중지
+- vcenter를 통해 중지.
 
-#### 1. PAS VM 기동 
+#### 6. ops manager VM 중지
+- vcenter를 통해 중지.
+
+
+## PAS 기동 순서
+#### 1. ops manager VM 시작
+- vcenter를 통해 시작.
+
+#### 2. bosh director VM 시작
+- vcenter를 통해 시작.
+
+#### 3. PAS VM 기동 
 1. bosh deployment 목록 추출.
 ```
 ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
@@ -163,7 +176,7 @@ BOSH resurrection이 개입하기 전에 vSphere HA가 VM을 재시작한 경우
 ubuntu@opsmanager-2-4:~$ bosh -d cf-c8399c1d00f7742d47a1 vms
 ```
 
-#### 2. PAS 점검
+#### 4. PAS 점검
 
 1. (테스트) bosh cloud-check에 deployment이름을 지정하여 VM상태 점검합니다. 
 bosh cloud-check 실행중에 VM이상이 발견되면 가이드에 따라 복구합니다. 가이드: https://bosh.io/docs/cck/ 를 참조합니다.
@@ -212,8 +225,7 @@ bosh tasks -ar | grep 'scan and fix'
 ```
 
 
-
-#### 3. 분산 시스템 VM을 scale up
+#### 5. 분산 시스템 VM을 scale up
 문제가 없다면 분산 시스템 VM을 scale up합니다.
 1. Ops Manager UI > Pivotal Application Service tile> resource config tab 
 2. 분산 시스템 VM을 원하는 갯수로 scale up
@@ -223,7 +235,7 @@ bosh tasks -ar | grep 'scan and fix'
 
 
 
-#### 4. app test
+#### 6. app 테스트
 -  (테스트) apps manager UI에 접속해봅니다.
 화면이 뜨고 로그인이 성공하면 정상적으로 PAS가 기동한 것입니다.
 ```
