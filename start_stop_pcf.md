@@ -1,5 +1,5 @@
 
-# PAS 중지/시작 방법
+# Pivotal Application Service 중지/시작 방법
 본 내용은 다음 문서를 요약합니다 
 - https://docs.pivotal.io/pivotalcf/2-4/adminguide/start-stop-vms.html
 
