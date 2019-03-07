@@ -105,24 +105,22 @@ bosh -d service-instance_2f16abef-a827-4e35-af6d-6b169b607eda stop --hard
 4. deployment별로 상태점검
 
 
-#### 2. PKS VM 기동 
+#### 1. PKS VM 기동 
 1. bosh deployment 목록 추출.
 ```
 ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
 
 ```
 2. 모든 vm 기동
+```
 bosh -d MY-DEPLOYMENT start
 
-```
 bosh -d service-instance_2f16abef-a827-4e35-af6d-6b169b607eda start
 
 ```
 
 3. PKS VM의 상태를 확인합니다. 
-bosh vms의 결과에서 vm의 상태가 "failing", "running"의 값이 번갈아 나오는 경우, VM이 재시작할 때 VM의 permission이 변경된 경우입니다. 
-BOSH resurrection이 개입하기 전에 vSphere HA가 VM을 재시작한 경우 또는 VM의 resurrection state가 "off"인 경우 제대로 동작하지 않습니다. 
-
+- bosh vms의 결과에서 vm의 상태가 "running"이어야합니다.
 ```
 ubuntu@opsmanager-2-4:~$ bosh -d service-instance_2f16abef-a827-4e35-af6d-6b169b607eda vms
 ```
@@ -132,7 +130,9 @@ ubuntu@opsmanager-2-4:~$ bosh -d service-instance_2f16abef-a827-4e35-af6d-6b169b
 - https://github.com/myminseok/pivotal-docs/blob/master/start_stop_pcf.md#2-pas-%EC%A0%90%EA%B2%80
 
 #### 3. PKS API에 접속하기
-Pks cli를 통해 PKS API서버에 접속하는 방법을 설명합니다. 아래의 내용은 https://docs.pivotal.io/runtimes/pks/1-2/configure-api.html  에 근거합니다. 
+Pks cli를 통해 PKS API서버에 접속하는 방법을 설명합니다. 
+- 아래의 내용은 https://docs.pivotal.io/runtimes/pks/1-2/configure-api.html  에 근거합니다. 
+
 1. PC 또는 Jumpbox VM에 접속.
 2. pks cli download
 - Pivnet의 Pivotal Container Service제품 경로에서 pks cli를  다운로드
@@ -154,7 +154,6 @@ pks login -a PKS-API-URL --username PKS-USER --password PASS --ca-cert CERTIFICA
 pks clusters
 
 ```
-
 #### 4. kubernetes cluster 상태확인
 1. PC 또는 Jumpbox VM에 접속.
 2. pks cli 설치
