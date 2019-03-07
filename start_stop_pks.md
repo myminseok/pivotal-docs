@@ -9,16 +9,8 @@ opsmanager, bosh director login등은 아래 문서를 참고하십시오.
 
 ## PKS 중지 순서
 
-1. opsmanager vm에 ssh 접속
-2. bosh deployment 목록 추출.
-3. deployment별로 상태점검
-4. deployment별로 중지를 합니다. 순서는 상관없습니다.
-- Kubernetes cluster
-- PKS
-- harbor
--  ...
-
-#### 0. PKS VM 정합성 점검
+#### 1. opsmanager vm에 ssh 접속
+#### 2. PKS VM 정합성 점검
 1. deployment 조회
 ```
 ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
@@ -77,6 +69,11 @@ No problems found
 ```
 
 4. VM 중지.
+deployment별로 중지를 합니다. 
+- Kubernetes cluster
+- harbor
+- PKS
+-  ...
 
 - bosh deployment 목록 추출.
 ```
@@ -91,19 +88,22 @@ bosh -d service-instance_2f16abef-a827-4e35-af6d-6b169b607eda stop --hard
 
 ```
 
+#### 3. bosh director VM 중지
+- vcenter를 통해 중지.
+
+#### 4. ops manager VM 중지
+- vcenter를 통해 중지.
+
+
+
 ## PKS 기동 순서
+#### 1. ops manager VM 시작
+- vcenter를 통해 시작.
 
-1. opsmanager vm에 ssh 접속
-2. bosh deployment 목록 추출.
-3. deployment별로 중지를 합니다. 
-- harbor
-- PKS
-- Kubernetes cluster
--  ...
-4. deployment별로 상태점검
+#### 2. bosh director VM 시작
+- vcenter를 통해 시작.
 
-
-#### 1. PKS VM 기동 
+#### 3. PKS VM 기동 
 1. bosh deployment 목록 추출.
 ```
 ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
@@ -117,17 +117,17 @@ bosh -d service-instance_2f16abef-a827-4e35-af6d-6b169b607eda start
 
 ```
 
-3. PKS VM의 상태를 확인합니다. 
+3. PKS VM의 상태를 확인
 - bosh vms의 결과에서 vm의 상태가 "running"이어야합니다.
 ```
 ubuntu@opsmanager-2-4:~$ bosh -d service-instance_2f16abef-a827-4e35-af6d-6b169b607eda vms
 ```
 
-#### 2. deployment bosh resurrector check
+4. deployment bosh resurrector check
 아래 내용을 참고합니다.
 - https://github.com/myminseok/pivotal-docs/blob/master/start_stop_pcf.md#2-pas-%EC%A0%90%EA%B2%80
 
-#### 3. PKS API에 접속하기
+#### 4. (테스트) PKS API에 접속하기
 Pks cli를 통해 PKS API서버에 접속하는 방법을 설명합니다. 
 - 아래의 내용은 https://docs.pivotal.io/runtimes/pks/1-2/configure-api.html  에 근거합니다. 
 
@@ -152,7 +152,13 @@ pks login -a PKS-API-URL --username PKS-USER --password PASS --ca-cert CERTIFICA
 pks clusters
 
 ```
-#### 4. kubernetes cluster 상태확인
+
+
+#### 4. harbor VM 기동 
+
+#### 5. kubernetes cluster 기동 
+
+#### 6. (테스트) kubernetes cluster 상태 확인
 1. PC 또는 Jumpbox VM에 접속.
 2. pks cli 설치
 3.  pks api 서버에 로그인.
