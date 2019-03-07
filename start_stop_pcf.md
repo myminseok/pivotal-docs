@@ -1,4 +1,11 @@
 
+# PAS 중지/시작 방법
+본 내용은 다음 문서를 요약합니다 
+- https://docs.pivotal.io/pivotalcf/2-4/adminguide/start-stop-vms.html
+
+## 기본 작업 
+다음 PCF 시스템을 다루기 위한 기본적인 작업에 대한 가이드입니다.
+
 ### Ops Manager VM에 ssh 접속하기
 ops manager에 ssh 접속하기 위한 private key를 확보 후 ssh 접속합니다.
 
@@ -40,22 +47,18 @@ Succeeded
 ```
 
 
-## PAS 중지/시작 방법
-본 내용은 다음 문서를 요약합니다 
-- https://docs.pivotal.io/pivotalcf/2-4/adminguide/start-stop-vms.html
 
-### 중지 순서
+## PAS 중지 순서
 
-#### 0. PCF VM 정합성 점검
-- opsmanager vm에 ssh 접속
-- bosh deployment 목록 추출.
+#### 0. PAS VM 정합성 점검
+1. opsmanager vm에 ssh 접속
+2. bosh deployment 목록 추출.
 ```
 ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
 cf-c8399c1d00f7742d47a1
 
 ```
-
-- PAS VM의 상태를 확인합니다. 
+3. PAS VM의 상태를 확인합니다. 
 bosh vms의 결과에서 vm의 상태가 "failing", "running"의 값이 번갈아 나오는 경우, VM이 재시작할 때 VM의 permission이 변경된 경우입니다. 
 BOSH resurrection이 개입하기 전에 vSphere HA가 VM을 재시작한 경우 또는 VM의 resurrection state가 "off"인 경우 제대로 동작하지 않습니다. 
 
@@ -70,26 +73,9 @@ Deployment 'cf-c8399c1d00f7742d47a1'
 Instance                                                            Process State  AZ   IPs           VM CID                                   VM Type      Active
 clock_global/bc941f92-6586-415f-9d84-801753590706                   running        az1  10.10.12.32   vm-06bfe656-8ef3-47a9-8ae8-1f9aedfc9f0b  medium.disk  true
 cloud_controller/2e560100-6cad-4f52-b231-c7a0a4e40879               running        az1  10.10.12.28   vm-5ed0bcf0-e61c-4c04-a5ff-7297f0be2f3a  medium.disk  true
-cloud_controller_worker/50185c81-111c-4501-bb5b-341f365528b6        running        az1  10.10.12.33   vm-fe6066ad-4537-4f98-a7b5-9e1cdb2cb202  micro        true
-consul_server/5be6e4da-9565-47f8-a422-ad8b913dfcd0                  running        az1  10.10.12.21   vm-ac7b948e-0329-4a8d-bea2-e0ec0d820554  micro        true
-diego_brain/0a8e998f-73d8-4def-9dd7-59e807f42a30                    running        az1  10.10.12.34   vm-caeae1f9-5faf-4769-942d-10085259b635  small        true
-diego_cell/49c828db-8e3e-4900-88bd-3cb0df62aac3                     running        az1  10.10.12.35   vm-7ffe340d-775b-43e1-a2b9-25d0e725779b  xlarge.disk  true
-diego_cell/4c976cec-a48b-4c91-be38-77f697e415ce                     running        az2  10.10.12.37   vm-cc50ba9a-b076-4529-9809-d27972277963  xlarge.disk  true
-diego_cell/d40c49a5-f0db-4923-9414-bc33d754aec5                     running        az1  10.10.12.50   vm-f265858a-a8d1-4ce9-a803-987daacc06f7  xlarge.disk  true
-diego_cell/ea62191b-e35c-4b51-903c-ee9a8cb79c23                     running        az1  10.10.12.36   vm-01ea950b-320f-4424-a749-c3c7725316e8  xlarge.disk  true
-diego_cell/ed084dc3-12d2-4036-b690-875233e11b07                     running        az2  10.10.12.51   vm-3f1c185f-7d7e-4efc-8612-3dff8898572e  xlarge.disk  true
-diego_database/68e53f50-60b9-4da8-9848-a8a23582d5ad                 running        az1  10.10.12.26   vm-5c29d4ea-c119-4234-ae28-5890e904616c  micro        true
-doppler/a656f4e8-67ce-4dff-8bbe-4b6c8ff2bab7                        running        az1  10.10.12.41   vm-d8b79926-f86d-4ff5-8eda-bb7dbff48167  medium.mem   true
-ha_proxy/10348fe2-c233-4403-871f-801f707eefac                       running        az1  10.10.12.100  vm-4d3acb40-78a4-4ab4-a1be-44b26d5822a3  micro        true
-loggregator_trafficcontroller/97e6f1e6-1c14-4063-8071-84b6a6ed9d06  running        az1  10.10.12.38   vm-8438e639-3027-459a-82e0-5bfde6a582c1  micro        true
-mysql/6c1bbe7d-bb6c-4bbd-a2fb-0f6829ffa097                          running        az1  10.10.12.25   vm-b670f4b5-87f2-4079-9531-53ddcc3415fd  large.disk   true
-mysql_monitor/a9592e33-2e1d-4def-8e57-8aba872539be                  running        az1  10.10.12.31   vm-a9020d56-ae89-4bd3-aea1-05117f1f9dd8  micro        true
-mysql_proxy/9087ea37-b938-4b84-bec6-524f0b6c81c6                    running        az1  10.10.12.24   vm-1ea5de0c-b6b2-4937-9e01-23fc567c192d  micro        true
-nats/ca73a2ae-02f3-4aad-a835-d1ce4d865f77                           running        az1  10.10.12.22   vm-5d16fdd6-3d87-4b73-a9f5-056b0a6cf187  micro        true
-nfs_server/b3bbeca0-a444-4065-a0cb-a72adca6029d                     running        az1  10.10.12.23   vm-4faf9598-ad94-432d-a9e9-e8a5fa1ee6e1  medium       true
-router/92db4a73-0c72-498d-9367-02aba9b0fd0e                         running        az1  10.10.12.29   vm-0ec49e2f-f2a4-4d3c-affb-4622f8915bf7  micro        true
-syslog_adapter/83403679-0f06-47a2-b7b0-5581e99808e8                 running        az1  10.10.12.39   vm-2eb42a84-2e51-4d54-9aab-0951aab183bc  micro        true
-syslog_scheduler/84d3aeb5-11cd-4afb-9d3d-fc71a520a628               running        az1  10.10.12.40   vm-f88a4dae-3c87-4571-acb7-a0f1ea800c7b  micro        true
+
+중략...
+
 uaa/41dbcc01-4115-4fe1-bdff-51fcf24aa8dd                            running        az1  10.10.12.27   vm-ee883bea-adf6-4ffd-8cae-55c2cbc98eed  medium.disk  true
 
 23 vms
@@ -97,7 +83,7 @@ uaa/41dbcc01-4115-4fe1-bdff-51fcf24aa8dd                            running     
 Succeeded
 ```
 
-bosh cloud-check에 deployment이름을 지정하여 VM상태 점검합니다. 
+4. bosh cloud-check에 deployment이름을 지정하여 VM상태 점검합니다. 
 bosh cloud-check 실행중에 VM이상이 발견되면 가이드에 따라 복구합니다. 가이드: https://bosh.io/docs/cck/ 를 참조합니다.
 ```
 ubuntu@opsmanager-2-4:~$ bosh -d  cf-c8399c1d00f7742d47a1 cloud-check 
@@ -152,14 +138,16 @@ bosh -d cf-c8399c1d00f7742d47a1 stop --hard
 
 ```
 
-### 시작 순서
-- bosh deployment 목록 추출.
+## PAS 기동 순서
+
+#### 1. PAS VM 기동 
+1. bosh deployment 목록 추출.
 ```
 ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
 cf-c8399c1d00f7742d47a1
 
 ```
-- 모든 vm 시작
+2. 모든 vm 기동
 bosh -d MY-DEPLOYMENT start
 
 ```
@@ -167,7 +155,7 @@ bosh -d cf-c8399c1d00f7742d47a1 start
 
 ```
 
-- PAS VM의 상태를 확인합니다. 
+3. PAS VM의 상태를 확인합니다. 
 bosh vms의 결과에서 vm의 상태가 "failing", "running"의 값이 번갈아 나오는 경우, VM이 재시작할 때 VM의 permission이 변경된 경우입니다. 
 BOSH resurrection이 개입하기 전에 vSphere HA가 VM을 재시작한 경우 또는 VM의 resurrection state가 "off"인 경우 제대로 동작하지 않습니다. 
 
@@ -175,7 +163,68 @@ BOSH resurrection이 개입하기 전에 vSphere HA가 VM을 재시작한 경우
 ubuntu@opsmanager-2-4:~$ bosh -d cf-c8399c1d00f7742d47a1 vms
 ```
 
-- apps manager UI에 접속해봅니다.
+#### 2. PAS 점검
+
+1. (테스트) bosh cloud-check에 deployment이름을 지정하여 VM상태 점검합니다. 
+bosh cloud-check 실행중에 VM이상이 발견되면 가이드에 따라 복구합니다. 가이드: https://bosh.io/docs/cck/ 를 참조합니다.
+```
+ubuntu@opsmanager-2-4:~$ bosh -d  cf-c8399c1d00f7742d47a1 cloud-check 
+Performing cloud check...
+```
+
+
+2. bosh resurrector  상태 점검
+- VM의 resurrection상태를 확인합니다. "Resurrection Paused" 컬럼이 false이면 활성화된 것입니다.
+```
+ubuntu@opsmanager-2-4:~$ bosh -d <DEPLOYMENT-ID> instances -i
+
+Deployment 'service-instance_8c134e2f-1694-4879-a7fd-29b993b9a7e0'
+
+Instance                                    Process State       AZ   IPs          State    VM CID                                   VM Type  Disk CIDs                                  Agent ID                              Index  Resurrection  Bootstrap  Ignore
+                                                                                                                                                                                                                                     Paused
+mysql/48a89f85-32f6-4ba0-90b0-d622b4d4c91c  unresponsive agent  az2  10.10.14.32  started  vm-84d1b5c9-a1ea-43e2-b64d-a10fb6fa7509  small    disk-82d9dace-e92c-439d-8e72-b14c25f5f3e6  ad58b043-617e-459d-b35a-d6f825c33941  0      false         true       false
+
+```
+만약 활성화되어있지 않다면 bosh resurrection state를 "on"으로 해줍니다.
+```
+bosh update-resurrection  on -d cf-c8399c1d00f7742d47a1
+Using environment '10.10.10.21' as client 'ops_manager'
+Succeeded
+
+```
+
+bosh tasks이력에 'scan and fix' task가 있는지 확인합니다. (https://bosh.io/docs/resurrector/#audit)
+- VM 수준에서 문제가 생기면 bosh resurrection이 작동하는 것을 확인할 수 있습니다. 
+- User: health_monitor, Deployment: scan and fix...
+```
+ubuntu@opsmanager-2-4:~$ bosh tasks
+
+ID      State       Started At                    Last Activity At              User            Deployment                                             Description   Result
+277594  processing  Thu Mar  7 06:40:42 UTC 2019  Thu Mar  7 06:40:42 UTC 2019  health_monitor  service-instance_8c134e2f-1694-4879-a7fd-29b993b9a7e0  scan and fix  -
+
+1 tasks
+
+```
+또는 task이력을 확인할 수 있습니다.
+```
+bosh tasks -ar | grep 'scan and fix'
+
+```
+
+
+
+#### 3. 분산 시스템 VM을 scale up
+문제가 없다면 분산 시스템 VM을 scale up합니다.
+1. Ops Manager UI > Pivotal Application Service tile> resource config tab 
+2. 분산 시스템 VM을 원하는 갯수로 scale up
+- concul_server
+- mysql
+3. Ops Manager UI main page에서 'apply changes' 클릭.
+
+
+
+#### 4. app test
+-  (테스트) apps manager UI에 접속해봅니다.
 화면이 뜨고 로그인이 성공하면 정상적으로 PAS가 기동한 것입니다.
 ```
 https://apps.system.<PAS-DOMAIN>
@@ -184,8 +233,7 @@ ID: admin
 password: Ops Manager UI > Pivotal Application Service tile> credentials tab > UAA / admnin  Credentials 클릭하여 내용을 복사
 ```
 
-- 샘플애플리케이션 배포
-
+- (테스트) 샘플애플리케이션 배포
 ```
 cf login -a api.system.<PCF-DOMAIN> --skip-ssl-validation
 
@@ -202,25 +250,3 @@ spring-music         started           1/1         1G       1G     spring-music-
 ```
 
 
-(선택적) bosh cloud-check에 deployment이름을 지정하여 VM상태 점검합니다. 
-bosh cloud-check 실행중에 VM이상이 발견되면 가이드에 따라 복구합니다. 가이드: https://bosh.io/docs/cck/ 를 참조합니다.
-```
-ubuntu@opsmanager-2-4:~$ bosh -d  cf-c8399c1d00f7742d47a1 cloud-check 
-Performing cloud check...
-```
-
-## bosh resurrector plugin 상태
-
-bosh tasks이력에 'scan and fix' task가 있는지 확인합니다. (https://bosh.io/docs/resurrector/#audit)
-```
-bosh tasks -ar | grep scan
-
-```
-
-bosh resurrection state를 "on"으로 해줍니다.
-```
-bosh update-resurrection  on -d cf-c8399c1d00f7742d47a1
-Using environment '10.10.10.21' as client 'ops_manager'
-
-Succeeded
-```
