@@ -27,9 +27,7 @@ service-instance_2f16abef-a827-4e35-af6d-6b169b607eda
 service-instance_8c134e2f-1694-4879-a7fd-29b993b9a7e0
 
 ```
-2. Kubernetes cluster, PKS, harbor 클러스터의 VM 상태를 확인합니다. 
-bosh vms의 결과에서 vm의 상태가 "failing", "running"의 값이 번갈아 나오는 경우, VM이 재시작할 때 VM의 permission이 변경된 경우입니다. 
-BOSH resurrection이 개입하기 전에 vSphere HA가 VM을 재시작한 경우 또는 VM의 resurrection state가 "off"인 경우 제대로 동작하지 않습니다. 
+2. Kubernetes cluster, PKS, harbor 클러스터의 VM 상태가 running 확인합니다. 
 
 ```
 ubuntu@opsmanager-2-4:~$ bosh -d pivotal-container-service-182dfebc12215814ec6d vms
