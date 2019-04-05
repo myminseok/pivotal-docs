@@ -7,7 +7,7 @@ Pivotal Cloud Foundry Documentation
 
 # Jumpbox
 - [Setting up jumpbox](setup-bbl-sandbox.md)
-- [deploy bosh](deploy-bosh.md)
+- [bosh-deploy(create-env)](bosh-deploy.md)
 - [bbl-aws](bbl.md)
 - [bbl-azure](bbl-azure.md)
 
