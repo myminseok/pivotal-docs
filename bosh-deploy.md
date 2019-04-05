@@ -1,5 +1,6 @@
 ## 사전 준비
 - [Setting up jumpbox](setup-bbl-sandbox.md)
+- https://github.com/cloudfoundry/bosh-deployment
 
 ## bosh-deployment clone
 ```
