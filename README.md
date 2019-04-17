@@ -12,6 +12,7 @@ Pivotal Cloud Foundry Documentation
 - [bbl-azure](bbl-azure.md)
 
 # Control-plane
+- [concourse](concourse.md)
 - [concourse-with-credhub](concourse-with-credhub.md)
 - [concourse external worker](concourse-external-worker.md)
 
