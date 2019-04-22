@@ -70,12 +70,9 @@ tions/credhub.yml
 /workspace/dojo-concourse-bosh-deployment/cluster$ bosh cloud-config > bosh-cloud-config.yml
 vi bosh-cloud-config.yml
 
-vm_types:
+vm_extensions:
 - cloud_properties:
-    ephemeral_disk:
-      size: 102400
-      type: gp2
-    instance_type: m4.large
+    disk: 102400
   name: 100GB_ephemeral_disk
 
 -  ~/workspace/dojo-concourse-bosh-deployment/cluster$ bosh update-cloud-config ./bosh-cloud-config.yml
