@@ -126,3 +126,11 @@ fly -t demo sp -p install-opsman -c install-opsman.yml -l ./install-opsman-param
 
 ```
 
+
+
+# install PAS
+
+## get cf.yml
+- staged-config
+- tile-config-generator: https://github.com/pivotalservices/tile-config-generator
+
