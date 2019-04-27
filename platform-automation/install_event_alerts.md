@@ -1,10 +1,10 @@
 
-# Install Event alert && setup alerts 
+# Install and setup Event alert
 
 # Ref
 https://docs.pivotal.io/event-alerts/1-2/index.html
 
-## install 
+## Install 
 - https://docs.pivotal.io/event-alerts/1-2/installing.html#install
 
 ### Prerequisites
@@ -15,9 +15,9 @@ https://docs.pivotal.io/event-alerts/1-2/installing.html#prereqs
 - webook (optional)
 - slack (optional)
 
-# after installation
+# After installation
 
-### install cf plugin
+### Install cf plugin
 - https://docs.pivotal.io/event-alerts/1-2/installing.html#plugin
 ```
 
@@ -92,7 +92,7 @@ healthwatch    system.disk.system.percent       VM Disk Used
 healthwatch    system.healthy                   VM Health Check
 ```
 
-### subscribing specific topics to email.
+### Subscribing specific topics to email.
 
 ```
 
