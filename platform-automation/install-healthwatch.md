@@ -1,12 +1,12 @@
 
-# Install Healthwatch && setup alerts 
+# Install and setup Healthwatch
 
 # Ref
 - https://docs.pivotal.io/pcf-healthwatch/1-5/index.html
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
 
 
-## config
+## Config
 - docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
 - sample: https://github.com/myminseok/platform-automation-configuration-template
 ```
@@ -41,7 +41,7 @@ or use tile-config-generator to get cf.yml template(template only)
 
 
 
-#### configure healthwatch tile before running 'staged-healthwatch-config'
+#### Configure healthwatch tile before running 'staged-healthwatch-config'
 
 #####  Healthwatch Component Config
 - Redis Worker Count, Ingestor Count: Set to a ratio of one Ingestor for every three Doppler Server instances configured in the PAS tile. If the data being displayed in the PCF Healthwatch UI is regularly delayed by more than one-minute, scale up the number of instances.
@@ -76,10 +76,9 @@ Context: admin, from client login
 6) set the created client and password to UAA Client Name and secret for BOSH Task Check in BOSH Deployment Checker.
 ```
 
-# after installation
+# After installation
 
-
-## healthwatch dashboard
+## Healthwatch dashboard
 
 ```
 https://healthwatch.PAS-SYSTEM-DOMAIN
@@ -87,18 +86,18 @@ https://healthwatch.PAS-SYSTEM-DOMAIN
 => id/pass: opsman UI> PAS tile > credentials tab> UAA >  admin credentials
 ```
 
-#### monitoring healthwatch itself
+#### Monitoring healthwatch itself
 https://docs.pivotal.io/pcf-healthwatch/1-5/monitoring.html#key-performance-indicators-for-pcf-healthwatch
 
-#### monitoring PAS performance 
+#### Monitoring PAS performance 
 https://docs.pivotal.io/pcf-healthwatch/1-5/monitoring.html#service-level-indicators-for-pcf-healthwatch
 
 
 
-## healthwatch alert configurations
+## Healthwatch alert configurations
 - https://docs.pivotal.io/pcf-healthwatch/1-5/api/alerts.html
 
-#### create healthwatch admin user in PAS uaa.
+#### Create healthwatch admin user in PAS uaa.
 - guide: https://docs.pivotal.io/pcf-healthwatch/1-5/api/alerts.html#prerequisites
 
 ```
@@ -129,7 +128,7 @@ RESPONSE BODY:
 HAPI is happy
 ```
 
-#### configure alerts rule
+#### Configure alerts rule
 
 ```
 1) login to uaac envirionment: ssh into opsmanager VM.
@@ -162,7 +161,6 @@ RESPONSE HEADERS:
 } ]
 
 
-
 5) alter specific alert configuration:
 
 uaac curl -k -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations" -H "Content-Type: application/json"  --data "{\"query\" : \"origin == 'healthwatch' and name == 'Diego.AvailableFreeChunksDisk'\",    \"threshold\" : {      \"critical\" : 20.0,      \"warning\" : 30.0,     \"type\" : \"LOWER\"  }}"
@@ -170,8 +168,6 @@ uaac curl -k -X POST "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurati
 
 6) alter other configurations: 
 uaac curl -k "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=origin == 'healthwatch' and name == ‘Diego.AvailableFreeChunks'"
-
-
 
 ```
 
