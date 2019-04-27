@@ -125,12 +125,3 @@ credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_
 fly -t demo sp -p install-opsman -c install-opsman.yml -l ./install-opsman-params.yml
 
 ```
-
-
-
-# install PAS
-
-## get cf.yml
-- staged-config
-- tile-config-generator: https://github.com/pivotalservices/tile-config-generator
-
