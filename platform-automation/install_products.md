@@ -1,11 +1,11 @@
 
-# install PAS
+# Install PAS
 
-# ref
+# Ref
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
 
 
-## config
+## Config
 - docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
 - sample: https://github.com/myminseok/platform-automation-configuration-template
 ```
