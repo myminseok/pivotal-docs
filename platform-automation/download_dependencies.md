@@ -1,9 +1,9 @@
-# ref
+## Ref
 - http://docs.pivotal.io/platform-automation/v2.1/index.html
 
 
 
-## config
+## Config
 
 - docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html#download-product-config
 
@@ -58,7 +58,7 @@ stemcell-iaas: vsphere
 ```
 
 
-## pipeline
+## Pipeline
 - docs: http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#retrieving-external-dependencies
 
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
@@ -69,7 +69,7 @@ fly -t demo sp -p download-product -c download-product.yml -l ./download-product
 ```
 
 
-##  s3 
+##  S3 
 
 ```
 |-- pivnet-products
