@@ -1,7 +1,7 @@
-# ref
+## Ref
 - http://docs.pivotal.io/platform-automation/v2.1/index.html
 
-## prepare s3
+## Prepare s3
 
 ```
 -- platform-automation
@@ -10,7 +10,7 @@
 
 ```
 
-## pipeline
+## Pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
 ```
 fly -t demo sp -p test-resources -c test-resources.yml -l ./test-resources-params.yml
