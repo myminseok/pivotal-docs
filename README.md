@@ -24,5 +24,11 @@ Pivotal Cloud Foundry Documentation
 - [PAS with concourse on Azure](install-pas-on-azure-automation.md)
 - [bind users in concourse with PAS](concourse_with_cf_auth.md)
 
+# upgrade
+- [upgrade pas](upgrade-pas-aws.md)
 
-https://guides.github.com/features/mastering-markdown/
+# backup & recovery
+- [backup](bbr.md)
+
+# tips
+- https://guides.github.com/features/mastering-markdown/
