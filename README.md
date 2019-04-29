@@ -16,19 +16,26 @@ Pivotal Cloud Foundry Documentation
 - [concourse](concourse.md)
 - [concourse-with-credhub](concourse-with-credhub.md)
 - [concourse external worker](concourse-external-worker.md)
-
-# PAS
-
-- [PAS-installing manually](install-pas-on-aws.md)
-- [PAS with concourse on AWS](install-pas-on-aws-automation.md)
-- [PAS with concourse on Azure](install-pas-on-azure-automation.md)
 - [bind users in concourse with PAS](concourse_with_cf_auth.md)
 
-# upgrade
+# Installation
+- [PAS-installing manually](install-pas-on-aws.md)
+- [download resources (vsphere)](platform-automation/download_dependencies.md)
+- [test_resources(vsphere)](platform-automation/test-resource.md)
+- [install ops manager(vsphere)](platform-automation/install_opsman.md)
+- [install products_cf(vsphere)](platform-automation/install_products.md)
+- [install healthwatch(vsphere)](platform-automation/install-healthwatch.md)
+- [install eventalerts(vsphere)](platform-automation/install_event_alerts.md)
+
+## Upgrade
 - [upgrade pas](upgrade-pas-aws.md)
 
-# backup & recovery
+## Backup
 - [backup](bbr.md)
+
+## legacy
+- [PAS with concourse on AWS](install-pas-on-aws-automation.md)
+- [PAS with concourse on Azure](install-pas-on-azure-automation.md)
 
 # tips
 - https://guides.github.com/features/mastering-markdown/
