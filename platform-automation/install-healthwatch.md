@@ -76,6 +76,15 @@ Context: admin, from client login
 6) set the created client and password to UAA Client Name and secret for BOSH Task Check in BOSH Deployment Checker.
 ```
 
+
+## Adding using pipeline(automation)
+use docker image : pcfnorm/rootfs for uaac
+
+
+
+
+
+
 # After installation
 
 ## Healthwatch dashboard
@@ -84,6 +93,7 @@ Context: admin, from client login
 https://healthwatch.PAS-SYSTEM-DOMAIN
 
 => id/pass: opsman UI> PAS tile > credentials tab> UAA >  admin credentials
+
 ```
 
 #### Monitoring healthwatch itself
