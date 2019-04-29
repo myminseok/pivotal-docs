@@ -28,6 +28,7 @@ Pivotal Cloud Foundry Documentation
 - [install products_cf(vsphere)](platform-automation/install_products.md)
 - [install healthwatch(vsphere)](platform-automation/install-healthwatch.md)
 - [install eventalerts(vsphere)](platform-automation/install_event_alerts.md)
+- [bosh-addon](bosh-add-on.md)
 
 ## Upgrade
 - [upgrade pas](upgrade-pas-aws.md)
