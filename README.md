@@ -31,7 +31,7 @@ Pivotal Cloud Foundry Documentation
 - [upgrade pas](upgrade-pas-aws.md)
 
 ## Backup
-- [backup](bbr.md)
+- [backup](backup-recovery.md)
 
 ## legacy
 - [PAS with concourse on AWS](install-pas-on-aws-automation.md)
