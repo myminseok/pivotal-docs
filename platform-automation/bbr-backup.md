@@ -114,6 +114,7 @@ credhub set -t value -n /concourse/dev-1/decryption-passphrase -v <YOUR_PASSWORD
 credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_IP
 
 
+===================================================================================
 
 credhub set -t rsa -n /concourse/dev-1/director-bbr-private-key -p ./bosh-bbr.key
 
