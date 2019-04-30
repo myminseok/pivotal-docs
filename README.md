@@ -35,7 +35,7 @@ Pivotal Cloud Foundry Documentation
 
 ## Backup
 - [backup](backup-recovery.md)
-
+- [backup-platform-automation](platform-automation/bbr-backup.md)
 ## legacy
 - [PAS with concourse on AWS](install-pas-on-aws-automation.md)
 - [PAS with concourse on Azure](install-pas-on-azure-automation.md)
