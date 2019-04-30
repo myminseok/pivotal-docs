@@ -68,6 +68,16 @@ or use tile-config-generator to get cf.yml template(template only)
 
 ## pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
+```
+├── download-product-params.yml
+├── download-product.sh
+├── download-product.yml
+├── install-opsman-params.yml
+├── install-opsman.yml
+├── install-products-params.yml
+├── install-products.sh
+├── install-products.yml
+```
 
 ### install-products-params.yml
 ```
