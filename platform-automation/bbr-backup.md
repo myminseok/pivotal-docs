@@ -90,8 +90,35 @@ pivnet:
 ###  register secret to concourse credhub.
 1. get director bbr ssh key: opsman UI> director> credentials> bbr_ssh_key
 1. set to concourse credhub:  
+
 ```
+credhub set -t value -n /concourse/main/s3_access_key_id -v <S3_ACCESS_KEY>
+credhub set -t value -n /concourse/main/s3_secret_access_key -v "<S3_SECRET>"
+credhub set -t value -n /concourse/main/pivnet_token -v <YOUR_PIVNET_TOKEN>
+
+credhub set -t value -n /concourse/main/git_user_email -v <GIT_USER_EMAIL>
+credhub set -t value -n /concourse/main/git_user_username -v <GIT_USER_NAME>
+
+# register ssh key for git. ex) ~/.ssh/id_rsa
+credhub set -t rsa  -n /concourse/main/git_private_key  -p ~/.ssh/id_rsa 
+ 
+cd concourse-bosh-deployment/cluster
+bosh int ./concourse-creds.yml --path /atc_tls/certificate > atc_tls.cert
+credhub set -t certificate -n /concourse/main/credhub_ca_cert -c ./atc_tls.cert
+
+grep concourse_to_credhub ./concourse-creds.yml
+credhub set -t user -n /concourse/main/credhub_client -z concourse_to_credhub -w <concourse_to_credhub>
+
+credhub set -t user  -n /concourse/dev-1/opsman_admin -z admin -w <YOUR_PASSWORD>
+credhub set -t value -n /concourse/dev-1/decryption-passphrase -v <YOUR_PASSWORD>
+credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_IP
+
+
+
 credhub set -t rsa -n /concourse/dev-1/director-bbr-private-key -p ./bosh-bbr.key
+
+
+
 ```
 
 ## run pipeline
