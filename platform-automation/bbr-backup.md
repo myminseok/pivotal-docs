@@ -20,6 +20,7 @@ platform-automation-configuration-template
 ```
 
 ### env.yml
+- to get BOSH_ENVIRONMENT from ops manager for bbr cli.
 - http://docs.pivotal.io/platform-automation/v2.1/configuration-management/configure-env.html
 ```
 ---
@@ -33,6 +34,7 @@ decryption-passphrase: ((decryption-passphrase))
 ```
 
 ### director-bbr-private-key.yml:  
+for bbr cli.
 ```
 ((director-bbr-private-key))
 ```
