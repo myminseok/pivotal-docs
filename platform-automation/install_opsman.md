@@ -44,6 +44,10 @@ decryption-passphrase: ((decryption-passphrase))
 
 ## pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
+```
+├── install-opsman-params.yml
+├── install-opsman.yml
+```
 
 ### install-opsman-params.yml
 ```
