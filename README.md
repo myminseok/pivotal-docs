@@ -34,7 +34,7 @@ Pivotal Cloud Foundry Documentation
 - [upgrade pas](upgrade-pas-aws.md)
 
 ## Backup
-- [backup](backup-recovery.md)
+- [backup-manual](backup-recovery.md)
 - [backup director- platform-automation](platform-automation/bbr-backup.md)
 - [backup PAS- platform-automation](platform-automation/bbr-backup-pas.md)
 ## legacy
