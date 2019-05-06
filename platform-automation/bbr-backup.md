@@ -1,4 +1,4 @@
-# backup director & restore
+# Backup director & restore
 
 ## Ref
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
