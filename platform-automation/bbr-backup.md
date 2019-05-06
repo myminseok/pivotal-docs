@@ -1,8 +1,7 @@
 ## Ref
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
 - https://github.com/pivotal-cf/bbr-pcf-pipeline-tasks/blob/master/tasks/bbr-backup-director/
-- https://github.com/myminseok/platform-automation-pipelines-template
-- https://github.com/myminseok/platform-automation-configuration-template
+
 
 ## Config
 - docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
@@ -13,7 +12,6 @@ platform-automation-configuration-template
     ├── config
     ├── download-product-configs
     ├── env
-            director-bbr-private-key.yml
     │   └── env.yml
     ├── generated-config
     ├── state
@@ -33,12 +31,6 @@ skip-ssl-validation: true           # default false
 username: ((opsman_admin.username))
 password: ((opsman_admin.password))
 decryption-passphrase: ((decryption-passphrase))
-```
-
-### director-bbr-private-key.yml:  
-for bbr cli.
-```
-((director-bbr-private-key))
 ```
 
 
@@ -89,7 +81,7 @@ credhub:
   ca_cert: ((credhub_ca_cert.certificate))
   client: ((credhub_client.username))
   secret: ((credhub_client.password))
-  interpolate_folders: dev-1/config dev-1/env
+  interpolate_folders: dev-1/env
 
 pivnet: 
   token: ((pivnet_token))
@@ -121,12 +113,6 @@ credhub set -t user -n /concourse/main/credhub_client -z concourse_to_credhub -w
 credhub set -t user  -n /concourse/dev-1/opsman_admin -z admin -w <YOUR_PASSWORD>
 credhub set -t value -n /concourse/dev-1/decryption-passphrase -v <YOUR_PASSWORD>
 credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_IP
-
-
-===================================================================================
-
-credhub set -t rsa -n /concourse/dev-1/director-bbr-private-key -p ./bosh-bbr.key
-
 
 
 ```
