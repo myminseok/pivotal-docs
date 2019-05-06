@@ -140,7 +140,7 @@ https:///s3.pcfdemo.net/bbr-pcfdemo/bbr-backup-director-20190430.1319.11+UTC.tgz
 
 ```
 
-# restore
+# Restore director (manual)
 https://docs.pivotal.io/pivotalcf/2-5/customizing/backup-restore/restore-pcf-bbr.html#bosh-only-deploy
 
 ## deply empty director 
