@@ -123,8 +123,51 @@ credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_
 ```
 fly -t demo sp -p bbr-backup -c bbr-backup.yml -l ./bbr-backup-params.yml
 ```
+### backup in pipeline
+```
+## root@4390d837-fe20-412d-6a5a-2368d07e1532:/tmp/build/7caceab2/backup-tmp/10.10.10.21_20190505T151750Z# ls -alh
 
+# total 44G
+# 17M bosh-0-bbr-credhubdb.tar
+# 44G bosh-0-blobstore.tar
+# 9.5M bosh-0-director.tar
+# 202K metadata
+
+```
 ### backup in s3
 ```
 https:///s3.pcfdemo.net/bbr-pcfdemo/bbr-backup-director-20190430.1319.11+UTC.tgz
+
 ```
+
+# restore
+https://docs.pivotal.io/pivotalcf/2-5/customizing/backup-restore/restore-pcf-bbr.html#bosh-only-deploy
+
+## deply empty director 
+
+## restore director
+```
+bbr director \
+--host HOST \
+--username bbr \
+--private-key-path BBR-PRIVATE-KEY-FILE \
+restore \
+--artifact-path PATH-TO-DIRECTOR-BACKUP
+
+```
+
+## restore director cleanup
+```
+bbr director \
+--host HOST \
+--username bbr \
+--private-key-path BBR-PRIVATE-KEY-FILE \
+restore-cleanup
+```
+
+## check bosh director
+```
+bosh deployments
+
+```
+
