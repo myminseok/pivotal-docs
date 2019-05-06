@@ -155,7 +155,18 @@ https://docs.pivotal.io/pivotalcf/2-5/customizing/backup-restore/restore-pcf-bbr
 https://content.pivotal.io/blog/tutorial-automating-ert-backups-with-bbr-and-concourse
 
 ## get bosh env.
-om --env ./config/$ENV_FILE bosh-env > bosh-env.sh
+opsman-env.yml
+```
+target: https://myopsman.domain
+connect-timeout: 30                 # default 5
+request-timeout: 3600               # default 1800
+skip-ssl-validation: true           # default false
+username: admin
+password: PASSWORD
+decryption-passphrase: PASSWORD
+
+```
+om --env ./opsman-env.yml  bosh-env > bosh-env.sh
 source ./bosh-env.sh
 
 
