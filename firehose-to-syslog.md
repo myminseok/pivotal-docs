@@ -17,6 +17,8 @@ https://docs.cloudfoundry.org/loggregator/cli-plugin.html#add
 ```
 $ cf add-plugin-repo CF-Community https://plugins.cloudfoundry.org
 $ cf install-plugin -r CF-Community "Firehose Plugin"
+$ cf nozzle
+
 What type of firehose messages do you want to see?
 
 Please enter one of the following choices:
