@@ -1,27 +1,47 @@
 ## PAS Major 업그레이드 순서
 PAS에서 Major업그레이드는 2.3.x -> 2.4.x로 업그레이드하는 것을 말합니다.
-https://docs.pivotal.io/pivotalcf/2-3/upgrading/checklist.html#top
+https://docs.pivotal.io/pivotalcf/2-5/customizing/upgrading-pcf.html#prepare
 
-### 순서
-0. PCF 정합성 점검
-- opsman UI에서 apply change를 수행하여 VM수준에서 문제가 없어야함.
-1. 버전간 호환성 검사 
+### 사전점검
+https://docs.pivotal.io/pivotalcf/2-3/upgrading/checklist.html
+
+1. Platform 정합성 점검 
+- opsman UI
+- bosh instances
+- bosh cck
+1. PCF 백업
+- opsman export
+- bbr director
+- bbr PAS
+1. 릴리즈 노트 확인
+1. Tile 호환성 확인 & 업그레이드
 - https://docs.pivotal.io/resources/product-compatibility-matrix.pdf
-2. Ops Manager의 서비스 타일 업그레이드
 - 서비스 타일내에서 업그레이드 순서를 반드시 지켜야합니다.: 예) PCC 1.4.1+ -> 1.5.1+ -> 1.6.1+
 - tile의 settings탭의 errand에서 upgrade instance옵션이  활성화합니다.
 - tile별로 하나씩 업그레이드하고 apply change를 합니다.(한꺼번에 여러 tile을 갱신하는 것은 관리상 좋지 않습니다.)
-3. Ops Manager에서 export settings
-- Ops manager UI> account > export settings
-4. Ops Manager 업그레이드
+1. PCF 백업
+- opsman export
+- bbr director
+- bbr PAS
+1. 플랫폼 용량점검
+- cell VM
+- bosh clean-up 
+1. Ops Manager 업그레이드
+- 기존 opsman shutdown
 - 새로운 opsman vm 생성: 예) 2.3.x -> 2.4.x
-5. export settings 입포트
-- 위 3 에서 export한 setting을 새로운 opsman UI에서 import한 후 apply change.
+1. opsmanager settings 임포트 & apply change
 ![image](https://github.com/myminseok/pivotal-docs/blob/master/upgrade-pas/newopsman-import-old-pas.png)
-6. PAS upgrade
+1. Platform 정합성 점검 
+- opsman UI
+- bosh instances
+- bosh cck
+- PAS DB
+1. PCF 백업
+- opsman export
+1. PAS upgrade
 - 2.3.x -> 2.4.x
 
-선택적으로 3,4,5,6는 concourse pipeline으로 자동화 가능한데, 다음은 그 파이프라인을 구성하는 방법을 설명합니다.
+파이프라인을 구성하는 방법을 설명합니다.
 ![image](https://github.com/myminseok/pivotal-docs/blob/master/upgrade-pas/concourse-pipeline-upgrade-opsman.png)
 
 ## PAS 업그레이드 파이프라인 구성
