@@ -9,39 +9,44 @@ https://docs.pivotal.io/pivotalcf/2-3/upgrading/checklist.html
 - opsman UI
 - bosh instances
 - bosh cck
-1. PCF 백업
+2. PCF 백업
 - opsman export
 - bbr director
 - bbr PAS
-1. 릴리즈 노트 확인
-1. Tile 호환성 확인 & 업그레이드
+3. 릴리즈 노트 확인
+4. Tile 호환성 확인 & 업그레이드
 - https://docs.pivotal.io/resources/product-compatibility-matrix.pdf
 - 서비스 타일내에서 업그레이드 순서를 반드시 지켜야합니다.: 예) PCC 1.4.1+ -> 1.5.1+ -> 1.6.1+
 - tile의 settings탭의 errand에서 upgrade instance옵션이  활성화합니다.
 - tile별로 하나씩 업그레이드하고 apply change를 합니다.(한꺼번에 여러 tile을 갱신하는 것은 관리상 좋지 않습니다.)
-1. PCF 백업
+5. PCF 백업
 - opsman export
 - bbr director
 - bbr PAS
-1. 플랫폼 용량점검
+6. 플랫폼 용량점검
 - cell VM
 - bosh clean-up 
-1. Ops Manager 업그레이드
+7. Ops Manager 업그레이드
 - 기존 opsman shutdown
 - 새로운 opsman vm 생성: 예) 2.3.x -> 2.4.x
-1. opsmanager settings 임포트 & apply change
-![image](https://github.com/myminseok/pivotal-docs/blob/master/upgrade-pas/newopsman-import-old-pas.png)
-1. Platform 정합성 점검 
+8. opsmanager settings 임포트 & apply change
+9. Platform 정합성 점검 
 - opsman UI
 - bosh instances
 - bosh cck
 - PAS DB
-1. PCF 백업
+10. PCF 백업
 - opsman export
-1. PAS upgrade
+11. PAS upgrade
 - 2.3.x -> 2.4.x
+12. bosh clean-up 
+13. PCF 백업
+- opsman export
+- bbr director
+- bbr PAS
 
 파이프라인을 구성하는 방법을 설명합니다.
+![image](https://github.com/myminseok/pivotal-docs/blob/master/upgrade-pas/newopsman-import-old-pas.png)
 ![image](https://github.com/myminseok/pivotal-docs/blob/master/upgrade-pas/concourse-pipeline-upgrade-opsman.png)
 
 ## PAS 업그레이드 파이프라인 구성
