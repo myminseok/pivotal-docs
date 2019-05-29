@@ -100,7 +100,7 @@ docker tag ubuntu harbor.local/dojo/ubuntu
 https://docs.docker.com/registry/insecure/
 cat /etc/docker/daemon.json 
 {
-  "insecure-registries" : ["harbor.local"]
+  "insecure-registries" : ["harbor.my.local"]
 }
 
 
@@ -109,11 +109,11 @@ vi /etc/hosts
 
 systemctl restart docker.service
 
-docker login harbor.local -u admin  -p xxxx
+docker login harbor.my.local -u admin  -p xxxx
 
-docker push harbor.local/dojo/ubuntu
+docker push harbor.my.local/dojo/ubuntu
 
-docker pull harbor.local/dojo/ubuntu
+docker pull harbor.my.local/dojo/ubuntu
 docker images
 
 ```
