@@ -29,18 +29,17 @@ platform-automation-configuration-template
 ### cf.yml
 how to make cf.yml
 ```
-1) stage PAS on opsmanager.
-2) configure the PAS via opsmanager UI
+1) stage and configure PAS tile via opsmanager UI
 
-3) 'staged-pas-config' in concourse pipeline:  
+2) run 'extract-staged-pas-config' in concourse pipeline:  
   - set SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true
-4) run 'staged-pas-config' in concourse pipeline( 'om staged-config') 
-5) see generated-config/cf.yml in configuration git project 
-6) you need to replace PLACEHOLDERS:
-  - put your password
-  - replace with "" for empty value
-  - for certificate, put as following, be careful of indentation:
-
+  
+3) configure config/cf.yml 
+  - use generated-config/cf.yml in configuration git project as template
+  - set PLACEHOLDER to concourse credhub.
+  - see generated-config/cf-credhub.md
+  
+  
   .properties.networking_poe_ssl_certs:
     value:
     - certificate:
