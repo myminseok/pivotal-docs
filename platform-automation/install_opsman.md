@@ -49,7 +49,7 @@ decryption-passphrase: ((decryption-passphrase))
 ├── install-opsman.yml
 ```
 
-### install-opsman-params.yml
+### params.yml
 ```
 
 foundation: dev-1
@@ -126,6 +126,7 @@ credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_
 ## run pipeline
 
 ```
-fly -t demo sp -p install-opsman -c install-opsman.yml -l ./install-opsman-params.yml
+fly -t demo sp -p opsman -c opsman.yml -l ./params-common.yml -l ./opsman-params.yml
+
 
 ```
