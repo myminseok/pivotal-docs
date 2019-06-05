@@ -30,16 +30,21 @@ platform-automation-configuration-template
 how to make cf.yml
 ```
 1) stage and configure PAS tile via opsmanager UI
-
+  - to get domain self-signed certifiate:
+   1. generate certs from opsmanager UI> PAS> networking
+   2. copy certifiate to "domain.crt" file
+   3. copy private key to "domain.key" file.
+   
 2) run 'extract-staged-pas-config' in concourse pipeline:  
   - set SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true
   
 3) configure config/cf.yml 
   - use generated-config/cf.yml in configuration git project as template
   - set PLACEHOLDER to concourse credhub.
+  - use domain.crt and domain.key file in previous steps.
   - see generated-config/cf-credhub.md
   
-  
+
   .properties.networking_poe_ssl_certs:
     value:
     - certificate:
