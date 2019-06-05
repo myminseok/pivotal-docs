@@ -171,7 +171,8 @@ credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_
 ## run pipeline
 
 ```
-fly -t demo sp -p install-products -c install-products.yml -l ./install-products-params.yml
+fly -t demo sp -p pas -c ./pas.yml -l ./params-common.yml -l ./pas-params.yml
+
 
 ```
 
