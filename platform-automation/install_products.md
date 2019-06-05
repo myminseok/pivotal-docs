@@ -89,14 +89,13 @@ or use tile-config-generator to get cf.yml template(template only)
 ├── download-product-params.yml
 ├── download-product.sh
 ├── download-product.yml
-├── install-opsman-params.yml
-├── install-opsman.yml
-├── install-products-params.yml
-├── install-products.sh
-├── install-products.yml
+├── opsman-params.yml
+├── opsman.yml
+├── pas-params.yml
+├── pas.yml
 ```
 
-### install-products-params.yml
+### params.yml
 ```
 
 foundation: dev-1
@@ -135,8 +134,7 @@ credhub:
 pivnet: 
   token: ((pivnet_token))
 
-#opsman_image_s3_versioned_regexp:  "*vsphere*.ova"
-opsman_image_s3_versioned_regexp:  pcf-vsphere-(.*).ova
+
 
 ```
 
