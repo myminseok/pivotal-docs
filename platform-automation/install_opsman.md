@@ -183,5 +183,7 @@ fly -t demo sp -p opsman-install -c opsman.yml -l ./common-params.yml -l ./dev-1
 or 
 
 ./opsman-install.sh <foundation> 
+./opsman-install.sh dev-1
+
     
 ```
