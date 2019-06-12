@@ -5,6 +5,7 @@
 ## Config
 - docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
 - sample: https://github.com/myminseok/platform-automation-configuration-template
+
 ```
 platform-automation-configuration-template
 └── dev-1
@@ -17,7 +18,6 @@ platform-automation-configuration-template
     ├── generated-config
     ├── state
     └── vars
-
 ```
 
 ### env.yml
@@ -38,8 +38,8 @@ decryption-passphrase: ((decryption-passphrase))
 ```
 
 
-- opsman-2.4.yml:  http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html#vsphere
-- auth.yml : http://docs.pivotal.io/platform-automation/v2.1/configuration-management/configure-auth.html
+- opsman-<version>.yml:  http://docs.pivotal.io/platform-automation/v3.0/reference/inputs-outputs.html#vsphere
+- auth.yml : http://docs.pivotal.io/platform-automation/v3.0/configuration-management/configure-auth.html
 
 
 ## pipeline
@@ -56,23 +56,11 @@ decryption-passphrase: ((decryption-passphrase))
 ├── pas.sh
 ├── pas.yml
 ├── tasks
-│   ├── apply-product-changes.yml
-│   ├── bbr-backup-director.sh
-│   ├── bbr-backup-director.yml
-│   ├── bbr-backup-pas.sh
-│   ├── bbr-backup-pas.yml
-│   ├── pks
-│   │   └── configure-pks-cli-user
-│   │       ├── task.sh
-│   │       ├── task.sh.orig
-│   │       ├── task.yml
-│   │       └── task.yml.orig
 │   ├── poweroff-vm.sh
 │   ├── poweroff-vm.yml
 │   ├── rename-vm.sh
 │   ├── rename-vm.yml
 │   ├── staged-director-config.yml
-│   └── test.yml
 
 ```
 
@@ -120,6 +108,7 @@ vcenter:
 
 pivnet: 
   token: ((pivnet_token))
+  
 ```
 
 ### dev-1/env-params.yml
@@ -127,10 +116,8 @@ pivnet:
 
 foundation: dev-1
 
-#opsman_image_versioned_regexp:  .*-vsphere-(2\.4-.*).ova
 opsman_image_versioned_regexp:  ops-manager-vsphere-(2\.5\.5.*).ova
 
-#pas_product_versioned_regexp: cf-(.*).pivotal
 pas_product_versioned_regexp: cf-(2\.5).pivotal
 pas_stemcell_versioned_regexp: pas-stemcell/bosh-stemcell-(.*)-vsphere.*\.tgz
 
@@ -169,12 +156,9 @@ credhub set -t user  -n /concourse/dev-1/opsman_admin -z admin -w <YOUR_PASSWORD
 credhub set -t value -n /concourse/dev-1/decryption-passphrase -v <YOUR_PASSWORD>
 credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_IP
 
-
 ```
 
 ## run pipeline
-
-```
 
 ```
 fly -t demo login -c https://<concourse> -u your-user -p xxx -k
@@ -185,5 +169,4 @@ or
 ./opsman-install.sh <foundation> 
 ./opsman-install.sh dev-1
 
-    
 ```
