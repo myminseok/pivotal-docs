@@ -177,7 +177,13 @@ credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_
 ## run pipeline
 
 ```
+
+```
+fly -t demo login -c https://<concourse> -u your-user -p xxx -k
 fly -t demo sp -p opsman-install -c opsman.yml -l ./common-params.yml -l ./dev-1/env-params.yml
 
+or 
 
+./opsman-install.sh <foundation> 
+    
 ```
