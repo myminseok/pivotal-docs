@@ -1,5 +1,5 @@
 
-# Install PAS
+# How to setup concourse pipeline for installing/upgrading PAS tile
 
 ## Ref
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
