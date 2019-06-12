@@ -1,7 +1,5 @@
 
 # How to setup concourse pipeline for installing/upgrading PAS tile
-
-## Ref
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
 
 
@@ -143,10 +141,18 @@ credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_
 ## run pipeline
 
 ```
+fly -t demo login -c https://<concourse> -u your-user -p xxx -k
 fly -t demo sp -p pas-install -c pas.yml -l ./common-params.yml -l ./dev-1/env-params.yml
 
+or 
 
-1. upload-and-stage-pas
+./pas.sh <foundation>
+```
+
+
+## how to prepare cf.yml before running 'configure-pas' job 
+```
+1. run 'upload-and-stage-pas' job
 2. <manually> configure PAS tile via opsmanager UI
   - to get domain self-signed certifiate:
    1. generate certs from opsmanager UI> PAS> networking
