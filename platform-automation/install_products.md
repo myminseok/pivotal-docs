@@ -147,6 +147,7 @@ fly -t demo sp -p pas-install -c pas.yml -l ./common-params.yml -l ./dev-1/env-p
 or 
 
 ./pas.sh <foundation>
+./pas.sh dev-1
 ```
 
 
