@@ -97,6 +97,11 @@ https://harbor.my.local/harbor/projects
 
 harbor.my.local -> harbor-app VM IP.
 
+test
+```
+$ nc -zv harbor.pksdemo.net 443
+Connection to harbor.pksdemo.net 443 port [tcp/https] succeeded!
+```
 
 # 샘플 docker image ubuntu 업로드/다운로드 테스트
 
