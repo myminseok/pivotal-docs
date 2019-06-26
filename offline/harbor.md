@@ -46,7 +46,7 @@ bosh  runtime-config
 - stemcell: version -> latest
 - deployment-network -> your network in cloud-config
 - az -> your az in cloud config
-- 필요시 deployment명 수정: 
+- 필요시 deployment명 수정. 이때 addons.jobs.properties.aliaes도 수정해야함.
 - Fix smoke test failure in bosh release:
 
 ```
@@ -74,6 +74,16 @@ bosh -n -d harbor-deployment deploy manifests/harbor.yml -v hostname=harbor.my.l
 
 
 ## harbor account
+
+find in creds.yml
+```
+bosh int ./creds.yml --path /harbor_admin_password
+xxxxxx
+
+Succeeded
+```
+or
+
 ```
 /var/vcap/jobs/harbor/config/harbor.cfg:harbor_admin_password = 
 => admin / xxxx
@@ -82,6 +92,10 @@ bosh -n -d harbor-deployment deploy manifests/harbor.yml -v hostname=harbor.my.l
 https://harbor.my.local/harbor/projects
 
 ```
+
+# DNS
+
+harbor.my.local -> harbor-app VM IP.
 
 
 # 샘플 docker image ubuntu 업로드/다운로드 테스트
@@ -95,7 +109,7 @@ docker save ubuntu.docker.image
 sudo su
 
 docker load -i ubuntu.docker.image
-docker tag ubuntu harbor.local/dojo/ubuntu
+docker tag ubuntu harbor.my.local/dojo/ubuntu
 
 https://docs.docker.com/registry/insecure/
 cat /etc/docker/daemon.json 
