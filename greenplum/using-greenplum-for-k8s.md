@@ -163,7 +163,7 @@ standard   kubernetes.io/vsphere-volume   85m
 ```
 
 
-## create a new greenplum cluster
+## create a new greenplum cluster 
 
 vi my-gp-instance.yaml
 ```
@@ -190,6 +190,8 @@ spec:
     antiAffinity: yes
 
 ```
+
+### creating cluster at default namespace 
 
 creating... it takes time to init state from "PENDING" to "RUNNING"
 ```
@@ -222,14 +224,19 @@ statefulset.apps/segment-b   1/1     41m
 
 NAME                                            STATUS    AGE
 greenplumcluster.greenplum.pivotal.io/gp-test   Running   42m
-
-
 ```
+
+creating multiple cluster at different namespace
+```
+$ kubectl apply -f my-gp-instance.yaml -n gpinstance-1
+$ kubectl apply -f my-gp-instance.yaml -n gpinstance-2
+```
+
 
 ## test cluster.
 
 ```
-kubectl exec -it master-0 bash -- -c "source /opt/gpdb/greenplum_path.sh; psql"
+$ kubectl exec -it master-0 bash -- -c "source /opt/gpdb/greenplum_path.sh; psql"
 
 psql (8.3.23)
 Type "help" for help.
@@ -243,6 +250,12 @@ cation_port
 ------------
     1 |      -1 | p    | p              | s    | u      |  5432 | master-0      
                            | master-0.agent.default.svc.cluster.local    |      
+
+```
+
+put namespace option '-n' to access different gpdb cluster.
+```
+$ kubectl exec -it master-0 -n gpinstance-1 bash -- -c "source /opt/gpdb/greenplum_path.sh; psql"
 
 ```
 
