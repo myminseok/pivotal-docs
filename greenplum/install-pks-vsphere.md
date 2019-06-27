@@ -137,4 +137,4 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'
 
 ```
 
-Great!, you've just installed PKS api server and provisioned a k8s cluster!. next  [install greenplum operator for K8S](/greenplum/install-greenplum-operator.md)
+Great!, you've just installed PKS api server and provisioned a k8s cluster!. let's see how to [install greenplum operator for K8S](/greenplum/install-greenplum-operator.md)
