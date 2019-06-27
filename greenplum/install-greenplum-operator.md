@@ -1,6 +1,6 @@
 
 This document describes how to deploy greenplum for k8s. based on https://greenplum-kubernetes.docs.pivotal.io/1-2/installing.html
-if your k8s cluster is not ready, [install k8s using PKS](greenplum/install-pks-vsphere.md)
+if your k8s cluster is not ready, [install k8s using PKS](/greenplum/install-pks-vsphere.md)
 ### Prerequisites
 - have kubernetes cluster (via PKS 1.2+) (https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-pks.html)
 - installed kubectl, pks cli (https://network.pivotal.io/products/pivotal-container-service/)
