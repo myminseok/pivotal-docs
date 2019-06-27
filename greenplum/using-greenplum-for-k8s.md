@@ -7,9 +7,9 @@ This document describes how to deploy a new greenplum for k8s. based on https://
 - kubectl, pks cli
 
 
-# create new greenplum cluster
+# How to create new greenplum cluster
 
-## get credentials for k8s.
+## get credentials for k8s
 
 ```
 $ pks login -a <PKS-API-URL> -u <PKSADMIN> -p <PASSWORD> --skip-ssl-validation
