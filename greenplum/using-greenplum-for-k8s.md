@@ -4,7 +4,7 @@ This document describes how to deploy a new greenplum for k8s. based on https://
 # Prerequisites
 - have kubernetes cluster (via PKS 1.2+)
 - provisioned greenplum-operator to k8s
-- kubectl, pks cli
+- kubectl, pks cli (https://network.pivotal.io/products/pivotal-container-service/)
 
 
 # How to create new greenplum cluster
