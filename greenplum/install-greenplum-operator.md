@@ -1,6 +1,7 @@
 
 This document describes how to deploy greenplum for k8s. based on https://greenplum-kubernetes.docs.pivotal.io/1-2/installing.html
 if your k8s cluster is not ready, [install k8s using PKS](/greenplum/install-pks-vsphere.md)
+
 ### Prerequisites
 - have kubernetes cluster (via PKS 1.2+) (https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-pks.html)
 - installed kubectl, pks cli (https://network.pivotal.io/products/pivotal-container-service/)
@@ -180,3 +181,6 @@ Failed to pull image â€œharbor.pksdemo.net/greenplum/greenplum-operator:v1.2.0â€
 ```
 solution: to use private docker-registry using self-signed CA, your k8s cluster need to recognize the CA. you need to set the self-signed CA to bosh-director tile in opsmanager before provisioning k8s cluster. see https://docs.pivotal.io/pcf/om/2-0/vsphere/config.html#security-config
 https://docs.pivotal.io/pivotalcf/2-5/opsguide/docker-registry.html#ops-man
+
+now let's go to [how to use your greenplum cluster](/greenplum/using-greenplum-for-k8s.md)
+
