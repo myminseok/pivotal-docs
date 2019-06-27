@@ -3,7 +3,7 @@ This document describes how to deploy greenplum for k8s. based on https://greenp
 if your k8s cluster is not ready, [install k8s using PKS](/greenplum/install-pks-vsphere.md)
 
 ### Prerequisites
-- have kubernetes cluster (via PKS 1.2+) (https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-pks.html)
+- prepared kubernetes cluster (via PKS 1.2+) (https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-pks.html)
 - installed kubectl, pks cli (https://network.pivotal.io/products/pivotal-container-service/)
 ```
 chmod +x pks-darwin-amd64-1.4.0-build.230
@@ -12,8 +12,8 @@ sudo mv pks-darwin-amd64-1.4.0-build.230 /usr/local/bin/pks
 chmod +x kubectl-darwin-amd64-1.13.5
 sudo mv kubectl-darwin-amd64-1.13.5 /usr/local/bin/kubectl
 ```
-- installed docker on jumpbox
-- have a private docker-registry(optional)
+- installed docker engine on jumpbox
+- prepared a private docker-registry(optional) [installing harbor docker repository](/offline/harbor.md)
 
 # Install greenplum-operator
 see  https://greenplum-kubernetes.docs.pivotal.io/1-2/installing.html
