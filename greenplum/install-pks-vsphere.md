@@ -1,7 +1,7 @@
 
 This doc describes how to install PKS api server and provision k8s cluster.
 
-# Prerequisites
+### Prerequisites
 https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-k8s.html
 - prepare harbor cluster(airgapped-environment only)
 - prepare opsmanager 2.5+ https://network.pivotal.io
@@ -10,7 +10,8 @@ https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-k8s.html
 - prepare DNS server(optional)
 - prepare loadbalancer(optional)
 
-## prepare jumpbox ( for mac)
+
+### prepare jumpbox ( for mac)
 
 ```
 ## cli tools
@@ -24,26 +25,30 @@ chmod +x kubectl-darwin-amd64-1.13.5
 sudo mv kubectl-darwin-amd64-1.13.5 /usr/local/bin/kubectl
 ```
 
-# (important, optional) using private docker-registry using self-signed CA
+### (important, optional) using private docker-registry using self-signed CA
 to use private docker-registry using self-signed CA, your k8s cluster need to recognize the CA.
 you need to set the self-signed CA to bosh-director tile in opsmanager before provisioning k8s cluster. see https://docs.pivotal.io/pcf/om/2-0/vsphere/config.html#security-config
 
 
-# install pks tile via opsmanager
-- set pks tile refering to https://docs.pivotal.io/runtimes/pks/1-4/installing-pks-vsphere.html
-- decide pks api server domain, ex) api.my-pksdomain.com. IP will set after installation. and you need to set DNS. 
-- setting plan for Allow Priviledged:  greenplum requires priviledged container. check this option.
-- setting plan for Admission plugins:  greenplum requires automatic priviledges. uncheck PodSecurityPolicy, DenyEscalatingExec, SecurityContextDeny option.
+# Install PKS tile via opsmanager
+set pks tile refering to https://docs.pivotal.io/runtimes/pks/1-4/installing-pks-vsphere.html
 
-# setup PKS API Loadbalancer(after pks api installed)
+### configure PKS tile
+1. decide pks api server domain, ex) api.my-pksdomain.com. IP will set after installation. and you need to set DNS. 
+2. setting plan for Allow Priviledged:  greenplum requires priviledged container. check this option.
+3. setting plan for Admission plugins:  greenplum requires automatic priviledges. uncheck PodSecurityPolicy, DenyEscalatingExec, SecurityContextDeny option.
+
+### apply-change in opsmanager
+
+###  setup PKS API Loadbalancer(after pks api installed)
 LB will forward port 8443 and 9021 to PKS API VM. https://docs.pivotal.io/runtimes/pks/1-4/installing-pks-vsphere.html#loadbalancer-pks-api
 ```
 forward api.my-pksdomain.com(TCP 8443) -> PKS API VM(TCP 8443)
 forward api.my-pksdomain.com(TCP 9021) -> PKS API VM(TCP 9021)
 ```
-## find pks api server IP: opsman UI> pks tile> status tab.
+#### find pks api server IP: opsman UI> pks tile> status tab.
 
-## test accessing pks api server
+#### test accessing pks api server
 ```
 $ pks login -a <PKS-API-URL> -u <PKSADMIN> -p <PASSWORD> --skip-ssl-validation
 ex) pks login -a api.my-pksdomain.com -u my-pks-admin -p my-secure-password --skip-ssl-validation
@@ -57,7 +62,9 @@ medium  58375a45-17f7-4291-acf1-455bfdc8e371  Example: This plan will configure 
 
 ```
 
-# create K8S cluster
+# provisioning K8S cluster
+
+### create K8S cluster
 
 ```
 $ pks create-cluster my-cluster -e my-cluster.my-pkscluster.com --plan medium
@@ -78,23 +85,23 @@ Network Profile Name:
 
 ```
 
-# setup K8S Loadbalancer
+### setup K8S Loadbalancer
 LB will forward port 8443 to K8S master VMs. 
 ```
 forward my-cluster.my-pkscluster.com(TCP 8443) -> K8S master VM(TCP 8443)
 
 ```
 
-# access to K8S cluster
+### access to K8S cluster
 
 
-## setup kubectl cli
+### setup kubectl cli
 ```
 $ chmod +x kubectl-darwin-amd64-1.13.5
 $ sudo mv kubectl-darwin-amd64-1.13.5 /usr/local/bin/kubectl
 ```
 
-## get credentials.
+### get credentials.
 ```
 $ pks get-credentials my-cluster
 Fetching credentials for cluster my-cluster.
@@ -104,7 +111,7 @@ $kubectl config use-context <cluster-name>
 ```
 
 
-## check connection
+### check connection
 
 check and edit "clusters.cluter.server" to point the right url and port to direct k8s masters.
 
