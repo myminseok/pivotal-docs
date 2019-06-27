@@ -136,3 +136,5 @@ CoreDNS is running at https://my-cluster.my-pkscluster:8443/api/v1/namespaces/ku
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'
 
 ```
+
+Greate!, you just install PKS api server and provisioned a k8s cluster.
