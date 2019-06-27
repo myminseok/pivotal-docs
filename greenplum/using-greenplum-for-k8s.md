@@ -1,7 +1,7 @@
 This document describes how to deploy a new greenplum for k8s. based on https://greenplum-kubernetes.docs.pivotal.io/1-2/deploy-operator.html
 
 
-# Prerequisites
+### Prerequisites
 - have kubernetes cluster (via PKS 1.2+) (https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-pks.html)
 - provisioned greenplum-operator to k8s (https://greenplum-kubernetes.docs.pivotal.io/1-2/installing.html)
 - installed kubectl, pks cli (https://network.pivotal.io/products/pivotal-container-service/)
@@ -16,7 +16,7 @@ sudo mv kubectl-darwin-amd64-1.13.5 /usr/local/bin/kubectl
 
 # How to create new greenplum cluster
 
-## get credentials for k8s
+### get credentials for k8s
 
 ```
 $ pks login -a <PKS-API-URL> -u <PKSADMIN> -p <PASSWORD> --skip-ssl-validation
@@ -51,7 +51,7 @@ $kubectl config use-context <cluster-name>
 
 ```
 
-## setup kubectl
+### setup kubectl
 
 check and edit "clusters.cluter.server" to the right url and port to direct k8s masters.
 
@@ -79,7 +79,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'
 ```
 
 
-## check greenplum-operator status
+### check greenplum-operator status
 deployment.apps/greenplum-operator should be up and running. otherwise install following https://greenplum-kubernetes.docs.pivotal.io/1-2/installing.html
 
 ```
@@ -100,7 +100,7 @@ replicaset.apps/greenplum-operator-86b86d8444   1         1         1       19h
 
 ```
 
-## access k8s dashboard
+### access k8s dashboard
 refer to https://docs.pivotal.io/runtimes/pks/1-4/access-dashboard.html
 ```
 $ cp ~/.kube/config ~/Downloads
@@ -113,7 +113,7 @@ Starting to serve on 127.0.0.1:8001
 
 access with browser http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/ and use '~/Downloads/config' file for authentication
 
-## check k8s events for troubleshooting
+### check k8s events for troubleshooting
 
 ```
 $ kubectl get events --all-namespaces -w
@@ -130,7 +130,7 @@ default      35m         Normal    Killing                    Po
 ```
 
 
-## create namespace for greenplum.
+### create namespace for greenplum.
 from now on, refer to https://greenplum-kubernetes.docs.pivotal.io/1-2/deploy-operator.html
 
 ```
@@ -148,7 +148,7 @@ kube-system   Active    50d
 ```
 
 
-## create storage class
+### create storage class
 
 vi storage-class-vsphere.yml
 ```
@@ -170,7 +170,7 @@ standard   kubernetes.io/vsphere-volume   85m
 ```
 
 
-## create a new greenplum cluster 
+### create a new greenplum cluster 
 
 vi my-gp-instance.yaml
 ```
@@ -240,7 +240,7 @@ $ kubectl apply -f my-gp-instance.yaml -n gpinstance-2
 ```
 
 
-## test cluster.
+### test cluster.
 
 ```
 $ kubectl exec -it master-0 bash -- -c "source /opt/gpdb/greenplum_path.sh; psql"
@@ -266,7 +266,7 @@ $ kubectl exec -it master-0 -n gpinstance-1 bash -- -c "source /opt/gpdb/greenpl
 
 ```
 
-## delete cluster
+### delete cluster
 
 ```
 $ kubectl delete -f my-gp-instance.yaml
