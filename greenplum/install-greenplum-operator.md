@@ -1,8 +1,6 @@
 This document describes how to deploy greenplum for k8s. based on https://greenplum-kubernetes.docs.pivotal.io/1-2/installing.html
 
-
-
-# Prerequisites
+### Prerequisites
 - have kubernetes cluster (via PKS 1.2+) (https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-pks.html)
 - installed kubectl, pks cli (https://network.pivotal.io/products/pivotal-container-service/)
 ```
@@ -15,10 +13,10 @@ sudo mv kubectl-darwin-amd64-1.13.5 /usr/local/bin/kubectl
 - installed docker on jumpbox
 - have a private docker-registry(optional)
 
-# install greenplum-operator
+# Install greenplum-operator
 see  https://greenplum-kubernetes.docs.pivotal.io/1-2/installing.html
 
-## download greenplum-for-kubernetes from network.pivotal.io
+### download greenplum-for-kubernetes from network.pivotal.io
 
 ```
 tar xzf greenplum-for-kubernetes-*.tar.gz
@@ -30,7 +28,7 @@ docker load -i ./images/greenplum-operator
 ```
 
 
-## upload to private-docker-registry
+### upload images to private-docker-registry
 login to docker registry
 ``` 
 docker login harbor.pks-domain.com -u admin -p xxx
@@ -81,7 +79,7 @@ $ upload-images.sh harbor.pks-domain.com/greenplum
 ```
 
 
-# configure private docker repository env
+### configure private docker repository env
 
 ```
 $ cd ./greenplum-for-kubernetes-*
@@ -102,7 +100,7 @@ $ kubectl create -f ./initialize_helm_rbac.yaml
 
 ```
 
-# setup helm
+### setup helm
 
 ```
 
@@ -113,6 +111,27 @@ $ helm install --name greenplum-operator -f workspace/operator-values-overrides.
 $ watch kubectl get all
 
 ```
+
+
+### check status of greenplum-operator
+```
+
+$ kubectl logs -l app=greenplum-operator
+
+time="2019-01-10T21:57:35Z" level=info msg="Go Version: go1.11.4"
+time="2019-01-10T21:57:35Z" level=info msg="Go OS/Arch: linux/amd64"
+time="2019-01-10T21:57:35Z" level=info msg="creating operator"
+time="2019-01-10T21:57:35Z" level=info msg="running operator"
+time="2019-01-10T21:57:35Z" level=info msg="creating Greenplum CRD"
+time="2019-01-10T21:57:35Z" level=info msg="successfully updated greenplum CRD"
+time="2019-01-10T21:57:35Z" level=info msg="starting Greenplum InformerFactory"
+time="2019-01-10T21:57:35Z" level=info msg="running Greenplum controller"
+time="2019-01-10T21:57:35Z" level=info msg="started workers"
+
+```
+
+
+# troubleshooting
 
 ## cleanup helm.
 
@@ -137,27 +156,6 @@ $ kubectl get all --show-labels
 $ kubectl delete job.batch/pre-delete-greenplum-operator
 
 ```
-
-# check status of greenplum-operator
-```
-
-$ kubectl logs -l app=greenplum-operator
-
-time="2019-01-10T21:57:35Z" level=info msg="Go Version: go1.11.4"
-time="2019-01-10T21:57:35Z" level=info msg="Go OS/Arch: linux/amd64"
-time="2019-01-10T21:57:35Z" level=info msg="creating operator"
-time="2019-01-10T21:57:35Z" level=info msg="running operator"
-time="2019-01-10T21:57:35Z" level=info msg="creating Greenplum CRD"
-time="2019-01-10T21:57:35Z" level=info msg="successfully updated greenplum CRD"
-time="2019-01-10T21:57:35Z" level=info msg="starting Greenplum InformerFactory"
-time="2019-01-10T21:57:35Z" level=info msg="running Greenplum controller"
-time="2019-01-10T21:57:35Z" level=info msg="started workers"
-
-```
-
-
-# troubleshooting
-
 ## Pod Security Policy (PSP) 
 https://docs.pivotal.io/runtimes/pks/1-4/pod-security-policy.html
 
