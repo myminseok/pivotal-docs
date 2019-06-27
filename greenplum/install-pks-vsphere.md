@@ -1,5 +1,5 @@
 
-This doc describes how to install PKS api server and provision k8s cluster.
+This doc describes how to install PKS api server and provisioning k8s cluster on vsphere
 
 ### Prerequisites
 https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-k8s.html
