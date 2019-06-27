@@ -40,8 +40,39 @@ set pks tile refering to https://docs.pivotal.io/runtimes/pks/1-4/installing-pks
 
 ### apply-change in opsmanager
 
-###  setup PKS API Loadbalancer(after pks api installed)
-LB will forward port 8443 and 9021 to PKS API VM. https://docs.pivotal.io/runtimes/pks/1-4/installing-pks-vsphere.html#loadbalancer-pks-api
+
+### create PKS admin user
+now, PKS api server installed. let's create a pks admin user.
+1. ssh into opsman VM.
+```
+ssh -i <opsmanager_ssh.keyfile> ubuntu@<opsman.url>
+```
+2. login to pks uaa as admin
+```
+$ uaac target  https://api.my-pksdomain.com:8443 --ca-cert /var/tempest/workspaces/default/root_ca_certificate
+
+## get uaa admin secret from PKS-api tile:  opsman pks tile> Pks Uaa Management Admin Client
+
+$ uaac token client get
+Client ID:  admin
+Client secret:  ********************************  -> opsman pks tile> Pks Uaa Management Admin Client
+Successfully fetched token via client credentials grant.
+Target: https://api.my-pksdomain.com:8443
+Context: admin, from client admin
+```
+3. add pks admin user to pks api vm.
+```
+$ uaac user add pks-admin --emails pks-admin@pivotal.io -p 
+user account successfully added
+
+$ uaac member add pks.clusters.admin pks-admin
+success
+$ uaac member add pks.clusters.manage pks-admin
+success
+```
+
+###  setup PKS API Loadbalancer
+Loadbalancer will forward traffic from port 8443 and 9021 to PKS API VM. https://docs.pivotal.io/runtimes/pks/1-4/installing-pks-vsphere.html#loadbalancer-pks-api
 ```
 forward api.my-pksdomain.com(TCP 8443) -> PKS API VM(TCP 8443)
 forward api.my-pksdomain.com(TCP 9021) -> PKS API VM(TCP 9021)
