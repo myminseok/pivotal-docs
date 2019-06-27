@@ -4,7 +4,7 @@ This document describes how to deploy a new greenplum for k8s. based on https://
 # Prerequisites
 - have kubernetes cluster (via PKS 1.2+) (https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-pks.html)
 - provisioned greenplum-operator to k8s (https://greenplum-kubernetes.docs.pivotal.io/1-2/installing.html)
-- kubectl, pks cli (https://network.pivotal.io/products/pivotal-container-service/)
+- installed kubectl, pks cli (https://network.pivotal.io/products/pivotal-container-service/)
 ```
 chmod +x pks-darwin-amd64-1.4.0-build.230
 sudo mv pks-darwin-amd64-1.4.0-build.230 /usr/local/bin/pks
@@ -20,7 +20,7 @@ sudo mv kubectl-darwin-amd64-1.13.5 /usr/local/bin/kubectl
 
 ```
 $ pks login -a <PKS-API-URL> -u <PKSADMIN> -p <PASSWORD> --skip-ssl-validation
-ex) pks login -a api.mypkscluster.com -u my-pks-admin -p my-secure-password --skip-ssl-validation
+ex) pks login -a api.my-pksdomain.com -u my-pks-admin -p my-secure-password --skip-ssl-validation
 
 
 $ pks clusters
@@ -35,7 +35,7 @@ UUID:                     29f0ea12-20a1-41b3-a6e2-28b337be5474
 Last Action:              CREATE
 Last Action State:        succeeded
 Last Action Description:  Instance provisioning completed
-Kubernetes Master Host:   my-cluster.mypkscluster.com
+Kubernetes Master Host:   my-cluster.my-pkscluster.com
 Kubernetes Master Port:   8443
 Worker Nodes:             5
 Kubernetes Master IP(s):  10.10.14.33, 10.10.14.34, 10.10.14.32
@@ -63,7 +63,7 @@ apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: xxxxxxx
-    server: https://my-cluster.mypkscluster.com:8443
+    server: https://my-cluster.my-pkscluster.com:8443
   name: my-cluster
 
 ```
@@ -71,8 +71,8 @@ clusters:
 check connection
 ```
 $  kubectl cluster-info
-Kubernetes master is running at https://my-cluster.mypkscluster.com:8443
-CoreDNS is running at https://my-cluster.pksdemo.net:8444/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Kubernetes master is running at https://my-cluster.my-pkscluster.com:8443
+CoreDNS is running at https://my-cluster.my-pkscluster.com:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'
 
