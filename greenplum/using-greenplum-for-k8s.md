@@ -1,7 +1,7 @@
 This document describes how to deploy a new greenplum for k8s. based on https://greenplum-kubernetes.docs.pivotal.io/1-2/deploy-operator.html
 
 
-# Prerequites
+# Prerequisites
 - have kubernetes cluster (via PKS 1.2+)
 - provisioned greenplum-operator to k8s
 - kubectl, pks cli
