@@ -137,4 +137,4 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'
 
 ```
 
-Greate!, you just install PKS api server and provisioned a k8s cluster.
+Great!, you just install PKS api server and provisioned a k8s cluster!
