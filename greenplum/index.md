@@ -1,5 +1,5 @@
 
-Guide to using greenplum for k8s provisioned with PKS on vsphere. 
+Guide to using greenplum for k8s provisioned with Pivotal Container Service on vsphere. 
 # Demo
 After following this doc, you will be able to use greenplum like this. 
 [![greenplum on K8S](/greenplum/demo-video.png)](https://www.youtube.com/watch?v=U5B0PTRBpZ0)
