@@ -207,7 +207,7 @@ creating... it takes time to init state from "PENDING" to "RUNNING"
 ```
 $ kubectl apply -f my-gp-instance.yaml
 
-$ kubectl get all
+$ kubectl get all --all-namespaces
 NAME                                      READY   STATUS    RESTARTS   AGE
 pod/greenplum-operator-86b86d8444-djsvw   1/1     Running   0          10h
 pod/master-0                              1/1     Running   0          41m
