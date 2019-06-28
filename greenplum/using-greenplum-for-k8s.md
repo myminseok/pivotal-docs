@@ -2,7 +2,7 @@ This document describes how to deploy a new greenplum for k8s. based on https://
 
 # demo
 after this, you will be able to use greenplum 
-[![greenplum on K8S](https://youtu.be/StTqXEQ2l-Y?t=35s)](https://www.youtube.com/watch?v=U5B0PTRBpZ0)
+[![greenplum on K8S](/greenplum/demo-video.png)](https://www.youtube.com/watch?v=U5B0PTRBpZ0)
 
 ### Prerequisites
 - have kubernetes cluster (via PKS 1.2+) (https://greenplum-kubernetes.docs.pivotal.io/1-2/prepare-pks.html)
