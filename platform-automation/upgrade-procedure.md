@@ -33,7 +33,7 @@ refer to https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
 4. import installation
 5. configure director tile from the exported opsman configuration in step 1.
 6. apply director change
-![image](./platform-automation/patch-opsman.png =100*50)
+![image](./patch-opsman.png =100*50)
 
 refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
 
