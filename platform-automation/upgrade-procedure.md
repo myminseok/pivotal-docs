@@ -51,6 +51,7 @@ refer to the concourse pipeline for the following procedure: https://github.com/
 11. apply director change
 
 <img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/major-upgrade-opsman.png" width="500">
+In the pipeline, all dependency removed between jobs because it is required to run a specific job manually sometimes. such as if there is a fix in configuraton on git. or there are optional steps sometimes. 
 refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
 
 ## **Minor/patch** PAS
@@ -73,6 +74,8 @@ refer to the concourse pipeline for the following procedure: https://github.com/
 9. **(Manual)** configure the credentials from step 8 to concourse credhub.
 10. apply PAS tile change
 
+
 <img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/major-upgrade-pas.png" width="500">
+In the pipeline, all dependency removed between jobs because it is required to run a specific job manually sometimes. such as if there is a fix in configuraton on git. or there are optional steps sometimes. 
 refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
 
