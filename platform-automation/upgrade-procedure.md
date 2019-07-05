@@ -10,7 +10,8 @@ refer to https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
 
 ## Backup
 - opsman export 
-- PAs, director backup via bbr. see concourse pipeline https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup-pas.md
+- PAS, director backup via bbr. see concourse pipeline https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup-pas.md
+![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.png =100*50)
 
 ## Check release note
 - see any known issues
@@ -33,7 +34,7 @@ refer to https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
 4. import installation
 5. configure director tile from the exported opsman configuration in step 1.
 6. apply director change
-![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/patch-opsman.png)
+![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/patch-opsman.png =100*50)
 refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
 
 ## **Major** upgrade opsman. 
