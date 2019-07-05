@@ -25,7 +25,7 @@ refer to https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
 - bosh clean-up
 
 ## **Minor/patch** opsman. 
-refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
+
 1. export opsman configuration 
 ##### folloging task is done by single job using platform-automation-tasks/tasks/upgrade-opsman.yml
 2. shutdown old opsman and delete VM.
@@ -33,9 +33,11 @@ refer to the concourse pipeline for the following procedure: https://github.com/
 4. import installation
 5. configure director tile from the exported opsman configuration in step 1.
 6. apply director change
+![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/patch-opsman.png)
+refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
 
 ## **Major** upgrade opsman. 
-refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
+
 1. export opsman configuration (platform-automation-tasks/tasks/export-installation.yml)
 2. shutdown old opsman VM and rename VM.
 3. install new opsman VM
@@ -47,15 +49,17 @@ refer to the concourse pipeline for the following procedure: https://github.com/
 9. **(Manual)** configure the credentials from step 8 to concourse credhub.
 10. configure director tile from opsman configuration
 11. apply director change
+![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/major-upgrade-opsman.png)
+refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
 
 ## **Minor/patch** PAS
-refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
 1. (optional)upload stemcells
 2. upload release - stage release 
 3. apply PAS tile change
+![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/patch-opsman.png)
+refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
 
 ## **Major** upgrade PAS
-refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
 1. PAS backup via bbr. see concourse pipeline https://github.com/myminseok/pivotal-docs/blob/
 2. (optional)extract staged PAS tile config with credentials for backup.
 3. (optional)upload stemcells
@@ -66,5 +70,6 @@ refer to the concourse pipeline for the following procedure: https://github.com/
 8. extract staged PAS tile config with credentials. 
 9. **(Manual)** configure the credentials from step 8 to concourse credhub.
 10. apply PAS tile change
-
+![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/major-upgrade-pas.png)
+refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
 
