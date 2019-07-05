@@ -11,7 +11,7 @@ refer to https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
 ## Backup
 - opsman export 
 - PAS, director backup via bbr. see concourse pipeline https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup-pas.md
-<img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.png" width="200">
+<img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.png" width="500">
 
 ## Check release note
 - see any known issues
