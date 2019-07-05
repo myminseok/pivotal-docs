@@ -26,7 +26,6 @@ refer to https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
 - bosh clean-up
 
 ## **Minor/patch** opsman. 
-
 1. export opsman configuration 
 ##### folloging task is done by single job using platform-automation-tasks/tasks/upgrade-opsman.yml
 2. shutdown old opsman and delete VM.
@@ -34,7 +33,8 @@ refer to https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
 4. import installation
 5. configure director tile from the exported opsman configuration in step 1.
 6. apply director change
-![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/patch-opsman.png =100*50)
+![image](./platform-automation/patch-opsman.png =100*50)
+
 refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
 
 ## **Major** upgrade opsman. 
@@ -51,6 +51,7 @@ refer to the concourse pipeline for the following procedure: https://github.com/
 10. configure director tile from opsman configuration
 11. apply director change
 ![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/major-upgrade-opsman.png)
+<img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.png" width="500">
 refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
 
 ## **Minor/patch** PAS
@@ -58,6 +59,7 @@ refer to the concourse pipeline for the following procedure: https://github.com/
 2. upload release - stage release 
 3. apply PAS tile change
 ![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/patch-opsman.png)
+<img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.png" width="500">
 refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
 
 ## **Major** upgrade PAS
@@ -72,5 +74,6 @@ refer to the concourse pipeline for the following procedure: https://github.com/
 9. **(Manual)** configure the credentials from step 8 to concourse credhub.
 10. apply PAS tile change
 ![image](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/major-upgrade-pas.png)
+<img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.png" width="500">
 refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
 
