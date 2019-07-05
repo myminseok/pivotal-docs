@@ -31,7 +31,7 @@ Pivotal Cloud Foundry Documentation
 - [bosh-addon](bosh-add-on.md)
 
 ## Upgrade
-- [upgrade pas](upgrade-pas-aws.md)
+- [upgrade pas](platform-automation/upgrade-procedure.md)
 
 ## Backup
 - [backup-manual](backup-recovery.md)
