@@ -1,7 +1,10 @@
 # Upgrade for PAS
 - Major upgrade means any change of first or second digit in version scheme. 2.5.* -> 2.6.*
 - Patch/Minor upgrade: any change of the thrid digit in version scheme.2.5.1 -> 2.5.2
-refer to https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
+
+refer to
+- https://docs.pivotal.io/pivotalcf/2-5/customizing/upgrading-pcf.html
+- https://docs.pivotal.io/pivotalcf/2-5/upgrading/checklist.html
 
 
 ## Check platform integrity
