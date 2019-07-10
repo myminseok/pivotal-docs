@@ -91,6 +91,51 @@ tar xf bosh-cache.tar.gz
 # deploy bosh director vm (internal jumpbox)
 
 guide: https://bosh.io/docs/init-vsphere/
+
+## download bosh depencency release to local location.
+
+```
+wget https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-267.5.0-ubuntu-xenial-97.12-20180820-234355-048784588-20180820234358.tgz?versionId=X168wrj6izNJTi0V0bSPNpeKl_kZeahW -O /home/ubuntu/bosh-1/bosh-267.5.0-ubuntu-xenial-97.12-20180820-234355-048784588-20180820234358.tgz
+
+wget https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.11.0-ubuntu-xenial-97.12-20180820-235033-474094256-20180820235039.tgz?versionId=hzs0XSVxZzPFsTPDY3c3trwPf0OtugqB -O /home/ubuntu/bosh-1/bpm-0.11.0-ubuntu-xenial-97.12-20180820-235033-474094256-20180820235039.tgz
+
+
+edit bosh-deployment/bosh.yml
+
+url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bosh-267.5.0-ubuntu-xenial-97.12-20180820-234355-048784588-20180820234358.tgz?versionId=X168wrj6izNJTi0V0bSPNpeKl_kZeahW
+->
+url: file:///home/ubuntu/bosh-1//home/ubuntu/bosh-1/bosh-267.5.0-ubuntu-xenial-97.12-20180820-234355-048784588-20180820234358.tgz
+
+url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/bpm-0.11.0-ubuntu-xenial-97.12-20180820-235033-474094256-20180820235039.tgz?versionId=hzs0XSVxZzPFsTPDY3c3trwPf0OtugqB
+->
+url: file:///home/ubuntu/bosh-1/bpm-0.11.0-ubuntu-xenial-97.12-20180820-235033-474094256-20180820235039.tgz
+
+```
+
+```
+bosh-deployment/uaa.yml
+
+wget https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-60.2-ubuntu-xenial-97.12-20180815-231707-188963409-20180815231720.tgz?versionId=AJarW.I0RXfMpEAgq.d.qCuG_oAht_80 -O /home/ubuntu/bosh-1/uaa-60.2-ubuntu-xenial-97.12-20180815-231707-188963409-20180815231720.tgz
+
+edit bosh-deployment/uaa.yml
+url: https://s3.amazonaws.com/bosh-compiled-release-tarballs/uaa-60.2-ubuntu-xenial-97.12-20180815-231707-188963409-20180815231720.tgz?versionId=AJarW.I0RXfMpEAgq.d.qCuG_oAht_80
+->
+url: file:///home/ubuntu/bosh-1/uaa-60.2-ubuntu-xenial-97.12-20180815-231707-188963409-20180815231720.tgz
+
+```
+
+```
+
+wget  https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-xenial-go_agent?v=97.12 -O /home/ubuntu/bosh-1/bosh-vsphere-esxi-ubuntu-xenial-go_agent_97.12
+
+edit bosh-deployment/vsphere/cpi.yml
+url: https://bosh.io/d/stemcells/bosh-vsphere-esxi-ubuntu-xenial-go_agent?v=97.12
+-> 
+url: file:///home/ubuntu/bosh-1/bosh-vsphere-esxi-ubuntu-xenial-go_agent_97.12
+
+```
+## deploy bosh vm
+
 ```
 
 ubuntu@internal-jumpbox:~/bosh-1$ cat deploy.sh 
