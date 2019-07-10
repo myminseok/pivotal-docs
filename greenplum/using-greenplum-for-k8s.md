@@ -269,6 +269,26 @@ $ kubectl exec -it master-0 -n gpinstance-1 bash -- -c "source /opt/gpdb/greenpl
 
 ```
 
+### create localhost:5432 access to gpdb using ssh-proxy
+identify masternode pod name and create kubectl proxy 
+```
+$ kubectl get pods --all-namespaces
+NAMESPACE     NAME                                    READY   STATUS    RESTARTS   AGE
+default       greenplum-operator-86b86d8444-djsvw     1/1     Running   0          13d
+gp-dev        master-0                                1/1     Running   0          13d
+gp-dev        master-1                                1/1     Running   0          13d
+gp-dev        segment-a-0                             1/1     Running   0          13d
+gp-dev        segment-b-0                             1/1     Running   0          13d
+
+$ kubectl port-forward <MASTER-POD> <LOCAL-PORT>:<POD-PORT> -n <NAMESPACE>
+
+$ kubectl port-forward pod/master-0 5432:5432 -n gp-dev
+Forwarding from 127.0.0.1:5432 -> 5432
+Forwarding from [::1]:5432 -> 5432
+```
+now you can access localhost:5432 using any client
+- https://www.pgadmin.org/
+
 ### delete cluster
 
 ```
