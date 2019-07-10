@@ -1,3 +1,4 @@
+**This document has been deprecated**
 
 ## check azure resource quota(limit)
 extend resource limit: https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf_azure.html#raising-quota
@@ -51,6 +52,7 @@ az storage account create --name "my_terraform" --resource-group "my_terraform_g
 az storage account keys list --account-name my_terraform --resource-group my_terraform_gr
 az storage container create --name terraformstate --account-name my_terraform
 ```
+
 
 ## set variables to credhub
 

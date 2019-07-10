@@ -1,3 +1,4 @@
+**This document has been deprecated**
 
 ## check aws resource quota(limit)
 extend resource limit of EC2:
