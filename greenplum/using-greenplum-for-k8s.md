@@ -286,7 +286,7 @@ $ kubectl port-forward pod/master-0 5432:5432 -n gp-dev
 Forwarding from 127.0.0.1:5432 -> 5432
 Forwarding from [::1]:5432 -> 5432
 ```
-now you can access localhost:5432 using any client
+now you can access localhost:5432 using any postgresql client
 - https://www.pgadmin.org/
 
 ### delete cluster
