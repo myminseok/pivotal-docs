@@ -301,3 +301,11 @@ $ kubectl get all
 $ kubectl get events --all-namespaces -w
 
 ```
+
+## troubleshooting
+### restart gpdg
+```
+ $ kubectl exec -it master-0 -n gpinstance-1 bash
+ gpstart -a
+ 
+```
