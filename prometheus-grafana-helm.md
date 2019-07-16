@@ -1,4 +1,4 @@
-monitoring k8s cluster using prometheus and grafana.
+Monitoring k8s cluster using prometheus and grafana. currently it monitors one PKS cluster with one grafana.
 
 ## prerequisite
 - prepare k8s cluster. k8s cluster should be deployed with "Enable Privileged Containers", "Disable DenyEscalatingExec" option in PKS plan.
