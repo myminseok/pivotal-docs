@@ -62,7 +62,7 @@ INTERNAL_HARBOR/dojo/starkandwayne/concourse
 # prometheus-bosh release git수정:
 prometheus2 vm의 firehose_exporter job에 logging.url설정
 ```
-http://git.dppcf.posco.co.kr/platform/prometheus-boshrelease/blob/master/manifests/operators/prometheus_firehose_exporter_logging_url.yml
+http://INTERNAL_GIT/platform/prometheus-boshrelease/blob/master/manifests/operators/prometheus_firehose_exporter_logging_url.yml
 
 - type: replace
   path: /instance_groups/name=prometheus2/jobs/name=firehose_exporter/properties/firehose_exporter/logging?/url?
