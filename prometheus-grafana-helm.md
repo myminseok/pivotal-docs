@@ -269,7 +269,7 @@ kubernetes> clusters > new cluster
 - auth: TLS Client Auth
 - skip TLS verification: checked
 - TLS Auth details: get cert/key from k8s master vm.<br>
-  ssh into k8s master > /var/vcap/jobs/kube-apiserver/config/var/vcap/jobs/prometheus.pem prometneus-key.pem, 
+  ssh into k8s master > /var/vcap/jobs/kube-apiserver/config/prometheus.pem prometneus-key.pem, 
 ```
 
 # ssh opsman vm 
