@@ -137,8 +137,14 @@ curl -k localhost:9188/metrics
 
 kube-*
 ```
+- prometheus
 ```
 http://<prometheus-nginx-ip>:9090
 
 id/password is from 'deployment-vars.yml' under prometheus bosh deployment.
+```
+
+## limitations
+- 'kubernetes_kubeconfig', 'kubernetes_bearer_token' for prometheus deployment will be expired.
+- it monitors one k8s cluster due to limit of bosh-exporter.
 
