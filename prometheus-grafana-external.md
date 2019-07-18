@@ -122,15 +122,23 @@ id/password is from 'deployment-vars.yml' under prometheus bosh deployment.
 
 ```
 
-## check exporter
+## check metrics 
 - ssh into prometheus2 vm.
 - bosh-exporter test
 ```
 curl -k localhost:9190/metrics
+
+kubelet-*
 ```
 - kube-state-metrics-exporter test:
+ref: https://github.com/kubernetes/kube-state-metrics/tree/master/docs
 ```
 curl -k localhost:9188/metrics
-```
 
+kube-*
+```
+```
+http://<prometheus-nginx-ip>:9090
+
+id/password is from 'deployment-vars.yml' under prometheus bosh deployment.
 
