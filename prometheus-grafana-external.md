@@ -144,6 +144,18 @@ http://<prometheus-nginx-ip>:9090
 id/password is from 'deployment-vars.yml' under prometheus bosh deployment.
 ```
 
+
+
+```
+ssh into grafana vm
+sudo su
+cd /var/vcap/jobs/grafana_dashboards/packages/grafana_plugins
+wget https://grafana.com/api/plugins/grafana-kubernetes-app/versions/1.0.1/download
+unzip download
+monit restart grafana
+
+
+```
 ## limitations
 - 'kubernetes_kubeconfig', 'kubernetes_bearer_token' for prometheus deployment will be expired.
 - it monitors one k8s cluster due to limit of bosh-exporter.
