@@ -1,4 +1,4 @@
-# there are two jumpbox(internal, external)
+# there are two jumpboxes(internal, external)
 
 # OS
 - 16.04 LTS, 64 bit 
