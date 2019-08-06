@@ -62,10 +62,12 @@ bosh create-env bosh-deployment/bosh.yml \
     -o bosh-deployment/uaa.yml \
     -o bosh-deployment/credhub.yml \
     -o bosh-deployment/misc/config-server.yml \
+    -o bosh-deployment/misc/dns.yml \
     -v director_name=bosh-1 \
     -v internal_cidr=192.168.0.0/24 \
     -v internal_gw=192.168.0.1 \
     -v internal_ip=192.168.0.10 \
+    -v internal_dns="[10.10.10.5,8.8.8.8]" \
     -v network_name="mgmt-network" \
     -v vcenter_dc=datacenter \
     -v vcenter_ds=PCF_Image \
@@ -213,15 +215,21 @@ ssh  -i  jumpbox_ssh.key  jumpbox@192.168.0.11
 
 # BOSH Config Setting 
 bosh create-env실행시 config정보가 필요하여  Opsmanager 정보를 참조하여 아래 작업 수행.
+https://bosh.io/docs/cloud-config/
+https://bosh.io/docs/cpi-config/
 ```
 # setup cloud-config.yml 
+
+
 ubuntu@opsmanager:~$ bosh -e m cloud-config  > cloud-config.yml
 
 copy cloud-config.yml to jumpbox and edit.
 
-ubuntu3@internal-jumpbox:~/bosh-1$ bosh -e b update-cloud-config ./cloud-config.yml
+ubuntu@internal-jumpbox:~/bosh-1$ bosh -e b update-cloud-config ./cloud-config.yml
 
 # cpi-config.yml
+
+
 ubuntu@opsmanager:~$ bosh -e m cpi-config  >  cpi-config.yml
 
 copy cpi-config.yml to jumpbox and edit.
