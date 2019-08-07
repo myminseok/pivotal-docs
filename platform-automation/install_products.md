@@ -35,8 +35,7 @@ platform-automation-configuration-template
 ### env.yml
 - http://docs.pivotal.io/platform-automation/v2.1/configuration-management/configure-env.html
 
-
-### how to prepare cf.yml before running 'configure-pas' job 
+### cf.yml
 ```
 1. run 'upload-and-stage-pas' job
 2. <manually> configure PAS tile via opsmanager UI
@@ -222,9 +221,8 @@ download product tile and stemcells from pivnet and upload to s3 as following:.
   3. then the 'upload-and-stage-product-from-s3' job in the pipeline will automatically be triggered
   4. configure director tile manually.
   4. apply-product-change
-  5. extract-staged-config-with-placeholder. check generated-config git folder. copy to config \<platform-automation-configuration>/\<foundation>/\<product-name>.yml
-  6. extract-staged-config-with-credentials. check generated-config git folder. map credentials with \<product-name>yml with credhub.
-  7. test 'configure-product'
+  5. generate-staged-config. check generated-config git folder. copy to config \<platform-automation-configuration>/\<foundation>/\<product-name>.yml
+  6. test 'configure-product'
 
 ####  patching product pipeline automation.
   1. download product tile and stemcells from pivnet and upload to s3 
