@@ -17,15 +17,12 @@ platform-automation-configuration-template
 │   │   └── env.yml
 │   ├── generated-config
 │   ├── products
-│   │   ├── cf.yml
 │   │   ├── director.yml
-│   │   ├── ops-manager.yml
-│   │   └── pivotal-container-service.md
+│   │   └── ops-manager.yml
 │   ├── products.yml
 │   ├── state
 │   │   └── state.yml
 │   └── vars
-│       ├── cf-vars.yml
 │       ├── director-vars.yml
 │       ├── global.yml
 │       └── ops-manager-vars.yml
@@ -61,20 +58,14 @@ decryption-passphrase: ((decryption-passphrase))
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
 ```
 platform-automation-pipelines-template git:(master)
-├── bbr-backup.yml
-├── download-product.sh
-├── download-product.yml
-├── fly-bbr-backup.sh
 ├── fly-install-upgrade-opsman.sh
-├── fly-install-upgrade-product.sh
 ├── fly-patch-opsman.sh
-├── fly-patch-product.sh
 ├── install-upgrade-opsman.yml
-├── install-upgrade-product.yml
 ├── patch-opsman.yml
-├── patch-product.yml
 ├── tasks
-└── vars-dev-1
+├── vars-dev-1
+│   └── common-params.yml
+└── vars-pcfdemo
     └── common-params.yml
     
 ```
