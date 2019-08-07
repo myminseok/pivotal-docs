@@ -1,5 +1,5 @@
-# Overall
-- [control plane refrerence architecture](https://docs.pivotal.io/pivotalcf/2-3/refarch/control.html#topology2)
+# hands-on architecture
+- ![control plane refrerence architecture](https://docs.pivotal.io/pivotalcf/2-3/plan/images/concourse-multi-zone.png)
 
 ## Iaas resources(for hands on)
 
