@@ -9,10 +9,12 @@
 
 ## resources per each person:
 ```
- platform control-plane total cpu 47/	mem 68gb/ os disk 472gb/	persist disk 400gb.
- PAS	total: 	cpu 23/	mem 53gb/	os disk 312gb/	persist disk 401gb
+ - platform control-plane total cpu 47/	mem 68gb/ os disk 472gb/	persist disk 400gb.
+ - PAS	total: 	cpu 23/	mem 53gb/	os disk 312gb/	persist disk 401gb
  ------------------------------------------------------
  total cpu 70/	mem 131gb/ os disk 783gb/	persist disk 801gb.
+ total private IP :38
+ 
 ```
 
 - platform control-plane: 
@@ -34,6 +36,8 @@
 
 ------------------------------------------------------
  platform control-plane total cpu 47/	mem 68gb/ os disk 472gb/	persist disk 400gb.
+ private IP :16
+ 
 ```
 
 - Installing PCF PAS(minimum) :
@@ -63,6 +67,6 @@
 	credhub	2	8	16	0
   --------------------------------------------------------
   PAS	total: 	cpu 23/	mem 53gb/	os disk 312gb/	persist disk 401gb
-  22 private IPs
+  private IP: 22
 ```
 
