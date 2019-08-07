@@ -1,7 +1,8 @@
 
 # architecture: 
 - https://docs.pivotal.io/p-concourse/4-x/index.html
-- https://docs.pivotal.io/pivotalcf/2-2/plan/control.html#topology2
+- https://docs.pivotal.io/pivotalcf/2-5/plan/control.html
+
 
 # docs
 - https://concourse-ci.org/
