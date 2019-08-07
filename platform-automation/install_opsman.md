@@ -48,10 +48,9 @@ username: ((opsman_admin.username))
 password: ((opsman_admin.password))
 decryption-passphrase: ((decryption-passphrase))
 ```
-
-
-- opsman-<version>.yml:  http://docs.pivotal.io/platform-automation/v3.0/reference/inputs-outputs.html#vsphere
+- ops-manager.yml:  http://docs.pivotal.io/platform-automation/v3.0/reference/inputs-outputs.html#vsphere
 - auth.yml : http://docs.pivotal.io/platform-automation/v3.0/configuration-management/configure-auth.html
+- director.yml: see bellow.
 
 
 ## pipeline
