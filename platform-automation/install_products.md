@@ -187,15 +187,16 @@ $ ./fly-patch-opsman.sh <fly-target> <foundation>
  - will create concourse pipeline named '<foundation>-opsman-patch'
 
 ```
+
 #### edit products.yml in git
-edit version info from \<platform-automation-configuration>/\<foundation>/products.yml in git and commit
+edit version info \<platform-automation-configuration>/\<foundation>/products.yml from git and commit 
 ```
   products:
-    ops-mananager:
+    cf:
       product-version: "2.6.3"
-      pivnet-product-slug: ops-manager-vsphere
-      pivnet-file-glob: "*.ova"
-      download-stemcell: "false"
+      pivnet-product-slug: elastic-runtime
+      pivnet-file-glob: "*.pivotal"
+      stemcell-iaas: vsphere
       s3-endpoint: http://my.s3.repo
       s3-region-name: "region"
       s3-bucket: "pivnet-products"
@@ -204,74 +205,35 @@ edit version info from \<platform-automation-configuration>/\<foundation>/produc
       s3-secret-access-key: ((s3_secret_access_key))
       pivnet-api-token: ((pivnet_token))
 ```
-#### create s3 bucket
-- for opsman backup: 'installation-\<foundation>'
 
 #### prepare products
-the pipeline download opsman ova from pivnet and upload to s3. folder sturcture should be compatible with 'om' cli which is used in 'paltform automation for PCF'. download product tile and stemcells from pivnet and upload to s3 as following:.
+download product tile and stemcells from pivnet and upload to s3 as following:.
   - folder-sturcture format is as following and information comes from products.yml
   - pipeline matches a folder name of '[pivnet-product-slug, product-version]' in s3 bucket.
   - pipeline matches a file name 'pivnet-product-slug, product-version, pivnet-file-glob'.
   ```
-  <s3-bucket>/[<products.ops-mananager>,<products.ops-manager.product-version>]/<products.ops-manager.pivnet-product-slug>-<products.ops-manager.product-version>-<products.ops-manager.pivnet-file-glob>
-  
-  ex) https://your.internal.s3/pivnet-products/[opsmanager,2.6.3]/ops-manager-vsphere-2.6.3-build.163.ova
-  ```  
-#### run pipeline for new opsman installation 
-  1. create-new-opsman-vm
-  2. configure-authentication
-  3. generate-staged-config
-   - it will extract director config and save to \<foundation>/generated-config/director.yml.
-   - copy \<foundation>/generated-config/director.yml to \<foundation>/products/director.yml
-   - edit \<foundation>/products/director.yml as following:
-```
-## add vcenter_password
-iaas-configurations:
-  - additional_cloud_properties: {}
-  ...
-    vcenter_username: 
-    vcenter_password: 
-  ...
-## modify encryption
-properties-configuration:
-  director_configuration:
-  ...
-    #encryption: []
-    encryption:
-      keys: []
-      providers: []
-  ...
-  #dns_configuration: []
-  dns_configuration:
-    excluded_recursors: []
-    handlers: []
-   ```
-   - create \<foundation>/vars/director-vars.yml and edit secret key/values which maps to products/director.yml
-  3. configure director tile manually.
-  4. apply-director-change
-  5. generate-staged-director-config > configure-director
- 
-#### run pipeline for minor upgrade opsman  
-  1. upgrade-opsman-vm
-  2. configure director tile manually.
-  3. apply-director-change
-  4. generate-staged-director-config > configure-director
+  https://s3/pivnet-products/[elastic-runtime,2.6.3]/cf-2.6.3-build.21.pivotal
+  https://s3/pivnet-products/[stemcells-ubuntu-xenial,250.56]/bosh-stemcell-250.56-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+  ```
 
-#### run pipeline for patching opsman
-  1. download opsman ova from pivnet and upload to s3 as following
-  2. edit version info in products.yml from git and commit.
-  3. then the 'replace-opsman-vm' job in the pipeline will automatically be triggered
+#### run pipeline for install or upgrade product.
+  1. download product tile and stemcells from pivnet and upload to s3 
+  2. edit version info in products.yml from git and commit. 
+  3. then the 'upload-and-stage-product-from-s3' job in the pipeline will automatically be triggered
+  4. configure director tile manually.
+  4. apply-product-change
+  5. extract-staged-config-with-placeholder. check generated-config git folder. copy to config \<platform-automation-configuration>/\<foundation>/\<product-name>.yml
+  6. extract-staged-config-with-credentials. check generated-config git folder. map credentials with \<product-name>yml with credhub.
+  7. test 'configure-product'
 
-### run pipeline for recovering opsman
-  1. download opsman ova from pivnet and upload to s3 as following
-  2. edit version info in products.yml from git and commit.
-  3. create-new-opsman-vm
-  4. import-installation
-  5. apply-director-change
-  then opsman will be recovered in a few minitues.
+####  patching product pipeline automation.
+  1. download product tile and stemcells from pivnet and upload to s3 
+  2. edit version info in products.yml from git and commit. 
+  3. then the 'upload-and-stage-product-from-s3' job in the pipeline will automatically be triggered
 
-
-
+#### reference
+- PAS pipeline: https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/install_products.md
+- product slug: https://github.com/brightzheng100/platform-automation-pipelines/blob/master/vars-dev/vars-products.yml
 
 ## how to extract secret value from PAS
 ```
