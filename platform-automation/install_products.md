@@ -8,37 +8,72 @@
 - sample: https://github.com/myminseok/platform-automation-configuration-template
 ```
 platform-automation-configuration-template
-└── dev-1
-    ├── config
-    │   ├── cf.yml
-    │   ├── auth.yml    
-    │   └── opsman-2.4.yml
-    ├── download-product-configs
-    ├── env
-    │   └── env.yml             
-    ├── generated-config
-    ├── state
-    └── vars
+├── dev-1
+│   ├── config
+│   │   ├── auth-ldap.yml
+│   │   ├── auth-saml.yml
+│   │   └── auth.yml
+│   ├── env
+│   │   └── env.yml
+│   ├── generated-config
+│   ├── products
+│   │   ├── cf.yml
+│   │   ├── director.yml
+│   │   ├── ops-manager.yml
+│   │   └── pivotal-container-service.md
+│   ├── products.yml
+│   ├── state
+│   │   └── state.yml
+│   └── vars
+│       ├── cf-vars.yml
+│       ├── director-vars.yml
+│       ├── global.yml
+│       └── ops-manager-vars.yml
+└── download-product-configs
 
 ```
 ### env.yml
 - http://docs.pivotal.io/platform-automation/v2.1/configuration-management/configure-env.html
 
 
+### how to prepare cf.yml before running 'configure-pas' job 
+```
+1. run 'upload-and-stage-pas' job
+2. <manually> configure PAS tile via opsmanager UI
+  - to get domain self-signed certifiate:
+   1. generate certs from opsmanager UI> PAS> networking
+   2. copy certifiate to "domain.crt" file
+   3. copy private key to "domain.key" file.
+3. run 'generate-staged-config' in concourse pipeline:  
+  - run with set SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true in pipeline.
+  - will generate  generated-config/cf.yml in configuration git repository
+4. copy generated-config/cf.yml to config/cf-<version>.yml
+  - see <GIT>/<foundation>/config/cf.md 
+5. set PLACEHOLDER value to concourse CREDHUB.
+  - see <GIT>/<foundation>/config/cf.md 
+  - use domain.crt and domain.key file in previous steps.
+```
+
+
+
 
 ## pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
 ```
-
-├── common-params.yml
-├── dev-1
-│   ├── download-product-params.yml
-│   └── env-params.yml
-├── pas.sh
-├── pas.yml
+platform-automation-pipelines-template git:(master)
+├── fly-install-upgrade-opsman.sh
+├── fly-install-upgrade-product.sh
+├── fly-patch-opsman.sh
+├── fly-patch-product.sh
+├── install-upgrade-opsman.yml
+├── install-upgrade-product.yml
+├── patch-opsman.yml
+├── patch-product.yml
 ├── tasks
-│   ├── apply-product-changes.yml
-│   ├── staged-director-config.yml
+├── vars-dev-1
+│   └── common-params.yml
+└── vars-pcfdemo
+    └── common-params.yml
 ```
 
 
@@ -141,34 +176,100 @@ credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_
 ## run pipeline
 
 ```
-fly -t demo login -c https://<concourse> -u your-user -p xxx -k
-fly -t demo sp -p pas-install -c pas.yml -l ./common-params.yml -l ./dev-1/env-params.yml
+$ fly -t <fly-target> login -c https://your.concourse/ -b -k
 
-or 
+$ ./fly-install-upgrade-opsman.sh <fly-target>  <foundation>
+ - foundation: name of pcf foundation in platform-automation-config git.  
+ - will create concourse pipeline named '<foundation>-opsman-install-upgrade'
 
-./pas.sh <foundation>
-./pas.sh dev-1
+$ ./fly-patch-opsman.sh <fly-target> <foundation>
+ - foundation: name of pcf foundation in platform-automation-config git.  
+ - will create concourse pipeline named '<foundation>-opsman-patch'
+
 ```
-
-
-## how to prepare cf.yml before running 'configure-pas' job 
+#### edit products.yml in git
+edit version info from \<platform-automation-configuration>/\<foundation>/products.yml in git and commit
 ```
-1. run 'upload-and-stage-pas' job
-2. <manually> configure PAS tile via opsmanager UI
-  - to get domain self-signed certifiate:
-   1. generate certs from opsmanager UI> PAS> networking
-   2. copy certifiate to "domain.crt" file
-   3. copy private key to "domain.key" file.
-3. run 'extract-staged-pas-config' in concourse pipeline:  
-  - run with set SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true in pipeline.
-  - will generate  generated-config/cf-<foundation>.yml in configuration git repository
-4. create config/cf-<version>.yml 
-  - copy generated-config/cf-<foundation>.yml to config/cf-<version>.yml
-  - see <GIT>/<foundation>/config/cf.md 
-5. set PLACEHOLDER value to concourse CREDHUB.
-  - see <GIT>/<foundation>/config/cf.md 
-  - use domain.crt and domain.key file in previous steps.
+  products:
+    ops-mananager:
+      product-version: "2.6.3"
+      pivnet-product-slug: ops-manager-vsphere
+      pivnet-file-glob: "*.ova"
+      download-stemcell: "false"
+      s3-endpoint: http://my.s3.repo
+      s3-region-name: "region"
+      s3-bucket: "pivnet-products"
+      s3-disable-ssl: "true"
+      s3-access-key-id: ((s3_access_key_id))
+      s3-secret-access-key: ((s3_secret_access_key))
+      pivnet-api-token: ((pivnet_token))
 ```
+#### create s3 bucket
+- for opsman backup: 'installation-\<foundation>'
+
+#### prepare products
+the pipeline download opsman ova from pivnet and upload to s3. folder sturcture should be compatible with 'om' cli which is used in 'paltform automation for PCF'. download product tile and stemcells from pivnet and upload to s3 as following:.
+  - folder-sturcture format is as following and information comes from products.yml
+  - pipeline matches a folder name of '[pivnet-product-slug, product-version]' in s3 bucket.
+  - pipeline matches a file name 'pivnet-product-slug, product-version, pivnet-file-glob'.
+  ```
+  <s3-bucket>/[<products.ops-mananager>,<products.ops-manager.product-version>]/<products.ops-manager.pivnet-product-slug>-<products.ops-manager.product-version>-<products.ops-manager.pivnet-file-glob>
+  
+  ex) https://your.internal.s3/pivnet-products/[opsmanager,2.6.3]/ops-manager-vsphere-2.6.3-build.163.ova
+  ```  
+#### run pipeline for new opsman installation 
+  1. create-new-opsman-vm
+  2. configure-authentication
+  3. generate-staged-config
+   - it will extract director config and save to \<foundation>/generated-config/director.yml.
+   - copy \<foundation>/generated-config/director.yml to \<foundation>/products/director.yml
+   - edit \<foundation>/products/director.yml as following:
+```
+## add vcenter_password
+iaas-configurations:
+  - additional_cloud_properties: {}
+  ...
+    vcenter_username: 
+    vcenter_password: 
+  ...
+## modify encryption
+properties-configuration:
+  director_configuration:
+  ...
+    #encryption: []
+    encryption:
+      keys: []
+      providers: []
+  ...
+  #dns_configuration: []
+  dns_configuration:
+    excluded_recursors: []
+    handlers: []
+   ```
+   - create \<foundation>/vars/director-vars.yml and edit secret key/values which maps to products/director.yml
+  3. configure director tile manually.
+  4. apply-director-change
+  5. generate-staged-director-config > configure-director
+ 
+#### run pipeline for minor upgrade opsman  
+  1. upgrade-opsman-vm
+  2. configure director tile manually.
+  3. apply-director-change
+  4. generate-staged-director-config > configure-director
+
+#### run pipeline for patching opsman
+  1. download opsman ova from pivnet and upload to s3 as following
+  2. edit version info in products.yml from git and commit.
+  3. then the 'replace-opsman-vm' job in the pipeline will automatically be triggered
+
+### run pipeline for recovering opsman
+  1. download opsman ova from pivnet and upload to s3 as following
+  2. edit version info in products.yml from git and commit.
+  3. create-new-opsman-vm
+  4. import-installation
+  5. apply-director-change
+  then opsman will be recovered in a few minitues.
+
 
 
 
