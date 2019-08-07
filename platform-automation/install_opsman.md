@@ -8,16 +8,31 @@
 
 ```
 platform-automation-configuration-template
-└── dev-1
-    ├── config
-    │   ├── auth.yml    
-    │   └── opsman-2.4.yml
-    ├── download-product-configs
-    ├── env
-    │   └── env.yml
-    ├── generated-config
-    ├── state
-    └── vars
+├── dev-1
+│   ├── config
+│   │   ├── auth-ldap.yml
+│   │   ├── auth-saml.yml
+│   │   └── auth.yml
+│   ├── env
+│   │   └── env.yml
+│   ├── generated-config
+│   ├── products
+│   │   ├── cf.yml
+│   │   ├── director.yml
+│   │   ├── ops-manager.yml
+│   │   └── pivotal-container-service.md
+│   ├── products.yml
+│   ├── state
+│   │   └── state.yml
+│   └── vars
+│       ├── cf-vars.yml
+│       ├── director-vars.yml
+│       ├── global.yml
+│       └── ops-manager-vars.yml
+└── download-product-configs
+
+    
+    
 ```
 
 ### env.yml
@@ -45,23 +60,23 @@ decryption-passphrase: ((decryption-passphrase))
 ## pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
 ```
-├── common-params.yml
-├── dev-1
-│   ├── download-product-params.yml
-│   └── env-params.yml
-├── opsman-install.sh
-├── opsman-install.yml
-├── opsman-upgrade.sh
-├── opsman-upgrade.yml
-├── pas.sh
-├── pas.yml
+platform-automation-pipelines-template git:(master)
+├── bbr-backup.yml
+├── download-product.sh
+├── download-product.yml
+├── fly-bbr-backup.sh
+├── fly-install-upgrade-opsman.sh
+├── fly-install-upgrade-product.sh
+├── fly-patch-opsman.sh
+├── fly-patch-product.sh
+├── install-upgrade-opsman.yml
+├── install-upgrade-product.yml
+├── patch-opsman.yml
+├── patch-product.yml
 ├── tasks
-│   ├── poweroff-vm.sh
-│   ├── poweroff-vm.yml
-│   ├── rename-vm.sh
-│   ├── rename-vm.yml
-│   ├── staged-director-config.yml
-
+└── vars-dev-1
+    └── common-params.yml
+    
 ```
 
 ### common-params.yml
@@ -74,7 +89,7 @@ s3:
   buckets:
     platform_automation: platform-automation
     pivnet_products: pivnet-products
-    installation: installation
+    installation: installation-dev-1
     bbr-backup: bbr-pcfdemo
 
 git:
@@ -99,33 +114,9 @@ credhub:
   client: ((credhub_client.username))
   secret: ((credhub_client.password))
 
-vcenter:
-  datacenter: datacenter
-  insecure: 1
-  url: 10.10.10.10
-  username: ((vcenter_user.username))
-  password: ((vcenter_user.password))
-
 pivnet: 
   token: ((pivnet_token))
   
-```
-
-### dev-1/env-params.yml
-```
-
-foundation: dev-1
-
-opsman_image_versioned_regexp:  ops-manager-vsphere-(2\.5\.5.*).ova
-
-pas_product_versioned_regexp: cf-(2\.5).pivotal
-pas_stemcell_versioned_regexp: pas-stemcell/bosh-stemcell-(.*)-vsphere.*\.tgz
-
-pks_product_versioned_regexp: pivotal-container-service-(1\.4\..*).pivotal
-pks_stemcell_versioned_regexp: pks-stemcell/bosh-stemcell-(.*)-vsphere.*\.tgz
-
-pas_config_file: cf-2.5.yml
-pks_config_file: pivotal-container-service-1.4.yml
 ```
 
 ###  register secrets to concourse credhub.
@@ -160,13 +151,100 @@ credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_
 
 ## run pipeline
 
+#### deploy pipeline
 ```
-fly -t demo login -c https://<concourse> -u your-user -p xxx -k
-fly -t demo sp -p opsman-install -c opsman.yml -l ./common-params.yml -l ./dev-1/env-params.yml
+$ fly -t <fly-target> login -c https://your.concourse/ -b -k
 
-or 
+$ ./fly-install-upgrade-opsman.sh <fly-target>  <foundation>
+ - foundation: name of pcf foundation in platform-automation-config git.  
+ - will create concourse pipeline named '<foundation>-opsman-install-upgrade'
 
-./opsman-install.sh <foundation> 
-./opsman-install.sh dev-1
+$ ./fly-patch-opsman.sh <fly-target> <foundation>
+ - foundation: name of pcf foundation in platform-automation-config git.  
+ - will create concourse pipeline named '<foundation>-opsman-patch'
 
 ```
+
+#### edit products.yml in git
+edit version info from \<platform-automation-configuration>/\<foundation>/products.yml in git and commit
+```
+  products:
+    ops-mananager:
+      product-version: "2.6.3"
+      pivnet-product-slug: ops-manager-vsphere
+      pivnet-file-glob: "*.ova"
+      download-stemcell: "false"
+      s3-endpoint: http://my.s3.repo
+      s3-region-name: "region"
+      s3-bucket: "pivnet-products"
+      s3-disable-ssl: "true"
+      s3-access-key-id: ((s3_access_key_id))
+      s3-secret-access-key: ((s3_secret_access_key))
+      pivnet-api-token: ((pivnet_token))
+```
+#### create s3 bucket
+- for opsman backup: 'installation-\<foundation>'
+
+#### prepare products
+the pipeline download opsman ova from pivnet and upload to s3. folder sturcture should be compatible with 'om' cli which is used in 'paltform automation for PCF'. download product tile and stemcells from pivnet and upload to s3 as following:.
+  - folder-sturcture format is as following and information comes from products.yml
+  - pipeline matches a folder name of '[pivnet-product-slug, product-version]' in s3 bucket.
+  - pipeline matches a file name 'pivnet-product-slug, product-version, pivnet-file-glob'.
+  ```
+  <s3-bucket>/[<products.ops-mananager>,<products.ops-manager.product-version>]/<products.ops-manager.pivnet-product-slug>-<products.ops-manager.product-version>-<products.ops-manager.pivnet-file-glob>
+  
+  ex) https://your.internal.s3/pivnet-products/[opsmanager,2.6.3]/ops-manager-vsphere-2.6.3-build.163.ova
+  ```  
+#### run pipeline for new opsman installation 
+  1. create-new-opsman-vm
+  2. configure-authentication
+  3. generate-staged-config
+   - it will extract director config and save to \<foundation>/generated-config/director.yml.
+   - copy \<foundation>/generated-config/director.yml to \<foundation>/products/director.yml
+   - edit \<foundation>/products/director.yml as following:
+```
+## add vcenter_password
+iaas-configurations:
+  - additional_cloud_properties: {}
+  ...
+    vcenter_username: 
+    vcenter_password: 
+  ...
+## modify encryption
+properties-configuration:
+  director_configuration:
+  ...
+    #encryption: []
+    encryption:
+      keys: []
+      providers: []
+  ...
+  #dns_configuration: []
+  dns_configuration:
+    excluded_recursors: []
+    handlers: []
+   ```
+   - create \<foundation>/vars/director-vars.yml and edit secret key/values which maps to products/director.yml
+  3. configure director tile manually.
+  4. apply-director-change
+  5. generate-staged-director-config > configure-director
+ 
+#### run pipeline for minor upgrade opsman  
+  1. upgrade-opsman-vm
+  2. configure director tile manually.
+  3. apply-director-change
+  4. generate-staged-director-config > configure-director
+
+#### run pipeline for patching opsman
+  1. download opsman ova from pivnet and upload to s3 as following
+  2. edit version info in products.yml from git and commit.
+  3. then the 'replace-opsman-vm' job in the pipeline will automatically be triggered
+
+### run pipeline for recovering opsman
+  1. download opsman ova from pivnet and upload to s3 as following
+  2. edit version info in products.yml from git and commit.
+  3. create-new-opsman-vm
+  4. import-installation
+  5. apply-director-change
+  then opsman will be recovered in a few minitues.
+
