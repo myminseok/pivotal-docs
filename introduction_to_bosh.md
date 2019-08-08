@@ -8,3 +8,8 @@
 # download
 https://github.com/cppforlife/zookeeper-release
 https://bosh.io/stemcells/bosh-vsphere-esxi-ubuntu-trusty-go_agent
+
+# releases
+https://bosh.io/docs/create-release/
+https://github.com/myminseok/bosh-tutorial-deployment
+
