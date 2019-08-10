@@ -1,7 +1,9 @@
-# there are two jumpboxes(internal, external)
+#  Jumpbox For Airgapped envirionment 
+there are two jumpboxes(internal, external)
 
-# OS
-- 16.04 LTS, 64 bit 
+# VM spec
+- Ubuntu 16.04 LTS, 64 bit 
+- 2cpu, 4gbmem, os disk 3gb, persistent disk 50 - 200gb
 - http://releases.ubuntu.com/xenial/
 
 
