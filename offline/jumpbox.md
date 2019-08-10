@@ -197,13 +197,13 @@ bosh create-env bosh-deployment/bosh.yml \
     -v vcenter_disks=bosh-1-disks \
     -v vcenter_cluster=cluster
 
-ubuntu@external-jumpbox:~/bosh-1$ ./deploy.sh
+ubuntu@internal-jumpbox:~/bosh-1$ ./deploy.sh
 ...
 
 ```
 
 
-# BOSH 접속
+### login to BOSH director
 ```
 # Configure local alias
 bosh alias-env b -e 192.168.0.11 --ca-cert <(bosh int ./creds.yml --path /director_ssl/ca)
