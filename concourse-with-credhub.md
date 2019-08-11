@@ -73,31 +73,34 @@ git clone https://github.com/concourse/concourse-bosh-deployment
 # we will install concourse 'cluster' for HA
 cd concourse-bosh-deployment/cluster
 
-# modify operations/credhub.yml to disable ssl validation for private-certificate.
-vi operations/credhub-colocated.yml
 
-- path: /instance_groups/name=web/jobs/name=web/properties/credhub?
-  type: replace
+# add add-credhub-uaa-to-web.yml ops file
+cd ~/workspace/concourse-bosh-deployment/cluster/operations/
+wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/operations/add-credhub-uaa-to-web.yml
+
+# modify operations/credhub.yml to disable ssl validation for private-certificate.
+vi operations/add-credhub-uaa-to-web.yml
+
+- type: replace
+  path: /instance_groups/name=web/jobs/name=web/properties/credhub?
   value:
-    url: ((external_url)):8844
+    url: ((credhub_url))
+    client_id: ((credhub_client_id))
+    client_secret: ((credhub_client_secret))
     tls:
       ca_cert:
-        certificate: ((atc_tls.ca))
-      client_cert: ((atc_tls.certificate))
-      insecure_skip_verify: true   <=====   disable ssl validation for private-certificate.
-    client_id: concourse_to_credhub_client
-    client_secret: ((concourse_to_credhub_client_secret))
-    path_prefix: /concourse   
-      
+        certificate: ((credhub_ca_cert))
+      insecure_skip_verify: true     <=====   disable ssl validation for private-certificate.
+       
+
+# add credhub release version info 
+cd concourse-bosh-deployment/cluster
+wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/versions.yml 
+cat versions.yml  >> ../versions.yml
+
+
 # add credhub release version info 
 https://bosh.io/releases/
-
-vi concourse-bosh-deployment/version.yml
-...
-uaa_version: 60
-uaa_sha1: a7c14357ae484e89e547f4f207fb8de36d2b0966
-credhub_version: 1.9.3
-credhub_sha1: 648658efdef2ff18a69914d958bcd7ebfa88027a
 
 
 # upload stemcell to bosh director vm.
@@ -119,8 +122,7 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   -o operations/tls-vars.yml \
   -o operations/scale.yml \
   -o operations/worker-ephemeral-disk.yml \
-  -o operations/uaa.yml \
-  -o operations/credhub-colocated.yml \
+  -o operations/add-credhub-uaa-to-web.yml
   -o operations/container-placement-strategy-random.yml \
   -o operations/web-network-extension.yml \
   --var web_network_name=private \
