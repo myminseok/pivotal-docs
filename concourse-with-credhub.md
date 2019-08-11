@@ -154,7 +154,7 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
 ### fly cli
 ~~~
 fly client download(linux):
-wget https://github.com/concourse/concourse/releases/download/v4.2.2/fly_linux_amd64
+wget https://github.com/concourse/concourse/releases/download/v5.4.1/fly-5.4.1-linux-amd64.tgz
 
 ~~~
 
@@ -203,7 +203,7 @@ jobs:
  
  ~~~
  
-wheck with web browser <concourse elb url>
+check with web browser <concourse elb url>
 
  
 
@@ -214,20 +214,17 @@ wheck with web browser <concourse elb url>
 wget https://github.com/cloudfoundry-incubator/credhub-cli/releases/download/2.1.0/credhub-linux-2.1.0.tgz
 tar xf credhub-linux-2.1.0.tgz
 
-wget  https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/target-concourse-credhub.sh
-
-bbl lbs
-
-export CONCOURSE_URL=https://<concourse -lb-url>
-source ./target-concourse-credhub.sh
+bosh int ./cluster-creds.yml --path=/atc_tls/ca > atc_tls.ca
+credhub api <concourse-lb-url>:8844 --ca-cert ./atc_tls.ca
+credhub login --client-name=concourse_to_credhub_client --client-secret=$(bosh int ./cluster-creds.yml --path=/concourse_to_credhub_client_secret)
 
 $ crehub api
 
-$ credhub set -t value -n /concourse/main/test/hello -v test
+$ credhub set -t value -n /concourse/main/hello-credhub/hello -v test
 
-$ credhub get -n /concourse/main/test/hello
+$ credhub get -n /concourse/main/hello-credhub/hello
 id: 3cd51b78-426f-4145-b94e-baacf16c383d
-name: /concourse/main/test/hello
+name: /concourse/main/hello-credhub/hello
 type: value
 value: test
 
@@ -239,7 +236,7 @@ value: test
 https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/credhub-integration.md#sample-pipeline
 
 https://github.com/pivotal-cf/pcf-pipelines/blob/master/docs/samples/hello-credhub.yml
-~~~
+```
 jobs:
 - name: hello-credhub
   plan:
@@ -259,50 +256,18 @@ jobs:
             echo "Hello $WORLD_PARAM"
       params:
         WORLD_PARAM: ((hello))
-  ~~~
-  
- ~~~
+```
+
+```
  fly -t sandbox sp -p hello-credhub -c ./hello-credhub.yml
  fly -t sandbox up -p hello-credhub 
  
- ~~~
- 
-wheck with web browser
+```
+
+check with web browser
 
 ## bind concourse user with PAS UAA
 - [bind users in concourse with PAS](concourse_with_cf_auth.md)
-
- 
-###  set env.
-```
-vi ~/.profile
-
-pushd .
-cd ~/workspace/bbl
-eval "$(bbl print-env)"
-popd
-
-source ~/workspace/concourse-bosh-deployment/cluster/target-concourse-credhub.sh
-
-```
-  
-  
-# delete bosh concourse deployment
-~~~
-# move to bbl direcftory
-eval "$(bbl print-env)"
-
-bosh delete-deployment -d concourse
-~~~
-
-# recreate worker vm
-
-~~~
-# move to bbl direcftory
-eval "$(bbl print-env)"
-
-bosh -d concourse recreate worker
-~~~
 
 
 ## reference documents
