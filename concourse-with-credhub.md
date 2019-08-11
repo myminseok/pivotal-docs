@@ -1,5 +1,5 @@
 
-This document explains how to install concourse cluster.
+This document explains how to install concourse cluster
 
 ## Concourse concept
 * concourse architecture: https://concourse-ci.org/concepts.html
@@ -17,7 +17,8 @@ https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 ```
 # check and update bosh vm types to bosh director vm.
 
-# external lb
+# external loadbalancer
+- name: concourse-lb
 - HTTP 80
 - HTTPS 443
 - TCP 8443 
@@ -33,7 +34,7 @@ vm_extensions:
     disk: 102400
   name: 100GB_ephemeral_disk
 - cloud_properties:
-    elbs: [concourse-lb]
+    elbs: "[concourse-lb]"
   name: lb
   
 $ bosh update-cloud-config ./bosh-cloud-config.yml
