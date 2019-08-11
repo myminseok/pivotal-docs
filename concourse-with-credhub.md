@@ -8,11 +8,6 @@ This document explains how to install concourse cluster.
 ## prerequisites.
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 
-## loading bbl environment variables(jumpbox)
-
-- [bbl(bosh-bootloader)-aws  ](bbl.md)
-- [bbl-azure](bbl-azure.md)
-
 ## install git cli (jumpbox)
 https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
@@ -27,14 +22,10 @@ git clone https://github.com/concourse/concourse-bosh-deployment
 cd concourse-bosh-deployment/cluster
 ```
 
-reference:https://github.com/myminseok/concourse-bosh-deployment-v4.2.1
-
 
 # install concourse cluster
 
 ## colocate credhub on concourse-web VM
-
-
 ```
 # loading bbl environment variable 
 cd ~/workspacce/bbl
