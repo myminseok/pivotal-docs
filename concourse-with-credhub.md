@@ -49,11 +49,10 @@ cd /workspace/dojo-concourse-bosh-deployment/cluster/operations/
 wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/operations/add-credhub-uaa-to-web.yml
 
 # modify operations/credhub.yml to disable ssl validation for private-certificate.
-vi opera
-tions/credhub.yml 
+vi operations/add-credhub-uaa-to-web.yml
 
 - type: replace
-  path: /instance_groups/name=web/jobs/name=atc/properties/credhub?
+  path: /instance_groups/name=web/jobs/name=web/properties/credhub?
   value:
     url: ((credhub_url))
     client_id: ((credhub_client_id))
