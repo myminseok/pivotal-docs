@@ -11,80 +11,97 @@ This document explains how to install concourse cluster.
 ## install git cli (jumpbox)
 https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-## clone concourse bosh deployment 
+
+## prepare bosh and loadbalancer
 
 ```
-mkdir ~/workspace/
-cd workspace
-git clone https://github.com/concourse/concourse-bosh-deployment
+# check and update bosh vm types to bosh director vm.
 
-# we will install concourse 'cluster' for HA
-cd concourse-bosh-deployment/cluster
-```
+# external lb
+- HTTP 80
+- HTTPS 443
+- TCP 8443 
+- TCP 8844
 
 
-# install concourse cluster
+# vm extension for OSS bosh.
+$ bosh cloud-config > bosh-cloud-config.yml
 
-## colocate credhub on concourse-web VM
-```
-# loading bbl environment variable 
-cd ~/workspacce/bbl
-eval "$(bbl print-env)"
-
-# go to concourse-bosh-deployment directory
-# git clone https://github.com/concourse/concourse-bosh-deployment
-cd /workspace/dojo-concourse-bosh-deployment/cluster/
-
-# add add-credhub-uaa-to-web.yml ops file
-cd /workspace/dojo-concourse-bosh-deployment/cluster/operations/
-wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/operations/add-credhub-uaa-to-web.yml
-
-# modify operations/credhub.yml to disable ssl validation for private-certificate.
-vi operations/add-credhub-uaa-to-web.yml
-
-- type: replace
-  path: /instance_groups/name=web/jobs/name=web/properties/credhub?
-  value:
-    url: ((credhub_url))
-    client_id: ((credhub_client_id))
-    client_secret: ((credhub_client_secret))
-    tls:
-      ca_cert:
-        certificate: ((credhub_ca_cert))
-      insecure_skip_verify: true     <=====   disable ssl validation for private-certificate.
-      
-      
-      
-# (optional) check and update bosh vm types to bosh director vm.
-
-/workspace/dojo-concourse-bosh-deployment/cluster$ bosh cloud-config > bosh-cloud-config.yml
-vi bosh-cloud-config.yml
-
+$ vi bosh-cloud-config.yml
 vm_extensions:
 - cloud_properties:
     disk: 102400
   name: 100GB_ephemeral_disk
+- cloud_properties:
+    elbs: [concourse-lb]
+  name: lb
+  
+$ bosh update-cloud-config ./bosh-cloud-config.yml
 
--  ~/workspace/dojo-concourse-bosh-deployment/cluster$ bosh update-cloud-config ./bosh-cloud-config.yml
+
+# vm extension for ops man
+https://docs.pivotal.io/pivotalcf/2-6/customizing/custom-vm-extensions.html
+
+curl -vv -k "https://localhost/api/v0/staged/vm_extensions" \
+    -X POST \
+    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{"name": "100GB_ephemeral_disk", "cloud_properties": { "disk": 102400 }}'
+
+curl -vv -k "https://localhost/api/v0/staged/vm_extensions" \
+    -X POST \
+    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{"name": "lb", "cloud_properties": { "elbs": "[concourse-lb]" }}'
+
+=> apply change
+
+curl -k "https://localhost/api/v0/deployed/vm_extensions" \
+    -X GET \
+    -H "Authorization: Bearer $UAA_ACCESS_TOKEN"
+
+```
+
+## install concourse cluster
+```
+mkdir ~/workspace/
+cd workspace
 
 
-# add credhub release version info 
+git clone https://github.com/concourse/concourse-bosh-deployment
+
+# we will install concourse 'cluster' for HA
 cd concourse-bosh-deployment/cluster
-wget https://raw.githubusercontent.com/pivotalservices/concourse-credhub/master/versions.yml 
-cat versions.yml  >> ../versions.yml
+
+# modify operations/credhub.yml to disable ssl validation for private-certificate.
+vi operations/credhub-colocated.yml
+
+- path: /instance_groups/name=web/jobs/name=web/properties/credhub?
+  type: replace
+  value:
+    url: ((external_url)):8844
+    tls:
+      ca_cert:
+        certificate: ((atc_tls.ca))
+      client_cert: ((atc_tls.certificate))
+      insecure_skip_verify: true   <=====   disable ssl validation for private-certificate.
+    client_id: concourse_to_credhub_client
+    client_secret: ((concourse_to_credhub_client_secret))
+    path_prefix: /concourse   
+      
+# add credhub release version info 
+https://bosh.io/releases/
+
+vi concourse-bosh-deployment/version.yml
+...
+uaa_version: 60
+uaa_sha1: a7c14357ae484e89e547f4f207fb8de36d2b0966
+credhub_version: 1.9.3
+credhub_sha1: 648658efdef2ff18a69914d958bcd7ebfa88027a
+
 
 # upload stemcell to bosh director vm.
 https://bosh.io/stemcells/
-
-## azure
-bosh upload-stemcell --sha1 0f5e2d934c3dc3628b06ba7a5dc25a04a91f5cfb \
-  https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=250.4
-  
-  
-## aws
-bosh upload-stemcell --sha1 c8b65794ca4c45773b6fe23b3d447dde520f07b0 \
-  https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=170.3
-  
 
 
 # edit deploy script.
@@ -102,7 +119,8 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   -o operations/tls-vars.yml \
   -o operations/scale.yml \
   -o operations/worker-ephemeral-disk.yml \
-  -o operations/add-credhub-uaa-to-web.yml \
+  -o operations/uaa.yml \
+  -o operations/credhub-colocated.yml \
   -o operations/container-placement-strategy-random.yml \
   -o operations/web-network-extension.yml \
   --var web_network_name=private \
