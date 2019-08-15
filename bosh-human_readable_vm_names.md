@@ -1,4 +1,5 @@
 
+Enabling human readable vm name for bosh managed VMs through Pivotal Cloud Foundry Ops Manager
 
 
 ### get your opsman uaa token
