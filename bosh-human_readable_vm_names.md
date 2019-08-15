@@ -12,13 +12,16 @@ export TOKEN=<YOUR-OPSMAN-UAA-TOKEN>
 
 ```
 
-### Enable 'human_readable_vm_names' option to opsman
+### How to enable 'human_readable_vm_names' option to opsman
 https://docs.pivotal.io/pivotalcf/2-5/opsman-api/#updating-single-iaas-configuration
+
+#### fetch your director iaas_configurations.
+```
+curl -k "https://localhost/api/v0/staged/director/iaas_configurations" -H "Authorization: Bearer $TOKEN"  | jq '.'
 ```
 
-curl -k "https://localhost/api/v0/staged/director/iaas_configurations" -H "Authorization: Bearer $TOKEN"  | jq ‘.'
-
-
+#### update your director iaas_configurations.
+```
 curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba16572953313cea" -H "Authorization: Bearer $TOKEN" -X PUT   -H "Content-Type: application/json" \
 -d '{
   "iaas_configuration":
@@ -40,15 +43,18 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
     }
 }' -v
 
+* upload completely sent off: 704 out of 704 bytes
+< HTTP/1.1 200 OK
+...
+<
+* Connection #0 to host localhost left intact
+{"iaas_configuration":{"guid":"6552ba16572953313cea","name":"default","additional_cloud_properties":{"human_readable_vm_names":true},"vcenter_host":"....","datacenter":"....","ephemeral_datastores_string":".....","persistent_datastores_string":"....","vcenter_username":"....@....","bosh_vm_folder":"...","bosh_template_folder":"....","bosh_disk_path":"....","ssl_verification_enabled":false,"nsx_networking_enabled":false,"disk_type":"thick"}}
+
 ```
-
-### apply to director
-
-
-###
+### apply to director VM by clicking 'apply change' to director
 
 ```
-ubuntu@opsman-pcfdemo-net:~$ bosh cpi-config
+bosh cpi-config
 Using environment '10.10.10.21' as client 'ops_manager'
 
 cpis:
@@ -76,3 +82,5 @@ cpis:
 
 Succeeded
 ```
+
+### recreate bosh deployment to change to human readable vm name.
