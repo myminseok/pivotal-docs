@@ -1,9 +1,10 @@
 
-Enabling human readable vm name for bosh managed VMs through Pivotal Cloud Foundry Ops Manager
+Enabling human readable vm name for bosh managed VMs through Pivotal Cloud Foundry Ops Manager.
+- it tested on PCF 2.4+
 
 
 ### get your opsman uaa token
-https://docs.pivotal.io/pivotalcf/2-6/customizing/opsman-users.html
+https://docs.pivotal.io/pivotalcf/2-5/customizing/opsman-users.html
 ```
 uaac context
 
