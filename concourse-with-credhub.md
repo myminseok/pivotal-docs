@@ -125,9 +125,7 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   -o operations/worker-ephemeral-disk.yml \
   -o operations/add-credhub-uaa-to-web.yml \
   -o operations/container-placement-strategy-random.yml \
-  -o operations/web-network-extension.yml \
   --var web_network_name=private \
-  --var web_network_vm_extension=lb \
   --var network_name=private \
   --var external_host=$concourse_elb \
   --var external_url=https://$concourse_elb \
@@ -149,7 +147,15 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
 ./deploy-concourse.sh
 
 ```
-
+# set load-balancer to bosh cloud-config
+you can bind web VM to load-balancer automatically using vm_extensions setting in bosh cloud-config which has different configuration per IAAS. ex)  https://bosh.io/docs/aws-cpi/#resource-pools
+```
+bosh deploy -n --no-redact -d concourse concourse.yml \
+ ...
+  -o operations/web-network-extension.yml \
+  ...
+  --var web_network_vm_extension=lb \
+```
 
 # test concourse without credhub
 
