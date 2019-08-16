@@ -112,10 +112,10 @@ https://bosh.io/stemcells/
 
 vi deploy-concourse.sh
 
-export concourse_elb=xxxx <-- put domain name, no IP(it will not work with uaa login) (no https://)
+export concourse_elb=xxxx #####<-- put domain name, no IP(it will not work with uaa login) (no https://)
 bosh deploy -n --no-redact -d concourse concourse.yml \
   -l ../versions.yml \
-  --vars-store cluster-creds.yml \ <=== remove this to store into bosh credhub.
+  --vars-store cluster-creds.yml \#####<=== remove this to store into bosh credhub.
   -o operations/basic-auth.yml \
   -o operations/privileged-http.yml \
   -o operations/privileged-https.yml \
@@ -123,7 +123,7 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   -o operations/tls-vars.yml \
   -o operations/scale.yml \
   -o operations/worker-ephemeral-disk.yml \
-  -o operations/add-credhub-uaa-to-web.yml
+  -o operations/add-credhub-uaa-to-web.yml \
   -o operations/container-placement-strategy-random.yml \
   -o operations/web-network-extension.yml \
   --var web_network_name=private \
@@ -131,7 +131,6 @@ bosh deploy -n --no-redact -d concourse concourse.yml \
   --var network_name=private \
   --var external_host=$concourse_elb \
   --var external_url=https://$concourse_elb \
-  --var external_lb_common_name=$concourse_elb \
   --var concourse_host=$concourse_elb \
   --var web_vm_type=default \
   --var worker_ephemeral_disk=100GB_ephemeral_disk \
