@@ -84,3 +84,5 @@ Succeeded
 ```
 
 ### recreate bosh deployment to change to human readable vm name.
+- opsman > director tile> director config > check `recreate-vm' 
+- apply change
