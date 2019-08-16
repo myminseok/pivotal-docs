@@ -37,6 +37,5 @@ cf push
 
 
 #### troubleshooting
-https://github.com/myminseok/pivotal-docs/blob/master/start_stop_pcf.md#ops-manager-vm%EC%97%90-ssh-%EC%A0%91%EC%86%8D%ED%95%98%EA%B8%B0
-
+https://github.com/myminseok/pivotal-docs/blob/master/ssh-login-opsman-bosh.md
 
