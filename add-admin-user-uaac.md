@@ -2,7 +2,7 @@
 
 ### Ops Manager VM에 ssh 접속하기
 ops manager에 ssh 접속하기 위한 private key를 확보 후 ssh 접속합니다.
-https://docs.pivotal.io/pivotalcf/2-6/uaa/uaa-user-management.html
+- https://docs.pivotal.io/pivotalcf/2-6/uaa/uaa-user-management.html
 
 ```
 chmod 600 ops_mgr.pem
