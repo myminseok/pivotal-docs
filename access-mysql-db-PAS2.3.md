@@ -31,25 +31,49 @@ mysql/6c1bbe7d-bb6c-4bbd-a2fb-0f6829ffa097:/var/vcap/bosh_ssh/bosh_576006b6471c4
 
 ##  mysql.conf의 위치 파악
 ```
+
+# mysql for PCF 2.7
+/var/vcap/jobs/mysql/config/my.cnf
+
+# mysql for PCF 2.6
 mysql/6c1bbe7d-bb6c-4bbd-a2fb-0f6829ffa097:/var/vcap/store/pxc-mysql# ps -ef | grep mysql
 vcap      6735     1  5 Nov30 ?        22:19:15 mysqld --defaults-file=/var/vcap/jobs/pxc-mysql/config/my.cnf --wsrep-new-cluster
+
+
+
 ```
 
 ## sock위치파악
 ```
+# mysql for PCF 2.7
+/tmp/mysql.sock
+
+# mysql for PCF 2.6 
 mysql/6c1bbe7d-bb6c-4bbd-a2fb-0f6829ffa097:/var/vcap/store/pxc-mysql# grep sock /var/vcap/jobs/pxc-mysql/config/my.cnf
 socket                          = /var/vcap/sys/run/pxc-mysql/mysqld.sock
 ```
 
 ## root password 추출
 ```
+# mysql for PCF 2.7
+mysql/f04fa7ed-a6d5-4ec4-a4dc-cc87cec43158:/var/vcap/jobs/mysql/config# cat mylogin.cnf
+[client]
+user        = "admin"
+password    = "xxx"
+
+# mysql for PCF 2.6 
 mysql/6c1bbe7d-bb6c-4bbd-a2fb-0f6829ffa097:/var/vcap/store/pxc-mysql# grep root /var/vcap/jobs/pxc-mysql/config/my.cnf
 wsrep_sst_auth                  = root:xxxxxxxxx
 ```
 
 ## mysql 접속
 ```
+# mysql for PCF 2.7
+/var/vcap/packages/percona-server/bin/mysql -u admin -S /tmp/mysql.sock -p
+
+# mysql for PCF 2.6 
 mysql/6c1bbe7d-bb6c-4bbd-a2fb-0f6829ffa097:/var/vcap/store/pxc-mysql# mysql  -u root -S /var/vcap/sys/run/pxc-mysql/mysqld.sock -p
+
 Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 5076
