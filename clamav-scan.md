@@ -1,7 +1,8 @@
-Clamav
+## Clamav
 
-### ops manager VM에 ssh로 접속해서,  pivotal-mysql VM에 설치된 clamav process 를 확인합니다.
+### ops manager VM에 ssh로 접속해서 VM에 설치된 clamav process 를 확인합니다.
 ```
+# 예를 들어 pivotal-mysql 
 ubuntu@opsman-jumpbox:~$ bosh -d pivotal-mysql-2d4ddb42e9b97f5c9164  instances --ps
 Using environment '172.16.0.20' as client 'ops_manager'
 
@@ -27,7 +28,7 @@ ubuntu@opsman-jumpbox:~$ bosh -d pivotal-mysql-2d4ddb42e9b97f5c9164  ssh dedicat
 dedicated-mysql-broker/d64fd817-af6a-48b2-8b4c-3e0be476b062:~$ sudo su
 ```
 
-### 스캔할 파일 생성
+### 스캔할 대상 파일 목록 생성
 ```
 dedicated-mysql-broker/d64fd817-af6a-48b2-8b4c-3e0be476b062:/root# cat file
 /usr/bin/zipinfo
