@@ -4,7 +4,9 @@
  
 
 ## purpose
-this docs shows how to form logstash parsing rule using rsyslogd server temporillay. you can directly forward syslog from PAS to logstash in production.
+this docs shows how to form logstash parsing rule using rsyslogd server temporillay. you can directly forward syslog from PAS to logstash in production. but some situation, it can be useful:
+- you cannot access logstash env in ELK.
+- early filtering or indexing for efficient log handling.
 
 
 ### structured syslog data of PAS
