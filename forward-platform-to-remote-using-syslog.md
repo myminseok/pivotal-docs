@@ -66,7 +66,7 @@ auth,authpriv.*			/var/log/auth.log
 ```
 
 ```
-$ service rsyslog restart
+$ sudo service rsyslog restart
 
 $ ls -al /var/log/ 
 drwxrwxrwx  2 root   root           4096 Aug 29 03:51 opsmanager
@@ -89,9 +89,14 @@ $ tail -f /var/log/pcf-tile.log
 
 ```
 
+## lets parse /var/log/pcf-tile.log for forwarding to logstash.
 
 ```
-ubuntu@opsman-jumpbox:~/logstash/logstash-1.5.6$ cat logstash.conf
+$ wget http://download.elastic.co/logstash/logstash/logstash-1.5.6.tar.gz
+$ tar xf logstash-1.5.6.tar.gz
+$ cd logstash-1.5.6
+
+$ ubuntu@opsman-jumpbox:~/logstash-1.5.6$ vi logstash.conf
 
 input {
   file {
@@ -126,9 +131,10 @@ output{
 }
 ```
 
+## run test logstash.
 ```
 
-$  ./bin/logstash -f ./logstash.conf  --debug --verbose
+$ ubuntu@opsman-jumpbox:~/logstash-1.5.6$ ./bin/logstash -f ./logstash.conf  --debug --verbose
 
        "message" => [
         [0] "<14>1 2019-08-29T06:22:22.397375Z 10.0.4.18 cloud_controller_ng rs2 - [instance@47450 director=\"\" deployment=\"cf-38126f33d43fd27736c2\" group=\"cloud_controller\" az=\"kr-pub-a\" id=\"c7c1428b-7aea-4945-a243-b05653d820b0\"] 10.0.4.18 - [29/Aug/2019:06:22:21 +0000] \"GET /v2/info HTTP/1.1\" 200 969 \"-\" \"monit/5.2.5\" 10.0.4.18 vcap_request_id:557a4fe5-137a-4469-8817-37a07776c81d response_time:0.004",
@@ -169,3 +175,4 @@ $  ./bin/logstash -f ./logstash.conf  --debug --verbose
           "tags" => []
 }
 ```
+now you are ready to analyize pcf logs
