@@ -118,7 +118,7 @@ filter{
  if [type] == "pcf-tile-log"{
   grok{
     match  => {
-      "message" => "(<%{NUMBER}>)?%{SPACE}%{TIMESTAMP_ISO8601:timestamp}%{SPACE}%{IPORHOST:host}%{SPACE}%{USERNAME:app_name}%{SPACE}%{WORD:proc_id} - \[instance@(%{WORD})?%{SPACE}(director=\"(%{IPORHOST})?)?\"%{SPACE}deployment=\"(%{USERNAME:deployment})?\"%{SPACE}(%{GREEDYDATA:message})?"
+      "message" => "(<%{NUMBER}>)?%{SPACE}%{TIMESTAMP_ISO8601:timestamp}%{SPACE}%{IPORHOST:host}%{SPACE}%{USERNAME:app_name}%{SPACE}%{WORD:proc_id} - \[instance@(%{WORD})?%{SPACE}(director=\"(%{IPORHOST:director})?)?\"%{SPACE}deployment=\"(%{USERNAME:deployment})?\"%{SPACE}(%{GREEDYDATA:message})?"
     } #match
   add_tag => [ "valid" ]
   }# grok
@@ -138,6 +138,10 @@ output{
  # only for debug.
  stdout { codec => rubydebug }
 }
+```
+please note that PAS provides a empty `director` field. you may set this value manually in opsman UI> PAS tile> settings> System Logging > Custom rsyslog Configuration as following value and apply change. it will override original empty rsyslogd forward template setting.
+```
+reset $.director = "pcfdemo-test"
 ```
 
 ## run test logstash.
@@ -160,6 +164,7 @@ $ ubuntu@opsman-jumpbox:~/logstash-1.5.6$ ./bin/logstash -f ./logstash.conf  --d
      "timestamp" => "2019-08-29T06:22:22.397375Z",
       "app_name" => "cloud_controller_ng",
        "proc_id" => "rs2",
+       "director" => "",
     "deployment" => "cf-38126f33d43fd27736c2",
           "tags" => []
           
@@ -180,6 +185,7 @@ $ ubuntu@opsman-jumpbox:~/logstash-1.5.6$ ./bin/logstash -f ./logstash.conf  --d
      "timestamp" => "2019-08-29T06:22:21.523509Z",
       "app_name" => "mysql-metrics",
        "proc_id" => "rs2",
+       "director" => "172.16.0.20",
     "deployment" => "service-instance_157b3f9e-f631-42ae-8d5b-88aa9e3ee2ec",
           "tags" => []
 }
