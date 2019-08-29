@@ -1,6 +1,6 @@
 
 # A guilde to forward syslog from PAS tiles to logstash.
- PAS annotates forwarded messages with structured data. This structured data identifies the originating BOSH Director, deployment, instance group, availability zone, and instance ID. this guild will show you how to parse this log and forward for logstash.conf. to setup syslog on PAS, see https://docs.pivotal.io/pivotalcf/2-4/customizing/custom-syslog-rules.html
+ PAS annotates forwarded messages with structured data. This structured data identifies the originating BOSH Director, deployment, instance group, availability zone, and instance ID. this guild will show you how to form logstash.conf. refer to  https://docs.pivotal.io/pivotalcf/2-4/customizing/custom-syslog-rules.html for more detail.
  
 
 ## purpose
