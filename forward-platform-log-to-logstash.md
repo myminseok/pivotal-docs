@@ -198,3 +198,5 @@ $ ubuntu@opsman-jumpbox:~/logstash-1.5.6$ ./bin/logstash -f ./logstash.conf  --d
 }
 ```
 now you are ready to analyize pcf logs
+
+ref: http://man7.org/linux/man-pages/man5/rsyslog.conf.5.html
