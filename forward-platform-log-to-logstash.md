@@ -1,5 +1,5 @@
 
-# A guilde to early parsing/indexing syslog from PCF
+# A guide to early parsing/indexing syslog from PCF
  PAS annotates forwarded messages with structured data. This structured data identifies the originating BOSH Director, deployment, instance group, availability zone, and instance ID. this guild will show you how to form logstash.conf. refer to  https://docs.pivotal.io/pivotalcf/2-4/customizing/custom-syslog-rules.html for more detail.
  
 
