@@ -9,7 +9,7 @@ this docs shows how to form logstash parsing rule using rsyslogd server temporil
 - early filtering or indexing for more efficient log handling.
 
 
-### structured syslog data of PAS
+### structured syslog data from PAS
 ```
 <$PRI>$VERSION $TIMESTAMP $HOST $APP_NAME $PROC_ID $MSG_ID   
     [instance@ENTERPRISE_NUMBER director="$DIRECTOR" deployment="$DEPLOYMENT" 
@@ -146,9 +146,9 @@ output{
  stdout { codec => rubydebug }
 }
 ```
-please note that PAS provides a empty `director` field. you may set this value manually in opsman UI> PAS tile> settings> System Logging > Custom rsyslog Configuration as following value and apply change. it will override original empty rsyslogd forward template setting.
+please note that PAS provides a empty `director` field. you may set this value manually in opsman UI> PAS tile> settings> System Logging > Custom rsyslog Configuration as following value and apply change. it will override the original setting.
 ```
-reset $.director = "pcfdemo-test"
+reset $.director = "<any-foundation-name>"
 ```
 
 ## run test logstash.
