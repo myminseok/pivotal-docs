@@ -14,20 +14,23 @@ pivotal@ubuntu:/etc/bind$ cat db.pcfdemo.net
 ;
 ; BIND data file for local loopback interface
 ;
-$TTL604800
-@INSOApcfdemo.net. root.pcfdemo.net. (
-      2; Serial
- 604800; Refresh
-  86400; Retry
-2419200; Expire
+$TTL 604800
+@ IN SOA pcfdemo.net. root.pcfdemo.net. (
+        2; Serial
+   604800; Refresh
+    86400; Retry
+  2419200; Expire
  604800 ); Negative Cache TTL
 ;
-@INNSpcfdemo.net.
-@INA       192.168.0.100
-vcenter     IN      A   192.168.0.6 
-opsman     IN      A   192.168.0.11
-*INA       192.168.0.100
-@INAAAA::1
+@ IN NS pcfdemo.net.
+@ IN A       192.168.0.100
+* IN A       192.168.0.100
+@ IN AAAA ::1
+
+```
+
+
+```
 pivotal@ubuntu:/etc/bind$ cat db.apps.pcfdemo.net 
 ;
 ; BIND data file for local loopback interface
@@ -52,21 +55,21 @@ pivotal@ubuntu:/etc/bind$ cat db.system.pcfdemo.net
 ;
 ; BIND data file for local loopback interface
 ;
-$TTL604800
-@INSOAsystem.pcfdemo.net. root.system.pcfdemo.net. (
+$TTL 604800
+@ IN SOA system.pcfdemo.net. root.system.pcfdemo.net. (
       2; Serial
  604800; Refresh
   86400; Retry
 2419200; Expire
  604800 ); Negative Cache TTL
 ;
-@INNSsystem.pcfdemo.net.
-@INA       192.168.0.100
-p-concourseINA       192.168.0.116
-*INA       192.168.0.100
-@INAAAA::1
-pivotal@ubuntu:/etc/bind$ 
+@ IN NS system.pcfdemo.net.
+@ IN A       192.168.0.100
+* IN A       192.168.0.100
+@ IN AAAA::1
+```
 
+```
 pivotal@ubuntu:/etc/bind$ cat named.conf.local 
 //
 // Do any local configuration here
