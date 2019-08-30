@@ -35,22 +35,21 @@ pivotal@ubuntu:/etc/bind$ cat db.apps.pcfdemo.net
 ;
 ; BIND data file for local loopback interface
 ;
-$TTL604800
-@INSOAapps.pcfdemo.net. root.apps.pcfdemo.net. (
+$TTL 604800
+@ IN SOA apps.pcfdemo.net. root.apps.pcfdemo.net. (
       2; Serial
  604800; Refresh
   86400; Retry
 2419200; Expire
  604800 ); Negative Cache TTL
 ;
-@INNSapps.pcfdemo.net.
-@INA       192.168.0.100
-*INA       192.168.0.100
-@INAAAA::1
-pivotal@ubuntu:/etc/bind$ 
+@ IN NS apps.pcfdemo.net.
+@ IN A       192.168.0.100
+* IN A       192.168.0.100
+@ IN AAAA::1
+```
 
-
-
+```
 pivotal@ubuntu:/etc/bind$ cat db.system.pcfdemo.net 
 ;
 ; BIND data file for local loopback interface
