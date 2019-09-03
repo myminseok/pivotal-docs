@@ -116,3 +116,12 @@ mysql> show databases;
 mysql> use mysql;
 
 ```
+
+mysql database dump 
+```
+ssh into mysql VM
+sudo su
+cd /var/vcap/packages/pxc/bin
+./mysqldump - - host=127.0.0.1 - - user=root  - - password=xxxx - - single-transaction -S /var/vcap/sys/run/pxc-mysql/mysqld.sock uaa 
+
+```
