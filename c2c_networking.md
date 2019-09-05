@@ -14,7 +14,13 @@ backend-app1   started           1/1         1G       1G     backend-app1.apps.p
 backend-app2   started           1/1         1G       1G     backend-app2.apps.pcfdemo.net, backend-app2.app.internal
 
 
-$ cf add-network-policy SOURCE_APP --destination-app DESTINATION_APP --protocol (tcp | udp) --port RANGE
+cf add-network-policy SOURCE_APP --destination-app DESTINATION_APP --protocol (tcp | udp) --port RANGE
+
+$ cf add-network-policy backend-app1 --destination-app backend-app2 --protocol tcp --port 8080
+
+$ cf ssh  backend-app1
+vcap@xxxxx $ curl -k http://backend-app2.apps.local:8080/
+
 
 
 ```
