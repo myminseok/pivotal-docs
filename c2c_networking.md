@@ -18,22 +18,48 @@ apps.pcfdemo.net        shared
 apps.internal           shared          internal
 
 
-$ cf target -o BACKEND -s dev
+$ cf target -o BACKEND-ORG -s dev
+
+$ cf map-route backend-app apps.internal --hostname backend-app
+
+$ cf apps
+name           requested state   instances   memory   disk   urls
+backend-app   started           1/1         1G       1G     backend-app.apps.pcfdemo.net, backend-app.app.internal
 
 $ cf app backend-app --guid
-backend-app-guid
+backend-app-GUID
 
 
+$ cf target -o FRONTEND-ORG -s dev
+$ cf app frontend-app --guid
+frontend-app-GUID
 
-$ cf map-route backend-b apps.internal --hostname backend
+
+$ vi networking-policies
+{
+  "policies": [
+    {
+      "source": {
+        "id": "frontend-app-GUID"
+      },
+      "destination": {
+        "id": "backend-app-GUID",
+        "protocol": "tcp",
+        "port": 8080
+      }
+    }
+   ]
+ }
+
+$ cf curl /networking/v0/external/policies -X POST -d ./networking-policies
+{}
 
 
+$ cf curl /networking/v0/external/policies
 
-$ cf 
+$ cf ssh  frontend-app
+vcap@xxxxx $ curl -k http://backend-app.apps.local:8080/
 
-$ cf target -o ORG2 -s dev
-$ cf app spring-music-org2 --guid
-spring-music-org2-guid
 
 
 ```
