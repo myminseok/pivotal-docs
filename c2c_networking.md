@@ -4,6 +4,21 @@
 ## container to container networking in the same space:
 - https://docs.pivotal.io/pivotalcf/2-4/devguide/deploy-apps/cf-networking.html
 
+```
+$ cf target -o BACKEND-ORG -s dev
+
+
+$ cf apps
+name           requested state   instances   memory   disk   urls
+backend-app1   started           1/1         1G       1G     backend-app1.apps.pcfdemo.net, backend-app1.app.internal
+backend-app2   started           1/1         1G       1G     backend-app2.apps.pcfdemo.net, backend-app2.app.internal
+
+
+$ cf add-network-policy SOURCE_APP --destination-app DESTINATION_APP --protocol (tcp | udp) --port RANGE
+
+
+```
+
 
 ## container to container networking between different org or space:
 - https://github.com/cloudfoundry/cf-networking-release/blob/develop/docs/API_v0.md
