@@ -125,18 +125,38 @@ filter{
  if [type] == "pcf-tile-log"{
   grok{
     match  => {
-      "message" => "(<%{NUMBER}>)?%{SPACE}%{TIMESTAMP_ISO8601:timestamp}%{SPACE}%{IPORHOST:host}%{SPACE}%{USERNAME:app_name}%{SPACE}(%{WORD:proc_id})?(%{SPACE}-).* \[(%{WORD}@%{WORD})?%{SPACE}(director=\"(%{IPORHOST:director})?)?\"%{SPACE}deployment=\"(%{USERNAME:deployment})?\"%{SPACE}(%{GREEDYDATA:message})?"
+      "message" => "(<%{NUMBER}>)? %{TIMESTAMP_ISO8601:timestamp}% %{IPORHOST:host} %{USERNAME:app_name} (%{WORD:proc_id})?(%{SPACE}-).* \[(%{WORD}@%{WORD})? (director=\"(%{IPORHOST:director})?)?\" deployment=\"(%{USERNAME:deployment})?\" (%{GREEDYDATA:msg})?"
     } #match
   add_tag => [ "valid" ]
   }# grok
  } #if
 
- if "valid" not in [tags] {
+ if [msg] =~ "\"level\":\"debug\"" or [msg] =~ "\"level\":\"info\"" or [msg] =~ "\"level\":\"warn\"" or
+    [msg] =~ "HTTP.* 20[0-9]" or
+    [msg] =~ "DEBUG" or  [msg] =~ "INFO" {
+      mutate {
+        add_field => { "logLevel" => "DEBUG" }
+      }
+  }else if [msg] =~ "\"level\":\"error\"" or [msg] =~ "ERROR" or
+    [msg] =~ "HTTP.* 40[0-9]" or [msg] =~ "HTTP.* 50[0-9]" or
+    [msg] =~ "Failed" or
+    [msg] =~ "Unauthorized" {
+      mutate {
+        add_field => { "logLevel" => "ERROR" }
+      }
+  } else {
+      mutate {
+        add_field => { "logLevel" => "DEBUG" }
+      }
+  }
+  
+ if "valid" not in [tags] or "DEBUG" in [logLevel] {
     drop { }
  }
 
  mutate {
     remove_tag => [ "valid" ]
+    remove_field => [ "@version", "@timestamp", "path", "tag", "message" ]
  }
 
 } # filter
