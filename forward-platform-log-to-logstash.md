@@ -125,7 +125,7 @@ filter{
  if [type] == "pcf-tile-log"{
   grok{
     match  => {
-      "message" => "(<%{NUMBER}>)?%{SPACE}%{TIMESTAMP_ISO8601:timestamp}%{SPACE}%{IPORHOST:host}%{SPACE}%{USERNAME:app_name}%{SPACE}%{WORD:proc_id} - \[instance@(%{WORD})?%{SPACE}(director=\"(%{IPORHOST:director})?)?\"%{SPACE}deployment=\"(%{USERNAME:deployment})?\"%{SPACE}(%{GREEDYDATA:message})?"
+      "message" => "(<%{NUMBER}>)?%{SPACE}%{TIMESTAMP_ISO8601:timestamp}%{SPACE}%{IPORHOST:host}%{SPACE}%{USERNAME:app_name}%{SPACE}(%{WORD:proc_id})?(%{SPACE}-).* \[(%{WORD}@%{WORD})?%{SPACE}(director=\"(%{IPORHOST:director})?)?\"%{SPACE}deployment=\"(%{USERNAME:deployment})?\"%{SPACE}(%{GREEDYDATA:message})?"
     } #match
   add_tag => [ "valid" ]
   }# grok
