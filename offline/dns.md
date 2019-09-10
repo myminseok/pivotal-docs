@@ -1,4 +1,4 @@
-download bind9 dependencies
+### (offline env) download bind9 dependencies
 
 ```
 sudo su
