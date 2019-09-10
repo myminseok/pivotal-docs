@@ -137,12 +137,25 @@ filter{
       mutate {
         add_field => { "logLevel" => "DEBUG" }
       }
-  }else if [msg] =~ "\"level\":\"error\"" or [msg] =~ "ERROR" or
-    [msg] =~ "HTTP.* 40[0-9]" or [msg] =~ "HTTP.* 50[0-9]" or
-    [msg] =~ "Failed" or
-    [msg] =~ "Unauthorized" {
+  }else if [msg] =~ "\"level\":\"error\"" or [msg] =~ "ERROR" {
       mutate {
         add_field => { "logLevel" => "ERROR" }
+	add_field => { "errorType" => "errorType" }
+      }
+  }else if  [msg] =~ "Failed" {
+      mutate {
+        add_field => { "logLevel" => "ERROR" }
+	add_field => { "errorType" => "failed" }
+      }
+  }else if [msg] =~ "Unauthorized" {
+      mutate {
+        add_field => { "logLevel" => "ERROR" }
+	add_field => { "errorType" => "auth" }
+      }
+  }else if [msg] =~ "HTTP.* 40[0-9]" or [msg] =~ "HTTP.* 50[0-9]" {
+      mutate {
+        add_field => { "logLevel" => "ERROR" }
+	add_field => { "errorType" => "http" }
       }
   } else {
       mutate {
