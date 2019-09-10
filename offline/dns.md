@@ -1,9 +1,13 @@
 download bind9 dependencies
 
 ```
+sudo su
+
+apt-get update
+
 apt-get download $(apt-cache depends --recurse --no-recommends --no-suggests \ --no-conflicts --no-breaks --no-replaces --no-enhances \ --no-pre-depends bind9 | grep "^\w")
 
-sudo -i
+
 
 dpkg -i *.deb
 
