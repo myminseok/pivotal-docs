@@ -183,7 +183,7 @@ please note that PAS provides a empty `director` field. you may set this value m
 ```
 reset $.director = "<any-foundation-name>";
 ```
-donot forget tailing ';'.
+donot forget trailing ';'.
 
 ## run test logstash.
 ```
