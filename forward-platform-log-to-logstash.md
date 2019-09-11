@@ -181,8 +181,9 @@ output{
 ```
 please note that PAS provides a empty `director` field. you may set this value manually in opsman UI> PAS tile> settings> System Logging > Custom rsyslog Configuration as following value and apply change. it will override the original setting.
 ```
-reset $.director = "<any-foundation-name>"
+reset $.director = "<any-foundation-name>";
 ```
+donot forget tailing ';'.
 
 ## run test logstash.
 ```
