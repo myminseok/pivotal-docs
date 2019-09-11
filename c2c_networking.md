@@ -45,7 +45,7 @@ $ cf map-route backend-app apps.internal --hostname backend-app
 
 $ cf apps
 name           requested state   instances   memory   disk   urls
-backend-app   started           1/1         1G       1G     backend-app.apps.pcfdemo.net, backend-app.app.internal
+backend-app   started           1/1         1G       1G     backend-app.apps.internal
 
 ```
 ### set c2c 
