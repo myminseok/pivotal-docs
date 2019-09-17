@@ -58,15 +58,7 @@ $ curl sidecar-dependent-java-app.apps.pcfdemo.net/config
 $ cf ssh sidecar-dependent-java-app
 
 vcap@18822d0f-418f-4e04-78b1-2df6:~$ netstat -nlp
-(Not all processes could be identified, non-owned process info
- will not be shown, you would have to be root to see it all.)
-Active Internet connections (only servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
-tcp        0      0 0.0.0.0:61001           0.0.0.0:*               LISTEN      -
-tcp        0      0 0.0.0.0:61002           0.0.0.0:*               LISTEN      -
-tcp        0      0 0.0.0.0:61003           0.0.0.0:*               LISTEN      -
-tcp        0      0 127.0.0.1:61004         0.0.0.0:*               LISTEN      -
-tcp        0      0 0.0.0.0:2222            0.0.0.0:*               LISTEN      62/diego-sshd
 tcp        0      0 0.0.0.0:8080            0.0.0.0:*               LISTEN      13/java
 tcp        0      0 0.0.0.0:8082            0.0.0.0:*               LISTEN      25/./config-server-
 
