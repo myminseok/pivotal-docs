@@ -1,7 +1,7 @@
 
 
 
-## Container to container networking in the same space:
+## Container to container networking using cf network-policy:
 - https://docs.pivotal.io/pivotalcf/2-4/devguide/deploy-apps/cf-networking.html
 
 ```
@@ -16,7 +16,7 @@ backend-app2   started           1/1         1G       1G     backend-app2.apps.p
 
 cf add-network-policy SOURCE_APP --destination-app DESTINATION_APP --protocol (tcp | udp) --port RANGE
 
-$ cf add-network-policy backend-app1 --destination-app backend-app2 --protocol tcp --port 8080
+$ cf add-network-policy backend-app1 --destination-app backend-app2 --protocol tcp --port 8080 (-s backend-space -o backend-org)
 
 $ cf ssh  backend-app1
 vcap@xxxxx $ curl -k http://backend-app2.apps.local:8080/
@@ -26,7 +26,7 @@ vcap@xxxxx $ curl -k http://backend-app2.apps.local:8080/
 ```
 
 
-## Container to container networking between different org or space:
+## Container to container networking using cf curl:
 - https://github.com/cloudfoundry/cf-networking-release/blob/develop/docs/API_v0.md
 
 
