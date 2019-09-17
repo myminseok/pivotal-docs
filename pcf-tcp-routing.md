@@ -67,7 +67,8 @@ tcp        0      0 0.0.0.0:8082            0.0.0.0:*               LISTEN      
 
 
 ## Map-routes (from tcp port to container port 8080)
-https://docs.pivotal.io/pivotalcf/2-5/devguide/deploy-apps/routes-domains.html
+- tcp route will be mapped to container port 8080, not 8082 after this step.
+- https://docs.pivotal.io/pivotalcf/2-5/devguide/deploy-apps/routes-domains.html
 ```
 $ cf routes
 space   host                         domain             port   path   type   apps                         service
@@ -83,6 +84,10 @@ dev                                  tcp.apps.pcfdemo.net   8082          tcp   
 $ cf apps
 name                         requested state   instances   memory   disk   urls
 sidecar-dependent-java-app   started           1/1         1G       1G     sidecar-dependent-java-app.apps.pcfdemo.net, tcp.apps.pcfdemo.net:8082
+
+
+## now, two domains is  mapped to container port 8080 at the same time!
+
 
 $ curl sidecar-dependent-java-app.apps.pcfdemo.net
 Hello I am a sidecar-dependent java app.  Visit <a href="/config">the config endpoint</a> to see me retrieve a value from my sidecar
@@ -101,7 +106,8 @@ $ curl tcp.apps.pcfdemo.net:8082/config
 
 
 ## Map routes to container port (other than 8080)
-https://docs.pivotal.io/pivotalcf/2-5/devguide/custom-ports.html
+- let's re-map the tcp domain to container port 8082!
+- https://docs.pivotal.io/pivotalcf/2-5/devguide/custom-ports.html
 ```
 $ cf app sidecar-dependent-java-app --guid
 71117a5a-837e-4331-af04-4f2482d4c2ef
