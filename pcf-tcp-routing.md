@@ -1,14 +1,14 @@
 
-## enable TCP routing in PAS tile 
+## Enable TCP routing in PAS tile 
 https://docs.pivotal.io/pivotalcf/2-5/adminguide/enabling-tcp-routing.html
 ```
 port range: 1024-65535
 ```
 
-## set DNS
+## Set DNS
 ROUTER_LB_IP tcp.apps.pcfdemo.net
 
-## create tcp domain
+## Create tcp domain
 
 ```
 $ cf router-groups
@@ -25,7 +25,7 @@ tcp.apps.pcfdemo.net    shared   tcp
 ```
 
 
-## set quota for route port
+## Set quota for route port
 ```
 cf update-quota default --reserved-route-ports 100
 
@@ -36,7 +36,7 @@ runaway   100G           unlimited         1000     unlimited           allowed 
 
 ```
 
-## push sample app
+## Push sample app
 ```
 $ git clone https://github.com/cloudfoundry-samples/capi-sidecar-samples.git
 
@@ -73,7 +73,7 @@ tcp        0      0 0.0.0.0:8082            0.0.0.0:*               LISTEN      
 ```
 
 
-## map-routes (for tcp-router)
+## Map-routes (from tcp port to container port 8080)
 https://docs.pivotal.io/pivotalcf/2-5/devguide/deploy-apps/routes-domains.html
 ```
 $ cf routes
@@ -107,7 +107,7 @@ $ curl tcp.apps.pcfdemo.net:8082/config
 ```
 
 
-## map routes for (app port other than 8080)
+## Map routes to container port (other than 8080)
 https://docs.pivotal.io/pivotalcf/2-5/devguide/custom-ports.html
 ```
 $ cf app sidecar-dependent-java-app --guid
