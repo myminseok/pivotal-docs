@@ -4,6 +4,7 @@ https://docs.pivotal.io/pivotalcf/2-5/adminguide/enabling-tcp-routing.html
 ```
 port range: 1024-65535
 ```
+apply change
 
 ## Set DNS
 ROUTER_LB_IP tcp.apps.pcfdemo.net
