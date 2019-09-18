@@ -179,7 +179,7 @@ output{
  stdout { codec => rubydebug }
 }
 ```
-please note that PAS provides a empty `director` field. you may set this value manually in opsman UI> PAS tile> settings> System Logging > Custom rsyslog Configuration as following value and apply change. it will override the original setting.
+please note that PAS provides a empty `director` field. you may set this value manually in opsman UI> PAS tile> settings> System Logging > Custom rsyslog Configuration as following value and apply change. it will override the syslog forwarder setting in each PAS component Vm under /etc/rsyslog.d/*
 ```
 reset $.director = "<any-foundation-name>";
 ```
