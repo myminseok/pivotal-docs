@@ -51,6 +51,7 @@ root@opsman-2.4: ls -al /home/ubuntu/opsman2.4*
 이제 추출한 파일을 opsmanager 2.5의 /home/ubuntu아래에 복사할 것입니다.
 
 ## Opsmanager 2.5에 openstack library 포팅
+
 #### opsman 2.5 VM 생성
 
 #### Bosh CPI 패치
@@ -75,6 +76,15 @@ SUPPORTED_VM_TYPES = [
 
 ```
 ### opemsnager 2.4에서 추출한 openstack library교체
+
+opsmanager 2.4에서 추출한 파일을 opsmanager 2.5 VM의 /home/ubuntu아래에 복사
+```
+root@opsman-2.4: scp -i jumpbox.pem /home/ubuntu/opsman2.4-fog.tar.gz  ubuntu@OPSMAN2.5-IP:/home/ubuntu/
+root@opsman-2.4: scp -i jumpbox.pem /home/ubuntu/opsman2.4-fog-spec.tar.gz  ubuntu@OPSMAN2.5-IP:/home/ubuntu/
+root@opsman-2.4: scp -i jumpbox.pem /home/ubuntu/opsman2.4-Gemfile.lock  ubuntu@OPSMAN2.5-IP:/home/ubuntu/
+```
+
+opsmanager 2.5 VM에 ssh 
 ```
 ssh -i jumpbox.pem ubuntu@OPSMAN2.5-IP
 
