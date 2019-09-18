@@ -1,6 +1,6 @@
 opsmanager 2.4에 내장된 openstack library를 opsmanager 2.5로 포팅하는 가이드입니다.
 
-## opsmanager 2.4에 내장된 openstack library 추출
+## Opsmanager 2.4에 내장된 openstack library 추출
 
 ```
 ssh -i jumpbox.pem ubuntu@OPSMAN2.4-IP
@@ -42,14 +42,14 @@ root@opsman-2.4: mv opsman2.4-fog-spec.tar.gz /home/ubuntu/
 root@opsman-2.4: cp /home/tempest-web/tempest/web/Gemfile.lock /home/ubuntu/opsman2.4-Gemfile.lock
 ```
 
-### 아래 파일을 opsmanager 2.5의 /home/ubuntu아래에 복사합니다.
+추출한 파일을 opsmanager 2.5의 /home/ubuntu아래에 복사
 ```
 /home/ubuntu/opsman2.4-fog.tar.gz
 /home/ubuntu/opsman2.4-fog-spec.tar.gz
 /home/ubuntu/opsman2.4-Gemfile.lock
 ```
 
-## opsmanager 2.5에 openstack library 포팅
+## Opsmanager 2.5에 openstack library 포팅
 #### opsman 2.5 VM 생성
 
 #### Bosh CPI 패치
@@ -90,6 +90,15 @@ root@opsman-2.5:  cd /home/tempest-web/tempest/web/vendor/bundle/ruby/2.4.0/gems
 root@opsman-2.5:  tar zcf opsman2.5-fog.tar.gz fog*
 root@opsman-2.5:  rm -rf fog*
 root@opsman-2.5:  tar xvf /home/ubuntu/opsman2.4-fog.tar.gz
+root@opsman-2.5:  chown -R tempest-web:tempest-web fog*
+
+
+root@opsman-2.5:  cd /home/tempest-web/tempest/web/vendor/bundle/ruby/2.4.0/specifications
+root@opsman-2.5:  tar zcf opsman2.5-fog-spec.tar.gz fog*
+root@opsman-2.5:  rm -rf fog*
+root@opsman-2.5:  tar xvf /home/ubuntu/opsman2.4-fog-spec.tar.gz
+root@opsman-2.5:  chown -R tempest-web:tempest-web fog*
+
 
 
 root@opsman-2.5: cp /home/tempest-web/tempest/web/Gemfile.lock /home/tempest-web/tempest/web/Gemfile.lock.orig
