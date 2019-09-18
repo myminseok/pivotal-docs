@@ -54,11 +54,12 @@ root@opsman-2.4: ls -al /home/ubuntu/opsman2.4*
 
 #### opsman 2.5 VM 생성
 
-#### Bosh CPI 패치
+#### opsman2.4용 Bosh CPI 패치
+cpi는 별도  다운로드.
 ```
-cp -a /var/tempest/internal_releases/cpi /var/tempest/internal_releases/cpi.bak
-# cp -a /tmp/cpi-tc.tgz /var/tempest/internal_releases/cpi
-# chown tempest-web:tempest-web /var/tempest/internal_releases/cpi
+root@opsman-2.5: cp -a /var/tempest/internal_releases/cpi /var/tempest/internal_releases/cpi.bak
+root@opsman-2.5:  cp -a /tmp/cpi-tc.tgz /var/tempest/internal_releases/cpi
+root@opsman-2.5: chown tempest-web:tempest-web /var/tempest/internal_releases/cpi
 
 ```
 ### vm type변경
