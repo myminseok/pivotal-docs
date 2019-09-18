@@ -40,14 +40,15 @@ root@opsman-2.4: tar zcf opsman2.4-fog-spec.tar.gz fog*
 root@opsman-2.4: mv opsman2.4-fog-spec.tar.gz /home/ubuntu/
 
 root@opsman-2.4: cp /home/tempest-web/tempest/web/Gemfile.lock /home/ubuntu/opsman2.4-Gemfile.lock
-```
 
-추출한 파일을 opsmanager 2.5의 /home/ubuntu아래에 복사
-```
+root@opsman-2.4: ls -al /home/ubuntu/opsman2.4*
+
 /home/ubuntu/opsman2.4-fog.tar.gz
 /home/ubuntu/opsman2.4-fog-spec.tar.gz
 /home/ubuntu/opsman2.4-Gemfile.lock
 ```
+
+이제 추출한 파일을 opsmanager 2.5의 /home/ubuntu아래에 복사할 것입니다.
 
 ## Opsmanager 2.5에 openstack library 포팅
 #### opsman 2.5 VM 생성
