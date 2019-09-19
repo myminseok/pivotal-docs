@@ -8,7 +8,7 @@ openstack project의 지원버젼 EOS에 따라(https://github.com/fog/fog-opens
 - opsman 2.5 https://github.com/fog/fog-openstack/releases/tag/v0.1.31
 
 그러면서 지원하는  openstack project모듈의 지원버젼이 바뀌었습니다.<br>
-예를 들어 compute의 경우, opsman 2.4에 내장된 fog-openstack 는 compute /v1/v2를  지원했지만 (/1\.1|v2/) opsman 2.5에 내장된 fog-openstack 0.1.31에서는 compute version /v2만 지원합니다. (/home/tempest-web/ ~ /vendor/bundle/ruby/2.4.0/gems/fog-openstack-0.1.31/lib/fog/compute/openstack.rb:      SUPPORTED_VERSIONS = /v2\.0|v2\.1/)
+예를 들어 compute의 경우, opsman 2.4에 내장된 fog-openstack 는 compute /v1/v2를  지원했지만 (/1\.1|v2/) opsman 2.5에 내장된 fog-openstack 0.1.31에서는 compute version /v2만 지원합니다. (/home/tempest-web/... /vendor/bundle/ruby/2.4.0/gems/fog-openstack-0.1.31/lib/fog/compute/openstack.rb:      SUPPORTED_VERSIONS = /v2\.0|v2\.1/)
 
 본 가이드는 opsmanager 2.4에 내장된 openstack library를 opsmanager 2.5로 포팅하는 가이드입니다
 
