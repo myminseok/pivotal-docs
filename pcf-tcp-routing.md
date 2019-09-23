@@ -144,5 +144,13 @@ $ curl tcp.apps.pcfdemo.net:8082/config
 {"Scope":"some-service.admin","Password":"not-a-real-p4$$w0rd"}
 ```
 
+## clean up routes
 
+```
+cf unmap-route app-name tcp.apps.pcfdemo.net --port 8081
+or
+cf delete-route tcp.apps.pcfdemo.net --port 8081
+
+
+```
 
