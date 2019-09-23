@@ -74,6 +74,8 @@ $ cf routes
 space   host                         domain             port   path   type   apps                         service
 dev     sidecar-dependent-java-app   apps.pcfdemo.net                        sidecar-dependent-java-app
 
+
+## `cf map-route` will open a port in tcp-router VM.
 $ cf map-route sidecar-dependent-java-app tcp.apps.pcfdemo.net --port 8082
 
 $ cf routes
@@ -139,7 +141,6 @@ $ curl tcp.apps.pcfdemo.net:8082
 $ curl tcp.apps.pcfdemo.net:8082/config
 {"Scope":"some-service.admin","Password":"not-a-real-p4$$w0rd"}
 ```
-
 
 
 
