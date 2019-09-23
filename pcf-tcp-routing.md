@@ -68,7 +68,7 @@ tcp        0      0 0.0.0.0:8082            0.0.0.0:*               LISTEN      
 
 ## Map-routes (from tcp port to container port 8080)
 - tcp route will be mapped to container port 8080, not 8082 after this step.
-- `cf map-route` will open a port in tcp-router VM.
+- `cf map-route` will open a port(8082 in this case) in tcp-router VM.
 - https://docs.pivotal.io/pivotalcf/2-5/devguide/deploy-apps/routes-domains.html
 ```
 $ cf routes
