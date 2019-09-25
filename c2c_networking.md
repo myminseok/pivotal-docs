@@ -26,7 +26,7 @@ vcap@xxxxx $ curl -k http://backend.apps.local:8080/
 ```
 
 
-## Container to container networking using cf curl:
+## Container to container networking using `cf curl`:
 - https://github.com/cloudfoundry/cf-networking-release/blob/develop/docs/API_v0.md
 
 
