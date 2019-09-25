@@ -10,16 +10,16 @@ $ cf target -o BACKEND-ORG -s dev
 
 $ cf apps
 name           requested state   instances   memory   disk   urls
-backend-app1   started           1/1         1G       1G     backend-app1.apps.pcfdemo.net, backend-app1.app.internal
-backend-app2   started           1/1         1G       1G     backend-app2.apps.pcfdemo.net, backend-app2.app.internal
+frontend   started           1/1         1G       1G     frontend.apps.pcfdemo.net, frontend.app.internal
+backend   started           1/1         1G       1G     backend.app.internal
 
 
-cf add-network-policy SOURCE_APP --destination-app DESTINATION_APP --protocol (tcp | udp) --port RANGE
+## cf add-network-policy SOURCE_APP --destination-app DESTINATION_APP --protocol (tcp | udp) --port RANGE
 
-$ cf add-network-policy backend-app1 --destination-app backend-app2 --protocol tcp --port 8080 (-s backend-space -o backend-org)
+$ cf add-network-policy frontend --destination-app backend --protocol tcp --port 8080 (-s backend-space -o backend-org)
 
-$ cf ssh  backend-app1
-vcap@xxxxx $ curl -k http://backend-app2.apps.local:8080/
+$ cf ssh  frontend
+vcap@xxxxx $ curl -k http://backend.apps.local:8080/
 
 
 
