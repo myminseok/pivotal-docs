@@ -11,8 +11,9 @@
 
 # creating bosh release
 - https://www.cloudfoundry.org/blog/create-lean-bosh-release/
-- [Authoring a BOSH Release](http://bosh-docs.cfapps.io/do/demo-11/)
 - https://bosh.io/docs/create-release/
+- [practice recommendation](https://github.com/cloudfoundry/exemplar-release)
+- [Authoring a BOSH Release](http://bosh-docs.cfapps.io/do/demo-11/)
 
 # creating bosh-addon 
 - https://github.com/cf-platform-eng/pcf-examples
