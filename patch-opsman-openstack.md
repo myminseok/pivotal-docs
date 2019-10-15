@@ -17,7 +17,7 @@ openstack project의 지원버젼 EOS에 따라(https://github.com/fog/fog-opens
 ```
 ssh -i jumpbox.pem ubuntu@OPSMAN2.4-IP
 
-ubuntu@opsman-2.5:  sudo su
+ubuntu@opsman-2.4:  sudo su
 
 root@opsman-2.4: cd /home/tempest-web/tempest/web/vendor/bundle/ruby/2.4.0/gems
 
