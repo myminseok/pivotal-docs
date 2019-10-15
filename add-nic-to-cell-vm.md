@@ -71,7 +71,7 @@ Using deployment 'cf-7b6a32f059ba9157bb8f'
 Task 498045
 ```
 
-you 
+Cell vm has additional NIC.
 ```
 Deployment 'cf-7b6a32f059ba9157bb8f'
 
@@ -92,5 +92,12 @@ diego_cell/84fc48e7-52d7-42ee-8306-da176fc2e571                     running     
                                                                                         10.10.14.42
                                                                                    
 ```
+now after pushing an app, you can check the networking to DB-network while ssh into the app container.
+```
+➜  ~ cf ssh ext
+vcap@ddf9eabd-77cf-4d70-7139-afcb:~$ ping 10.10.14.32
+PING 10.10.14.32 (10.10.14.32) 56(84) bytes of data.
+64 bytes from 10.10.14.32: icmp_seq=1 ttl=63 time=0.903 ms
+64 bytes from 10.10.14.32: icmp_seq=2 ttl=63 time=0.254 ms
 
-
+```
