@@ -14,7 +14,7 @@ root@opsman-2.6:
 ### create a ops file
 /home/ubuntu/add-nic-to-cell.yml
 - 'PAS-NETWORK': network for PAS-tile. change this value to your network name shown in opsmanager bosh director tile.
--  DB-NETWORK: additional network. change this value to your network name shown in opsmanager bosh director tile.
+-  DB-NETWORK: additional network. change this value you defined in in opsmanager bosh director tile.
 ```
 - type: replace
   path: /instance_groups/name=diego_cell/networks/name=PAS-NETWORK/default?
