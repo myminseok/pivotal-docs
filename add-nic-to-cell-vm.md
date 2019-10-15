@@ -34,8 +34,7 @@ chmod 777 /home/ubuntu/add-nic-to-cell.yml
 ```
 
 ### edit opsmanager. 
-- for Isolation segment, you need to add to the if conditions.
-
+* following changes is only for PAS tile. for Isolation segment, you need to add to the if conditions.
 ```
 vi /home/tempest-web/tempest/web/app/models/deployer/executors/bosh_executor.rb
 
