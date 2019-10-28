@@ -24,7 +24,7 @@ Context: admin, from client opsman
 
 ```
 
-# director network guid 조회
+### director network guid 조회
 ```
 opsman$  uaac -k curl https://<opsman.domain.url>/api/v0/staged/director/networks
 {
@@ -81,7 +81,7 @@ opsman$  uaac -k curl https://<opsman.domain.url>/api/v0/staged/director/network
 
 ```
 
-# diego_cell vm  resource_config 조회
+### diego_cell vm  resource_config 조회
 ```
 opsman$  uaac -k curl https://<opsman.domain.url>/api/v0/staged/products
 
@@ -126,7 +126,7 @@ RESPONSE BODY:
 }
 ```
 
-# diego_cell vm에 additional network추가
+### diego_cell vm에 additional network추가
 여기서부터는 `uaac curl`이 아닌 `curl`을 사용해야 함. 
 ```
 opsman$  uaac context
@@ -167,8 +167,34 @@ opsman$  curl -k https://<opsman.domain.url>/api/v0/staged/products/cf-7b6a32f05
 
 200 OK
 
-```
 
-# 'apply change' in opsmanager
+
+```
+### diego_cell vm  resource_config 조회
+```
+opsman$  uaac -k curl https://<opsman.domain.url>/api/v0/staged/products/<product guid>/jobs/<jobs guid>/resource_config
+RESPONSE BODY:
+{
+  "instance_type": {
+    "id": "large.disk"
+  },
+  "instances": 4,
+  "additional_networks": [{
+      "guid": "b8109908cccd6f628cdf"
+   }],
+  "nsx_security_groups": null,
+  "nsx_lbs": [
+  ],
+  "additional_vm_extensions": [
+  ],
+  "swap_as_percent_of_memory_size": "automatic"
+}
+
+```
+### 'apply change' in opsmanager
+```
+opsman$ bosh vms
+
+```
 
 
