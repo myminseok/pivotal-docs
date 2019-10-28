@@ -165,8 +165,10 @@ opsman$  curl -k https://<opsman.domain.url>/api/v0/staged/products/cf-7b6a32f05
   "swap_as_percent_of_memory_size": "automatic"
 }' -k -vv
 
-200 OK
 
+
+HTTP/1.1 200 OK
+{}
 
 
 ```
