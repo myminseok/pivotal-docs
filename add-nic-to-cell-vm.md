@@ -1,3 +1,6 @@
+This way is not recommended. Use Opsmanager API (https://github.com/myminseok/pivotal-docs/blob/master/add-nic-to-cell-vm-via-opsman-api.md)
+
+
 this article shows how to add additional NIC to cell VM.
 
 ### ssh into opsmanager VM
