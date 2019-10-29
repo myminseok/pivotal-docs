@@ -1,4 +1,4 @@
-PAS diego_cell에 추가 network interface card를 추가하는 방법을 설명합니다. 
+Ops manager API를 통해 PAS diego_cell에 추가 network interface card를 추가하는 방법을 설명합니다. 
 - https://docs.pivotal.io/pivotalcf/2-6/opsman-api/#configuring-resources-for-a-job
 
 ### Ops Manager VM에 ssh 접속하기
