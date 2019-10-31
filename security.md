@@ -7,6 +7,9 @@ In [Control Plane Architecture](control-plane.md) , security topics are scattere
 - NIST CA-2 SECURITY ASSESSMENTS: https://docs.pivotal.io/nist/ca/ca-2.html
 - NIST CA-8 PENETRATION TESTING: https://docs.pivotal.io/nist/ca/ca-8.html
 
+## bosh ssh
+- AC-7 UNSUCCESSFUL LOGON ATTEMPTS :https://docs.pivotal.io/nist/ac/ac-7.html
+
 # Overall security in reference architecture 
 * overall architure(TBD): access boundary, uaa topology, isolation segments
 
