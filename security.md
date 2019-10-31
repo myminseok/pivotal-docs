@@ -1,6 +1,11 @@
 
 In [Control Plane Architecture](control-plane.md) , security topics are scattered and it is hard to understand the relationship among each areas. this document covers all security topics in one place and helps to understand overall concepts.
 
+# security assessment
+https://docs.pivotal.io/nist/ca/ca-2.html
+NIST(National Institue of standard and Technology): https://nvd.nist.gov/800-53
+NIST CA-2 SECURITY ASSESSMENTS: https://docs.pivotal.io/nist/ca/ca-2.html
+NIST CA-8 PENETRATION TESTING: https://docs.pivotal.io/nist/ca/ca-8.html
 
 # Overall security in reference architecture 
 * overall architure(TBD): access boundary, uaa topology, isolation segments
