@@ -234,3 +234,14 @@ diego_cell/84fc48e7-52d7-42ee-8306-da176fc2e571                     running     
                                                                                         10.10.14.42
                                                                                    
 ```
+
+
+#troubleshooting
+Error: Instance group isolated_diego_cell_x must specify availability zone that matches availability zone if network NET-DB
+
+NET-IS1 
+- AZ-IS1
+
+NET-DB
+- AZ-IS1
+
