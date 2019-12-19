@@ -181,9 +181,10 @@ RESPONSE BODY:
     "id": "large.disk"
   },
   "instances": 4,
-  "additional_networks": [{
-      "guid": "b8109908cccd6f628cdf"
-   }],
+  "additional_networks": [
+    {"guid": "b8109908cccd6f628cdf"},
+    {"guid": "xxxx"}
+   ],
   "nsx_security_groups": null,
   "nsx_lbs": [
   ],
@@ -231,7 +232,14 @@ diego_cell/5542bdbc-4f54-4d1b-8d43-c2075a2d123d                     running     
 diego_cell/718a3bd2-d5ee-4898-9694-7c822057352f                     running        az2  10.10.12.40   vm-23e5f33a-271b-4bfe-a610-c5d95a2d62d0  large.disk   true
                                                                                         10.10.14.44
 diego_cell/84fc48e7-52d7-42ee-8306-da176fc2e571                     running        az1  10.10.12.36   vm-7ba60bfd-3504-45d3-869f-2803a2212cd0  large.disk   true
-                                                                                        10.10.14.42
+  
+
+
+
+instance_groups:
+- name: isolated_diego_cell_x
+  networks:
+  - name: NET-DB                                                                                      10.10.14.42
                                                                                    
 ```
 
