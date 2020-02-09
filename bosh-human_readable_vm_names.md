@@ -1,7 +1,7 @@
 
 Enabling human readable vm name for bosh managed VMs through Pivotal Cloud Foundry Ops Manager.
-- it tested on PCF 2.4+
-
+- it tested on PCF 2.7+
+https://bosh.io/docs/vsphere-human-readable-names/#more-about-human-readable-names
 
 ### get your opsman uaa token
 https://docs.pivotal.io/pivotalcf/2-5/customizing/opsman-users.html
@@ -28,7 +28,7 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
     {
       "guid": "6552ba16572953313cea",
       "name": "default",
-      "additional_cloud_properties": {"human_readable_vm_names":true},
+      "additional_cloud_properties": {"enable_human_readable_name":true},
       "vcenter_host": "<vcenter.url>",
       "datacenter": "<Datacentre>",
       "ephemeral_datastores_string": "<pcfstore>",
@@ -48,11 +48,13 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
 ...
 <
 * Connection #0 to host localhost left intact
-{"iaas_configuration":{"guid":"6552ba16572953313cea","name":"default","additional_cloud_properties":{"human_readable_vm_names":true},"vcenter_host":"....","datacenter":"....","ephemeral_datastores_string":".....","persistent_datastores_string":"....","vcenter_username":"....@....","bosh_vm_folder":"...","bosh_template_folder":"....","bosh_disk_path":"....","ssl_verification_enabled":false,"nsx_networking_enabled":false,"disk_type":"thick"}}
+{"iaas_configuration":{"guid":"6552ba16572953313cea","name":"default","additional_cloud_properties":{"enable_human_readable_name":true},"vcenter_host":"....","datacenter":"....","ephemeral_datastores_string":".....","persistent_datastores_string":"....","vcenter_username":"....@....","bosh_vm_folder":"...","bosh_template_folder":"....","bosh_disk_path":"....","ssl_verification_enabled":false,"nsx_networking_enabled":false,"disk_type":"thick"}}
 
 ```
 ### apply to director VM by clicking 'apply change' to director
+- will recreate director vm.
 
+### check director setting.
 ```
 bosh cpi-config
 Using environment '10.10.10.21' as client 'ops_manager'
@@ -75,14 +77,14 @@ cpis:
       vm_folder: pcf_vms
     default_disk_type: preallocated
     host:  
-    human_readable_vm_names: true
+    enable_human_readable_name: true
     password:  
     user: 
   type: vsphere
 
 Succeeded
 ```
-
-### recreate bosh deployment to change to human readable vm name.
+### now apply to bosh deployment by recreating vms.
 - opsman > director tile> director config > check `recreate-vm' 
 - apply change
+
