@@ -10,6 +10,10 @@
 - https://www.docker.com/get-started
 - slides: https://github.com/myminseok/slides/blob/master/Concourse-workshop-all-in-one.pdf
 
+## blogs
+https://medium.com/concourse-ci
+
+
 # demo-pipelines: 
 - https://github.com/starkandwayne/concourse-tutorial.git
 - resource: docker-image > https://github.com/concourse/docker-image-resource > source configuration, in, out
@@ -37,3 +41,5 @@ docker push harbor.local/pivotalcf/pivnet-resource
 
 ## monitoring
 https://metrics.concourse-ci.org/d/000000007/concourse?refresh=1m&orgId=1
+
+
