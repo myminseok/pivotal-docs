@@ -30,3 +30,6 @@ docker login harbor.local -u -p
 docker push harbor.local/pivotalcf/pivnet-resource
 
 ```
+
+## monitoring
+https://metrics.concourse-ci.org/d/000000007/concourse?refresh=1m&orgId=1
