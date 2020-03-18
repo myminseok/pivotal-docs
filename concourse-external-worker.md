@@ -82,7 +82,7 @@ fly -t dev  workers
 ```
 
 
-# tag workers in pipeline
+# assign task on tagged workers in pipeline
 ref: https://github.com/concourse/pipelines/blob/master/airbus.concourse.ci/josh-is-cool/tagged-worker.yml
 ```
 ubuntu@opsmanager-2-8:~/concourse-bosh-deployment-main$ cat hello-credhub.yml
