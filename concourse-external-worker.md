@@ -80,3 +80,34 @@ bosh -e d deploy -d concourse-external-worker external-worker.yml \
 ```
 fly -t dev  workers
 ```
+
+
+# tag workers in pipeline
+ref: https://github.com/concourse/pipelines/blob/master/airbus.concourse.ci/josh-is-cool/tagged-worker.yml
+```
+ubuntu@opsmanager-2-8:~/concourse-bosh-deployment-main$ cat hello-credhub.yml
+jobs:
+- name: hello-credhub
+  plan:
+  - do:
+    - task: hello-credhub
+      tags: [pcf-dev-worker]
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source:
+            repository: ubuntu
+        run:
+          path: sh
+          args:
+          - -exc
+          - |
+            echo "Hello "
+   ```
+   ```
+fly -t sandbox sp -p hello-credhub -c ./hello-credhub.yml
+fly -t sandbox up -p hello-credhub
+fly -t sandbox tj -j hello-credhub/hello-credhub -w
+```
+
