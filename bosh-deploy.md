@@ -4,8 +4,8 @@
 
 ## bosh-deployment clone
 ```
-mkdir bosh-1
-cd /home/pivotal/bosh-1
+mkdir -p ./workspace/bosh-1
+cd ./workspace/bosh-1
 git clone https://github.com/cloudfoundry/bosh-deployment
 
 ```
@@ -41,17 +41,34 @@ bosh create-env ./bosh-deployment/bosh.yml \
 ## deploy bosh
 
 
-## test alias-env 
-```
-cd /home/pivotal/bosh-1
-bosh alias-env d -e 10.10.10.200 --ca-cert <(bosh int creds.yml  --path /director_ssl/ca)
+## test bosh env
 
+ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ cat setup-boshenv.sh
+```
+bosh int /home/ubuntu/workspace/bosh-1/creds.yml --path /director_ssl/ca > /home/ubuntu/workspace/bosh-1/bosh_director_ssl.ca
+export BOSH_CLIENT=admin
+export BOSH_CLIENT_SECRET=`bosh int /home/ubuntu/workspace/bosh-1/creds.yml --path /admin_password`
+export BOSH_CA_CERT=./bosh_director_ssl.ca
+export BOSH_ENVIRONMENT=10.0.1.6
+
+bosh env
 ```
 
-## set profile
-```
-cd /home/pivotal/bosh-1
-bosh int creds.yml  --path /director_ssl/ca > director.crt
 
-alias bosh='BOSH_CLIENT=admin BOSH_CLIENT_SECRET=xxxx BOSH_CA_CERT=/home/pivotal/bosh-1/director.crt BOSH_ENVIRONMENT=10.10.10.200 bosh '
+## set to profile
+vi ~/.profile
 ```
+...
+source /home/ubuntu/workspace/bosh-1/setup-boshenv.sh
+```
+
+
+## ssh into bosh vm
+```
+ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ cat ssh-bosh.sh
+bosh int /home/ubuntu/workspace/bosh-1/creds.yml --path /jumpbox_ssh/private_key > /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key
+chmod 600 /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key
+ssh -i /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key jumpbox@10.0.1.6
+```
+
+
