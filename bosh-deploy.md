@@ -7,15 +7,15 @@
 my-vpc:
 - Subnets:
   - subnet-public-1(10.0.0.0/24):
-       - jumpbox vm
+       - jumpbox vm (=> bind to public IP or EIP)
   - subnet-private-1(10.0.1.0/24):
        - bosh vm
    
 - Internet gateways: 
-  - igw-1
+  - igw-1 (=> attach to vpc)
     
 - NAT gateways:
-  - nat-gw-1 (select "subnet-public")
+  - nat-gw-1 (=> select "subnet-public", => bind to EIP )
 
 - Route tables:     
   - route_table_public_1:
@@ -93,12 +93,19 @@ source /home/ubuntu/workspace/bosh-1/setup-boshenv.sh
 ```
 
 
-## ssh into bosh vm
+## test outbound to internet inside of the bosh vm
 ```
 ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ cat ssh-bosh.sh
 bosh int /home/ubuntu/workspace/bosh-1/creds.yml --path /jumpbox_ssh/private_key > /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key
 chmod 600 /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key
 ssh -i /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key jumpbox@10.0.1.6
+
+
+
+ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ ssh-bosh.sh
+
+sudo ping 8.8.8.8
+
 ```
 
 
