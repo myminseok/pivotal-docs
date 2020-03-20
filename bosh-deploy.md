@@ -2,6 +2,36 @@
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 - https://github.com/cloudfoundry/bosh-deployment
 
+## setup network topology(AWS)
+```
+my-vpc:
+- Subnets:
+  - subnet-public-1(10.0.0.0/24):
+       - jumpbox vm
+  - subnet-private-1(10.0.1.0/24):
+       - bosh vm
+   
+- Internet gateways: 
+  - igw-1
+    
+- NAT gateways:
+  - nat-gw-1 (select "subnet-public")
+
+- Route tables:     
+  - route_table_public_1:
+    - route table:
+      - 0.0.0.0/0 -> igw-1
+    - subnet associations:
+      - subnet-public-1
+      
+  - route_table_private_1:
+    - route table:
+     - 0.0.0.0/0 -> nat-gw-1
+    - subnet associations:
+      - subnet-private-1
+
+```
+
 ## bosh-deployment clone
 ```
 mkdir -p ./workspace/bosh-1
