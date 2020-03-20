@@ -1,8 +1,7 @@
 ## 사전 준비
 - [Setting up jumpbox](setup-bbl-sandbox.md)
-- https://github.com/cloudfoundry/bosh-deployment
 
-## setup network topology(AWS)
+## 사전준비: setup network topology(AWS)
 ```
 my-vpc:
 - Subnets:
