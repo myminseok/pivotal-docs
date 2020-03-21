@@ -1,44 +1,20 @@
-## 사전 준비
+
+# bosh on vsphere
+
+https://bosh.io/docs/init-vsphere/
+
+### 사전 준비
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 
-## 사전준비: setup network topology(AWS)
-```
-my-vpc:
-- Subnets:
-  - subnet-public-1(10.0.0.0/24):
-       - jumpbox vm (=> bind to public IP or EIP)
-  - subnet-private-1(10.0.1.0/24):
-       - bosh vm
-   
-- Internet gateways: 
-  - igw-1 (=> attach to vpc)
-    
-- NAT gateways:
-  - nat-gw-1 (=> select "subnet-public", => bind to EIP )
 
-- Route tables:     
-  - route_table_public_1:
-    - route table:
-      - 0.0.0.0/0 -> igw-1
-    - subnet associations:
-      - subnet-public-1
-      
-  - route_table_private_1:
-    - route table:
-     - 0.0.0.0/0 -> nat-gw-1
-    - subnet associations:
-      - subnet-private-1
-
-```
-
-## bosh-deployment clone
+### bosh-deployment clone
 ```
 mkdir -p ./workspace/bosh-1
 cd ./workspace/bosh-1
 git clone https://github.com/cloudfoundry/bosh-deployment
 
 ```
-## deploy manifest
+### deploy bosh vm
 
 ```
 cat deploy-bosh.sh
@@ -66,11 +42,7 @@ bosh create-env ./bosh-deployment/bosh.yml \
     -v vcenter_cluster=cluster1
 ```
 
-
-## deploy bosh
-
-
-## test bosh env
+### test bosh env
 
 ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ cat setup-boshenv.sh
 ```
@@ -106,5 +78,43 @@ ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ ssh-bosh.sh
 sudo ping 8.8.8.8
 
 ```
+
+
+# bosh on aws
+### 사전준비: setup network topology(AWS)
+```
+my-vpc:
+- Subnets:
+  - subnet-public-1(10.0.0.0/24):
+       - jumpbox vm (=> bind to public IP or EIP)
+  - subnet-private-1(10.0.1.0/24):
+       - bosh vm
+   
+- Internet gateways: 
+  - igw-1 (=> attach to vpc)
+    
+- NAT gateways:
+  - nat-gw-1 (=> select "subnet-public", => bind to EIP )
+
+- Route tables:     
+  - route_table_public_1:
+    - route table:
+      - 0.0.0.0/0 -> igw-1
+    - subnet associations:
+      - subnet-public-1
+      
+  - route_table_private_1:
+    - route table:
+     - 0.0.0.0/0 -> nat-gw-1
+    - subnet associations:
+      - subnet-private-1
+
+```
+
+
+
+# bosh-lite(on virtualbox)
+https://bosh.io/docs/bosh-lite/#install
+
 
 
