@@ -2,12 +2,12 @@
 * concourse architecture: https://concourse-ci.org/concepts.html
 
 
-# Architecture: 
+## Architecture: 
 - https://docs.pivotal.io/p-concourse/4-x/index.html
 - https://docs.pivotal.io/pivotalcf/2-5/plan/control.html
 
 
-# Docs
+## Docs
 - https://concourse-ci.org/
 - http://concoursetutorial.com
 - https://www.docker.com/get-started
@@ -17,7 +17,7 @@
 https://medium.com/concourse-ci
 
 
-# Demo-pipelines: 
+## Demo-pipelines: 
 - https://github.com/starkandwayne/concourse-tutorial.git
 - resource: docker-image > https://github.com/concourse/docker-image-resource > source configuration, in, out
 - docker-image, git, s3, time
