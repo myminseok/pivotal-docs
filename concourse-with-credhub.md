@@ -6,8 +6,6 @@ This document explains how to install concourse cluster with separated credhub u
 - https://docs.pivotal.io/p-concourse/v5/advanced/integrate-credhub-uaa-bosh/
 
 
-## Concourse concept
-* concourse architecture: https://concourse-ci.org/concepts.html
 
 
 ## Prerequisites.
