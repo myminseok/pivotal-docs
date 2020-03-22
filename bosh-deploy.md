@@ -7,6 +7,39 @@ https://bosh.io/docs/init-vsphere/
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 
 
+# bosh on aws
+### 사전준비: setup network topology(AWS)
+```
+my-vpc:
+- Subnets:
+  - subnet-public-1(10.0.0.0/24):
+       - jumpbox vm (=> bind to public IP or EIP)
+  - subnet-private-1(10.0.1.0/24):
+       - bosh vm
+   
+- Internet gateways: 
+  - igw-1 (=> attach to vpc)
+    
+- NAT gateways:
+  - nat-gw-1 (=> select "subnet-public", => bind to EIP )
+
+- Route tables:     
+  - route_table_public_1:
+    - route table:
+      - 0.0.0.0/0 -> igw-1
+    - subnet associations:
+      - subnet-public-1
+      
+  - route_table_private_1:
+    - route table:
+     - 0.0.0.0/0 -> nat-gw-1
+    - subnet associations:
+      - subnet-private-1
+
+```
+
+
+
 ### bosh-deployment clone
 ```
 mkdir -p ./workspace/bosh-1
@@ -178,41 +211,6 @@ bosh update-runtime-config ./runtime-config.yml
 ```
 
 
-# bosh on aws
-### 사전준비: setup network topology(AWS)
-```
-my-vpc:
-- Subnets:
-  - subnet-public-1(10.0.0.0/24):
-       - jumpbox vm (=> bind to public IP or EIP)
-  - subnet-private-1(10.0.1.0/24):
-       - bosh vm
-   
-- Internet gateways: 
-  - igw-1 (=> attach to vpc)
-    
-- NAT gateways:
-  - nat-gw-1 (=> select "subnet-public", => bind to EIP )
-
-- Route tables:     
-  - route_table_public_1:
-    - route table:
-      - 0.0.0.0/0 -> igw-1
-    - subnet associations:
-      - subnet-public-1
-      
-  - route_table_private_1:
-    - route table:
-     - 0.0.0.0/0 -> nat-gw-1
-    - subnet associations:
-      - subnet-private-1
-
-```
-
-
-
-# bosh-lite(on virtualbox)
-https://bosh.io/docs/bosh-lite/#install
 
 
 
