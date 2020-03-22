@@ -1,20 +1,23 @@
+## Concourse concept
+* concourse architecture: https://concourse-ci.org/concepts.html
 
-# architecture: 
+
+# Architecture: 
 - https://docs.pivotal.io/p-concourse/4-x/index.html
 - https://docs.pivotal.io/pivotalcf/2-5/plan/control.html
 
 
-# docs
+# Docs
 - https://concourse-ci.org/
 - http://concoursetutorial.com
 - https://www.docker.com/get-started
 - slides: https://github.com/myminseok/slides/blob/master/Concourse-workshop-all-in-one.pdf
 
-## blogs
+## Blogs
 https://medium.com/concourse-ci
 
 
-# demo-pipelines: 
+# Demo-pipelines: 
 - https://github.com/starkandwayne/concourse-tutorial.git
 - resource: docker-image > https://github.com/concourse/docker-image-resource > source configuration, in, out
 - docker-image, git, s3, time
@@ -35,11 +38,11 @@ docker push harbor.local/pivotalcf/pivnet-resource
 
 ```
 
-## caching
+## Caching feature
 - https://medium.com/concourse-ci/suspicious-volume-usage-on-workers-72131cff9bfd
 - https://medium.com/concourse-ci/concourse-resource-volume-caching-7f4eb73be1a6
 
-## monitoring
+## Monitoring
 https://metrics.concourse-ci.org/d/000000007/concourse?refresh=1m&orgId=1
 
 
