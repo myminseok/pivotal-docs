@@ -1,10 +1,6 @@
 
-# bosh on vsphere
-
-https://bosh.io/docs/init-vsphere/
-
-### 사전 준비
-- [Setting up jumpbox](setup-bbl-sandbox.md)
+# bosh-lite on virtualbox
+https://bosh.io/docs/bosh-lite/#install
 
 
 # bosh on aws
@@ -38,21 +34,22 @@ my-vpc:
 
 ```
 
+# bosh on vsphere
 
+https://bosh.io/docs/init-vsphere/
 
-### bosh-deployment clone
+### preparation
+- [Setting up jumpbox](setup-bbl-sandbox.md)
+
+### prepare bosh-deployment manifest
 ```
 mkdir -p ./workspace/bosh-1
 cd ./workspace/bosh-1
 git clone https://github.com/cloudfoundry/bosh-deployment
-
 ```
 
-### deploy bosh vm
-
+vi deploy-bosh.sh
 ```
-cat deploy-bosh.sh
-
 bosh create-env ./bosh-deployment/bosh.yml \
     --state=state.json \
     --vars-store=creds.yml \
