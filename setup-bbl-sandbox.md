@@ -115,5 +115,9 @@ id_rsa		id_rsa.pub
 
 ```
 
+## Install git cli (jumpbox)
+https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+
 ## other options
 https://github.com/cloudfoundry/jumpbox-deployment
