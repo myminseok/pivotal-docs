@@ -14,6 +14,7 @@ cd ./workspace/bosh-1
 git clone https://github.com/cloudfoundry/bosh-deployment
 
 ```
+
 ### deploy bosh vm
 
 ```
@@ -43,16 +44,32 @@ bosh create-env ./bosh-deployment/bosh.yml \
 ```
 
 ### test bosh env
-
-ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ cat setup-boshenv.sh
+ubuntu@jumpbox:~/workspace/bosh-1$ cat setup-boshenv.sh
 ```
-bosh int /home/ubuntu/workspace/bosh-1/creds.yml --path /director_ssl/ca > /home/ubuntu/workspace/bosh-1/bosh_director_ssl.ca
+bosh int /home/ubuntu/workspace/bosh-1/creds.yml  --path /director_ssl/ca > /home/ubuntu/workspace/bosh-1/director.ca
 export BOSH_CLIENT=admin
 export BOSH_CLIENT_SECRET=`bosh int /home/ubuntu/workspace/bosh-1/creds.yml --path /admin_password`
-export BOSH_CA_CERT=./bosh_director_ssl.ca
-export BOSH_ENVIRONMENT=10.0.1.6
+export BOSH_CA_CERT=/home/ubuntu/workspace/bosh-1/director.ca
+export BOSH_ENVIRONMENT=10.10.10.200
+```
 
-bosh env
+```
+ubuntu@jumpbox:~/workspace/bosh-1$ bosh env
+Using environment '10.10.10.200' as client 'admin'
+
+Name               bosh-mkim
+UUID               d66d286c-4717-471e-ab8b-5b419a937a43
+Version            270.12.0 (00000000)
+Director Stemcell  ubuntu-xenial/621.59
+CPI                vsphere_cpi
+Features           compiled_package_cache: disabled
+                   config_server: enabled
+                   local_dns: enabled
+                   power_dns: disabled
+                   snapshots: disabled
+User               admin
+
+Succeeded
 ```
 
 
@@ -65,17 +82,98 @@ source /home/ubuntu/workspace/bosh-1/setup-boshenv.sh
 
 
 ## test outbound to internet inside of the bosh vm
+ubuntu@jumpbox:~/workspace/bosh-1$ cat ssh-bosh.sh
 ```
-ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ cat ssh-bosh.sh
 bosh int /home/ubuntu/workspace/bosh-1/creds.yml --path /jumpbox_ssh/private_key > /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key
 chmod 600 /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key
-ssh -i /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key jumpbox@10.0.1.6
+ssh -i /home/ubuntu/workspace/bosh-1/bosh-jumpbox-ssh.key jumpbox@10.10.10.200
+```
 
-
-
-ubuntu@ip-10-0-0-222:~/workspace/bosh-1$ ssh-bosh.sh
-
+```
+ubuntu@jumpbox:~/workspace/bosh-1$ ./ssh-bosh.sh
 sudo ping 8.8.8.8
+```
+
+
+## cpi-config
+
+```
+
+```
+## cloud-config
+ubuntu@jumpbox:~/workspace/bosh-1$ cat runtime-config.yml
+```
+---
+addons:
+- include:
+    stemcell:
+    - os: ubuntu-xenial
+  name: bosh-dns
+  jobs:
+  - name: bosh-dns
+    release: bosh-dns
+    properties:
+      api:
+        client:
+          tls:
+            ca: "((/dns_api_client_tls.ca))"
+            certificate: "((/dns_api_client_tls.certificate))"
+            private_key: "((/dns_api_client_tls.private_key))"
+        server:
+          tls:
+            ca: "((/dns_api_server_tls.ca))"
+            certificate: "((/dns_api_server_tls.certificate))"
+            private_key: "((/dns_api_server_tls.private_key))"
+      cache:
+        enabled: true
+      health:
+        client:
+          tls: "((/bosh_dns_health_client_tls))"
+        enabled: true
+        server:
+          tls: "((/bosh_dns_health_server_tls))"
+      override_nameserver: false
+releases:
+- name: bosh-dns
+  version: 1.19.0
+variables:
+- name: "/bosh_dns_health_tls_ca"
+  options:
+    common_name: bosh-dns-health-tls-ca
+    is_ca: true
+  type: certificate
+- name: "/bosh_dns_health_server_tls"
+  options:
+    ca: "/bosh_dns_health_tls_ca"
+    common_name: health.bosh-dns
+    extended_key_usage:
+    - server_auth
+  type: certificate
+- name: "/bosh_dns_health_client_tls"
+  options:
+    ca: "/bosh_dns_health_tls_ca"
+    common_name: health.bosh-dns
+    extended_key_usage:
+    - client_auth
+  type: certificate
+- name: "/dns_api_server_tls"
+  options:
+    ca: "/bosh_dns_health_tls_ca"
+    common_name: api.bosh-dns
+    extended_key_usage:
+    - server_auth
+  type: certificate
+- name: "/dns_api_client_tls"
+  options:
+    ca: "/bosh_dns_health_tls_ca"
+    common_name: api.bosh-dns
+    extended_key_usage:
+    - client_auth
+  type: certificate
+  
+```
+```
+bosh update-runtime-config ./runtime-config.yml
 
 ```
 
