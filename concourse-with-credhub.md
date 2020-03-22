@@ -29,9 +29,6 @@ vm_extensions:
 - cloud_properties:
     disk: 102400
   name: 100GB_ephemeral_disk
-- cloud_properties:
-    elbs: "[concourse-lb]"
-  name: lb
   
 $ bosh update-cloud-config ./bosh-cloud-config.yml
 ```
@@ -45,12 +42,6 @@ curl -vv -k "https://localhost/api/v0/staged/vm_extensions" \
     -H "Authorization: Bearer $UAA_ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{"name": "100GB_ephemeral_disk", "cloud_properties": { "disk": 102400 }}'
-
-curl -vv -k "https://localhost/api/v0/staged/vm_extensions" \
-    -X POST \
-    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" \
-    -H "Content-Type: application/json" \
-    -d '{"name": "lb", "cloud_properties": { "elbs": "[concourse-lb]" }}'
 
 => apply change
 
