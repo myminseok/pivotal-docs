@@ -15,19 +15,7 @@ This document explains how to install concourse cluster with separated credhub u
 - [Prepare bosh director vm](bosh-deploy.md)
 
 
-## prepare bosh vm and loadbalancer 
-check and update bosh vm types to bosh director vm.
-
-#### external loadbalancer (elb)
-```
-- name: concourse-lb
-- HTTP 80
-- HTTPS 443
-- TCP 8443 
-- TCP 8844
-```
-
-####  set `vm extension`
+## setup bosh `vm extension` in cloud-config
 
 ##### case) set `vm extension` for OSS bosh
 - define in cloud-config: https://bosh.io/docs/cloud-config/#vm-extensions
@@ -109,7 +97,7 @@ worker_ephemeral_disk: 100GB_ephemeral_disk  <--- already set in bosh cloud-conf
 
 
 
-#### we will install concourse 'cluster' for HA
+#### deploy concourse 'cluster' for HA
 
 ```
 ## deploy concourse
@@ -295,9 +283,18 @@ fly -t sandbox tj -j hello-credhub/hello-credhub -w
 - [bind users in concourse with PAS](concourse_with_cf_auth.md)
 
 
+
 ## put web loadbalancer on concourse web
 you can bind web VM to load-balancer automatically using vm_extensions setting in bosh cloud-config which has different configuration per IAAS. ex)  https://bosh.io/docs/aws-cpi/#resource-pools
 
+#### prepare external loadbalancer (elb)
+```
+- name: concourse-lb
+- HTTP 80
+- HTTPS 443
+- TCP 8443 
+- TCP 8844
+```
 
 #### set `vm extension` for concourse web loadbalancer.
 
