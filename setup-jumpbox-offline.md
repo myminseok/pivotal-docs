@@ -74,4 +74,6 @@ Updating certificates in /etc/ssl/certs...
 1 added, 0 removed; done.
 
 ```
+## Install git cli (jumpbox)
+https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
