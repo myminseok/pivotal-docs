@@ -219,6 +219,7 @@ properties-configuration:
   4. apply-director-change
   5. generate-staged-director-config > configure-director
  
+
 #### run pipeline for minor upgrade opsman  
   1. upgrade-opsman-vm
   2. configure director tile manually.
@@ -238,3 +239,21 @@ properties-configuration:
   5. apply-director-change
   then opsman will be recovered in a few minitues.
 
+
+#### bosh dns config for a private DNS.
+opsmanager UI.>BOSH Director > BOSH DNS config
+```
+[
+  {
+    "cache": {
+      "enabled": false
+    },
+    "domain": "example.com",
+    "source": {
+      "recursors": ["PRIVATE_DNS_IP:53"],
+      "type": "dns"
+    }
+  }
+]
+```
+https://learn.hashicorp.com/consul/cloud-integrations/consul-pcf
