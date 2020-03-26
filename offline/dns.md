@@ -110,21 +110,37 @@ zone "system.pcfdemo.net" {
 ```
 
 #forward설정
+
+vi /etc/bind/named.conf.options
 ```
-Named.conf.options에서 dnssec-validation no;로 설정해야함.
+root@oss-jumpbox:/etc/bind# cat named.conf.options 
+options {
+	directory "/var/cache/bind";
+	dnssec-validation auto;
+
+        // forwarder... https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-14-04
+        recursion yes; 
+        dnssec-validation no;
+        // for forwarder.
+        allow-recursion { any; };
+        allow-recursion-on { any; };
+        
+	forwarders {
+          8.8.8.8;
+          8.8.4.4;
+	};
 
 
-acl goodclients {
-    192.168.0.0/24;
-    localhost;
+
+	auth-nxdomain no;    # conform to RFC1035
+	listen-on-v6 { any; };
+	listen-on { any; };  #added 
 };
-forwarders {
-    8.8.8.8;
-};
-forward only;
-dnssec-validation no;
-
 ```
+
+
+
+
 test
 ```
 
