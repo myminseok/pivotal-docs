@@ -20,6 +20,15 @@ apt install -f
 ```
 apt-get install bind9
 ```
+
+## setup ipv4 for bind9
+vi /etc/default/bind9
+```
+OPTIONS="-4 -u bind"
+```
+
+## setup domain
+
 ```
 sudo su
 cd /etc/bind
@@ -80,9 +89,13 @@ $TTL 604800
  604800 ); Negative Cache TTL
 ;
 @ IN NS system.pcfdemo.net.
+@ IN AAAA::1
 @ IN A       192.168.0.100
 * IN A       192.168.0.100
-@ IN AAAA::1
+login IN A       192.168.0.100
+uaa IN A       192.168.0.100
+ssh IN A       192.168.0.xxx
+
 ```
 
 ```
