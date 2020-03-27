@@ -24,3 +24,19 @@ irb(main):002:0> Bosh::Director::Models::Task.where(state: "cancelling").update(
 
 ```
 
+## cancel bosh tasks
+
+
+```
+bosh tasks | grep -i "queued" | awk '{print $1}' > bosh-tasks.txt
+```
+bosh-cancel-tasks.sh
+```
+#!/bin/bash
+
+while IFS= read -r line; do
+echo $line;
+bosh cancel-task $line
+
+done < bosh-tasks.txt
+```
