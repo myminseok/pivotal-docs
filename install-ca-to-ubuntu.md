@@ -1,4 +1,4 @@
-## install a CA to ubuntu
+## install a CA-certs to ubuntu
 
 #### Copy your certificate in PEM format 
 (the format that has ----BEGIN CERTIFICATE---- in it) into /usr/local/share/ca-certificates and name it with a .crt file extension
