@@ -6,17 +6,15 @@ http://mywiki.wooledge.org/BashFAQ/001
 bosh tasks | grep -i "queued" | awk '{print $1}' > bosh-tasks.txt
 
 cat bosh-tasks.txt
-
-
 ```
+
 bosh-cancel-tasks.sh
 ```
 #!/bin/bash
 
 while IFS= read -r line; do
- if [[ "$line" == "#"* ]]; then
-   continue
- fi
+ [[ $line == "#"* ]] &&  echo "skip $line" && continue
+ echo "cancel task $line"
  bosh cancel-task $line
 
 done < bosh-tasks.txt
