@@ -17,6 +17,12 @@ PAS 를 관리하는 bosh director에 로그인하는 방법입니다.
 3.	vi ~/.profile에 아래 형태로 편집하여 저장
 ```
 alias bosh=" BOSH_CLIENT=ops_manager BOSH_CLIENT_SECRET=xxxx BOSH_CA_CERT=/var/tempest/workspaces/default/root_ca_certificate BOSH_ENVIRONMENT=10.10.10.21 bosh"
+
+
+export BOSH_CLIENT=ops_manager 
+export BOSH_CLIENT_SECRET=xxxx 
+export BOSH_CA_CERT=/var/tempest/workspaces/default/root_ca_certificate 
+export BOSH_ENVIRONMENT=10.10.10.21
 ```
 4.	환경정보 활성화
 ```
