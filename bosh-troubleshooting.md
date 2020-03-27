@@ -4,6 +4,7 @@
 
 
 ## cancel queued tasks
+https://community.pivotal.io/s/article/How-to-Cancel-All-Queued-BOSH-Tasks-Using-director-ctl
 ```
 sudo su -
 
@@ -16,7 +17,6 @@ irb(main):002:0> Bosh::Director::Models::Task.where(state: "queued").update(stat
 
 # cancelling —> done
 irb(main):002:0> Bosh::Director::Models::Task.where(state: "cancelling").update(state:"done")
-
 
 ```
 
