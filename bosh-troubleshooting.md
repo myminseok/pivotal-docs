@@ -1,0 +1,22 @@
+
+
+## ssh into bosh director VM
+
+
+## cancel queued tasks
+```
+sudo su -
+
+/var/vcap/jobs/director/bin/console
+
+irb(main):001:0> Bosh::Director::Models::Task.where(state: "queued").count
+
+# queued —> cancelling 
+irb(main):002:0> Bosh::Director::Models::Task.where(state: "queued").update(state: "cancelling")
+
+# cancelling —> done
+irb(main):002:0> Bosh::Director::Models::Task.where(state: "cancelling").update(state:"done")
+
+
+```
+
