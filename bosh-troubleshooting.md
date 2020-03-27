@@ -1,15 +1,15 @@
 
 
-## get bbr key for director VM
+## Get bbr key for director VM
 https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.md#get-bbr-key
 
 
-## ssh into bosh director VM
-
-
-## cancel queued tasks
+## Cancel queued tasks in bosh director
 https://community.pivotal.io/s/article/How-to-Cancel-All-Queued-BOSH-Tasks-Using-director-ctl
 ```
+
+# ssh into bosh director VM
+
 sudo su -
 
 /var/vcap/jobs/director/bin/console
