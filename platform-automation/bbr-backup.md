@@ -143,6 +143,13 @@ https:///s3.pcfdemo.net/bbr-pcfdemo/bbr-backup-director-20190430.1319.11+UTC.tgz
 # Restore director (manual)
 https://docs.pivotal.io/pivotalcf/2-5/customizing/backup-restore/restore-pcf-bbr.html#bosh-only-deploy
 
+
+## get bbr key
+opsman UI> director> credentials>  Bbr Ssh Credentials
+```
+$ printf --  "-----BEGIN RSA PRIVATE KEY----- MIIEkeycontents ----END RSA PRIVATE KEY-----" > bbr_key.pem
+```
+
 ## deply empty director 
 
 ## restore director
@@ -170,4 +177,6 @@ restore-cleanup
 bosh deployments
 
 ```
+
+
 
