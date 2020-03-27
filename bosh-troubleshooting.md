@@ -1,7 +1,7 @@
 
 
 ## get bbr key for director VM
-https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.md#restore-director-manual
+https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-backup.md#get-bbr-key
 
 
 ## ssh into bosh director VM
