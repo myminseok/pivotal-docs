@@ -141,7 +141,7 @@ https:///s3.pcfdemo.net/bbr-pcfdemo/bbr-backup-director-20190430.1319.11+UTC.tgz
 ```
 
 # Restore director (manual)
-https://docs.pivotal.io/pivotalcf/2-5/customizing/backup-restore/restore-pcf-bbr.html#bosh-only-deploy
+https://docs.pivotal.io/platform/2-8/customizing/backup-restore/backup-pcf-bbr.html
 
 
 ## get bbr key
