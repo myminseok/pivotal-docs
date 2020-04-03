@@ -183,7 +183,7 @@ dig a.apps.pcfdemo.net
 
 https://www.linuxbabe.com/ubuntu/set-up-local-dns-resolver-ubuntu-18-04-16-04-bind9
 
-root@platform-jumpbox:/etc/bind# vi /etc/systemd/resolved.conf 
+root@jumpbox:/etc/bind# vi /etc/systemd/resolved.conf 
 
 [Resolve]
 DNS=127.0.0.1
@@ -191,7 +191,8 @@ DNS=127.0.0.1
 root@platform-jumpbox:/etc/bind# systemctl restart systemd-resolved
 root@platform-jumpbox:/etc/bind# systemd-resolve --status
 Global
-         DNS Servers: 127.0.0.1
+           
+         DNS Servers: 10.10.10.5. ### <--- your DNS.
           DNSSEC NTA: 10.in-addr.arpa
                       16.172.in-addr.arpa
                       168.192.in-addr.arpa
