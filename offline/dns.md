@@ -174,3 +174,29 @@ dig a.apps.pcfdemo.net
 
 
 ```
+
+
+
+# for ubuntu 18.04 ,  systemd-resolver
+```
+
+
+https://www.linuxbabe.com/ubuntu/set-up-local-dns-resolver-ubuntu-18-04-16-04-bind9
+
+root@platform-jumpbox:/etc/bind# vi /etc/systemd/resolved.conf 
+
+[Resolve]
+DNS=127.0.0.1
+
+root@platform-jumpbox:/etc/bind# systemctl restart systemd-resolved
+root@platform-jumpbox:/etc/bind# systemd-resolve --status
+Global
+         DNS Servers: 127.0.0.1
+          DNSSEC NTA: 10.in-addr.arpa
+                      16.172.in-addr.arpa
+                      168.192.in-addr.arpa
+                      17.172.in-addr.arpa
+                      18.172.in-addr.arpa
+
+
+```
