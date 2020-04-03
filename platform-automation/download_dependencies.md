@@ -58,7 +58,7 @@ stemcell-iaas: vsphere
 ```
 
 
-###  set secrets to concourse credhub.
+###  Set Pipeline secrets to concourse credhub.
 login to credhub
 ```
 ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
