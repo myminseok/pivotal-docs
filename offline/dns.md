@@ -159,8 +159,18 @@ test
 ```
 
 /etc/init.d/bind9 restart
-vi /etc/resolve.conf
-ping a.system.pcfdemo.net
-ping api.pcfdemo.net
-ping pcfdemo.net
+
+cat /etc/resolve.conf
+
+dig @localhost pcfdemo.net
+dig pcfdemo.net
+
+dig  @localhost api.pcfdemo.net
+dig api.pcfdemo.net
+
+dig  @localhost a.apps.pcfdemo.net
+dig a.apps.pcfdemo.net
+
+
+
 ```
