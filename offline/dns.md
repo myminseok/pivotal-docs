@@ -129,11 +129,12 @@ vi /etc/bind/named.conf.options
 root@oss-jumpbox:/etc/bind# cat named.conf.options 
 options {
 	directory "/var/cache/bind";
-	dnssec-validation auto;
+
 
         // forwarder... https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-14-04
         recursion yes; 
-        dnssec-validation no;
+	//dnssec-validation auto;
+        dnssec-validation no; // for private external dns
         // for forwarder.
         allow-recursion { any; };
         allow-recursion-on { any; };
