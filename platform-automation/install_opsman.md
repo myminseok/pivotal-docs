@@ -1,75 +1,53 @@
-# How to setup concourse pipeline for installing/upgrading PCF opsmanager
+# How to setup concourse pipeline for installing/upgrading opsmanager
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
-
-
-## Config
-- docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
-- sample: https://github.com/myminseok/platform-automation-configuration-template
-
-```
-platform-automation-configuration-template
-├── dev-1
-│   ├── config
-│   │   ├── auth-ldap.yml
-│   │   ├── auth-saml.yml
-│   │   └── auth.yml
-│   ├── env
-│   │   └── env.yml
-│   ├── generated-config
-│   ├── products
-│   │   ├── director.yml
-│   │   └── ops-manager.yml
-│   ├── products.yml
-│   ├── state
-│   │   └── state.yml
-│   └── vars
-│       ├── director-vars.yml
-│       ├── global.yml
-│       └── ops-manager-vars.yml
-└── download-product-configs
-
-    
-    
-```
-
-### env.yml
-- http://docs.pivotal.io/platform-automation/v2.1/configuration-management/configure-env.html
-```
----
-
-# Env Config
-# This file contains properties for targeting and logging into the Ops Manager API.
-
-target: ((opsman_target))
-connect-timeout: 30                 # default 5
-request-timeout: 3600               # default 1800
-skip-ssl-validation: true           # default false
-username: ((opsman_admin.username))
-password: ((opsman_admin.password))
-decryption-passphrase: ((decryption-passphrase))
-```
-- ops-manager.yml:  http://docs.pivotal.io/platform-automation/v3.0/reference/inputs-outputs.html#vsphere
-- auth.yml : http://docs.pivotal.io/platform-automation/v3.0/configuration-management/configure-auth.html
-- director.yml: see bellow.
 
 
 ## pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
 ```
 platform-automation-pipelines-template git:(master)
-├── fly-install-upgrade-opsman.sh
-├── fly-patch-opsman.sh
+├── install-upgrade-opsman.sh
 ├── install-upgrade-opsman.yml
+├── install-upgrade-product.sh
+├── install-upgrade-product.yml
+├── patch-opsman.sh
 ├── patch-opsman.yml
 ├── tasks
-├── vars-dev-1
-│   └── common-params.yml
-└── vars-pcfdemo
-    └── common-params.yml
-    
+│   ├── apply-product-changes.yml
 ```
 
-### common-params.yml
+## pipeline variables
+```
+platform-automation-configuration-template>
+── dev
+│   ├── config
+│   │   └── auth.yml
+│   ├── download-product-configs
+│   │   ├── healthwatch.yml
+│   │   ├── opsman.yml
+│   │   └── pas.yml
+│   ├── env
+│   │   └── env.yml
+│   ├── generated-config
+│   │   ├── cf.yml
+│   │   └── director.yml
+│   ├── pipeline-vars
+│   │   └── common-params.yml
+│   ├── products
+│   │   ├── cf.yml
+│   │   ├── ops-manager.yml
+│   │   └── director.yml
+│   ├── setenv-credhub.sh
+│   ├── state
+│   │   └── state.yml
+```
+
+
+#### common-params.yml
+- docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
+- sample: https://github.com/myminseok/platform-automation-configuration-template
+    
+platform-automation-configuration-template> dev > pipeline-vars > common-params.yml
 ```
 s3:
   endpoint: http://10.10.10.199:9000
@@ -83,8 +61,7 @@ s3:
     bbr-backup: bbr-pcfdemo
 
 git:
-  platform_pipelines:
-   # uri: ssh://pivotal@10.10.10.199/platform/platform-pipelines.git
+  platform_automation_pipelines:
    uri: git@github.com:myminseok/platform-automation-pipelines-template.git
   platform_automation_tasks:
     uri: ssh://pivotal@10.10.10.199/platform/platform_automation_tasks.git
@@ -108,84 +85,76 @@ pivnet:
   token: ((pivnet_token))
   
 ```
-
-###  register secrets to concourse credhub.
+#### env.yml
+- http://docs.pivotal.io/platform-automation/v2.1/configuration-management/configure-env.html
 ```
-## /concourse/main
-credhub set -t value -n /concourse/main/s3_access_key_id -v <S3_ACCESS_KEY>
-credhub set -t value -n /concourse/main/s3_secret_access_key -v "<S3_SECRET>"
-credhub set -t value -n /concourse/main/pivnet_token -v <YOUR_PIVNET_TOKEN>
+---
 
-credhub set -t value -n /concourse/main/git_user_email -v <GIT_USER_EMAIL>
-credhub set -t value -n /concourse/main/git_user_username -v <GIT_USER_NAME>
+# Env Config
+# This file contains properties for targeting and logging into the Ops Manager API.
 
-credhub set -t user -n /concourse/main/vcenter_user -z <user> -w <password>
+target: ((opsman_target))
+connect-timeout: 30                 # default 5
+request-timeout: 3600               # default 1800
+skip-ssl-validation: true           # default false
+username: ((opsman_admin.username))
+password: ((opsman_admin.password))
+decryption-passphrase: ((decryption-passphrase))
+```
+> - ops-manager.yml:  http://docs.pivotal.io/platform-automation/v3.0/reference/inputs-outputs.html#vsphere
+  - auth.yml : http://docs.pivotal.io/platform-automation/v3.0/configuration-management/configure-auth.html
+  - director.yml: see bellow.
+
+
+##   Set Pipeline secrets to concourse credhub  per each foundation
+login to credhub
+```
+ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
+bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
+credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
+credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
+
+```
+set  per each foundation, `dev` for this case 
+```
+## /concourse/dev
+credhub set -t value -n /concourse/dev/s3_access_key_id -v <S3_ACCESS_KEY>
+credhub set -t value -n /concourse/dev/s3_secret_access_key -v "<S3_SECRET>"
+credhub set -t value -n /concourse/dev/pivnet_token -v <YOUR_PIVNET_TOKEN>
+
+credhub set -t value -n /concourse/dev/git_user_email -v <GIT_USER_EMAIL>
+credhub set -t value -n /concourse/dev/git_user_username -v <GIT_USER_NAME>
+
+credhub set -t user -n /concourse/dev/vcenter_user -z <user> -w <password>
 
 # register ssh key for git. ex) ~/.ssh/id_rsa
-credhub set -t rsa  -n /concourse/main/git_private_key  -p ~/.ssh/id_rsa 
+credhub set -t rsa  -n /concourse/dev/git_private_key  -p ~/.ssh/id_rsa 
  
 cd concourse-bosh-deployment/cluster
-bosh int ./concourse-creds.yml --path /atc_tls/certificate > atc_tls.cert
-credhub set -t certificate -n /concourse/main/credhub_ca_cert -c ./atc_tls.cert
+# bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
+credhub set -t certificate -n /concourse/dev/credhub_ca_cert -c ./credhub-ca.ca
 
-grep concourse_to_credhub ./concourse-creds.yml
-credhub set -t user -n /concourse/main/credhub_client -z concourse_to_credhub -w <concourse_to_credhub>
+# grep concourse_to_credhub ./concourse-creds.yml
+credhub set -t user -n /concourse/dev/credhub_client -z concourse_client -w <concourse_to_credhub>
 
-
-## /concourse/dev-1
-credhub set -t user  -n /concourse/dev-1/opsman_admin -z admin -w <YOUR_PASSWORD>
-credhub set -t value -n /concourse/dev-1/decryption-passphrase -v <YOUR_PASSWORD>
-credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_IP
+credhub set -t user  -n /concourse/dev/opsman_admin -z admin -w <YOUR_PASSWORD>
+credhub set -t value -n /concourse/dev/decryption-passphrase -v <YOUR_PASSWORD>
+credhub set -t value -n /concourse/dev/opsman_target -v https://opsman_url_or_IP
 
 ```
 
-## run pipeline
+## how to deploy pipeline
 
-#### deploy pipeline
 ```
-$ fly -t <fly-target> login -c https://your.concourse/ -b -k
+$ fly -t <foundaton> login -c https://your.concourse/ -b -k
 
-$ ./fly-install-upgrade-opsman.sh <fly-target>  <foundation>
+$ ./install-upgrade-opsman.sh <foundaton>
  - foundation: name of pcf foundation in platform-automation-config git.  
- - will create concourse pipeline named '<foundation>-opsman-install-upgrade'
-
-$ ./fly-patch-opsman.sh <fly-target> <foundation>
- - foundation: name of pcf foundation in platform-automation-config git.  
- - will create concourse pipeline named '<foundation>-opsman-patch'
-
+ - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
 ```
 
-#### edit products.yml in git
-edit version info from \<platform-automation-configuration>/\<foundation>/products.yml in git and commit
-```
-  products:
-    ops-mananager:
-      product-version: "2.6.3"
-      pivnet-product-slug: ops-manager-vsphere
-      pivnet-file-glob: "*.ova"
-      download-stemcell: "false"
-      s3-endpoint: http://my.s3.repo
-      s3-region-name: "region"
-      s3-bucket: "pivnet-products"
-      s3-disable-ssl: "true"
-      s3-access-key-id: ((s3_access_key_id))
-      s3-secret-access-key: ((s3_secret_access_key))
-      pivnet-api-token: ((pivnet_token))
-```
-#### create s3 bucket
-- for opsman backup: 'installation-\<foundation>'
+#### how to get opsman.yml template for a new opsman 
 
-#### prepare products
-the pipeline download opsman ova from pivnet and upload to s3. folder sturcture should be compatible with 'om' cli which is used in 'paltform automation for PCF'. download product tile and stemcells from pivnet and upload to s3 as following:.
-  - folder-sturcture format is as following and information comes from products.yml
-  - pipeline matches a folder name of '[pivnet-product-slug, product-version]' in s3 bucket.
-  - pipeline matches a file name 'pivnet-product-slug, product-version, pivnet-file-glob'.
-  ```
-  <s3-bucket>/[<products.ops-mananager>,<products.ops-manager.product-version>]/<products.ops-manager.pivnet-product-slug>-<products.ops-manager.product-version>-<products.ops-manager.pivnet-file-glob>
-  
-  ex) https://your.internal.s3/pivnet-products/[opsmanager,2.6.3]/ops-manager-vsphere-2.6.3-build.163.ova
-  ```  
-#### run pipeline for new opsman installation 
   1. create-new-opsman-vm
   2. configure-authentication
   3. generate-staged-config
@@ -219,19 +188,18 @@ properties-configuration:
   4. apply-director-change
   5. generate-staged-director-config > configure-director
  
-
-#### run pipeline for minor upgrade opsman  
+#### how to run pipeline for minor upgrade opsman  
   1. upgrade-opsman-vm
   2. configure director tile manually.
   3. apply-director-change
   4. generate-staged-director-config > configure-director
 
-#### run pipeline for patching opsman
+#### how to  run pipeline for patching opsman
   1. download opsman ova from pivnet and upload to s3 as following
   2. edit version info in products.yml from git and commit.
   3. then the 'replace-opsman-vm' job in the pipeline will automatically be triggered
 
-### run pipeline for recovering opsman
+### how to  run pipeline for recovering opsman
   1. download opsman ova from pivnet and upload to s3 as following
   2. edit version info in products.yml from git and commit.
   3. create-new-opsman-vm
@@ -239,7 +207,7 @@ properties-configuration:
   5. apply-director-change
   then opsman will be recovered in a few minitues.
 
-
+## advanced.
 #### bosh dns config for a private DNS.
 opsmanager UI.>BOSH Director > BOSH DNS config
 ```
