@@ -179,8 +179,8 @@ $ fly -t <foundaton> login -c https://your.concourse/ -b -k
 $ ./install-upgrade-opsman.sh <foundaton>
 ```
 > - foundation: name of pcf foundation in platform-automation-config git.  
- - will use commons platform-automation-configuration-template
- - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
+> - will use commons platform-automation-configuration-template
+> - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
 
 #### how to get opsman.yml template for a new opsman 
 
