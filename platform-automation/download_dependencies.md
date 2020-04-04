@@ -163,7 +163,7 @@ $ ./download-product.h <foundaton>
 
 
 ## For better download and upload efficiency
-`platform-automation-tasks/tasks/download-product.yml` download product and upload to s3 even if there is the same file in s3. for better efficiency, this pipeline uses `semver`. 
+if the s3 storage is not versioned, `platform-automation-tasks/tasks/download-product.yml` download product and upload to s3 even if there is the same file in s3 . for better efficiency, this pipeline uses `semver`. 
 
 ```
 
