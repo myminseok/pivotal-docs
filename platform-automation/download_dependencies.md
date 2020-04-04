@@ -162,4 +162,106 @@ $ ./download-product.h <foundaton>
 ```
 
 
+##
+`platform-automation-tasks/tasks/download-product.yml` download product and upload to s3 even if there is the same file in s3. for better efficiency, this pipeline uses `semver`. 
+
+```
+
+- name: opsman-product
+  type: s3
+  source:
+    endpoint: ((s3.endpoint))
+    access_key_id: ((s3.access_key_id))
+    bucket: ((s3.buckets.pivnet_products))
+    region_name: ((s3.region_name))
+    secret_access_key: ((s3.secret_access_key))
+    regexp: "ops-manager-vsphere*.ova"
+    skip_ssl_verification: true
+
+#- name: opsman-product-new-version-git
+#  type: semver
+#  source:
+#    driver: git
+#    private_key: ((git.private_key))
+#    uri: ((git.configuration.uri))
+#    branch: master
+#    file: ((foundation)/opsman-version
+#    initial_version: 0.1.0
+
+- name: opsman-product-new-version-s3.    <=== creates `opsman-version` file in s3 bucket.
+  type: semver
+  source:
+    endpoint: ((s3.endpoint))
+    access_key_id: ((s3.access_key_id))
+    bucket: ((s3.buckets.pivnet_products))
+    region_name: ((s3.region_name))
+    secret_access_key: ((s3.secret_access_key))
+    skip_ssl_verification: true
+    key: opsman-version
+    initial_version: 0.1.0
+    
+
+jobs:
+  
+- name: pre-fetch-opsman
+  plan:
+  - in_parallel:
+    - get: platform-automation-pipelines
+    - get: platform-automation-image
+      params: { unpack: true }
+    - get: platform-automation-tasks
+      params: { unpack: true }
+    - get: configuration
+    - get: opsman-product-new-version-s3   <=== prepare bump up locally.
+      params: {bump: minor}
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: download-only-opsman-image
+    image: platform-automation-image
+    file: platform-automation-pipelines/tasks/download-only-product.yml  <=== download product from pivnet into worker VM
+    input_mapping: {config: configuration }
+    params:
+      CONFIG_FILE: ((foundation))/download-product-configs/opsman.yml
+    on_success:
+      try:   <===  `try` will ignore task error. so the pipeline can continues.
+        task: check_dup_file_in_s3
+        image: platform-automation-image
+        file: platform-automation-pipelines/tasks/exists_file_s3.yml. <=== `check_dup_file_in_s3` task will check if the product file exists in s3. if exists, exit 1. if not, it will bump up semver. 
+        input_mapping: {downloaded-product: downloaded-product }
+        params:
+          endpoint: ((s3.endpoint))
+          access_key_id: ((s3.access_key_id))
+          bucket: ((s3.buckets.pivnet_products))
+          region_name: ((s3.region_name))
+          secret_access_key: ((s3.secret_access_key))
+        on_success:
+          try:
+            put: opsman-product-new-version-s3
+            params: {file: opsman-product-new-version-s3/number}
+
+- name: fetch-opsman
+  plan:
+  - in_parallel:
+    - get: platform-automation-pipelines
+    - get: platform-automation-image
+      params: { unpack: true }
+    - get: platform-automation-tasks
+      params: { unpack: true }
+    - get: configuration
+    - get: opsman-product-new-version-s3  <=== this job will be triggered by bumped up `semver`.
+      trigger: true
+  - task: credhub-interpolate
+    <<: *credhub-interpolate
+  - task: download-opsman-image
+    image: platform-automation-image
+    file: platform-automation-tasks/tasks/download-product.yml
+    input_mapping: {config: configuration }
+    params:
+      CONFIG_FILE: ((foundation))/download-product-configs/opsman.yml
+  - put: opsman-product
+    params:
+      file: downloaded-product/*
+
+```
+
 
