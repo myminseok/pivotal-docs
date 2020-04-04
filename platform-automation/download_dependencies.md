@@ -39,8 +39,7 @@ pas.yml
 pivnet-api-token: ((pivnet_token))
 pivnet-file-glob: "cf-*.pivotal"
 pivnet-product-slug: elastic-runtime
-#product-version-regex: ^2\.4\..*$
-product-version-regex: ^2\.4\.5$
+product-version-regex: ^2\.4\..*$
 stemcell-iaas: vsphere
 
 ```
