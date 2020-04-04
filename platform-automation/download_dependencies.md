@@ -1,28 +1,58 @@
 ## Ref
-- http://docs.pivotal.io/platform-automation/v2.1/index.html
+- https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
 
+## Get pipeline template
+in jumpbox,as ubuntu user
+```
+mkdir platform-automation-workspace
+cd platform-automation-workspace
 
-## Config
-
-- docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html#download-product-config
-
-- sample: https://github.com/myminseok/platform-automation-configuration-template
-
+git clone https://github.com/myminseok/platform-automation-pipelines-template   platform-automation-pipelines
+git clone https://github.com/myminseok/platform-automation-configuration-template   platform-automation-configuration
 
 ```
-platform-automation-conf
-└── dev-1
+
+## Set pipeline
+- sample: https://github.com/myminseok/platform-automation-pipelines-template
+```
+platform-automation-pipelines
+├── download-product.sh
+├── download-product.yml
+
+```
+make sure to point `platform-automation-configuration` folder in the download-product.sh
+```
+platform-automation-pipelines> vi download-product.sh
+#!/bin/bash
+
+...
+
+fly -t ${FLY_TARGET} sp -p "download-product" \
+-c ./download-product.yml \
+-l ../platform-automation-configuration/${FLY_TARGET}/pipeline-vars/common-params.yml \
+-v foundation=${FLY_TARGET}
+
+```
+
+
+## Set pipeline variables
+per each foundation, pipeline variables is defined
+- sample: https://github.com/myminseok/platform-automation-configuration-template
+
+```
+platform-automation-configuration
+└── dev
     ├── config
     ├── download-product-configs
     │   ├── healthwatch.yml
     │   ├── opsman.yml
     │   └── pas.yml
-    ├── env
-    │   └── env.yml
-    └── vars
+    └── pipeline-vars
+       └── common-params.yml
 
 ```
+
 opsman.yml
 ```
 ---
@@ -45,20 +75,8 @@ stemcell-iaas: vsphere
 ```
 
 
-##  s3
-
-```
-
-|-- pivnet-products
-
-`-- platform-automation
-    |-- platform-automation-image-2.1.1-beta.1.tgz
-    `-- platform-automation-tasks-2.1.1-beta.1.zip
-```
-
-
 ###  Set Pipeline secrets to concourse credhub  per each foundation
-login to credhub
+in ssh terminal, login to credhub
 ```
 ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
 bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
@@ -94,21 +112,40 @@ credhub set -t value -n /concourse/dev/opsman_target -v https://opsman_url_or_IP
 
 ```
 
+## Parepare s3 
+download platform-automation-image, platform-automation-image-tasks from network.pivotal.io to s3
 
-## Pipeline
-- docs: http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#retrieving-external-dependencies
+```
+|-- pivnet-products
 
+`-- platform-automation
+    |-- platform-automation-image-2.1.1-beta.1.tgz
+    `-- platform-automation-tasks-2.1.1-beta.1.zip
+```
+
+
+## how to deploy pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
 
-
-
 ```
-fly -t demo sp -p download-product -c download-product.yml -l ./download-product-params.yml
+$ cd platform-automation-workspace
+$ ls -al
+platform-automation-configuration
+platform-automation-pipelines
+
+$ cd platform-automation-pipelines
+
+$ fly -t <foundaton> login -c https://your.concourse/ -b -k
+
+$ ./download-product.h <foundaton>
+ - foundation: name of pcf foundation in platform-automation-config git.  
+ - this will use platform-automation-configuration/<foundaton>/pipeline-vars/common-params.yml
+ - will use commons platform-automation-configuration-template
+ - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
+ - 
 ```
 
-
-##  S3 
-
+# Result in S3 
 ```
 |-- pivnet-products
 |   |-- cf-2.4.5-build.25.pivotal
