@@ -57,7 +57,7 @@ stemcell-iaas: vsphere
 ```
 
 
-###  Set Pipeline secrets to concourse credhub.
+###  Set Pipeline secrets to concourse credhub  per each foundation
 login to credhub
 ```
 ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
@@ -66,7 +66,7 @@ credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
 credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
 
 ```
-set  secrets to concourse credhub per each foundation
+set  per each foundation, `dev` for this case 
 ```
 ## /concourse/dev
 credhub set -t value -n /concourse/dev/s3_access_key_id -v <S3_ACCESS_KEY>
@@ -87,10 +87,7 @@ credhub set -t certificate -n /concourse/dev/credhub_ca_cert -c ./credhub-ca.ca
 
 # grep concourse_to_credhub ./concourse-creds.yml
 credhub set -t user -n /concourse/dev/credhub_client -z concourse_client -w <concourse_to_credhub>
-```
-set env specific secrets to concourse credhub.
-```
-# for /concourse/dev-1
+
 credhub set -t user  -n /concourse/dev/opsman_admin -z admin -w <YOUR_PASSWORD>
 credhub set -t value -n /concourse/dev/decryption-passphrase -v <YOUR_PASSWORD>
 credhub set -t value -n /concourse/dev/opsman_target -v https://opsman_url_or_IP
