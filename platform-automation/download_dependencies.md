@@ -235,8 +235,8 @@ jobs:
           region_name: ((s3.region_name))
           secret_access_key: ((s3.secret_access_key))
         on_success:
-          try:
-            put: opsman-product-new-version-s3
+          try: 
+            put: opsman-product-new-version-s3               <=== bump up semver
             params: {file: opsman-product-new-version-s3/number}
 
 - name: fetch-opsman
