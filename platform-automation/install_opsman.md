@@ -1,6 +1,5 @@
 # How to setup concourse pipeline for installing/upgrading opsmanager
-- http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
-
+- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
 ## pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
@@ -17,6 +16,7 @@ platform-automation-pipelines-template git:(master)
 ```
 
 ## pipeline variables
+per each foundation, pipeline variables is defined
 ```
 platform-automation-configuration-template>
 ── dev
@@ -44,7 +44,7 @@ platform-automation-configuration-template>
 
 
 #### common-params.yml
-- docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
+- docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 - sample: https://github.com/myminseok/platform-automation-configuration-template
     
 platform-automation-configuration-template> dev > pipeline-vars > common-params.yml
@@ -86,7 +86,7 @@ pivnet:
   
 ```
 #### env.yml
-- http://docs.pivotal.io/platform-automation/v2.1/configuration-management/configure-env.html
+- https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
 ```
 ---
 
@@ -101,8 +101,8 @@ username: ((opsman_admin.username))
 password: ((opsman_admin.password))
 decryption-passphrase: ((decryption-passphrase))
 ```
-> - ops-manager.yml:  http://docs.pivotal.io/platform-automation/v3.0/reference/inputs-outputs.html#vsphere
-  - auth.yml : http://docs.pivotal.io/platform-automation/v3.0/configuration-management/configure-auth.html
+> - ops-manager.yml:   https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
+  - auth.yml : https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#uaa-authentication
   - director.yml: see bellow.
 
 
