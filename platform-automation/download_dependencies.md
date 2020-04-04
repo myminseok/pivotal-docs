@@ -218,7 +218,7 @@ jobs:
     <<: *credhub-interpolate
   - task: download-only-opsman-image
     image: platform-automation-image
-    file: platform-automation-pipelines/tasks/download-only-product.yml  <=== download product from pivnet into worker VM
+    file: platform-automation-pipelines/tasks/download-only-product.yml  <=== if there is new file in pivnet, download the product into worker VM. it will be chached and shared with the next tasks (this worker VM scope)
     input_mapping: {config: configuration }
     params:
       CONFIG_FILE: ((foundation))/download-product-configs/opsman.yml
