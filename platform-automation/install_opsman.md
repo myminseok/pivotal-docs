@@ -1,24 +1,52 @@
 # How to setup concourse pipeline for installing/upgrading opsmanager
 - https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
-## pipeline
+## prerequisits
+#### you need to download depencencies
+https://github.com/myminseok/pivotal-docs/edit/master/platform-automation/download_dependencies.md
+
+
+## Get pipeline template
+in jumpbox,as ubuntu user
+```
+mkdir platform-automation-workspace
+cd platform-automation-workspace
+
+git clone https://github.com/myminseok/platform-automation-pipelines-template   platform-automation-pipelines
+git clone https://github.com/myminseok/platform-automation-configuration-template   platform-automation-configuration
+```
+
+
+## Pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
 ```
-platform-automation-pipelines-template git:(master)
+platform-automation-pipelines:
 ├── install-upgrade-opsman.sh
 ├── install-upgrade-opsman.yml
-├── install-upgrade-product.sh
-├── install-upgrade-product.yml
-├── patch-opsman.sh
-├── patch-opsman.yml
 ├── tasks
 │   ├── apply-product-changes.yml
 ```
 
+make sure to point `platform-automation-configuration` folder in the download-product.sh
+```
+platform-automation-pipelines> vi download-product.sh
+#!/bin/bash
+
+...
+
+fly -t ${FLY_TARGET} sp -p "${FOUNDATION}-opsman-install-upgrade" \
+-c ./install-upgrade-opsman.yml \
+-l ../platform-automation-configuration/${FLY_TARGET}/pipeline-vars/common-params.yml \
+-v foundation=${FLY_TARGET}
+
+```
+
+
+
 ## pipeline variables
 per each foundation, pipeline variables is defined
 ```
-platform-automation-configuration-template>
+platform-automation-configuration>
 ── dev
 │   ├── config
 │   │   └── auth.yml
@@ -47,7 +75,7 @@ platform-automation-configuration-template>
 - docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 - sample: https://github.com/myminseok/platform-automation-configuration-template
     
-platform-automation-configuration-template> dev > pipeline-vars > common-params.yml
+platform-automation-configuration> dev > pipeline-vars > common-params.yml
 ```
 s3:
   endpoint: http://10.10.10.199:9000
@@ -149,9 +177,10 @@ credhub set -t value -n /concourse/dev/opsman_target -v https://opsman_url_or_IP
 $ fly -t <foundaton> login -c https://your.concourse/ -b -k
 
 $ ./install-upgrade-opsman.sh <foundaton>
- - foundation: name of pcf foundation in platform-automation-config git.  
- - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
 ```
+> - foundation: name of pcf foundation in platform-automation-config git.  
+ - will use commons platform-automation-configuration-template
+ - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
 
 #### how to get opsman.yml template for a new opsman 
 
