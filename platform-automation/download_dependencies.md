@@ -138,12 +138,12 @@ $ cd platform-automation-pipelines
 $ fly -t <foundaton> login -c https://your.concourse/ -b -k
 
 $ ./download-product.h <foundaton>
- - foundation: name of pcf foundation in platform-automation-config git.  
- - this will use platform-automation-configuration/<foundaton>/pipeline-vars/common-params.yml
- - will use commons platform-automation-configuration
- - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
- - 
 ```
+> - foundation: name of pcf foundation in platform-automation-config git.  
+> - this will use platform-automation-configuration/<foundaton>/pipeline-vars/common-params.yml
+> - will use commons platform-automation-configuration
+> - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
+
 
 # Result in S3 
 ```
