@@ -1,6 +1,6 @@
-## Ref
-- https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
+# How to setup concourse pipeline for downloading dependencies
+- https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
 ## Get pipeline template
 in jumpbox,as ubuntu user
@@ -10,7 +10,6 @@ cd platform-automation-workspace
 
 git clone https://github.com/myminseok/platform-automation-pipelines-template   platform-automation-pipelines
 git clone https://github.com/myminseok/platform-automation-configuration-template   platform-automation-configuration
-
 ```
 
 ## Set pipeline
@@ -21,6 +20,7 @@ platform-automation-pipelines
 ├── download-product.yml
 
 ```
+
 make sure to point `platform-automation-configuration` folder in the download-product.sh
 ```
 platform-automation-pipelines> vi download-product.sh
@@ -140,7 +140,7 @@ $ fly -t <foundaton> login -c https://your.concourse/ -b -k
 $ ./download-product.h <foundaton>
  - foundation: name of pcf foundation in platform-automation-config git.  
  - this will use platform-automation-configuration/<foundaton>/pipeline-vars/common-params.yml
- - will use commons platform-automation-configuration-template
+ - will use commons platform-automation-configuration
  - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
  - 
 ```
