@@ -43,7 +43,6 @@ per each foundation, pipeline variables is defined
 ```
 platform-automation-configuration
 └── dev
-    ├── config
     ├── download-product-configs
     │   ├── healthwatch.yml
     │   ├── opsman.yml
