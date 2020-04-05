@@ -48,24 +48,24 @@ per each foundation, pipeline variables is defined
 ```
 platform-automation-configuration>
 ── dev
-│   ├── config
-│   │   └── auth.yml
-│   ├── download-product-configs
+│   ├── download-products
 │   │   ├── healthwatch.yml
 │   │   ├── opsman.yml
 │   │   └── pas.yml
 │   ├── env
-│   │   └── env.yml
+│   │   ├── env.yml
+│   │   └── auth.yml
 │   ├── generated-config
 │   │   ├── cf.yml
 │   │   └── director.yml
 │   ├── pipeline-vars
+│   │   ├── setenv-credhub.sh
 │   │   └── common-params.yml
 │   ├── products
+│   │   ├── version.yml
 │   │   ├── cf.yml
 │   │   ├── ops-manager.yml
 │   │   └── director.yml
-│   ├── setenv-credhub.sh
 │   ├── state
 │   │   └── state.yml
 ```
@@ -133,6 +133,23 @@ decryption-passphrase: ((decryption-passphrase))
   - auth.yml : https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#uaa-authentication
   - director.yml: see bellow.
 
+#### products-to-install.yml
+```
+products:
+  opsman:
+    product-version: "2.8.3"
+    pivnet-product-slug: ops-manager
+    pivnet-file-glob: "*.ova"
+    download-stemcell: "false"
+    s3-endpoint: http://10.10.10.199:9000
+    s3-region-name: "region"
+    s3-bucket: "pivnet-products"
+    s3-disable-ssl: "true"
+    s3-access-key-id: ((s3_access_key_id))
+    s3-secret-access-key: ((s3_secret_access_key))
+    pivnet-api-token: ((pivnet_token))
+
+```
 
 ##   Set Pipeline secrets to concourse credhub  per each foundation
 login to credhub
