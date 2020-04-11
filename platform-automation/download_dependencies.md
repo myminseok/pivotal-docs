@@ -2,6 +2,11 @@
 # How to setup concourse pipeline for downloading dependencies
 - https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
+## Reference
+- https://github.com/pivotal/docs-platform-automation-reference-pipeline-config
+- https://github.com/tonyelmore/telmore
+- https://github.com/making/platform-automation
+
 ## Get pipeline template
 in jumpbox,as ubuntu user
 ```
