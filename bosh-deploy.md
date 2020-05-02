@@ -76,10 +76,14 @@ bosh create-env ./bosh-deployment/bosh.yml \
 ### test bosh env
 ubuntu@jumpbox:~/workspace/bosh-1$ cat setup-boshenv.sh
 ```
-bosh int /home/ubuntu/workspace/bosh-1/creds.yml  --path /director_ssl/ca > /home/ubuntu/workspace/bosh-1/director.ca
+#!/bin/bash
+BIN_DIR=$(cd $(dirname $0); pwd)
+echo $BIN_DIR
+
+bosh int $BIN_DIR/creds.yml  --path /director_ssl/ca > $BIN_DIR/director.ca
 export BOSH_CLIENT=admin
-export BOSH_CLIENT_SECRET=`bosh int /home/ubuntu/workspace/bosh-1/creds.yml --path /admin_password`
-export BOSH_CA_CERT=/home/ubuntu/workspace/bosh-1/director.ca
+export BOSH_CLIENT_SECRET=`bosh int $BIN_DIR/creds.yml --path /admin_password`
+export BOSH_CA_CERT=$BIN_DIR/director.ca
 export BOSH_ENVIRONMENT=10.10.10.200
 ```
 
