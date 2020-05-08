@@ -88,27 +88,6 @@ worker_ephemeral_disk: 100GB_ephemeral_disk  <--- already set in bosh cloud-conf
 
 #### deploy concourse 'cluster' for HA
 
-```
-## deploy concourse
-
-source ~/workspace/bosh-1/setup-boshenv.sh
-bosh deploy \
--d concourse ./concourse-bosh-deployment/cluster/concourse.yml \
--l ./concourse-bosh-deployment/versions.yml \
--l variables.yml \
---vars-store cluster-creds.yml \
--o ./concourse-bosh-deployment/cluster/operations/backup-atc.yml \
--o ./concourse-bosh-deployment/cluster/operations/basic-auth.yml \
--o ./concourse-bosh-deployment/cluster/operations/privileged-http.yml \
--o ./concourse-bosh-deployment/cluster/operations/static-web.yml \
--o ./concourse-bosh-deployment/cluster/operations/privileged-https.yml \
--o ./concourse-bosh-deployment/cluster/operations/tls.yml \
--o ./concourse-bosh-deployment/cluster/operations/tls-vars.yml  \
--o ./concourse-bosh-deployment/cluster/operations/worker-ephemeral-disk.yml 
-
-```
-
-#### upload releases
 
 ##### backup-and-restore-sdk
 https://bosh.io/releases/github.com/cloudfoundry-incubator/backup-and-restore-sdk-release?version=1.15.0
@@ -125,6 +104,29 @@ https://bosh.io/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent
 bosh upload-stemcell --sha1 d77ced450b5bd7d9dc8562c5899ec723e67002fd \
   https://bosh.io/d/stemcells/bosh-aws-xen-hvm-ubuntu-xenial-go_agent?v=621.59
 ```
+
+#### deploy concourse
+
+```
+source ~/workspace/bosh-1/setup-boshenv.sh
+bosh deploy \
+-d concourse ./concourse-bosh-deployment/cluster/concourse.yml \
+-l ./concourse-bosh-deployment/versions.yml \
+-l variables.yml \
+--vars-store cluster-creds.yml \
+-o ./concourse-bosh-deployment/cluster/operations/backup-atc.yml \
+-o ./concourse-bosh-deployment/cluster/operations/basic-auth.yml \
+-o ./concourse-bosh-deployment/cluster/operations/privileged-http.yml \
+-o ./concourse-bosh-deployment/cluster/operations/static-web.yml \
+-o ./concourse-bosh-deployment/cluster/operations/privileged-https.yml \
+-o ./concourse-bosh-deployment/cluster/operations/tls.yml \
+-o ./concourse-bosh-deployment/cluster/operations/tls-vars.yml  \
+-o ./concourse-bosh-deployment/cluster/operations/worker-ephemeral-disk.yml 
+
+```
+#### integrate with credhub
+- https://docs.pivotal.io/p-concourse/v5/advanced/integrate-credhub-uaa-bosh/
+
 
 ## test concourse
 
