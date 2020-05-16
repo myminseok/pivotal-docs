@@ -1,10 +1,11 @@
 
 # How to setup concourse pipeline for downloading dependencies
-- [guide](https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html)
+- official guide
+> https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
 ## prerequisits
-- [prepare concourse cluster with credhub](https://github.com/myminseok/pivotal-docs/edit/master/concourse-with-credhub.md)
-- [clone pipeline template](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-pipeline-template.md)
+- [prepare concourse cluster with credhub](concourse-with-credhub.md)
+- [clone pipeline template](platform-automation/get-pipeline-template.md)
 
 ## configure set-pipeline variables
 - [guide](https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html) 
