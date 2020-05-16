@@ -3,10 +3,8 @@
 - https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
 ## prerequisits
-- prepare concourse cluster with credhub:
-> https://github.com/myminseok/pivotal-docs/edit/master/concourse-with-credhub.md
-- clone pipeline template:
-> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-template.md
+- prepare concourse cluster with credhub: https://github.com/myminseok/pivotal-docs/edit/master/concourse-with-credhub.md
+- clone pipeline template: https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-pipeline-template.md
 
 ## configure set-pipeline variables
 - docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html   
