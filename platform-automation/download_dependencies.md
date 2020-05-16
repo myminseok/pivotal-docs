@@ -49,7 +49,7 @@ pivnet:
 
 ```
 > - aws_access_key_id: set to concourse-credhub or set directly to pipeline.
-  - aws_secret_access_key: set to concourse-credhub or set directly to pipeline.
+> - aws_secret_access_key: set to concourse-credhub or set directly to pipeline.
 
 
 ## Set pipeline
