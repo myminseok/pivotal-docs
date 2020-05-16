@@ -144,18 +144,17 @@ properties-configuration:
  
  
 #### (optional) platform-automation-configuration/awstest/vars/director.yml
-- for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
-- example for director.yml
+- for non-secret params can be set to yml file in vars folder. and can be set to 'prepare-tasks-with-secrets' tasks in concourse pipeline with `VARS_PATHS`.  https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets. example for vars/director.yml
 ``` yaml
 region: ap-northeast-2
 ```
-
-- WARNING: all values in vars folder cannot reference from credhub. because 'prepare-tasks-with-secrets' tasks will use vars file specified in `VARS_PATHS` directly, without referencing to credhub.(see https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets)
-- for example, following params in vars/director.yml will fail when running pipeline in 'prepare-tasks-with-secrets' task.
+- WARNING: any params referencing to credhub should not be set to files in vars folder, but set to products config file(ie. products/director.yml). because 'prepare-tasks-with-secrets' tasks will use vars file specified in `VARS_PATHS` directly, without referencing to credhub. those parameters should be set . (see https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets)
+- for example, following params in vars/director.yml will fail when running pipeline in 'prepare-tasks-with-secrets' task. example for vars/director.yml
 ``` yaml
-pivnet_token: ((pivnet_token))
+pivnet_token: ((pivnet_token_in_credhub))
 ```
-
+#### (optional) platform-automation-configuration/awstest/vars/opsman.yml
+- the same as above.
 
 ##  Set secrets to concourse credhub per each foundation
 ####  login to credhub
