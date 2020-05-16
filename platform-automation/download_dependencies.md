@@ -51,9 +51,9 @@ pivnet:
 > - aws_access_key_id: set to concourse-credhub or set directly to pipeline. - [set credhub variables](/platform-automation/set-credhub-variables.md)
 > - ...
 
-
-## Set pipeline
-- [sample code](https://github.com/myminseok/platform-automation-pipelines-template)
+## Deploy concourse pipeline
+- [get pipeline template](/platform-automation/get-pipeline-template.md)
+- [pipeline template code](https://github.com/myminseok/platform-automation-pipelines-template)
 ``` 
 platform-automation-pipelines
 ├── download-products-dev.sh
@@ -62,20 +62,19 @@ platform-automation-pipelines
 
 ```
 
-
-## How to deploy concourse pipeline
-each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
+- each foundation will set pipeline using per foundation configs from platform-automation-configuration. 
+- [sample code download-product.sh](https://github.com/myminseok/platform-automation-pipelines-template/blob/master/download-product.sh)
+- for example, download pipeline for `awstest` environment can be set as following:
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 
 $ platform-automation-pipelines/download-products.sh <FLY-TARGET> <FOUNDATION>
 
 ```
-[sample code download-product.sh](https://github.com/myminseok/platform-automation-pipelines-template/blob/master/download-product.sh)
 
 
-# Result in S3 
-download product tile and stemcells from pivnet to s3, a file name of '[pivnet-product-slug, product-version]' in s3 bucket.
+# Downloaded files in private S3 
+- download product tile and stemcells from pivnet to s3, a file name of '[pivnet-product-slug, product-version]' in s3 bucket.
 ``` 
 |-- pivnet-products
 |   |-- [elastic-runtime,2.6.3]cf-2.6.3-build.21.pivotal
@@ -90,7 +89,7 @@ download product tile and stemcells from pivnet to s3, a file name of '[pivnet-p
 
    
 
-## For better download and upload efficiency
+## (optional customizing) For better download and upload efficiency
 - `platform-automation-tasks/tasks/download-product.yml` upload to s3 even though there is the same file in s3. 
 - for better efficiency, using `semver` can prevent uploading the same binary that is already in s3(tested on non versioned s3)
 
