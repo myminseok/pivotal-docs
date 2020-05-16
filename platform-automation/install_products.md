@@ -1,6 +1,7 @@
 
 # How to setup concourse pipeline for installing/upgrading PAS tile
-- official guide: https://docs.pivotal.io/platform-automation/v4.3/pipelines/multiple-products.html
+- official guide
+> https://docs.pivotal.io/platform-automation/v4.3/pipelines/multiple-products.html
 
 ## prerequisits
 - [prepare concourse cluster with credhub](/concourse-with-credhub.md)
