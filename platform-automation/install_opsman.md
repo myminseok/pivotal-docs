@@ -8,10 +8,10 @@
 - [set credhub variables](/platform-automation/set-credhub-variables.md)
 - [download depencencies](/platform-automation/download_dependencies.md)
 
-
 ## prepare pipeline parameters
-- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 - pipeline parameters should be set to concourse-credhub or set directly to pipeline.
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
+- [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
 #### prepare params.yml for `fly set-pipeline`
 - platform-automation-configuration/awstest/pipeline-vars/params.yml
