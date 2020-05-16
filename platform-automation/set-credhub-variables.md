@@ -3,11 +3,14 @@
 
 ## common secrets
 
+####  download credhub cli: 
+- https://github.com/cloudfoundry-incubator/credhub-cli/releases
+
 
 #### set secrets example.
 refer to platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
 
-```
+``` bash
 credhub set -t value -n /concourse/main/s3_access_key_id -v admin
 credhub set -t value -n /concourse/main/s3_secret_access_key -v "PASSWORD"
 credhub set -t value -n /concourse/main/pivnet_token -v 11111111
@@ -37,7 +40,7 @@ credhub set -t value -n /concourse/main/opsman_target -v https://opsman_url
 ```
 
 ####  login to credhub
-```
+``` bash
 ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
 bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
 credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
@@ -49,9 +52,9 @@ platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
 
 ## secrets per each foundation from terraform state file
 - after terraforming, there is terraform.tfstate file. https://docs.pivotal.io/platform/2-7/customizing/aws-terraform.html
-- you can set variables to credhub from it. refer to: platform-automation-configuration/awstest/pipeline-vars/set-credhub-from-terraform.sh
-```
-➜  pipeline-vars git:(master) ✗ cat set-credhub-from-terraform.sh
+- refer to: platform-automation-configuration/awstest/pipeline-vars/set-credhub-from-terraform.sh
+``` bash
+
 #!/bin/bash
 
 if [ -z $1 ] || [ -z $2 ] ; then
@@ -113,15 +116,15 @@ set_value "vms_security_group_id"
 
 ```
 
-#### how to get self-signed domain certificate from TAS tile
+#### (optional)  how to get self-signed domain certificate from TAS tile
 1. generate certs from opsmanager UI> PAS> networking
 2. copy certifiate to "domain.crt" file
 3. copy private key to "domain.key" file.
    
 
    
-#### how to extract secret value from PAS
-```
+#### (optional) how to extract secret value from PAS
+``` bash
 root@d50b90c0-7288-4194-5611-4799d7ad34ea:/tmp/build/4a564f8b# om --env ./env/dkpcf/env/env.yml credential-references -p cf | grep poe
 | .properties.networking_poe_ssl_certs[0].certificate
 
