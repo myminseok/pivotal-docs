@@ -14,6 +14,7 @@
 - [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
 #### prepare params.yml for `fly set-pipeline`
+- values in params.yml can be referenced from credhub. see [set credhub variables](/platform-automation/set-credhub-variables.md)
 - platform-automation-configuration/awstest/pipeline-vars/params.yml
 - [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
 
@@ -144,9 +145,15 @@ properties-configuration:
  
 #### (optional) platform-automation-configuration/awstest/vars/director.yml
 - for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
-- example for opsman.yml
+- example for director.yml
 ``` yaml
 region: ap-northeast-2
+```
+
+- WARNING: all values in vars folder cannot reference from credhub. because 'prepare-tasks-with-secrets' tasks will use vars file specified in `VARS_PATHS` directly, without referencing to credhub.(see https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets)
+- for example, following params in vars/director.yml will fail when running pipeline in 'prepare-tasks-with-secrets' task.
+``` yaml
+pivnet_token: ((pivnet_token))
 ```
 
 
@@ -177,8 +184,6 @@ $ platform-automation-pipelines/manage-products.sh <FLY-TARGET> <FOUNDATION>
 $ manage-products.sh demo awstest
 
 ```
-
-
 
 # patch/upgrade opsman
 - (optional) download product to local s3.
