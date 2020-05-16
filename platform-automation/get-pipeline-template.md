@@ -15,8 +15,8 @@ mv platform-automation-pipelines-template platform-automation-pipelines
 ```
 
 ## folder structure
-platform-automation-configuration has configs per each foundation
-[sample](https://github.com/myminseok/platform-automation-configuration-template)
+- platform-automation-configuration has configs per each foundation
+- [sample](https://github.com/myminseok/platform-automation-configuration-template)
 ```
 platform-automation-workspace/platform-automation-configuration
 ├── awstest
@@ -74,7 +74,7 @@ platform-automation-workspace/platform-automation-configuration
 ```
 
 ## pipeline 
-[sample](https://github.com/myminseok/platform-automation-pipelines-template)
+- [sample](https://github.com/myminseok/platform-automation-pipelines-template)
 ```
 platform-automation-workspace/platform-automation-pipelines
 ├── install-upgrade-all-aws.sh
