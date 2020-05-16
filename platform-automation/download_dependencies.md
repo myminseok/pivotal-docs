@@ -90,12 +90,6 @@ fly -t ${FLY_TARGET} sp -p "download-product-vsphere" \
 refer to https://github.com/myminseok/platform-automation-pipelines-template/download-products.sh
 
 
-## Reference
-- https://github.com/pivotal/docs-platform-automation-reference-pipeline-config
-- https://github.com/tonyelmore/telmore
-- https://github.com/making/platform-automation
-
-
 
 
 # Result in S3 
