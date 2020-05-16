@@ -1,18 +1,18 @@
 
-# Setting up downloading dependencies concourse pipeline
+# Setting up Downloading Dependencies with Concourse pipeline
 - official guide
 > https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
-## prerequisits
+## Prerequisits
 - [prepare concourse cluster with credhub](/concourse-with-credhub.md)
 - [get pipeline template](/platform-automation/get-pipeline-template.md)
 
-## prepare pipeline parameters
+## Prepare pipeline parameters
 - pipeline parameters should be set to concourse-credhub or set directly to pipeline.
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 - [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
-#### prepare params.yml for `fly set-pipeline`
+#### Prepare params.yml for `fly set-pipeline`
 - values in params.yml can be referenced from credhub. see [set credhub variables](/platform-automation/set-credhub-variables.md)
 - platform-automation-configuration/awstest/pipeline-vars/params.yml
 - [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
