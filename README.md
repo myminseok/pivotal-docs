@@ -20,12 +20,13 @@ Pivotal Cloud Foundry Documentation
 - [minio-bosh-release](minio.md)
 - [harbor-bosh-release](harbor.md)
 
-# Installation
+# Installation manually
 - [PAS-installing manually](install-pas-on-aws.md)
+
+# Installation with platform-automation
 - [download resources (vsphere)](platform-automation/download_dependencies.md)
-- [test_resources(vsphere)](platform-automation/test-resource.md)
 - [install ops manager(vsphere)](platform-automation/install_opsman.md)
-- [install products_cf(vsphere)](platform-automation/install_products.md)
+- [install products(vsphere)](platform-automation/install_products.md)
 - [install healthwatch(vsphere)](platform-automation/install-healthwatch.md)
 - [install eventalerts(vsphere)](platform-automation/install_event_alerts.md)
 - [bosh-addon](bosh-add-on.md)
