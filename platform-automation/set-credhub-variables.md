@@ -1,14 +1,24 @@
 
 #  How to set secrets to concourse credhub
 
-## common secrets
+## prerequisits
+- [prepare concourse cluster with credhub](/concourse-with-credhub.md)
 
 ####  download credhub cli: 
 - https://github.com/cloudfoundry-incubator/credhub-cli/releases
 
+####  login to credhub
+``` bash
+ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
+bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
+credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
+credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
+
+platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
+```
 
 #### set secrets example.
-refer to platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
+- refer to [sample code set-credhub.sh](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/setenv-credhub.sh)
 
 ``` bash
 credhub set -t value -n /concourse/main/s3_access_key_id -v admin
@@ -37,16 +47,6 @@ credhub set -t user  -n /concourse/main/opsman_admin -z admin -w "PASSWORD"
 credhub set -t value -n /concourse/main/decryption-passphrase -v "PASSWORD"
 credhub set -t value -n /concourse/main/opsman_target -v https://opsman_url
 
-```
-
-####  login to credhub
-``` bash
-ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
-bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
-credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
-credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
-
-platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
 ```
 
 
