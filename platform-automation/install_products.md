@@ -9,11 +9,14 @@
 - [set credhub variables](/platform-automation/set-credhub-variables.md)
 - [install opsmanager](/platform-automation/install_opsman.md)
 
-## configure set-pipeline variables
+## prepare pipeline parameters
+- pipeline parameters should be set to concourse-credhub or set directly to pipeline.
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
-- [sample code](https://github.com/myminseok/platform-automation-configs-template)
-    
-#### platform-automation-configuration/awstest/pipeline-vars/params.yml
+- [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
+
+#### prepare params.yml for `fly set-pipeline`
+- platform-automation-configuration/awstest/pipeline-vars/params.yml
+- [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
 
 #### platform-automation-configuration/awstest/products/versions.yml
 
