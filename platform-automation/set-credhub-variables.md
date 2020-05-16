@@ -52,7 +52,8 @@ platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
 
 ## secrets per each foundation from terraform state file
 - after terraforming, there is terraform.tfstate file. https://docs.pivotal.io/platform/2-7/customizing/aws-terraform.html
-- refer to: platform-automation-configuration/awstest/pipeline-vars/set-credhub-from-terraform.sh
+- [sample code set-credhub-from-terraform.sh](https://github.com/myminseok/platform-automation-configuration-template/awstest/pipeline-vars/set-credhub-from-terraform.sh)
+- please note that pipelie specific variables will have a path of `/concourse/main/<PIPELINE_NAME>/...`
 ``` bash
 
 #!/bin/bash
