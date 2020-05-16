@@ -16,11 +16,13 @@
 - [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
 #### Prepare params.yml for `fly set-pipeline`
-- [platform-automation-configuration/awstest/pipeline-vars/params.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
-
-#### platform-automation-configuration/awstest/products/versions.yml
+- [platform-automation-configuration/awstest/pipeline-vars/params.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/pipeline-vars/params.yml)
 
 #### platform-automation-configuration/awstest/opsman/env.yml
+- [platform-automation-configuration/awstest/opsman/env.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/opsman/env.yml)
+
+#### platform-automation-configuration/awstest/products/versions.yml
+- [platform-automation-configuration/awstest/products/versions.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/products/versions.yml)
 
 #### Create platform-automation-configuration/awstest/products/tas.yml
 - how to generate : https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-product-config-file.html
@@ -34,7 +36,7 @@
 6. set PLACEHOLDER value to concourse CREDHUB.
 >  - use domain.crt and domain.key file in previous steps.
 > https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
-
+- [platform-automation-configuration/awstest/products/tas.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/products/tas.yml)
 
 #### (optional) platform-automation-configuration/awstest/vars/tas.yml
 - for non-secret params can be set to yml file in vars folder. and can be set to 'prepare-tasks-with-secrets' tasks in concourse pipeline with `VARS_PATHS`.  https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets. example for vars/tas.yml
