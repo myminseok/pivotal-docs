@@ -1,4 +1,4 @@
-# How to setup concourse pipeline for installing/upgrading ops-manager
+# Setting up installing/upgrading ops-manager concourse pipeline
 - official guide
 > https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
