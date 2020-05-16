@@ -208,9 +208,13 @@ credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credh
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 
-$ platform-automation-pipelines/manage-products-awstest.sh <FLY-TARGET>
+$ platform-automation-pipelines/manage-products.sh <FLY-TARGET> <FOUNDATION>
+
+$ manage-products.sh demo awstest
 
 ```
+
+
 
 # patch/upgrade opsman
 - (optional) download product to local s3.
