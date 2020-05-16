@@ -14,13 +14,13 @@
 - [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
 #### Prepare params.yml for `fly set-pipeline`
+- [platform-automation-configuration/awstest/pipeline-vars/params.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/pipeline-vars/params.yml)
 - values in params.yml can be referenced from credhub. see [set credhub variables](/platform-automation/set-credhub-variables.md)
-- platform-automation-configuration/awstest/pipeline-vars/params.yml
-- [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
 
 #### platform-automation-configuration/awstest/opsman/env.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
 - This file contains properties for targeting and logging into the Ops Manager API. 
+- [platform-automation-configuration/awstest/opsman/env.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/opsman/env.yml)
 
 ``` yaml
 ---
@@ -33,11 +33,11 @@ password: ((opsman_admin.password))
 decryption-passphrase: ((decryption-passphrase))
 ```
 
-#### platform-automation-configuration/awstest/opsman/env.yml
-
 #### platform-automation-configuration/awstest/products/versions.yml
 - pipeline will download binaries to container in concourse worker VM.
+- [platform-automation-configuration/awstest/products/versions.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/products/versions.yml)
 - for vsphere from private s3.
+
 ``` yaml
 products:
   opsman:
@@ -86,8 +86,8 @@ products:
 
 #### platform-automation-configuration/awstest/opsman/opsman.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#opsmanyml
-- how to: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
-
+- how to generate : https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
+- [platform-automation-configuration/awstest/opsman/opsman.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/opsman/opsman.yml)
 ``` yaml
 ---
 ## 2.9.1
@@ -108,11 +108,12 @@ opsman-configuration:
 ```
 #### platform-automation-configuration/awstest/opsman/auth.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-auth.html
+- [platform-automation-configuration/awstest/opsman/auth.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/opsman/auth.yml)
 
 #### platform-automation-configuration/awstest/opsman/director.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-director-config-file.html
-
-- generated director.yml need to fix as following:
+- [platform-automation-configuration/awstest/opsman/director.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/opsman/director.yml) 
+- additionally, the generated director.yml need to fix as following:
 ``` yaml
 ## add vcenter_password
 
@@ -137,11 +138,6 @@ properties-configuration:
     excluded_recursors: []
     handlers: []
  ```
-
-  3. configure director tile manually.
-  4. apply-director-change
-  5. generate-staged-director-config > configure-director
- 
  
 #### (optional) Platform-automation-configuration/awstest/vars/director.yml
 - for non-secret params can be set to yml file in vars folder. and can be set to 'prepare-tasks-with-secrets' tasks in concourse pipeline with `VARS_PATHS`.  https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets. example for vars/director.yml
