@@ -13,6 +13,7 @@
 > https://github.com/myminseok/pivotal-docs/edit/blob/platform-automation/install_opsman.md
 
 
+
 ## configure set-pipeline variables
 - docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 - sample: https://github.com/myminseok/platform-automation-configs-template
@@ -23,16 +24,8 @@
 
 #### platform-automation-configuration/awstest/opsman/env.yml
 
-#### (optional) platform-automation-configuration/awstest/vars/tas.yml
-- for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
-
-for example tas.yml
-```
-region: ap-northeast-2
-```
-
-
 #### create platform-automation-configuration/awstest/products/tas.yml
+
 - how to generate: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-product-config-file.html
 - steps:
 1. install opsman vm
@@ -46,7 +39,18 @@ region: ap-northeast-2
   - use domain.crt and domain.key file in previous steps.
 > https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
 
+#### (optional) platform-automation-configuration/awstest/vars/tas.yml
+- for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
+#### (optional) credhub 
+- add additional secrets : https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
 
+for example tas.yml
+```
+region: ap-northeast-2
+```
+
+#### configure lb for opsman, director, tas tile.
+- https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/configure-lb.md
 
 
 ## How to deploy concourse pipeline
