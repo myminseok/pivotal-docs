@@ -17,37 +17,9 @@ credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credh
 platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
 ```
 
-#### set secrets example.
+#### set pipeline secrets to credhub
+- [set pipeline secrets to credhub](/platform-automation/set-pipeline-params.md)
 - refer to [sample code set-credhub.sh](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/setenv-credhub.sh)
-
-``` bash
-credhub set -t value -n /concourse/main/s3_access_key_id -v admin
-credhub set -t value -n /concourse/main/s3_secret_access_key -v "PASSWORD"
-credhub set -t value -n /concourse/main/pivnet_token -v 11111111
-
-credhub set -t value -n /concourse/main/git_user_email -v admin@user.io
-credhub set -t value -n /concourse/main/git_user_username -v admin
-
-credhub set -t user -n /concourse/main/vcenter_user -z admin@vcenter.local -w "PASSWORD"
-credhub set -t ssh -n /concourse/main/opsman_ssh_key -u ~/.ssh/id_rsa.pub -p ~/.ssh/id_rsa
-credhub set -t value  -n /concourse/main/opsman_ssh_password  -v "PASSWORD"
-
-# register ssh key for git. ex) ~/.ssh/id_rsa
-credhub set -t rsa  -n /concourse/main/git_private_key  -p ~/.ssh/id_rsa
- 
-# cd concourse-bosh-deployment/cluster
-# bosh int ./concourse-creds.yml --path /atc_tls/certificate > atc_tls.cert
-# bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
-credhub set -t certificate -n /concourse/main/credhub_ca_cert -c ./credhub-ca.ca
-
-# grep concourse_to_credhub ./concourse-creds.yml
-credhub set -t user -n /concourse/main/credhub_client -z concourse_client -w "PASSWORD"
-
-credhub set -t user  -n /concourse/main/opsman_admin -z admin -w "PASSWORD"
-credhub set -t value -n /concourse/main/decryption-passphrase -v "PASSWORD"
-credhub set -t value -n /concourse/main/opsman_target -v https://opsman_url
-
-```
 
 
 ## secrets per each foundation from terraform state file
@@ -133,11 +105,11 @@ root@d50b90c0-7288-4194-5611-4799d7ad34ea:/tmp/build/4a564f8b# om --env ./env/dk
 +------------------------------------------------------------------+------------------------------------------------------------------+
 | cert_pem | private_key_pem |
 +------------------------------------------------------------------+------------------------------------------------------------------+
-| | -----BEGIN RSA PRIVATE KEY-----
+| | -----BEGIN RSA PRIVATE -----
 | MIIEpAIBAAKCAQEA1Xu8fbAMsJpjIQYRQ1Kv6L2R1ZpB1/i74tIj3SHtKs76Yss1
 ...
 |AZokZDWW5Lb3eKoAInGbQ9tsfrJeADL0jSINt/2bIF1QA7g==l+wctiD
-| -----END RSA PRIVATE KEY-----
+| -----END RSA PRIVATE -----
 ```
 
 
