@@ -1,22 +1,17 @@
 
 # How to setup concourse pipeline for installing/upgrading PAS tile
-- https://docs.pivotal.io/platform-automation/v4.3/pipelines/multiple-products.html
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/pipelines/multiple-products.html
 
 ## prerequisits
-- get pipeline:
-> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-template.md
-- download depencencies:
-> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/download_dependencies.md
-- set credhub variables
-> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
-- install opsmanager
-> https://github.com/myminseok/pivotal-docs/edit/blob/platform-automation/install_opsman.md
-
-
+- [prepare concourse cluster with credhub](/concourse-with-credhub.md)
+- [get pipeline template](/platform-automation/get-pipeline-template.md)
+- [download depencencies](/platform-automation/download_dependencies.md)
+- [set credhub variables](/platform-automation/set-credhub-variables.md)
+- [install opsmanager](/platform-automation/install_opsman.md)
 
 ## configure set-pipeline variables
-- docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
-- sample: https://github.com/myminseok/platform-automation-configs-template
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
+- [sample code](https://github.com/myminseok/platform-automation-configs-template)
     
 #### platform-automation-configuration/awstest/pipeline-vars/params.yml
 
@@ -25,8 +20,7 @@
 #### platform-automation-configuration/awstest/opsman/env.yml
 
 #### create platform-automation-configuration/awstest/products/tas.yml
-
-- how to generate: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-product-config-file.html
+- how to generate : https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-product-config-file.html
 - steps:
 1. install opsman vm
 2. upload TAS tile to opsman: manually or use concourse pipeline
@@ -43,19 +37,19 @@
 - for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
 #### (optional) credhub 
 - add additional secrets : https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
-
-for example tas.yml
+- for example tas.yml
 ``` yaml
 region: ap-northeast-2
 ```
 
 #### configure lb for opsman, director, tas tile.
-- https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/configure-lb.md
+- [guide](/platform-automation/configure-lb.md)
 
 
 ## How to deploy concourse pipeline
-
-each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
+- each foundation will set pipeline using per foundation configs from platform-automation-configuration. 
+- for example, pipeline for awstest can be set as following:
+- [sample code](https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh)
 
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
@@ -63,7 +57,6 @@ $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 $ platform-automation-pipelines/manage-products-awstest.sh <FLY-TARGET>
 
 ```
-refer to https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh
 
 
 
