@@ -1,6 +1,7 @@
 
 # Install and setup Healthwatch
-- WARNING: this docs is for health 1.5, see official document for the latest healthwatch.
+WARNING: this docs is for health 1.5, see official document for the latest healthwatch.
+
 - https://docs.pivotal.io/pcf-healthwatch/1-5/index.html
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
 
