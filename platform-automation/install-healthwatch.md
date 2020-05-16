@@ -1,7 +1,6 @@
 
 # Install and setup Healthwatch
-
-## Ref
+- WARNING: this docs is for health 1.5, see official document for the latest healthwatch.
 - https://docs.pivotal.io/pcf-healthwatch/1-5/index.html
 - http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
 
@@ -12,7 +11,7 @@
 ```
 platform-automation-configuration-template
 └── dev-1
-    ├── config
+    ├── products
     │   └── healthwatch.yml
     ├── download-product-configs
     ├── env
@@ -79,10 +78,6 @@ Context: admin, from client login
 
 ## Adding using pipeline(automation)
 use docker image : pcfnorm/rootfs for uaac
-
-
-
-
 
 
 # After installation
