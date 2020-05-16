@@ -1,11 +1,11 @@
 
 # (Only for public cloud) configure LB setting to opsman, director, TAS
 
-#### guide: 
+#### official guide
 - https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html
-####  prepare env.yml: 
+####  prepare env.yml
 - https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-env.html
-####  download om linux cli: 
+####  download om linux cli
 - https://github.com/pivotal-cf/om/releases
 #### set vm_extensions to ops manager
 - https://github.com/pivotal-cf/terraforming-aws/blob/master/ci/tasks/custom-vm-extensions.sh
