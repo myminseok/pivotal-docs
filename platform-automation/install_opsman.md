@@ -2,7 +2,9 @@
 - https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
 ## prerequisits
-- get pipeline:
+- prepare concourse cluster with credhub:
+> https://github.com/myminseok/pivotal-docs/edit/master/concourse-with-credhub.md
+- clone pipeline template:
 > https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-template.md
 - download depencencies:
 > https://github.com/myminseok/pivotal-docs/edit/master/platform-automation/download_dependencies.md
