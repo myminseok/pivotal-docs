@@ -112,3 +112,11 @@ set_value "vms_security_group_id"
 #set_password "rds_password"
 
 ```
+
+#### how to get self-signed domain certificate from TAS tile
+1. generate certs from opsmanager UI> PAS> networking
+2. copy certifiate to "domain.crt" file
+3. copy private key to "domain.key" file.
+   
+
+   
