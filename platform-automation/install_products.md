@@ -1,5 +1,5 @@
 
-# Setting up installing/upgrading PAS tile concourse pipeline
+# Setting up Installing/Patching/Upgrading TAS tile with Concourse pipeline
 - official guide
 > https://docs.pivotal.io/platform-automation/v4.3/pipelines/multiple-products.html
 
