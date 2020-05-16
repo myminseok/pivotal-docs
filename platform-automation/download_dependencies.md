@@ -48,8 +48,8 @@ pivnet:
   token: ((pivnet_token))
 
 ```
-> - aws_access_key_id: set to concourse-credhub or set directly to pipeline.
-> - aws_secret_access_key: set to concourse-credhub or set directly to pipeline.
+> - aws_access_key_id: set to concourse-credhub or set directly to pipeline. - [set credhub variables](/platform-automation/set-credhub-variables.md)
+> - ...
 
 
 ## Set pipeline
