@@ -192,7 +192,7 @@ region: ap-northeast-2
 
 ##  Set secrets to concourse credhub per each foundation
 ####  login to credhub
-```bash
+``` bash
 ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
 bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
 credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
