@@ -5,13 +5,14 @@
 
 ## prerequisits
 - [prepare concourse cluster with credhub](/concourse-with-credhub.md)
-- [clone pipeline template](/platform-automation/get-pipeline-template.md)
+- [get pipeline template](/platform-automation/get-pipeline-template.md)
 
 ## configure set-pipeline variables
-- [guide](https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html) 
+- official guide
+> https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 
 #### platform-automation-configuration/awstest/pipeline-vars/params.yml
-- [sample](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
+- [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
 - referencing parameters should be set to concourse-credhub or set directly to pipeline.
 ``` yaml
 foundation: awstest
@@ -52,10 +53,10 @@ pivnet:
 
 
 ## Set pipeline
-- [sample](https://github.com/myminseok/platform-automation-pipelines-template)
+- [sample code](https://github.com/myminseok/platform-automation-pipelines-template)
 ``` 
 platform-automation-pipelines
-├── download-product.sh
+├── download-product-dev.sh
 ├── download-product.yml
 
 ```
@@ -103,7 +104,8 @@ download product tile and stemcells from pivnet to s3, a file name of '[pivnet-p
    
 
 ## For better download and upload efficiency
-`platform-automation-tasks/tasks/download-product.yml` download product and upload to s3 even if there is the same file in s3. for better efficiency, this pipeline uses `semver` to prevent uploading the same binary that is already in s3. this tested in non versioned s3.
+- `platform-automation-tasks/tasks/download-product.yml` upload to s3 even though there is the same file in s3. 
+- for better efficiency, using `semver` can prevent uploading the same binary that is already in s3(tested on non versioned s3)
 
 ```yaml
 
