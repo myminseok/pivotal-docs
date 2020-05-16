@@ -1,8 +1,7 @@
 
 # Install and setup Event alert
-
-## Ref
-https://docs.pivotal.io/event-alerts/1-2/index.html
+WARNING: this docs is for health 1.5, see official document for the latest healthwatch.
+- https://docs.pivotal.io/event-alerts/1-2/index.html
 
 ## Install 
 - https://docs.pivotal.io/event-alerts/1-2/installing.html#install
