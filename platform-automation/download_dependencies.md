@@ -1,17 +1,17 @@
 
 # How to setup concourse pipeline for downloading dependencies
-- https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
+- [guide](https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html)
 
 ## prerequisits
-- prepare concourse cluster with credhub: https://github.com/myminseok/pivotal-docs/edit/master/concourse-with-credhub.md
-- clone pipeline template: https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-pipeline-template.md
+- [prepare concourse cluster with credhub](https://github.com/myminseok/pivotal-docs/edit/master/concourse-with-credhub.md)
+- [clone pipeline template](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-pipeline-template.md)
 
 ## configure set-pipeline variables
-- docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html   
+- [guide] (https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html) 
 
 #### platform-automation-configuration/awstest/pipeline-vars/params.yml
-- sample: https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml
-referencing parameters should be set to concourse-credhub or set directly to pipeline.
+- [sample](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
+- referencing parameters should be set to concourse-credhub or set directly to pipeline.
 ``` yaml
 foundation: awstest
 
@@ -51,7 +51,7 @@ pivnet:
 
 
 ## Set pipeline
-- sample: https://github.com/myminseok/platform-automation-pipelines-template
+- [sample](https://github.com/myminseok/platform-automation-pipelines-template)
 ``` 
 platform-automation-pipelines
 ├── download-product.sh
@@ -68,7 +68,7 @@ $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 $ platform-automation-pipelines/download-products-vsphere.sh <FLY-TARGET>
 
 ```
-cat download-product-dev.sh
+[download-product-dev.sh](https://github.com/myminseok/platform-automation-pipelines-template/download-products.sh)
 ``` bash
 #!/bin/bash
 
@@ -84,11 +84,6 @@ fly -t ${FLY_TARGET} sp -p "download-product-vsphere" \
 -c ./download-product.yml \
 -l ../platform-automation-configuration-template/dev/pipeline-vars/params.yml
 ```
-
-refer to https://github.com/myminseok/platform-automation-pipelines-template/download-products.sh
-
-
-
 
 # Result in S3 
 download product tile and stemcells from pivnet to s3, a file name of '[pivnet-product-slug, product-version]' in s3 bucket.
