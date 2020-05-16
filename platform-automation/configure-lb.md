@@ -9,8 +9,7 @@
 - https://github.com/pivotal-cf/om/releases
 #### set vm_extensions to ops manager
 - https://github.com/pivotal-cf/terraforming-aws/blob/master/ci/tasks/custom-vm-extensions.sh
-> 
-```
+``` bash
 om -e env.yml -k  curl --path /api/v0/staged/vm_extensions/web-lb-security-groups -x PUT -d \
       '{"name": "web-lb-security-groups", "cloud_properties": { "security_groups": ["web_lb_security_group", "vms_security_group"] }}'
 Status: 200 OK
@@ -24,7 +23,7 @@ om -e env.yml -k curl --path /api/v0/staged/vm_extensions/tcp-lb-security-groups
 
 ##  edit platform-automation-configuration/awstest/opsman/director.yml > vmextensions-configuration
 
-```
+``` yaml
 az-configuration:
 - name: ap-northeast-2a
 
@@ -51,7 +50,7 @@ vmtypes-configuration: {}
 
 ## edit  platform-automation-configuration/awstest/products/tas.yml
 #### check terraform output 
-```
+``` yaml
 $ terraform output web_target_groups
 
 awstest-web-tg-80,
