@@ -117,12 +117,11 @@ set_value "vms_security_group_id"
 
 ```
 
-#### (optional)  how to get self-signed domain certificate from TAS tile
+#### (optional) you can generate a self-signed domain certificate from TAS tile
 1. generate certs from opsmanager UI> PAS> networking
 2. copy certifiate to "domain.crt" file
 3. copy private key to "domain.key" file.
-   
-
+4. set domain certs and keys to credhub   
    
 #### (optional) how to extract secret value from PAS
 ``` bash
