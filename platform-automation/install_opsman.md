@@ -178,7 +178,7 @@ properties-configuration:
   5. generate-staged-director-config > configure-director
  
  
-#### platform-automation-configuration/awstest/vars/director.yml
+#### (optional) platform-automation-configuration/awstest/vars/director.yml
 - for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
 
 for example opsman.yml
