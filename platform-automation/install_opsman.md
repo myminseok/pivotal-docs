@@ -9,49 +9,13 @@
 - [download depencencies](/platform-automation/download_dependencies.md)
 
 
-## configure set-pipeline variables
+## prepare pipeline parameters
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
+- pipeline parameters should be set to concourse-credhub or set directly to pipeline.
 
-#### platform-automation-configuration/awstest/pipeline-vars/params.yml
+#### prepare params.yml for `fly set-pipeline`
+- platform-automation-configuration/awstest/pipeline-vars/params.yml
 - [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
-    
-referencing parameters should be set to concourse-credhub or set directly to pipeline.
-``` yaml
-foundation: awstest
-
-s3:
-  endpoint: https://s3.ap-northeast-2.amazonaws.com
-  access_key_id: ((aws_access_key_id))
-  secret_access_key: ((aws_secret_access_key))
-  region_name: "ap-northeast-2"
-  buckets:
-    platform_automation: awstest-platform-automation
-    pivnet_products: awstest-pivnet-products
-
-git:
-  platform_automation_pipelines:
-    uri: git@github.com:myminseok/platform-automation-pipelines-template.git
-    branch: master
-  platform_automation_configs:
-    uri: git@github.com:myminseok/platform-automation-configuration-template.git
-    branch: master
-  user:
-    email: ((git_user_email))
-    username: "Platform Automation Bot"
-  private_key: ((git_private_key.private_key))
-
-credhub:
-  server: https://192.168.50.1:9000
-  ##ca_cert: ((credhub_ca_cert.certificate))
-  client: ((credhub_client.username))
-  secret: ((credhub_client.password))
-
-pivnet:
-  token: ((pivnet_token))
-
-```
-> - aws_access_key_id: set to concourse-credhub or set directly to pipeline.
-  - aws_secret_access_key: set to concourse-credhub or set directly to pipeline.
 
 #### platform-automation-configuration/awstest/opsman/env.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
