@@ -7,13 +7,16 @@
 - [prepare concourse cluster with credhub](/concourse-with-credhub.md)
 - [get pipeline template](/platform-automation/get-pipeline-template.md)
 
-## configure set-pipeline variables
-- official guide
-> https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
+## prepare pipeline parameters
+- pipeline parameters should be set to concourse-credhub or set directly to pipeline.
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
+- [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
-#### platform-automation-configuration/awstest/pipeline-vars/params.yml
+#### prepare params.yml for `fly set-pipeline`
+- values in params.yml can be referenced from credhub. see [set credhub variables](/platform-automation/set-credhub-variables.md)
+- platform-automation-configuration/awstest/pipeline-vars/params.yml
 - [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
-- referencing parameters should be set to concourse-credhub or set directly to pipeline.
+
 ``` yaml
 foundation: awstest
 
@@ -48,7 +51,7 @@ pivnet:
   token: ((pivnet_token))
 
 ```
-> - aws_access_key_id: set to concourse-credhub or set directly to pipeline. - [set credhub variables](/platform-automation/set-credhub-variables.md)
+> - aws_access_key_id: set to concourse-credhub recommended. [set credhub variables](/platform-automation/set-credhub-variables.md)
 > - ...
 
 ## Deploy concourse pipeline
