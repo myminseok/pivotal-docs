@@ -201,7 +201,8 @@ credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credh
 - platform-automation-configuration/awstest/pipeline-vars/set-credhub-from-terraform.sh
 - https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
 
-## how to deploy concourse pipeline
+
+## How to deploy concourse pipeline
 
 each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
 
@@ -211,36 +212,13 @@ $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 $ platform-automation-pipelines/manage-products-awstest.sh <FLY-TARGET>
 
 ```
-
--  manage-products-awstest.sh
-```
-#!/bin/bash
-
-if [ -z $1 ]  ; then
-    echo "please provide parameters"
-	echo "${BASH_SOURCE[0]} [fly-target]"
-	exit
-fi
-
-FLY_TARGET=$1
-
-fly -t ${FLY_TARGET} sp -p "awstest-manage-products" \
--c ./manage-products.yml \
--l ../platform-automation-configuration-template/awstest/pipeline-vars/params.yml
-
-```
+refer to https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh
 
 
-#### how to run pipeline for minor upgrade opsman  
-  1. upgrade-opsman-vm
-  2. configure director tile manually.
-  3. apply-director-change
-  4. generate-staged-director-config > configure-director
-
-#### how to  run pipeline for patching opsman
-  1. download opsman ova from pivnet and upload to s3 as following
-  2. edit version info in products.yml from git and commit.
-  3. then the 'replace-opsman-vm' job in the pipeline will automatically be triggered
+# patch/upgrade opsman
+- (optional) download product to local s3.
+- run `upgrade-opsman` job1 in pipeline
+- `upgrade-opsman` should generate director.yml to platform-automation-configuration>FOUNDATION>generated-config>opsman.yml
 
 ### how to  run pipeline for recovering opsman
   1. download opsman ova from pivnet and upload to s3 as following
