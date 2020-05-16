@@ -1,11 +1,15 @@
 
-# (only public cloud) configure LB setting to opsman, director, TAS
+# (Only for public cloud) configure LB setting to opsman, director, TAS
 
-#### guide: https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html
-####  prepare env.yml: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-env.html
-####  download om linux cli: https://github.com/pivotal-cf/om/releases
+#### guide: 
+- https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html
+####  prepare env.yml: 
+- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-env.html
+####  download om linux cli: 
+- https://github.com/pivotal-cf/om/releases
 #### set vm_extensions to ops manager
-https://github.com/pivotal-cf/terraforming-aws/blob/master/ci/tasks/custom-vm-extensions.sh
+- https://github.com/pivotal-cf/terraforming-aws/blob/master/ci/tasks/custom-vm-extensions.sh
+> 
 ```
 om -e env.yml -k  curl --path /api/v0/staged/vm_extensions/web-lb-security-groups -x PUT -d \
       '{"name": "web-lb-security-groups", "cloud_properties": { "security_groups": ["web_lb_security_group", "vms_security_group"] }}'
