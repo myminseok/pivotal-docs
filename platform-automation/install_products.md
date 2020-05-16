@@ -25,7 +25,6 @@
 
 #### create platform-automation-configuration/awstest/products/tas.yml
 - how to generate : https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-product-config-file.html
-- steps:
 1. install opsman vm
 2. upload TAS tile to opsman: manually or use concourse pipeline
 3. setup TAS and apply change.
