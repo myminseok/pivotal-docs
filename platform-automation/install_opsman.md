@@ -5,8 +5,9 @@
 ## prerequisits
 - [prepare concourse cluster with credhub](/concourse-with-credhub.md)
 - [get pipeline template](/platform-automation/get-pipeline-template.md)
-- [download depencencies](/platform-automation/download_dependencies.md)
 - [set credhub variables](/platform-automation/set-credhub-variables.md)
+- [download depencencies](/platform-automation/download_dependencies.md)
+
 
 ## configure set-pipeline variables
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
