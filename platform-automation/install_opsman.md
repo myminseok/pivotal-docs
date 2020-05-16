@@ -13,9 +13,10 @@
 
 ## configure set-pipeline variables
 - docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
-- sample: https://github.com/myminseok/platform-automation-configs-template
-    
+
 #### platform-automation-configuration/awstest/pipeline-vars/params.yml
+- sample: https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml
+    
 referencing parameters should be set to concourse-credhub or set directly to pipeline.
 ```
 foundation: awstest
