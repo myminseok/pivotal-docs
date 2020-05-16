@@ -56,8 +56,9 @@ pivnet:
 - [sample code](https://github.com/myminseok/platform-automation-pipelines-template)
 ``` 
 platform-automation-pipelines
-├── download-product-dev.sh
-├── download-product.yml
+├── download-products-dev.sh
+├── download-products.sh
+├── download-products.yml
 
 ```
 
@@ -67,25 +68,11 @@ each foundation will set pipeline using per foundation configs from platform-aut
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 
-$ platform-automation-pipelines/download-products-vsphere.sh <FLY-TARGET>
+$ platform-automation-pipelines/download-products.sh <FLY-TARGET> <FOUNDATION>
 
 ```
-[download-product-dev.sh](https://github.com/myminseok/platform-automation-pipelines-template/blob/master/download-product-dev.sh)
-``` bash
-#!/bin/bash
+[sample code download-product.sh](https://github.com/myminseok/platform-automation-pipelines-template/blob/master/download-product.sh)
 
-if [ -z $1 ] ; then
-    echo "please provide parameters"
-	echo "${BASH_SOURCE[0]} [fly-target]"
-	exit
-fi
-FLY_TARGET=$1
-
-
-fly -t ${FLY_TARGET} sp -p "download-product-vsphere" \
--c ./download-product.yml \
--l ../platform-automation-configuration-template/dev/pipeline-vars/params.yml
-```
 
 # Result in S3 
 download product tile and stemcells from pivnet to s3, a file name of '[pivnet-product-slug, product-version]' in s3 bucket.
