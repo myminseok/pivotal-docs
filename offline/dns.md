@@ -1,4 +1,4 @@
-# setup DNS server (ubuntu)
+# Setup DNS server (bind9, ubuntu)
 
 #### download bind9 dependencies
 
@@ -152,3 +152,7 @@ Global
 
 
 ```
+
+## Core DNS
+- https://github.com/kubernetes/dns/blob/master/docs/specification.md
+- https://coredns.io/plugins/kubernetes/
