@@ -2,125 +2,61 @@
 - https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
 ## prerequisits
-#### you need to download depencencies
-https://github.com/myminseok/pivotal-docs/edit/master/platform-automation/download_dependencies.md
+- get pipeline:
+> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-template.md
+- download depencencies:
+> https://github.com/myminseok/pivotal-docs/edit/master/platform-automation/download_dependencies.md
 
-
-## Get pipeline template
-in jumpbox,as ubuntu user
-```
-mkdir platform-automation-workspace
-cd platform-automation-workspace
-
-git clone https://github.com/myminseok/platform-automation-pipelines-template   platform-automation-pipelines
-git clone https://github.com/myminseok/platform-automation-configuration-template   platform-automation-configuration
-```
-
-
-## Pipeline
-- sample: https://github.com/myminseok/platform-automation-pipelines-template
-```
-platform-automation-pipelines:
-├── install-upgrade-opsman.sh
-├── install-upgrade-opsman.yml
-├── tasks
-│   ├── apply-product-changes.yml
-```
-
-make sure to point `platform-automation-configuration` folder in the download-product.sh
-```
-platform-automation-pipelines> vi download-product.sh
-#!/bin/bash
-
-...
-
-fly -t ${FLY_TARGET} sp -p "${FOUNDATION}-opsman-install-upgrade" \
--c ./install-upgrade-opsman.yml \
--l ../platform-automation-configuration/${FLY_TARGET}/pipeline-vars/common-params.yml \
--v foundation=${FLY_TARGET}
-
-```
-
-
-
-## pipeline variables
-per each foundation, pipeline variables is defined
-```
-platform-automation-configuration>
-── dev
-│   ├── download-products
-│   │   ├── healthwatch.yml
-│   │   ├── opsman.yml
-│   │   └── pas.yml
-│   ├── env
-│   │   ├── env.yml
-│   │   └── auth.yml
-│   ├── generated-config
-│   │   ├── cf.yml
-│   │   └── director.yml
-│   ├── pipeline-vars
-│   │   ├── setenv-credhub.sh
-│   │   └── common-params.yml
-│   ├── products
-│   │   ├── version.yml
-│   │   ├── cf.yml
-│   │   ├── ops-manager.yml
-│   │   └── director.yml
-│   ├── state
-│   │   └── state.yml
-```
-
-
-#### common-params.yml
+## configure set-pipeline variables
 - docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
-- sample: https://github.com/myminseok/platform-automation-configuration-template
+- sample: https://github.com/myminseok/platform-automation-configs-template
     
-platform-automation-configuration> dev > pipeline-vars > common-params.yml
+#### platform-automation-configuration/awstest/pipeline-vars/params.yml
+referencing parameters should be set to concourse-credhub or set directly to pipeline.
 ```
+foundation: awstest
+
 s3:
-  endpoint: http://10.10.10.199:9000
-  access_key_id: ((s3_access_key_id))
-  secret_access_key: ((s3_secret_access_key))
-  region_name: ""
+  endpoint: https://s3.ap-northeast-2.amazonaws.com
+  access_key_id: ((aws_access_key_id))
+  secret_access_key: ((aws_secret_access_key))
+  region_name: "ap-northeast-2"
   buckets:
-    platform_automation: platform-automation
-    pivnet_products: pivnet-products
-    installation: installation-dev-1
-    bbr-backup: bbr-pcfdemo
+    platform_automation: awstest-platform-automation
+    pivnet_products: awstest-pivnet-products
 
 git:
   platform_automation_pipelines:
-   uri: git@github.com:myminseok/platform-automation-pipelines-template.git
-  platform_automation_tasks:
-    uri: ssh://pivotal@10.10.10.199/platform/platform_automation_tasks.git
-  configuration:
-    uri: pivotal@10.10.10.199:platform/platform-conf.git
-  variable:
-    uri: pivotal@10.10.10.199:platform/platform-conf.git
-  user: 
-    email: user@pivotal.io
-    #username: ((git_user.username))
+    uri: git@github.com:myminseok/platform-automation-pipelines-template.git
+    branch: master
+  platform_automation_configs:
+    uri: git@github.com:myminseok/platform-automation-configuration-template.git
+    branch: master
+  user:
+    email: ((git_user_email))
     username: "Platform Automation Bot"
   private_key: ((git_private_key.private_key))
 
 credhub:
-  server: https://concourse.pcfdemo.net:8844
-  ca_cert: ((credhub_ca_cert.certificate))
+  server: https://192.168.50.1:9000
+  ##ca_cert: ((credhub_ca_cert.certificate))
   client: ((credhub_client.username))
   secret: ((credhub_client.password))
 
-pivnet: 
+pivnet:
   token: ((pivnet_token))
-  
+
 ```
-#### env.yml
+> - aws_access_key_id: set to concourse-credhub or set directly to pipeline.
+  - aws_secret_access_key: set to concourse-credhub or set directly to pipeline.
+
+#### platform-automation-configuration/awstest/opsman/env.yml
 - https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
+
+This file contains properties for targeting and logging into the Ops Manager API. 
+
 ```
 ---
-
-# Env Config
-# This file contains properties for targeting and logging into the Ops Manager API.
-
 target: ((opsman_target))
 connect-timeout: 30                 # default 5
 request-timeout: 3600               # default 1800
@@ -129,30 +65,129 @@ username: ((opsman_admin.username))
 password: ((opsman_admin.password))
 decryption-passphrase: ((decryption-passphrase))
 ```
-> - ops-manager.yml:   https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
-  - auth.yml : https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#uaa-authentication
-  - director.yml: see bellow.
 
-#### products-to-install.yml
+#### platform-automation-configuration/awstest/opsman/env.yml
+
+#### platform-automation-configuration/awstest/products/versions.yml
+- pipeline will download binaries to container in concourse worker VM.
+- for vsphere from private s3.
 ```
 products:
   opsman:
-    product-version: "2.8.3"
+    product-version: "2.9.1"
     pivnet-product-slug: ops-manager
     pivnet-file-glob: "*.ova"
     download-stemcell: "false"
     s3-endpoint: http://10.10.10.199:9000
-    s3-region-name: "region"
+    s3-region-name: "dummy"
     s3-bucket: "pivnet-products"
     s3-disable-ssl: "true"
     s3-access-key-id: ((s3_access_key_id))
     s3-secret-access-key: ((s3_secret_access_key))
     pivnet-api-token: ((pivnet_token))
+  tas:
+    product-version: "2.9.2"
+    pivnet-product-slug: ops-manager
+    pivnet-file-glob: "cf*.pivotal"
+    download-stemcell: "false"
+    s3-endpoint: http://10.10.10.199:9000
+    s3-region-name: "dummy"
+    s3-bucket: "pivnet-products"
+    s3-disable-ssl: "true"
+    s3-access-key-id: ((s3_access_key_id))
+    s3-secret-access-key: ((s3_secret_access_key))
+    pivnet-api-token: ((pivnet_token))
+```
+- for aws from pivnet.
+```
+products:
+  opsman:
+    product-version: "2.9.1"
+    pivnet-product-slug: ops-manager
+    pivnet-file-glob: "ops-manager-aws*.yml"
+    download-stemcell: "false"
+    pivnet-api-token: ((pivnet_token))
+
+  tas:
+    product-version: "2.9.2"
+    pivnet-product-slug: elastic-runtime
+    pivnet-file-glob: "cf*.pivotal"
+    stemcell-iaas: aws
+    pivnet-api-token: ((pivnet_token))
 
 ```
 
-##   Set Pipeline secrets to concourse credhub  per each foundation
-login to credhub
+#### platform-automation-configuration/awstest/opsman/opsman.yml
+- https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#opsmanyml
+- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
+
+```
+---
+## 2.9.1
+opsman-configuration:
+  aws:
+    region: ap-northeast-2
+    vpc_subnet_id: ((public_subnet_ids)) ## terraform module.infra.public_subnet_ids, 0
+    security_group_ids: [ ((ops_manager_security_group_id)) ]
+    key_pair_name: ((ops_manager_ssh_public_key_name))  # used to ssh to VM
+    iam_instance_profile_name: ((ops_manager_iam_instance_profile_name))
+    public_ip: ((ops_manager_public_ip))      # Reserved Elastic IP
+    # private_ip: 10.0.0.2
+    # vm_name: ops-manager-vm    # default - ops-manager-vm
+    # boot_disk_size: 100        # default - 200 (GB)
+    instance_type: m5.large    # default - m5.large
+    access_key_id: ((aws_access_key_id)) ## not ops_manager_iam_user_access_key
+    secret_access_key: ((aws_secret_access_key))
+```
+#### platform-automation-configuration/awstest/opsman/auth.yml
+- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-auth.html
+
+#### platform-automation-configuration/awstest/opsman/director.yml
+- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-director-config-file.html
+
+- generated director.yml need to fix as following:
+```
+## add vcenter_password
+
+iaas-configurations:
+  - additional_cloud_properties: {}
+  ...
+    vcenter_username: 
+    vcenter_password: 
+  ...
+
+## modify encryption
+properties-configuration:
+  director_configuration:
+  ...
+    #encryption: []
+    encryption:
+      keys: []
+      providers: []
+  ...
+  #dns_configuration: []
+  dns_configuration:
+    excluded_recursors: []
+    handlers: []
+ ```
+
+  3. configure director tile manually.
+  4. apply-director-change
+  5. generate-staged-director-config > configure-director
+ 
+ 
+#### platform-automation-configuration/awstest/vars/director.yml
+- for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
+
+for example opsman.yml
+```
+region: ap-northeast-2
+```
+
+
+
+##  Set secrets to concourse credhub per each foundation
+####  login to credhub
 ```
 ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
 bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
@@ -160,6 +195,10 @@ credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
 credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
 
 ```
+#### set secrets example.
+refer to:
+- platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
+- platform-automation-configuration/awstest/pipeline-vars/set-credhub-from-terraform.sh
 
 ```
 
@@ -191,52 +230,36 @@ credhub set -t value -n /concourse/main/opsman_target -v https://opsman_url
 
 ```
 
-## how to deploy pipeline
+## how to deploy concourse pipeline
+
+each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
 
 ```
-$ fly -t <foundaton> login -c https://your.concourse/ -b -k
+$ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 
-$ ./install-upgrade-opsman.sh <foundaton>
+$ platform-automation-pipelines/manage-products-awstest.sh <FLY-TARGET>
+
 ```
-> - foundation: name of pcf foundation in platform-automation-config git.  
-> - will use commons platform-automation-configuration-template
-> - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
 
-#### how to get opsman.yml template for a new opsman 
-
-  1. create-new-opsman-vm
-  2. configure-authentication
-  3. generate-staged-config
-   - it will extract director config and save to \<foundation>/generated-config/director.yml.
-   - copy \<foundation>/generated-config/director.yml to \<foundation>/products/director.yml
-   - edit \<foundation>/products/director.yml as following:
+-  manage-products-awstest.sh
 ```
-## add vcenter_password
-iaas-configurations:
-  - additional_cloud_properties: {}
-  ...
-    vcenter_username: 
-    vcenter_password: 
-  ...
-## modify encryption
-properties-configuration:
-  director_configuration:
-  ...
-    #encryption: []
-    encryption:
-      keys: []
-      providers: []
-  ...
-  #dns_configuration: []
-  dns_configuration:
-    excluded_recursors: []
-    handlers: []
-   ```
-   - create \<foundation>/vars/director-vars.yml and edit secret key/values which maps to products/director.yml
-  3. configure director tile manually.
-  4. apply-director-change
-  5. generate-staged-director-config > configure-director
- 
+#!/bin/bash
+
+if [ -z $1 ]  ; then
+    echo "please provide parameters"
+	echo "${BASH_SOURCE[0]} [fly-target]"
+	exit
+fi
+
+FLY_TARGET=$1
+
+fly -t ${FLY_TARGET} sp -p "awstest-manage-products" \
+-c ./manage-products.yml \
+-l ../platform-automation-configuration-template/awstest/pipeline-vars/params.yml
+
+```
+
+
 #### how to run pipeline for minor upgrade opsman  
   1. upgrade-opsman-vm
   2. configure director tile manually.
@@ -274,3 +297,7 @@ opsmanager UI.>BOSH Director > BOSH DNS config
 ]
 ```
 https://learn.hashicorp.com/consul/cloud-integrations/consul-pcf
+
+
+
+
