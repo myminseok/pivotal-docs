@@ -1,7 +1,20 @@
 
 Each Foundation environment(ops-manager, TAS) will need to have pipeline parameters. and those parameters can be set to concourse-credhub or set directly to pipeline.
 
-### set directly to the pipeline when fly set-pipeline
+####  download credhub cli: 
+- https://github.com/cloudfoundry-incubator/credhub-cli/releases
+
+####  login to credhub
+``` bash
+ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
+bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
+credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
+credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
+
+platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
+```
+
+#### set directly to the pipeline when fly set-pipeline
 - create a params.yml file(platform-automation-configuration/awstest/pipeline-vars/params.yml)
 - [sample params.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
    
