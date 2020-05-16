@@ -68,7 +68,7 @@ $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 $ platform-automation-pipelines/download-products-vsphere.sh <FLY-TARGET>
 
 ```
-[download-product-dev.sh](https://github.com/myminseok/platform-automation-pipelines-template/download-products.sh)
+[download-product-dev.sh](https://github.com/myminseok/platform-automation-pipelines-template/blob/master/download-product-dev.sh)
 ``` bash
 #!/bin/bash
 
