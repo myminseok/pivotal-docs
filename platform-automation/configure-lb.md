@@ -50,6 +50,7 @@ vmtypes-configuration: {}
 
 ## edit  platform-automation-configuration/awstest/products/tas.yml
 #### check terraform output 
+example for `awstest` environment
 ``` bash
 $ terraform output web_target_groups
 
@@ -66,7 +67,7 @@ awstest-tcp-tg-1024
 ```
 #### edit platform-automation-configuration/awstest/products/tas.yml
 - (only if manually setting up) guilde https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html#aws-terraform
-
+example for `awstest` environment
 ``` yaml
 ...
 
