@@ -2,20 +2,55 @@
 # How to setup concourse pipeline for downloading dependencies
 - https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
-## Reference
-- https://github.com/pivotal/docs-platform-automation-reference-pipeline-config
-- https://github.com/tonyelmore/telmore
-- https://github.com/making/platform-automation
+## prerequisits
+- prepare concourse cluster with credhub:
+> https://github.com/myminseok/pivotal-docs/edit/master/concourse-with-credhub.md
+- clone pipeline template:
+> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-template.md
 
-## Get pipeline template
-in jumpbox,as ubuntu user
+## configure set-pipeline variables
+- docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
+- sample: https://github.com/myminseok/platform-automation-configs-template
+    
+#### platform-automation-configuration/awstest/pipeline-vars/params.yml
+referencing parameters should be set to concourse-credhub or set directly to pipeline.
 ```
-mkdir platform-automation-workspace
-cd platform-automation-workspace
+foundation: awstest
 
-git clone https://github.com/myminseok/platform-automation-pipelines-template   platform-automation-pipelines
-git clone https://github.com/myminseok/platform-automation-configuration-template   platform-automation-configuration
+s3:
+  endpoint: https://s3.ap-northeast-2.amazonaws.com
+  access_key_id: ((aws_access_key_id))
+  secret_access_key: ((aws_secret_access_key))
+  region_name: "ap-northeast-2"
+  buckets:
+    platform_automation: awstest-platform-automation
+    pivnet_products: awstest-pivnet-products
+
+git:
+  platform_automation_pipelines:
+    uri: git@github.com:myminseok/platform-automation-pipelines-template.git
+    branch: master
+  platform_automation_configs:
+    uri: git@github.com:myminseok/platform-automation-configuration-template.git
+    branch: master
+  user:
+    email: ((git_user_email))
+    username: "Platform Automation Bot"
+  private_key: ((git_private_key.private_key))
+
+credhub:
+  server: https://192.168.50.1:9000
+  ##ca_cert: ((credhub_ca_cert.certificate))
+  client: ((credhub_client.username))
+  secret: ((credhub_client.password))
+
+pivnet:
+  token: ((pivnet_token))
+
 ```
+> - aws_access_key_id: set to concourse-credhub or set directly to pipeline.
+  - aws_secret_access_key: set to concourse-credhub or set directly to pipeline.
+
 
 ## Set pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
@@ -26,148 +61,58 @@ platform-automation-pipelines
 
 ```
 
-make sure to point `platform-automation-configuration` folder in the download-product.sh
+
+## How to deploy concourse pipeline
+each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
 ```
-platform-automation-pipelines> vi download-product.sh
+$ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
+
+$ platform-automation-pipelines/download-products-vsphere.sh <FLY-TARGET>
+
+```
+cat download-product-dev.sh
+``` 
 #!/bin/bash
 
-...
+if [ -z $1 ] ; then
+    echo "please provide parameters"
+	echo "${BASH_SOURCE[0]} [fly-target]"
+	exit
+fi
+FLY_TARGET=$1
 
-fly -t ${FLY_TARGET} sp -p "download-product" \
+
+fly -t ${FLY_TARGET} sp -p "download-product-vsphere" \
 -c ./download-product.yml \
--l ../platform-automation-configuration/${FLY_TARGET}/pipeline-vars/common-params.yml \
--v foundation=${FLY_TARGET}
-
+-l ../platform-automation-configuration-template/dev/pipeline-vars/params.yml
 ```
 
-
-## Set pipeline variables
-per each foundation, pipeline variables is defined
-- sample: https://github.com/myminseok/platform-automation-configuration-template
-
-```
-platform-automation-configuration
-└── dev
-    ├── download-product-configs
-    │   ├── healthwatch.yml
-    │   ├── opsman.yml
-    │   └── pas.yml
-    └── pipeline-vars
-       └── common-params.yml
-
-```
-
-opsman.yml
-```
----
-pivnet-api-token: ((pivnet_token))
-pivnet-file-glob: "*vsphere*.ova"
-pivnet-product-slug: ops-manager
-product-version-regex: ^2\.4\..*$
-
-```
-
-pas.yml
-```
----
-pivnet-api-token: ((pivnet_token))
-pivnet-file-glob: "cf-*.pivotal"
-pivnet-product-slug: elastic-runtime
-product-version-regex: ^2\.4\..*$
-stemcell-iaas: vsphere
-
-```
+refer to https://github.com/myminseok/platform-automation-pipelines-template/download-products.sh
 
 
-###  Set Pipeline secrets to concourse credhub  per each foundation
-in ssh terminal, login to credhub
-```
-ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
-bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
-credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
-credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
-
-```
-
-```
-credhub set -t value -n /concourse/main/s3_access_key_id -v admin
-credhub set -t value -n /concourse/main/s3_secret_access_key -v "PASSWORD"
-credhub set -t value -n /concourse/main/pivnet_token -v 11111111
-
-credhub set -t value -n /concourse/main/git_user_email -v admin@user.io
-credhub set -t value -n /concourse/main/git_user_username -v admin
-
-credhub set -t user -n /concourse/main/vcenter_user -z admin@vcenter.local -w "PASSWORD"
-credhub set -t ssh -n /concourse/main/opsman_ssh_key -u ~/.ssh/id_rsa.pub -p ~/.ssh/id_rsa
-credhub set -t value  -n /concourse/main/opsman_ssh_password  -v "PASSWORD"
-
-# register ssh key for git. ex) ~/.ssh/id_rsa
-credhub set -t rsa  -n /concourse/main/git_private_key  -p ~/.ssh/id_rsa
- 
-# cd concourse-bosh-deployment/cluster
-# bosh int ./concourse-creds.yml --path /atc_tls/certificate > atc_tls.cert
-# bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
-credhub set -t certificate -n /concourse/main/credhub_ca_cert -c ./credhub-ca.ca
-
-# grep concourse_to_credhub ./concourse-creds.yml
-credhub set -t user -n /concourse/main/credhub_client -z concourse_client -w "PASSWORD"
-
-credhub set -t user  -n /concourse/main/opsman_admin -z admin -w "PASSWORD"
-credhub set -t value -n /concourse/main/decryption-passphrase -v "PASSWORD"
-credhub set -t value -n /concourse/main/opsman_target -v https://opsman_url
+## Reference
+- https://github.com/pivotal/docs-platform-automation-reference-pipeline-config
+- https://github.com/tonyelmore/telmore
+- https://github.com/making/platform-automation
 
 
-```
-
-## Parepare s3 
-download platform-automation-image, platform-automation-image-tasks from network.pivotal.io to s3
-
-```
-|-- pivnet-products
-
-`-- platform-automation
-    |-- platform-automation-image-2.1.1-beta.1.tgz
-    `-- platform-automation-tasks-2.1.1-beta.1.zip
-```
-
-
-## how to deploy pipeline
-- sample: https://github.com/myminseok/platform-automation-pipelines-template
-
-```
-$ cd platform-automation-workspace
-$ ls -al
-platform-automation-configuration
-platform-automation-pipelines
-
-$ cd platform-automation-pipelines
-
-$ fly -t <foundaton> login -c https://your.concourse/ -b -k
-
-$ ./download-product.h <foundaton>
-```
-> - foundation: name of pcf foundation in platform-automation-config git.  
-> - this will use platform-automation-configuration/<foundaton>/pipeline-vars/common-params.yml
-> - will use commons platform-automation-configuration
-> - this will create a concourse pipeline named '<foundation>-opsman-install-upgrade'
 
 
 # Result in S3 
+download product tile and stemcells from pivnet to s3, a file name of '[pivnet-product-slug, product-version]' in s3 bucket.
 ```
 |-- pivnet-products
-|   |-- cf-2.4.5-build.25.pivotal
-|   |-- healthwatch-stemcell
-|   |   `-- bosh-stemcell-97.71-vsphere-esxi-ubuntu-xenial-go_agent.tgz
-|   |-- pas-stemcell
-|   |   |-- bosh-stemcell-170.45-vsphere-esxi-ubuntu-xenial-go_agent.tgz
-|   |   `-- bosh-stemcell-170.48-vsphere-esxi-ubuntu-xenial-go_agent.tgz
-|   |-- pcf-vsphere-2.4-build.171.ova
-|   `-- p-healthwatch-1.4.5-build.41.pivotal
+|   |-- [elastic-runtime,2.6.3]cf-2.6.3-build.21.pivotal
+|   |-- [stemcells-ubuntu-xenial,250.56]bosh-stemcell-250.56-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+|   |   [stemcells-ubuntu-xenial,97.71]bosh-stemcell-97.71-vsphere-esxi-ubuntu-xenial-go_agent.tgz
+|   |-- [ops-manager,2.9.1]ops-manager-2.9.1-build.171.ova
+|   `-- [p-healthwatch,1.4.5]p-healthwatch-1.4.5-build.41.pivotal
 `-- platform-automation
-    |-- platform-automation-image-2.1.1-beta.1.tgz
-    `-- platform-automation-tasks-2.1.1-beta.1.zip
+    |-- platform-automation-image-4.3.6.tgz
+    `-- platform-automation-tasks-4.3.6.zip
 ```
 
+   
 
 ## For better download and upload efficiency
 `platform-automation-tasks/tasks/download-product.yml` download product and upload to s3 even if there is the same file in s3. for better efficiency, this pipeline uses `semver` to prevent uploading the same binary that is already in s3. this tested in non versioned s3.
@@ -270,5 +215,4 @@ jobs:
       file: downloaded-product/*
 
 ```
-
 
