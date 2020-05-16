@@ -1,5 +1,5 @@
 
-## Get pipeline and configs template
+## Get concourse pipeline and configs template
 
 in jumpbox,as ubuntu user
 ``` bash
