@@ -2,7 +2,7 @@
 ## Get pipeline and configs template
 
 in jumpbox,as ubuntu user
-```
+``` bash
 mkdir platform-automation-workspace
 cd platform-automation-workspace
 
@@ -94,7 +94,7 @@ platform-automation-workspace/platform-automation-pipelines
 ## set pipeline
 
 each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
-```
+``` bash
 fly -t auto sp -p "awstest-manage-products" \
 -c ./manage-products.yml \
 -l ../platform-automation-configuration/awstest/pipeline-vars/params.yml
