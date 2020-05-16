@@ -120,3 +120,25 @@ set_value "vms_security_group_id"
    
 
    
+#### how to extract secret value from PAS
+```
+root@d50b90c0-7288-4194-5611-4799d7ad34ea:/tmp/build/4a564f8b# om --env ./env/dkpcf/env/env.yml credential-references -p cf | grep poe
+| .properties.networking_poe_ssl_certs[0].certificate
+
+
+root@d50b90c0-7288-4194-5611-4799d7ad34ea:/tmp/build/4a564f8b# om --env ./env/dkpcf/env/env.yml credentials -p cf -c .properties.networking_poe_ssl_certs[0].certificate
++------------------------------------------------------------------+------------------------------------------------------------------+
+| cert_pem | private_key_pem |
++------------------------------------------------------------------+------------------------------------------------------------------+
+| | -----BEGIN RSA PRIVATE KEY-----
+| MIIEpAIBAAKCAQEA1Xu8fbAMsJpjIQYRQ1Kv6L2R1ZpB1/i74tIj3SHtKs76Yss1
+...
+|AZokZDWW5Lb3eKoAInGbQ9tsfrJeADL0jSINt/2bIF1QA7g==l+wctiD
+| -----END RSA PRIVATE KEY-----
+```
+
+
+or use tile-config-generator to get cf.yml template(template only)
+- https://github.com/pivotalservices/tile-config-generator
+
+
