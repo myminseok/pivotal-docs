@@ -1,4 +1,6 @@
-### (offline env) download bind9 dependencies
+# setup DNS server (ubuntu)
+
+#### download bind9 dependencies
 
 ```
 sudo su
@@ -21,22 +23,15 @@ apt install -f
 apt-get install bind9
 ```
 
-## setup ipv4 for bind9
+#### setup ipv4 for bind9
 vi /etc/default/bind9
 ```
 OPTIONS="-4 -u bind"
 ```
 
-## setup domain
+#### /etc/bind$ vi db.pcfdemo.net 
 
 ```
-sudo su
-cd /etc/bind
-
-cp db.local db.pcfdemo.net
-pivotal@ubuntu:/etc/bind$ cat db.pcfdemo.net 
-
-
 ;
 ; BIND data file for local loopback interface
 ;
@@ -51,55 +46,21 @@ $TTL 604800
 @ IN NS pcfdemo.net.
 @ IN A       192.168.0.100
 * IN A       192.168.0.100
+pcf IN A       192.168.0.10
+director IN A       192.168.0.11
+*.sys IN A       192.168.0.100 <-- go router
+login.sys IN A       192.168.0.100  <-- go router
+*.login.sys IN A       192.168.0.100 <-- go router
+uaa.sys IN A       192.168.0.100  <-- go router
+*.uaa.sys IN A       192.168.0.100  <-- go router
+*.apps IN A       192.168.0.100  <-- go router
+ssh.sys IN A       192.168.0.200 <-- diego brain
 @ IN AAAA ::1
 
 ```
-
-
-```
-pivotal@ubuntu:/etc/bind$ cat db.apps.pcfdemo.net 
-;
-; BIND data file for local loopback interface
-;
-$TTL 604800
-@ IN SOA apps.pcfdemo.net. root.apps.pcfdemo.net. (
-      2; Serial
- 604800; Refresh
-  86400; Retry
-2419200; Expire
- 604800 ); Negative Cache TTL
-;
-@ IN NS apps.pcfdemo.net.
-@ IN A       192.168.0.100
-* IN A       192.168.0.100
-@ IN AAAA::1
+#### /etc/bind$ vi named.conf.local 
 ```
 
-```
-pivotal@ubuntu:/etc/bind$ cat db.system.pcfdemo.net 
-;
-; BIND data file for local loopback interface
-;
-$TTL 604800
-@ IN SOA system.pcfdemo.net. root.system.pcfdemo.net. (
-      2; Serial
- 604800; Refresh
-  86400; Retry
-2419200; Expire
- 604800 ); Negative Cache TTL
-;
-@ IN NS system.pcfdemo.net.
-@ IN AAAA::1
-@ IN A       192.168.0.100
-* IN A       192.168.0.100
-login IN A       192.168.0.100
-uaa IN A       192.168.0.100
-ssh IN A       192.168.0.xxx
-
-```
-
-```
-pivotal@ubuntu:/etc/bind$ cat named.conf.local 
 //
 // Do any local configuration here
 //
@@ -111,18 +72,10 @@ zone "pcfdemo.net" {
     type master;
     file "/etc/bind/db.pcfdemo.net";
 };
-zone "apps.pcfdemo.net" {
-    type master;
-    file "/etc/bind/db.apps.pcfdemo.net";
-};
-zone "system.pcfdemo.net" {
-    type master;
-    file "/etc/bind/db.system.pcfdemo.net";
-};
 
 ```
 
-#forward설정
+#### lookup forwarder setting
 
 vi /etc/bind/named.conf.options
 ```
@@ -144,8 +97,6 @@ options {
           8.8.4.4;
 	};
 
-
-
 	auth-nxdomain no;    # conform to RFC1035
 	listen-on-v6 { any; };
 	listen-on { any; };  #added 
@@ -155,7 +106,7 @@ options {
 
 
 
-test
+#### test
 ```
 
 /etc/init.d/bind9 restart
@@ -177,7 +128,7 @@ dig a.apps.pcfdemo.net
 
 
 
-# for ubuntu 18.04 ,  systemd-resolver
+#### systemd-resolver for ubuntu 18.04
 ```
 
 
