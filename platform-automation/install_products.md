@@ -16,8 +16,7 @@
 - [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
 #### Prepare params.yml for `fly set-pipeline`
-- platform-automation-configuration/awstest/pipeline-vars/params.yml
-- [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
+- [platform-automation-configuration/awstest/pipeline-vars/params.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
 
 #### platform-automation-configuration/awstest/products/versions.yml
 
