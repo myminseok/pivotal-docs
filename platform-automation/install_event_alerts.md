@@ -14,7 +14,7 @@ https://docs.pivotal.io/event-alerts/1-2/installing.html#prereqs
 - webook (optional)
 - slack (optional)
 
-# After installation
+# Configure alert after installation
 
 ### Install cf plugin
 - https://docs.pivotal.io/event-alerts/1-2/installing.html#plugin
