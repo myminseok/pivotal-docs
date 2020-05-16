@@ -45,7 +45,7 @@
 - add additional secrets : https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
 
 for example tas.yml
-```
+``` yaml
 region: ap-northeast-2
 ```
 
@@ -57,15 +57,13 @@ region: ap-northeast-2
 
 each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
 
-```
+``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 
 $ platform-automation-pipelines/manage-products-awstest.sh <FLY-TARGET>
 
 ```
 refer to https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh
-
-
 
 
 
