@@ -1,5 +1,5 @@
 
-# How to setup concourse pipeline for downloading dependencies
+# Setting up downloading dependencies concourse pipeline
 - official guide
 > https://docs.pivotal.io/platform-automation/v4.3/pipelines/resources.html
 
