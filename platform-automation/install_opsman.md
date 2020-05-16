@@ -18,7 +18,7 @@
 - sample: https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml
     
 referencing parameters should be set to concourse-credhub or set directly to pipeline.
-```
+``` yaml
 foundation: awstest
 
 s3:
@@ -60,7 +60,7 @@ pivnet:
 
 This file contains properties for targeting and logging into the Ops Manager API. 
 
-```
+``` yaml
 ---
 target: ((opsman_target))
 connect-timeout: 30                 # default 5
@@ -76,7 +76,7 @@ decryption-passphrase: ((decryption-passphrase))
 #### platform-automation-configuration/awstest/products/versions.yml
 - pipeline will download binaries to container in concourse worker VM.
 - for vsphere from private s3.
-```
+``` yaml
 products:
   opsman:
     product-version: "2.9.1"
@@ -104,7 +104,7 @@ products:
     pivnet-api-token: ((pivnet_token))
 ```
 - for aws from pivnet.
-```
+``` yaml
 products:
   opsman:
     product-version: "2.9.1"
@@ -126,7 +126,7 @@ products:
 - https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#opsmanyml
 - https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
-```
+``` yaml
 ---
 ## 2.9.1
 opsman-configuration:
@@ -151,7 +151,7 @@ opsman-configuration:
 - https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-director-config-file.html
 
 - generated director.yml need to fix as following:
-```
+``` yaml
 ## add vcenter_password
 
 iaas-configurations:
@@ -185,14 +185,14 @@ properties-configuration:
 - for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
 
 for example opsman.yml
-```
+``` yaml
 region: ap-northeast-2
 ```
 
 
 ##  Set secrets to concourse credhub per each foundation
 ####  login to credhub
-```
+```bash
 ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
 bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
 credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
@@ -209,7 +209,7 @@ credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credh
 
 each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
 
-```
+``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 
 $ platform-automation-pipelines/manage-products-awstest.sh <FLY-TARGET>
@@ -234,7 +234,7 @@ refer to https://github.com/myminseok/platform-automation-pipelines-template/man
 ## advanced.
 #### bosh dns config for a private DNS.
 opsmanager UI.>BOSH Director > BOSH DNS config
-```
+``` json
 [
   {
     "cache": {
