@@ -14,7 +14,7 @@
 #### platform-automation-configuration/awstest/pipeline-vars/params.yml
 - sample: https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml
 referencing parameters should be set to concourse-credhub or set directly to pipeline.
-```
+``` yaml
 foundation: awstest
 
 s3:
@@ -54,7 +54,7 @@ pivnet:
 
 ## Set pipeline
 - sample: https://github.com/myminseok/platform-automation-pipelines-template
-```
+``` 
 platform-automation-pipelines
 ├── download-product.sh
 ├── download-product.yml
@@ -64,14 +64,14 @@ platform-automation-pipelines
 
 ## How to deploy concourse pipeline
 each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
-```
+``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 
 $ platform-automation-pipelines/download-products-vsphere.sh <FLY-TARGET>
 
 ```
 cat download-product-dev.sh
-``` 
+``` bash
 #!/bin/bash
 
 if [ -z $1 ] ; then
@@ -94,7 +94,7 @@ refer to https://github.com/myminseok/platform-automation-pipelines-template/dow
 
 # Result in S3 
 download product tile and stemcells from pivnet to s3, a file name of '[pivnet-product-slug, product-version]' in s3 bucket.
-```
+``` 
 |-- pivnet-products
 |   |-- [elastic-runtime,2.6.3]cf-2.6.3-build.21.pivotal
 |   |-- [stemcells-ubuntu-xenial,250.56]bosh-stemcell-250.56-vsphere-esxi-ubuntu-xenial-go_agent.tgz
@@ -111,7 +111,7 @@ download product tile and stemcells from pivnet to s3, a file name of '[pivnet-p
 ## For better download and upload efficiency
 `platform-automation-tasks/tasks/download-product.yml` download product and upload to s3 even if there is the same file in s3. for better efficiency, this pipeline uses `semver` to prevent uploading the same binary that is already in s3. this tested in non versioned s3.
 
-```
+```yaml
 
 - name: opsman-product
   type: s3
