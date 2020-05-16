@@ -1,7 +1,7 @@
 
 Each Foundation environment(ops-manager, TAS) will need to have pipeline parameters. and those parameters can be set to concourse-credhub or set directly to pipeline.
 
-### set directly to pipeline
+### set directly to the pipeline when fly set-pipeline
 - create a params.yml file(platform-automation-configuration/awstest/pipeline-vars/params.yml)
 - [sample params.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
    
