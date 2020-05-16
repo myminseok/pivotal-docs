@@ -1,21 +1,18 @@
 # How to setup concourse pipeline for installing/upgrading ops-manager
-- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
+- official guide
+> https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
 ## prerequisits
-- prepare concourse cluster with credhub:
-> https://github.com/myminseok/pivotal-docs/edit/master/concourse-with-credhub.md
-- clone pipeline template:
-> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-template.md
-- download depencencies:
-> https://github.com/myminseok/pivotal-docs/edit/master/platform-automation/download_dependencies.md
-- set credhub variables
-> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
+- [prepare concourse cluster with credhub](/concourse-with-credhub.md)
+- [get pipeline template](/platform-automation/get-pipeline-template.md)
+- [download depencencies](/platform-automation/download_dependencies.md)
+- [set credhub variables](/platform-automation/set-credhub-variables.md)
 
 ## configure set-pipeline variables
-- docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 
 #### platform-automation-configuration/awstest/pipeline-vars/params.yml
-- sample: https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml
+- [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
     
 referencing parameters should be set to concourse-credhub or set directly to pipeline.
 ``` yaml
@@ -56,9 +53,8 @@ pivnet:
   - aws_secret_access_key: set to concourse-credhub or set directly to pipeline.
 
 #### platform-automation-configuration/awstest/opsman/env.yml
-- https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
-
-This file contains properties for targeting and logging into the Ops Manager API. 
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
+- This file contains properties for targeting and logging into the Ops Manager API. 
 
 ``` yaml
 ---
@@ -123,8 +119,8 @@ products:
 ```
 
 #### platform-automation-configuration/awstest/opsman/opsman.yml
-- https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#opsmanyml
-- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#opsmanyml
+- how to: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
 ``` yaml
 ---
@@ -145,10 +141,10 @@ opsman-configuration:
     secret_access_key: ((aws_secret_access_key))
 ```
 #### platform-automation-configuration/awstest/opsman/auth.yml
-- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-auth.html
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-auth.html
 
 #### platform-automation-configuration/awstest/opsman/director.yml
-- https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-director-config-file.html
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-director-config-file.html
 
 - generated director.yml need to fix as following:
 ``` yaml
@@ -183,8 +179,7 @@ properties-configuration:
  
 #### (optional) platform-automation-configuration/awstest/vars/director.yml
 - for non-secret params can be set to yml file in vars folder. and will be used in 'prepare-tasks-with-secrets' tasks in concourse pipeline. https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
-
-for example opsman.yml
+- example for opsman.yml
 ``` yaml
 region: ap-northeast-2
 ```
@@ -206,8 +201,8 @@ credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credh
 
 
 ## How to deploy concourse pipeline
-
-each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
+- each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
+- [sample code manage-products-awstest.sh](https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh)
 
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
@@ -215,8 +210,6 @@ $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 $ platform-automation-pipelines/manage-products-awstest.sh <FLY-TARGET>
 
 ```
-refer to https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh
-
 
 # patch/upgrade opsman
 - (optional) download product to local s3.
