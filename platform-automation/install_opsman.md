@@ -18,7 +18,7 @@
 - platform-automation-configuration/awstest/pipeline-vars/params.yml
 - [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
 
-#### Platform-automation-configuration/awstest/opsman/env.yml
+#### platform-automation-configuration/awstest/opsman/env.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
 - This file contains properties for targeting and logging into the Ops Manager API. 
 
@@ -84,7 +84,7 @@ products:
 
 ```
 
-#### Platform-automation-configuration/awstest/opsman/opsman.yml
+#### platform-automation-configuration/awstest/opsman/opsman.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#opsmanyml
 - how to: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
@@ -106,10 +106,10 @@ opsman-configuration:
     access_key_id: ((aws_access_key_id)) ## not ops_manager_iam_user_access_key
     secret_access_key: ((aws_secret_access_key))
 ```
-#### Platform-automation-configuration/awstest/opsman/auth.yml
+#### platform-automation-configuration/awstest/opsman/auth.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-auth.html
 
-#### Platform-automation-configuration/awstest/opsman/director.yml
+#### platform-automation-configuration/awstest/opsman/director.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-director-config-file.html
 
 - generated director.yml need to fix as following:
@@ -153,7 +153,7 @@ region: ap-northeast-2
 ``` yaml
 pivnet_token: ((pivnet_token_in_credhub))
 ```
-#### (optional) Platform-automation-configuration/awstest/vars/opsman.yml
+#### (optional) platform-automation-configuration/awstest/vars/opsman.yml
 - the same as above.
 
 ##  Set secrets to concourse credhub per each foundation
@@ -171,7 +171,7 @@ credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credh
 - https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
 
 
-## How to deploy concourse pipeline
+## Deploy concourse pipeline
 - each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
 - [sample code manage-products-awstest.sh](https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh)
 
