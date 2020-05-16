@@ -7,7 +7,7 @@
 - [clone pipeline template](https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-pipeline-template.md)
 
 ## configure set-pipeline variables
-- [guide] (https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html) 
+- [guide](https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html) 
 
 #### platform-automation-configuration/awstest/pipeline-vars/params.yml
 - [sample](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
