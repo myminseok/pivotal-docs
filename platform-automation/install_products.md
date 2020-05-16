@@ -47,16 +47,19 @@ region: ap-northeast-2
 
 
 ## How to deploy concourse pipeline
-- each foundation will set pipeline using per foundation configs from platform-automation-configuration. 
-- for example, pipeline for awstest can be set as following:
-- [sample code](https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh)
+- each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
+- [sample code manage-products-awstest.sh](https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh)
 
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
 
-$ platform-automation-pipelines/manage-products-awstest.sh <FLY-TARGET>
+$ platform-automation-pipelines/manage-products.sh <FLY-TARGET> <FOUNDATION>
+
+$ manage-products.sh demo awstest
 
 ```
+
+
 
 
 
