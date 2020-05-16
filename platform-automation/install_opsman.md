@@ -6,6 +6,8 @@
 > https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/get-template.md
 - download depencencies:
 > https://github.com/myminseok/pivotal-docs/edit/master/platform-automation/download_dependencies.md
+- set credhub variables
+> https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
 
 ## configure set-pipeline variables
 - docs: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
@@ -185,7 +187,6 @@ region: ap-northeast-2
 ```
 
 
-
 ##  Set secrets to concourse credhub per each foundation
 ####  login to credhub
 ```
@@ -196,39 +197,9 @@ credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credh
 
 ```
 #### set secrets example.
-refer to:
 - platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
 - platform-automation-configuration/awstest/pipeline-vars/set-credhub-from-terraform.sh
-
-```
-
-credhub set -t value -n /concourse/main/s3_access_key_id -v admin
-credhub set -t value -n /concourse/main/s3_secret_access_key -v "PASSWORD"
-credhub set -t value -n /concourse/main/pivnet_token -v 11111111
-
-credhub set -t value -n /concourse/main/git_user_email -v admin@user.io
-credhub set -t value -n /concourse/main/git_user_username -v admin
-
-credhub set -t user -n /concourse/main/vcenter_user -z admin@vcenter.local -w "PASSWORD"
-credhub set -t ssh -n /concourse/main/opsman_ssh_key -u ~/.ssh/id_rsa.pub -p ~/.ssh/id_rsa
-credhub set -t value  -n /concourse/main/opsman_ssh_password  -v "PASSWORD"
-
-# register ssh key for git. ex) ~/.ssh/id_rsa
-credhub set -t rsa  -n /concourse/main/git_private_key  -p ~/.ssh/id_rsa
- 
-# cd concourse-bosh-deployment/cluster
-# bosh int ./concourse-creds.yml --path /atc_tls/certificate > atc_tls.cert
-# bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
-credhub set -t certificate -n /concourse/main/credhub_ca_cert -c ./credhub-ca.ca
-
-# grep concourse_to_credhub ./concourse-creds.yml
-credhub set -t user -n /concourse/main/credhub_client -z concourse_client -w "PASSWORD"
-
-credhub set -t user  -n /concourse/main/opsman_admin -z admin -w "PASSWORD"
-credhub set -t value -n /concourse/main/decryption-passphrase -v "PASSWORD"
-credhub set -t value -n /concourse/main/opsman_target -v https://opsman_url
-
-```
+- https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
 
 ## how to deploy concourse pipeline
 
