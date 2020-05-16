@@ -30,11 +30,11 @@
 2. upload TAS tile to opsman: manually or use concourse pipeline
 3. setup TAS and apply change.
 4. use om cli 'staged-config' or run 'generate-staged-config' in concourse pipeline:  
-  - run with set SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true in pipeline.
-  - will generate  generated-config/cf.yml in configuration git repository
-4. copy generated-config/tas.yml to products/tas.yml
-5. set PLACEHOLDER value to concourse CREDHUB.
-  - use domain.crt and domain.key file in previous steps.
+>  - run with set SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true in pipeline.
+>  - will generate  generated-config/cf.yml in configuration git repository
+5. copy generated-config/tas.yml to products/tas.yml
+6. set PLACEHOLDER value to concourse CREDHUB.
+>  - use domain.crt and domain.key file in previous steps.
 > https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
 
 
