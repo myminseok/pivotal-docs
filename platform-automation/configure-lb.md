@@ -66,8 +66,9 @@ awstest-tcp-tg-1024
 
 ```
 #### edit platform-automation-configuration/awstest/products/tas.yml
-- (only if manually setting up) guilde https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html#aws-terraform
-example for `awstest` environment
+- (only if manually setting up) guide
+> https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html#aws-terraform
+- example for `awstest` environment
 ``` yaml
 ...
 
