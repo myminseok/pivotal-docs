@@ -1,5 +1,5 @@
 
-# How to setup concourse pipeline for installing/upgrading PAS tile
+# Setting up installing/upgrading PAS tile concourse pipeline
 - official guide
 > https://docs.pivotal.io/platform-automation/v4.3/pipelines/multiple-products.html
 
@@ -39,14 +39,12 @@
 
 
 #### (optional) platform-automation-configuration/awstest/vars/tas.yml
-- for non-secret params can be set to yml file in vars folder. and can be set to 'prepare-tasks-with-secrets' tasks in concourse pipeline with `VARS_PATHS`.  https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets
-
-- example for tas.yml
+- for non-secret params can be set to yml file in vars folder. and can be set to 'prepare-tasks-with-secrets' tasks in concourse pipeline with `VARS_PATHS`.  https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets. example for vars/tas.yml
 ``` yaml
 region: ap-northeast-2
 ```
 - WARNING: any params referencing to credhub should not be set to files in vars folder, but set to products config file(ie. products/tas.yml). because 'prepare-tasks-with-secrets' tasks will use vars file specified in `VARS_PATHS` directly, without referencing to credhub. those parameters should be set . (see https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets)
-- for example, following params in vars/director.yml will fail when running pipeline in 'prepare-tasks-with-secrets' task.
+- for example, following params in vars/director.yml will fail when running pipeline in 'prepare-tasks-with-secrets' task. example for vars/tas.yml
 ``` yaml
 pivnet_token: ((pivnet_token_in_credhub))
 ```
