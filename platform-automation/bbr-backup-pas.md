@@ -1,29 +1,18 @@
-# Backup PAS & restore
+# Backup TAS & restore
 
-## Ref
-- http://docs.pivotal.io/platform-automation/v2.1/reference/pipeline.html#installing-ops-manager-and-tiles
+## prerequisits
+- [prepare concourse cluster with credhub](/concourse-with-credhub.md)
+- [get pipeline template](/platform-automation/get-pipeline-template.md)
+- [set credhub variables](/platform-automation/set-credhub-variables.md)
 
+## configure set-pipeline variables
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 
-## Config
-- docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
-- sample: https://github.com/myminseok/platform-automation-configuration-template
-```
-platform-automation-configuration-template
-└── dev-1
-    ├── config
-    ├── download-product-configs
-    ├── env
-    │   └── env.yml
-    ├── generated-config
-    ├── state
-    └── vars
-
-```
-
-### env.yml
+#### platform-automation-configuration/awstest/opsman/env.yml
 - to get BOSH_ENVIRONMENT from ops manager for bbr cli.
-- http://docs.pivotal.io/platform-automation/v2.1/configuration-management/configure-env.html
-```
+- official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
+- This file contains properties for targeting and logging into the Ops Manager API. 
+``` yaml
 ---
 target: ((opsman_target))
 connect-timeout: 30                 # default 5
@@ -35,18 +24,8 @@ decryption-passphrase: ((decryption-passphrase))
 ```
 
 
-## pipeline
-- sample: https://github.com/myminseok/platform-automation-pipelines-template
-```
-├── bbr-backup-params.yml
-├── bbr-backup.yml
-├── tasks
-│   ├── bbr-backup-pas.sh
-│   └── bbr-backup-pas.yml
-├── bbr-backup.sh
-```
-
-### bbr-backup-params.yml
+#### platform-automation-configuration/awstest/pipeline-vars/params.yml
+- [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
 ```
 
 foundation: dev-1
@@ -55,73 +34,49 @@ s3:
   endpoint: https:///s3.pcfdemo.net
   access_key_id: ((s3_access_key_id))
   secret_access_key: ((s3_secret_access_key))
-  region_name: ""
+  region_name: "dummy"
   buckets:
     platform_automation: platform-automation
     foundation: dev-1
     pivnet_products: pivnet-products
     installation: installation
-    bbr-backup: bbr-pcfdemo
-
-git:
-  platform-automation-pipeline:
-    uri: pivotal@git.pcfdemo.net/platform/platform-pipelines.git
-  platform_automation_tasks:
-    uri: pivotal@git.pcfdemo.net/platform/platform_automation_tasks.git
-  configuration:
-    uri: pivotal@git.pcfdemo.net:platform/platform-conf.git
-  variable:
-    uri: pivotal@git.pcfdemo.net:platform/platform-conf.git
-  user: 
-    email: ((git_user.email))
-    username: ((git_user.username))
-  private_key: ((git_private_key.private_key))
-
-credhub:
-  server: https://concourse.pcfdemo.net:8844
-  ca_cert: ((credhub_ca_cert.certificate))
-  client: ((credhub_client.username))
-  secret: ((credhub_client.password))
-  interpolate_folders: dev-1/env
-
-pivnet: 
-  token: ((pivnet_token))
+    bbr-backup: bbr-pcfdemo   <<=================== set this.
+...
 
 ```
 
+
+## pipeline
+- [sample code](https://github.com/myminseok/platform-automation-pipelines-template)
+```
+├── bbr-backup-params.yml
+├── bbr-backup.yml
+├── tasks
+│   ├── bbr-backup-pas.sh
+│   └── bbr-backup-pas.yml
+├── bbr-backup.sh
+```
 ###  register secret to concourse credhub.
 1. get director bbr ssh key: opsman UI> director> credentials> bbr_ssh_key
-1. set to concourse credhub:  
-
-```
-credhub set -t value -n /concourse/main/s3_access_key_id -v <S3_ACCESS_KEY>
-credhub set -t value -n /concourse/main/s3_secret_access_key -v "<S3_SECRET>"
-credhub set -t value -n /concourse/main/pivnet_token -v <YOUR_PIVNET_TOKEN>
-
-credhub set -t value -n /concourse/main/git_user_email -v <GIT_USER_EMAIL>
-credhub set -t value -n /concourse/main/git_user_username -v <GIT_USER_NAME>
-
-# register ssh key for git. ex) ~/.ssh/id_rsa
-credhub set -t rsa  -n /concourse/main/git_private_key  -p ~/.ssh/id_rsa 
- 
-cd concourse-bosh-deployment/cluster
-bosh int ./concourse-creds.yml --path /atc_tls/certificate > atc_tls.cert
-credhub set -t certificate -n /concourse/main/credhub_ca_cert -c ./atc_tls.cert
-
-grep concourse_to_credhub ./concourse-creds.yml
-credhub set -t user -n /concourse/main/credhub_client -z concourse_to_credhub -w <concourse_to_credhub>
-
-credhub set -t user  -n /concourse/dev-1/opsman_admin -z admin -w <YOUR_PASSWORD>
-credhub set -t value -n /concourse/dev-1/decryption-passphrase -v <YOUR_PASSWORD>
-credhub set -t value -n /concourse/dev-1/opsman_target -v https://opsman_url_or_IP
+2. [set to credhub](/platform-automation/set-credhub-variables.md)
 
 
-```
-
-## run pipeline
+## deploy concourse pipeline
 ```
 fly -t demo sp -p bbr-backup -c bbr-backup.yml -l ./bbr-backup-params.yml
 ```
+- each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
+- [sample code](https://github.com/myminseok/platform-automation-pipelines-template/bbr-backup.sh)
+
+``` bash
+$ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k
+$ bbr-backup.sh <FLY-TARGET> <FOUNDATION>
+
+$ bbr-backup.sh demo dev
+```
+
+
+
 ### backup in pipeline
 ```
 ## root@4390d837-fe20-412d-6a5a-2368d07e1532:/tmp/build/7caceab2/cf-c8399c1d00f7742d47a1_20190505T123820Z# ls -alh
