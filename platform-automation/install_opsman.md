@@ -2,23 +2,23 @@
 - official guide
 > https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
-## prerequisits
+## Prerequisits
 - [prepare concourse cluster with credhub](/concourse-with-credhub.md)
 - [get pipeline template](/platform-automation/get-pipeline-template.md)
 - [set credhub variables](/platform-automation/set-credhub-variables.md)
 - [download depencencies](/platform-automation/download_dependencies.md)
 
-## prepare pipeline parameters
+## Prepare pipeline parameters
 - pipeline parameters should be set to concourse-credhub or set directly to pipeline.
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 - [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
-#### prepare params.yml for `fly set-pipeline`
+#### Prepare params.yml for `fly set-pipeline`
 - values in params.yml can be referenced from credhub. see [set credhub variables](/platform-automation/set-credhub-variables.md)
 - platform-automation-configuration/awstest/pipeline-vars/params.yml
 - [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
 
-#### platform-automation-configuration/awstest/opsman/env.yml
+#### Platform-automation-configuration/awstest/opsman/env.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
 - This file contains properties for targeting and logging into the Ops Manager API. 
 
@@ -84,7 +84,7 @@ products:
 
 ```
 
-#### platform-automation-configuration/awstest/opsman/opsman.yml
+#### Platform-automation-configuration/awstest/opsman/opsman.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#opsmanyml
 - how to: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/installing-opsman.html
 
@@ -106,10 +106,10 @@ opsman-configuration:
     access_key_id: ((aws_access_key_id)) ## not ops_manager_iam_user_access_key
     secret_access_key: ((aws_secret_access_key))
 ```
-#### platform-automation-configuration/awstest/opsman/auth.yml
+#### Platform-automation-configuration/awstest/opsman/auth.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-auth.html
 
-#### platform-automation-configuration/awstest/opsman/director.yml
+#### Platform-automation-configuration/awstest/opsman/director.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-director-config-file.html
 
 - generated director.yml need to fix as following:
@@ -143,7 +143,7 @@ properties-configuration:
   5. generate-staged-director-config > configure-director
  
  
-#### (optional) platform-automation-configuration/awstest/vars/director.yml
+#### (optional) Platform-automation-configuration/awstest/vars/director.yml
 - for non-secret params can be set to yml file in vars folder. and can be set to 'prepare-tasks-with-secrets' tasks in concourse pipeline with `VARS_PATHS`.  https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets. example for vars/director.yml
 ``` yaml
 region: ap-northeast-2
@@ -153,11 +153,11 @@ region: ap-northeast-2
 ``` yaml
 pivnet_token: ((pivnet_token_in_credhub))
 ```
-#### (optional) platform-automation-configuration/awstest/vars/opsman.yml
+#### (optional) Platform-automation-configuration/awstest/vars/opsman.yml
 - the same as above.
 
 ##  Set secrets to concourse credhub per each foundation
-####  login to credhub
+####  Login to credhub
 ``` bash
 ubuntu@jumpbox:~/workspace/concourse-bosh-deployment-main$ cat login-credhub.sh
 bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
@@ -165,7 +165,7 @@ credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
 credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
 
 ```
-#### set secrets example.
+#### Set secrets example.
 - platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
 - platform-automation-configuration/awstest/pipeline-vars/set-credhub-from-terraform.sh
 - https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
@@ -184,12 +184,12 @@ $ manage-products.sh demo awstest
 
 ```
 
-# patch/upgrade opsman
+# Patch/upgrade opsman
 - (optional) download product to local s3.
 - run `upgrade-opsman` job1 in pipeline
 - `upgrade-opsman` should generate director.yml to platform-automation-configuration>FOUNDATION>generated-config>opsman.yml
 
-### how to  run pipeline for recovering opsman
+### How to run pipeline for recovering opsman
   1. download opsman ova from pivnet and upload to s3 as following
   2. edit version info in products.yml from git and commit.
   3. create-new-opsman-vm
@@ -197,8 +197,8 @@ $ manage-products.sh demo awstest
   5. apply-director-change
   then opsman will be recovered in a few minitues.
 
-## advanced.
-#### bosh dns config for a private DNS.
+## Advanced topics.
+#### Bosh dns config for a private DNS.
 opsmanager UI.>BOSH Director > BOSH DNS config
 ``` json
 [
