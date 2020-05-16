@@ -5,13 +5,9 @@ This document explains how to install concourse cluster with separated credhub u
 - https://docs.pivotal.io/p-concourse/v5/installation/install-concourse-bosh/
 - https://docs.pivotal.io/p-concourse/v5/advanced/integrate-credhub-uaa-bosh/
 
-
-
-
 ## Prerequisites.
 - [Setting up jumpbox](setup-bbl-sandbox.md)
 - [Prepare bosh director vm](bosh-deploy.md)
-
 
 ## setup bosh `vm extension` in cloud-config
 
@@ -124,8 +120,10 @@ bosh deploy \
 -o ./concourse-bosh-deployment/cluster/operations/worker-ephemeral-disk.yml 
 
 ```
-#### integrate with credhub
+## integrate with credhub
 - https://docs.pivotal.io/p-concourse/v5/advanced/integrate-credhub-uaa-bosh/
+
+
 
 
 ## test concourse
