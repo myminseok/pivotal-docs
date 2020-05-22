@@ -49,6 +49,17 @@
 2. put the certificate on Opsman UI > bosh director tile > security> Trusted Certificates https://docs.pivotal.io/platform/ops-manager/2-9/aws/config-manual.html#security
 3. apply change director and TAS 
 
+#### using self-signed domain for Service tile 
+- copy the self-signed certifiate from bosh credhub https://docs.pivotal.io/rabbitmq-cf/1-19/prepare-tls.html
+```
+credhub get \
+   --name=/services/tls_ca \
+   -k ca
+```   
+2. put the certificate on Opsman UI > bosh director tile > security> Trusted Certificates https://docs.pivotal.io/platform/ops-manager/2-9/aws/config-manual.html#security
+3. apply change director and TAS 
+
+
 
 
 
