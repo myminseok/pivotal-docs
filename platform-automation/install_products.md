@@ -46,7 +46,7 @@
 
 #### using self-signed domain on TAS
 1. copy the self-signed certifiate from Opsman UI> TAS tile> networking> "Certificates and private keys for the Gorouter and HAProxy"> certificate 
-2. put the certificate on Opsman UI > bosh director tile > security> Trusted Certificates https://docs.pivotal.io/platform/ops-manager/2-9/aws/config-manual.html#security
+2. paste the certificate into Opsman UI > bosh director tile > security> Trusted Certificates https://docs.pivotal.io/platform/ops-manager/2-9/aws/config-manual.html#security
 3. apply change director and TAS 
 
 #### using self-signed domain for Service tile 
