@@ -8,9 +8,9 @@ WARNING: this docs is for health 1.5, see official document for the latest healt
 
 ## Config
 - docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
-- sample: https://github.com/myminseok/platform-automation-configuration-template
+- sample: https://github.com/myminseok/platform-automation-template
 ```
-platform-automation-configuration-template
+platform-automation-template
 └── dev-1
     ├── products
     │   └── healthwatch.yml

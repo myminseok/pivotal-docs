@@ -14,17 +14,17 @@ bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
 credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
 credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
 
-platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
+platform-automation-template/awstest/pipeline-vars/set-credhub.sh
 ```
 
 #### set pipeline secrets to credhub
 - [set pipeline secrets to credhub](/platform-automation/set-pipeline-params.md)
-- refer to [sample code set-credhub.sh](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/setenv-credhub.sh)
+- refer to [sample code set-credhub.sh](https://github.com/myminseok/platform-automation-template/blob/master/dev/pipeline-vars/setenv-credhub.sh)
 
 
 ## secrets per each foundation from terraform state file
 - after terraforming, there is terraform.tfstate file. https://docs.pivotal.io/platform/2-7/customizing/aws-terraform.html
-- [sample code set-credhub-from-terraform.sh](https://github.com/myminseok/platform-automation-configuration-template/awstest/pipeline-vars/set-credhub-from-terraform.sh)
+- [sample code set-credhub-from-terraform.sh](https://github.com/myminseok/platform-automation-template/awstest/pipeline-vars/set-credhub-from-terraform.sh)
 - please note that pipelie specific variables will have a path of `/concourse/main/<PIPELINE_NAME>/...`
 ``` bash
 

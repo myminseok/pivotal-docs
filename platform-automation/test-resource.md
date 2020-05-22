@@ -11,7 +11,7 @@
 ```
 
 ## Pipeline
-- sample: https://github.com/myminseok/platform-automation-pipelines-template
+- sample: https://github.com/myminseok/platform-automation-template
 ```
 fly -t demo sp -p test-resources -c test-resources.yml -l ./test-resources-params.yml
 

@@ -14,8 +14,8 @@
 
 #### Prepare params.yml for `fly set-pipeline`
 - values in params.yml can be referenced from credhub. see [set credhub variables](/platform-automation/set-credhub-variables.md)
-- platform-automation-configuration/awstest/pipeline-vars/params.yml
-- [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
+- platform-automation-template/awstest/pipeline-vars/params.yml
+- [sample code](https://github.com/myminseok/platform-automation-template/blob/master/dev/pipeline-vars/params.yml)
 
 ``` yaml
 foundation: awstest
@@ -31,10 +31,10 @@ s3:
 
 git:
   platform_automation_pipelines:
-    uri: git@github.com:myminseok/platform-automation-pipelines-template.git
+    uri: git@github.com:myminseok/platform-automation-template.git
     branch: master
   platform_automation_configs:
-    uri: git@github.com:myminseok/platform-automation-configuration-template.git
+    uri: git@github.com:myminseok/platform-automation-template.git
     branch: master
   user:
     email: ((git_user_email))
@@ -56,7 +56,7 @@ pivnet:
 
 ## Deploy concourse pipeline
 - [get pipeline template](/platform-automation/get-pipeline-template.md)
-- [pipeline template code](https://github.com/myminseok/platform-automation-pipelines-template)
+- [pipeline template code](https://github.com/myminseok/platform-automation-template)
 ``` 
 platform-automation-pipelines
 ├── download-products-dev.sh
@@ -66,7 +66,7 @@ platform-automation-pipelines
 ```
 
 - each foundation will set pipeline using per foundation configs from platform-automation-configuration. 
-- [sample code download-product.sh](https://github.com/myminseok/platform-automation-pipelines-template/blob/master/download-product.sh)
+- [sample code download-product.sh](https://github.com/myminseok/platform-automation-template/blob/master/download-product.sh)
 - for example, download pipeline for `awstest` environment can be set as following:
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k

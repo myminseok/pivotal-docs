@@ -7,9 +7,9 @@
 
 ## Config
 - docs: http://docs.pivotal.io/platform-automation/v2.1/reference/inputs-outputs.html
-- sample: https://github.com/myminseok/platform-automation-configuration-template
+- sample: https://github.com/myminseok/platform-automation-template
 ```
-platform-automation-configuration-template
+platform-automation-template
 └── dev-1
     ├── config
     ├── download-product-configs
@@ -37,7 +37,7 @@ decryption-passphrase: ((decryption-passphrase))
 
 
 ## pipeline
-- sample: https://github.com/myminseok/platform-automation-pipelines-template
+- sample: https://github.com/myminseok/platform-automation-template
 ```
 ├── bbr-backup-params.yml
 ├── bbr-backup.yml

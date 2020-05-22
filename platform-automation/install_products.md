@@ -16,21 +16,21 @@
 - [sample configs template](https://github.com/myminseok/platform-automation-configs-template)
 
 #### Prepare params.yml for `fly set-pipeline`
-- [platform-automation-configuration/awstest/pipeline-vars/params.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/pipeline-vars/params.yml)
+- [platform-automation-template/awstest/pipeline-vars/params.yml](https://github.com/myminseok/platform-automation-template/blob/master/awstest/pipeline-vars/params.yml)
 - values in params.yml can be referenced from credhub. see [set credhub variables](/platform-automation/set-credhub-variables.md)
 
-#### platform-automation-configuration/awstest/opsman/env.yml
+#### platform-automation-template/awstest/opsman/env.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
 - This file contains properties for targeting and logging into the Ops Manager API. 
-- [platform-automation-configuration/awstest/opsman/env.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/opsman/env.yml)
+- [platform-automation-template/awstest/opsman/env.yml](https://github.com/myminseok/platform-automation-template/blob/master/awstest/opsman/env.yml)
 
-#### platform-automation-configuration/awstest/products/versions.yml
+#### platform-automation-template/awstest/products/versions.yml
 - pipeline will download binaries to container in concourse worker VM.
-- [platform-automation-configuration/awstest/products/versions.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/products/versions.yml)
+- [platform-automation-template/awstest/products/versions.yml](https://github.com/myminseok/platform-automation-template/blob/master/awstest/products/versions.yml)
 
-#### Create platform-automation-configuration/awstest/products/tas.yml
+#### Create platform-automation-template/awstest/products/tas.yml
 - how to generate: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-product-config-file.html
-- [platform-automation-configuration/awstest/products/tas.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/awstest/products/tas.yml)
+- [platform-automation-template/awstest/products/tas.yml](https://github.com/myminseok/platform-automation-template/blob/master/awstest/products/tas.yml)
 
 1. install opsman vm
 2. upload TAS tile to opsman: manually or use concourse pipeline
@@ -63,7 +63,7 @@ credhub get \
 
 
 
-#### (optional) platform-automation-configuration/awstest/vars/tas.yml
+#### (optional) platform-automation-template/awstest/vars/tas.yml
 - for non-secret params can be set to yml file in vars folder. and can be set to 'prepare-tasks-with-secrets' tasks in concourse pipeline with `VARS_PATHS`.  https://docs.pivotal.io/platform-automation/v4.3/tasks.html#prepare-tasks-with-secrets. example for vars/tas.yml
 ``` yaml
 region: ap-northeast-2
@@ -81,7 +81,7 @@ pivnet_token: ((pivnet_token_in_credhub))
 
 ## Deploy concourse pipeline
 - each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
-- [sample code manage-products-awstest.sh](https://github.com/myminseok/platform-automation-pipelines-template/manage-products-awstest.sh)
+- [sample code manage-products-awstest.sh](https://github.com/myminseok/platform-automation-template/manage-products-awstest.sh)
 
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k

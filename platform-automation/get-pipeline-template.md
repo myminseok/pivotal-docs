@@ -6,17 +6,17 @@ in jumpbox,as ubuntu user
 mkdir platform-automation-workspace
 cd platform-automation-workspace
 
-git clone https://github.com/myminseok/platform-automation-pipelines-template   platform-automation-pipelines
-git clone https://github.com/myminseok/platform-automation-configuration-template   platform-automation-configuration
+git clone https://github.com/myminseok/platform-automation-template   platform-automation-pipelines
+git clone https://github.com/myminseok/platform-automation-template   platform-automation-configuration
 
-mv platform-automation-configuration-template platform-automation-configuration
-mv platform-automation-pipelines-template platform-automation-pipelines
+mv platform-automation-template platform-automation-configuration
+mv platform-automation-template platform-automation-pipelines
 
 ```
 
 ## folder structure
 - platform-automation-configuration has configs per each foundation
-- [sample](https://github.com/myminseok/platform-automation-configuration-template)
+- [sample](https://github.com/myminseok/platform-automation-template)
 ```
 platform-automation-workspace/platform-automation-configuration
 ├── awstest
@@ -74,7 +74,7 @@ platform-automation-workspace/platform-automation-configuration
 ```
 
 ## pipeline 
-- [sample](https://github.com/myminseok/platform-automation-pipelines-template)
+- [sample](https://github.com/myminseok/platform-automation-template)
 ```
 platform-automation-workspace/platform-automation-pipelines
 ├── install-upgrade-all-aws.sh
@@ -99,6 +99,6 @@ each foundation will set pipeline using per foundation configs from platform-aut
 ``` bash
 fly -t auto sp -p "awstest-manage-products" \
 -c ./manage-products.yml \
--l ../platform-automation-configuration/awstest/pipeline-vars/params.yml
+-l ../platform-automation-template/awstest/pipeline-vars/params.yml
 ```
 

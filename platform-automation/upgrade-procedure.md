@@ -40,7 +40,7 @@ refer to
 
 
 <img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/patch-opsman.png" width="500">
-refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
+refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-template/blob/master/opsman-upgrade.yml
 
 ## **Minor** upgrade opsman procedure
 There are manual steps here which is dependent on product feature change.
@@ -58,7 +58,7 @@ There are manual steps here which is dependent on product feature change.
 
 
 <img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/major-upgrade-opsman.png" width="500">
-In the pipeline, all dependency removed between jobs because sometimes it is required to run a specific job manually for efficiency. such as if there is a fix in configuration on git. Skip “upload stemcells” to reuse pre-uploaded stemcells or there are optional steps sometimes. refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/opsman-upgrade.yml
+In the pipeline, all dependency removed between jobs because sometimes it is required to run a specific job manually for efficiency. such as if there is a fix in configuration on git. Skip “upload stemcells” to reuse pre-uploaded stemcells or there are optional steps sometimes. refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-template/blob/master/opsman-upgrade.yml
 
 ## **Patch** PAS procedure
 1. (concourse) (optional) upload stemcells
@@ -66,7 +66,7 @@ In the pipeline, all dependency removed between jobs because sometimes it is req
 3. (concourse) apply PAS tile change
 
 <img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/patch-opsman.png" width="500">
-refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
+refer to the concourse pipeline for the following procedure: https://github.com/myminseok/platform-automation-template/blob/master/pas.yml
 
 ## **Minor** upgrade PAS procedure
 There are manual steps here which is dependent on product feature change.
@@ -82,5 +82,5 @@ There are manual steps here which is dependent on product feature change.
 10. (concourse) apply PAS tile change
 
 <img src="https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/major-upgrade-pas.png" width="500">
-In the pipeline, all dependency removed between jobs because sometimes it is required to run a specific job manually for efficiency. such as if there is a fix in configuration on git. Skip “upload stemcells” to reuse pre-uploaded stemcells or there are optional steps sometimes. refer to the concourse pipeline for the following procedure:  https://github.com/myminseok/platform-automation-pipelines-template/blob/master/pas.yml
+In the pipeline, all dependency removed between jobs because sometimes it is required to run a specific job manually for efficiency. such as if there is a fix in configuration on git. Skip “upload stemcells” to reuse pre-uploaded stemcells or there are optional steps sometimes. refer to the concourse pipeline for the following procedure:  https://github.com/myminseok/platform-automation-template/blob/master/pas.yml
 

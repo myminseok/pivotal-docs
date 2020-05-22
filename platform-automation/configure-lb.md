@@ -21,7 +21,7 @@ om -e env.yml -k curl --path /api/v0/staged/vm_extensions/tcp-lb-security-groups
       '{"name": "tcp-lb-security-groups", "cloud_properties": { "security_groups": ["tcp_lb_security_group", "vms_security_group"] }}'
 ```
 
-##  edit platform-automation-configuration/awstest/opsman/director.yml > vmextensions-configuration
+##  edit platform-automation-template/awstest/opsman/director.yml > vmextensions-configuration
 
 ``` yaml
 az-configuration:
@@ -48,7 +48,7 @@ vmextensions-configuration:
 vmtypes-configuration: {}
 ```
 
-## edit  platform-automation-configuration/awstest/products/tas.yml
+## edit  platform-automation-template/awstest/products/tas.yml
 #### check terraform output 
 example for `awstest` environment
 ``` bash
@@ -65,7 +65,7 @@ awstest-tcp-tg-1024
 ...    
 
 ```
-#### edit platform-automation-configuration/awstest/products/tas.yml
+#### edit platform-automation-template/awstest/products/tas.yml
 - (only if manually setting up) guide
 > https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html#aws-terraform
 - example for `awstest` environment

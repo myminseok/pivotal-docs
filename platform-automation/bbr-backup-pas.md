@@ -8,7 +8,7 @@
 ## configure set-pipeline variables
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html
 
-#### platform-automation-configuration/awstest/opsman/env.yml
+#### platform-automation-template/awstest/opsman/env.yml
 - to get BOSH_ENVIRONMENT from ops manager for bbr cli.
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/inputs-outputs.html#env
 - This file contains properties for targeting and logging into the Ops Manager API. 
@@ -24,8 +24,8 @@ decryption-passphrase: ((decryption-passphrase))
 ```
 
 
-#### platform-automation-configuration/awstest/pipeline-vars/params.yml
-- [sample code](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
+#### platform-automation-template/awstest/pipeline-vars/params.yml
+- [sample code](https://github.com/myminseok/platform-automation-template/blob/master/dev/pipeline-vars/params.yml)
 ```
 
 foundation: dev-1
@@ -47,7 +47,7 @@ s3:
 
 
 ## pipeline
-- [sample code](https://github.com/myminseok/platform-automation-pipelines-template)
+- [sample code](https://github.com/myminseok/platform-automation-template)
 ```
 ├── bbr-backup-params.yml
 ├── bbr-backup.yml
@@ -66,7 +66,7 @@ s3:
 fly -t demo sp -p bbr-backup -c bbr-backup.yml -l ./bbr-backup-params.yml
 ```
 - each foundation will set pipeline using per foundation configs from platform-automation-configuration. for example, pipeline for awstest can be set as following:
-- [sample code](https://github.com/myminseok/platform-automation-pipelines-template/bbr-backup.sh)
+- [sample code](https://github.com/myminseok/platform-automation-template/bbr-backup.sh)
 
 ``` bash
 $ fly -t <FLY-TARGET> login -c https://your.concourse/ -b -k

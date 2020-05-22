@@ -11,12 +11,12 @@ bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca > credhub-ca.ca
 credhub api --server=https://credhub.pcfdemo.net:8844 --ca-cert=./credhub-ca.ca
 credhub login  --client-name=concourse_client --client-secret=$(bosh int ./credhub-vars-store.yml --path=/concourse_credhub_client_secret)
 
-platform-automation-configuration/awstest/pipeline-vars/set-credhub.sh
+platform-automation-template/awstest/pipeline-vars/set-credhub.sh
 ```
 
 #### set directly to the pipeline when fly set-pipeline
-- create a params.yml file(platform-automation-configuration/awstest/pipeline-vars/params.yml)
-- [sample params.yml](https://github.com/myminseok/platform-automation-configuration-template/blob/master/dev/pipeline-vars/params.yml)
+- create a params.yml file(platform-automation-template/awstest/pipeline-vars/params.yml)
+- [sample params.yml](https://github.com/myminseok/platform-automation-template/blob/master/dev/pipeline-vars/params.yml)
    
 ``` yaml
 foundation: awstest
@@ -32,10 +32,10 @@ s3:
 
 git:
   platform_automation_pipelines:
-    uri: git@github.com:myminseok/platform-automation-pipelines-template.git
+    uri: git@github.com:myminseok/platform-automation-template.git
     branch: master
   platform_automation_configs:
-    uri: git@github.com:myminseok/platform-automation-configuration-template.git
+    uri: git@github.com:myminseok/platform-automation-template.git
     branch: master
   user:
     email: ((git_user_email))
