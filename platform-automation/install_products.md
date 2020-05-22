@@ -35,6 +35,7 @@
 1. install opsman vm
 2. upload TAS tile to opsman: manually or use concourse pipeline
 3. setup TAS and apply change.
+
 4. use om cli 'staged-config' or run 'generate-staged-config' in concourse pipeline:  
 >  - run with set SUBSTITUTE_CREDENTIALS_WITH_PLACEHOLDERS: true in pipeline.
 >  - will generate  generated-config/cf.yml in configuration git repository
@@ -42,6 +43,13 @@
 6. set PLACEHOLDER value to concourse CREDHUB.
 >  - use domain.crt and domain.key file in previous steps.
 > https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/set-credhub-variables.md
+
+#### using self-signed domain on TAS
+1. copy the self-signed certifiate from Opsman UI> TAS tile> networking> "Certificates and private keys for the Gorouter and HAProxy"> certificate 
+2. put the certificate on Opsman UI > bosh director tile > security> Trusted Certificates https://docs.pivotal.io/platform/ops-manager/2-9/aws/config-manual.html#security
+3. apply change director and TAS 
+
+
 
 
 #### (optional) platform-automation-configuration/awstest/vars/tas.yml
