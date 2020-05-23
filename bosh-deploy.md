@@ -6,7 +6,7 @@ https://bosh.io/docs/bosh-lite/#install
 # bosh on aws
 ### 사전준비: setup network topology(AWS)
 ```
-my-vpc:
+my-vpc:(10.0.0.0/16)
 - Subnets:
   - subnet-public-1(10.0.0.0/24):
        - jumpbox vm (=> bind to public IP or EIP)
