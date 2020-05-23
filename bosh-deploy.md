@@ -33,6 +33,17 @@ my-vpc:(10.0.0.0/16)
       - subnet-private-1
 
 ```
+####
+https://bosh.io/docs/init-aws/#deploy
+
+
+#### cloud-config
+- cloud-config.yml: https://github.com/cloudfoundry/bosh-deployment/blob/master/aws/cloud-config.yml
+- network setting: https://bosh.io/docs/networks/#vip
+
+```
+bosh update-cloud-config ./cloud-config.yml
+```
 
 # bosh on vsphere
 
