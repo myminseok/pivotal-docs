@@ -33,67 +33,11 @@ my-vpc:(10.0.0.0/16)
       - subnet-private-1
 
 ```
-####
+#### deploy bosh 
 https://bosh.io/docs/init-aws/#deploy
 
-
-#### cloud-config
-- cloud-config.yml: https://github.com/cloudfoundry/bosh-deployment/blob/master/aws/cloud-config.yml
-- network setting: https://bosh.io/docs/networks/#vip
-
-```
-azs:
-- name: ap-northeast-2a
-  cloud_properties:
-    availability_zone: ap-northeast-2a
-vm_types:
-- name: default
-  cloud_properties:
-    instance_type: t2.small
-    ephemeral_disk: {size: 25_000}
-- name: large
-  cloud_properties:
-    instance_type: m5.xlarge
-    ephemeral_disk: {size: 50_000}
-
-disk_types:
-- name: default
-  disk_size: 3000
-- name: large
-  disk_size: 50_000
-
-networks:
-- name: default
-  type: manual
-  subnets:
-  - range: 10.0.1.0/24
-    gateway: 10.0.1.1
-    azs: [ap-northeast-2a]
-    dns: [8.8.8.8]
-    reserved: [10.0.1.1-10.0.1.20]
-    static:
-    - 10.0.1.100
-    cloud_properties:
-      subnet: subnet-0cac3dda4cc8305ef
-- name: vip
-  type: vip
-  subnets:
-  - azs: [ap-northeast-2a]
-    static:
-    - 3.34.71.61
-
-compilation:
-  workers: 5
-  reuse_compilation_vms: true
-  az: ap-northeast-2a
-  vm_type: default
-  network: default
-```
-
-```
-bosh update-cloud-config ./cloud-config.yml
-
-```
+#### sample deploy on aws
+https://github.com/myminseok/pivotal-docs/blob/master/zookeeper-bosh-release.md
 
 # bosh on vsphere
 
