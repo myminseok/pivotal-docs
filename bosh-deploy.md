@@ -1,10 +1,10 @@
 
-# bosh-lite on virtualbox
+# bosh-lite on Virtualbox
 https://bosh.io/docs/bosh-lite/#install
 
 
-# bosh on aws
-### 사전준비: setup network topology(AWS)
+# bosh on AWS
+### prerequites: setup network topology(AWS)
 ```
 my-vpc:(10.0.0.0/16)
 - Subnets:
@@ -36,10 +36,10 @@ my-vpc:(10.0.0.0/16)
 #### deploy bosh 
 https://bosh.io/docs/init-aws/#deploy
 
-#### sample deploy on aws
+#### sample deploy on AWS
 https://github.com/myminseok/pivotal-docs/blob/master/zookeeper-bosh-release.md
 
-# bosh on vsphere
+# bosh on Vsphere
 
 https://bosh.io/docs/init-vsphere/
 
