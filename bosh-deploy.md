@@ -132,7 +132,7 @@ sudo ping 8.8.8.8
 ```
 
 ```
-## cloud-config
+## runtime-config
 ubuntu@jumpbox:~/workspace/bosh-1$ cat runtime-config.yml
 ```
 ---
