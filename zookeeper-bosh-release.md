@@ -126,7 +126,7 @@ bosh create-env --recreate ./bosh-deployment/bosh.yml \
   -o ./bosh-deployment/aws/cpi.yml \
   -o ./bosh-deployment/uaa.yml \
   -o ./bosh-deployment/jumpbox-user.yml \
-  -v director_name=mkim-bosh \
+  -v director_name=my-bosh \
   -v internal_cidr=10.0.1.0/24 \
     -v internal_gw=10.0.1.1 \
     -v internal_ip=10.0.1.6 \
