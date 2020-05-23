@@ -8,11 +8,11 @@ No CPI config
 
 Exit code 1
 ```
-
+#### create EIP on AWS
 
 #### bosh cloud-config
-
-cloud-config.yml
+- https://github.com/cloudfoundry/bosh-deployment/blob/master/aws/cloud-config.yml
+- cloud-config.yml
 ```
 azs:
 - name: ap-northeast-2a
@@ -66,7 +66,7 @@ update
 bosh update-cloud-config ./cloud-config.yml
 ```
 
-#### deploy zookeeper bosh release
+#### zookeeper.yml
 - aws vip guide: https://bosh.io/docs/networks/#vip
 - zookeeper.yml
 ```
@@ -116,7 +116,30 @@ instance_groups:
 ```
 
 
-deploy
+#### deploy.sh
+
+```
+ubuntu@ip-10-0-0-162:~/bosh-1$ cat deploy.sh
+bosh create-env --recreate ./bosh-deployment/bosh.yml \
+  --state=./state.json \
+  --vars-store=./creds.yml \
+  -o ./bosh-deployment/aws/cpi.yml \
+  -o ./bosh-deployment/uaa.yml \
+  -o ./bosh-deployment/jumpbox-user.yml \
+  -v director_name=mkim-bosh \
+  -v internal_cidr=10.0.1.0/24 \
+    -v internal_gw=10.0.1.1 \
+    -v internal_ip=10.0.1.6 \
+    -v access_key_id=xxxx \
+    -v secret_access_key=xxx \
+    -v region=ap-northeast-2 \
+    -v az=ap-northeast-2a \
+    -v default_key_name=test-keypair \
+    -v default_security_groups=[test-securitygroup] \
+    --var-file private_key=~/test-keypair.pem \
+    -v subnet_id=subnet-0cac3dda4cc8305ef
+    
+```
 
 ```
 ubuntu@ip-10-0-0-162:~/zookeeper$ bosh vms
