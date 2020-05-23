@@ -1,13 +1,4 @@
-####  bosh cpi-config
-```
-$ bosh cpi-config
 
-Using environment '10.0.1.6' as client 'admin'
-
-No CPI config
-
-Exit code 1
-```
 #### create EIP on AWS
 
 #### bosh cloud-config
@@ -65,7 +56,10 @@ update
 ```
 bosh update-cloud-config ./cloud-config.yml
 ```
-
+####  bosh cpi-config
+- empty
+####  bosh runtime-config
+- empty
 #### zookeeper.yml
 - aws vip guide: https://bosh.io/docs/networks/#vip
 - zookeeper.yml
