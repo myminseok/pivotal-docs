@@ -34,7 +34,7 @@ Pivotal Cloud Foundry Documentation
 
 ## platform-automation Reference
 - https://github.com/pivotal/docs-platform-automation-reference-pipeline-config
-- https://github.com/tonyelmore/telmore
+- https://github.com/tonyelmore/telmore-platform-automation
 - https://github.com/making/platform-automation
 
 
