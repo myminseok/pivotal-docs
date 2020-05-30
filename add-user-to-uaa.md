@@ -32,12 +32,12 @@ Context: admin, from client admin
 ### add a user
 
 ```
-uaac user add Adam -p newAdminSecretPassword --emails newadmin@example.com
+uaac user add appsadmin -p PASSWORD --emails newadmin@example.com
 
-$ uaac member add cloud_controller.admin Adam
-$ uaac member add uaa.admin Adam
-$ uaac member add scim.read Adam
-$ uaac member add scim.write Adam
+uaac member add cloud_controller.admin appsadmin
+uaac member add uaa.admin appsadmin
+uaac member add scim.read appsadmin
+uaac member add scim.write appsadmin
 
-
+#  uaac member add healthwatch.admin appsadmin
 ```
