@@ -6,6 +6,8 @@ https://github.com/pivotal-cf/identity-sample-apps
 - app: https://github.com/rabbitmq/workloads/tree/master/resiliency#resilient-applications-in-java-handle-connection-failures-and-more
 - https://github.com/pivotal-cf/rabbit-example-app
 ```
+git clone https://github.com/pivotal-cf/rabbit-example-app
+
 curl https://rabbit-example-app.apps.CF_DOMAIN/store -XPOST -d 'test' -k
 curl https://rabbit-example-app.apps.CF_DOMAIN/store  -k
 ```
