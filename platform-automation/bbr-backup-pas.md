@@ -127,6 +127,8 @@ source ./bosh-env.sh
 
 ## run cck for PAS and other tiles
 ```
+bosh update-resurrection off
+ 
 bosh -e $BOSH_ENVIRONMENT \
 --ca-cert $BOSH_CA_CERT \
 -d DEPLOYMENT-NAME -n cck \
@@ -162,6 +164,14 @@ example
 --artifact-path cf-9d536bda70e40707c83d_20170810T152801Z
 
 ```
+
+```
+ bosh update-resurrection on
+```
+
+
 1. run apply change on OPSMAN UI
+
+
 
 
