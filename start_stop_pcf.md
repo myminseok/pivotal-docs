@@ -46,7 +46,20 @@ User      ops_manager
 Succeeded
 ```
 
+## Stop Service Instances and brokers
 
+```
+bosh update-resurrection off 
+ 
+bosh deployments |grep service-instance | awk '{print $1"    " $4}'
+
+# mysql 
+   (lead-follower : 2 VM --> single plan)
+   (HA cluster :3vm --> 1vm)
+   
+yes | bosh stop --hard -d service-instance_0c7f1d47-011a-49a3-941d-107ee3dbfec3    
+ 
+```
 
 ## PAS 중지 순서
 #### 0. 장애 예방을 위해 정지 전에 [bbr](https://docs.pivotal.io/pivotalcf/2-4/customizing/backup-restore/backup-pcf-bbr.html)을 통해 백업을 해야합니다.
@@ -56,7 +69,7 @@ Succeeded
 1. opsmanager vm에 ssh 접속
 2. bosh deployment 목록 추출.
 ```
-ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
+bosh deployments --column=name
 cf-c8399c1d00f7742d47a1
 
 ```
@@ -64,7 +77,7 @@ cf-c8399c1d00f7742d47a1
 bosh vms의 결과에서 vm의 상태가 "running"이어야합니다.
 
 ```
-ubuntu@opsmanager-2-4:~$ bosh -d cf-c8399c1d00f7742d47a1 vms
+bosh -d cf-c8399c1d00f7742d47a1 vms
 Using environment '10.10.10.21' as client 'ops_manager'
 
 Task 277537. Done
@@ -87,7 +100,7 @@ Succeeded
 4. bosh cloud-check에 deployment이름을 지정하여 VM상태 점검합니다. 
 bosh cloud-check 실행중에 VM이상이 발견되면 가이드에 따라 복구합니다. 가이드: https://bosh.io/docs/cck/ 를 참조합니다.
 ```
-ubuntu@opsmanager-2-4:~$ bosh -d  cf-c8399c1d00f7742d47a1 cloud-check 
+bosh -d  cf-c8399c1d00f7742d47a1 cloud-check 
 Performing cloud check...
 
 Processing deployment manifest
@@ -115,7 +128,7 @@ No problems found
 
 ```
 
-#### 4. 분산 시스템 VM을 1개로 scale down
+#### 4. Mysql VM을 1개로 scale down
 1. Ops Manager UI > Pivotal Application Service tile> resource config tab 
 2. 분산 시스템 VM을 1개로 scale down
 - concul_server
@@ -125,7 +138,7 @@ No problems found
 #### 5. 모든 PAS VM 중지.
 - bosh deployment 목록 추출.
 ```
-ubuntu@opsmanager-2-4:~$ bosh deployments --column=name
+bosh deployments --column=name
 cf-c8399c1d00f7742d47a1
 
 ```
