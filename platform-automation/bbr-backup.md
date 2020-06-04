@@ -151,9 +151,15 @@ $ printf --  "-----BEGIN RSA PRIVATE KEY----- MIIEkeycontents ----END RSA PRIVAT
 ```
 
 ## deply empty director 
+1. Remove bosh-state.json in opsman VM : /var/tempest/workspaces/default/deployments/bosh-state.json
+2. OPSMAN UI> Apply Changes (BOSH Director only)
 
 ## restore director
 ```
+om -e om-env.yml bosh-env > bosh-env.sh
+source bosh-env.sh
+
+
 bbr director \
 --host HOST \
 --username bbr \
@@ -161,10 +167,6 @@ bbr director \
 restore \
 --artifact-path PATH-TO-DIRECTOR-BACKUP
 
-```
-
-## restore director cleanup
-```
 bbr director \
 --host HOST \
 --username bbr \
@@ -172,9 +174,11 @@ bbr director \
 restore-cleanup
 ```
 
-## check bosh director
+## check deployments
 ```
+bosh update-resurrection off
 bosh deployments
+BOSH cck ( all deployments)
 
 ```
 
