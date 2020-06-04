@@ -1,3 +1,5 @@
+# test sso
+https://github.com/pivotal-cf/identity-sample-apps
 
 # test rabbitmq 
 - guide: https://docs.pivotal.io/rabbitmq-cf/1-19/use.html
