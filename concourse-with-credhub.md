@@ -127,7 +127,7 @@ bosh deploy \
 ```
 credhub_url: "https://credhub.pcfdemo.net:8844"
 credhub_client_id: "concourse_client"
-credhub_client_secret: 4oygaqhl3n0mfbnqwpm9
+credhub_client_secret: xxxx
 credhub_ca_cert: |
 
 ```
