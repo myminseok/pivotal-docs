@@ -52,7 +52,7 @@ mkdir -p ./workspace/bosh-1
 cd ./workspace/bosh-1
 git clone https://github.com/cloudfoundry/bosh-deployment
 ```
-local-dns.yml
+(optional: your private dnses) local-dns.yml
 ```
 ~/bosh-1$ cat local-dns.yml
 
