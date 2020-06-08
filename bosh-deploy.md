@@ -52,7 +52,15 @@ mkdir -p ./workspace/bosh-1
 cd ./workspace/bosh-1
 git clone https://github.com/cloudfoundry/bosh-deployment
 ```
+local-dns.yml
+```
+~/bosh-1$ cat local-dns.yml
 
+- path: /networks/name=default/subnets/0/dns
+  type: replace
+  value: [192.168.0.5,192.168.0.6]
+  
+```
 vi deploy-bosh.sh
 ```
 bosh create-env ./bosh-deployment/bosh.yml \
@@ -62,6 +70,7 @@ bosh create-env ./bosh-deployment/bosh.yml \
     -o ./bosh-deployment/jumpbox-user.yml \
     -o ./bosh-deployment/uaa.yml \
     -o ./bosh-deployment/misc/config-server.yml \
+    -o ./local-dns.yml \                                 <- (optional) your private dnses
     -v director_name=bosh \
     -v internal_cidr=10.10.10.0/24 \
     -v internal_gw=10.10.10.1 \
