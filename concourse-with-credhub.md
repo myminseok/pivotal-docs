@@ -123,6 +123,18 @@ bosh deploy \
 ## integrate with credhub
 - https://docs.pivotal.io/p-concourse/v5/advanced/integrate-credhub-uaa-bosh/
 
+### concourse-credhub-vars.yml
+```
+credhub_url: "https://credhub.pcfdemo.net:8844"
+credhub_client_id: "concourse_client"
+credhub_client_secret: 4oygaqhl3n0mfbnqwpm9
+credhub_ca_cert: |
+
+```
+
+```
+bosh int ./credhub-vars-store.yml --path=/credhub-ca/ca  >> concourse-credhub-vars.yml
+```
 
 
 
