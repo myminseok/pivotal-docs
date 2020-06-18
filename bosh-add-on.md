@@ -156,6 +156,32 @@ web/928d0c17-663c-41a1-b4ca-c5039140335e:~$ ulimit -n
 
 ```
 
+### run a script.
+
+https://bosh.io/releases/github.com/cloudfoundry/os-conf-release?all=1
+```
+bosh upload-release --sha1 6946056ad69ae378cb89c9ef76daf66370a7dc6a \
+  https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.0.0
+```
+
+```
+releases:
+- name: os-conf
+  version: 22.0.0
+  
+addons:
+- name: os-configuration
+  jobs:
+  - name: pre-start-script
+    release: os-conf
+    properties:
+      script: |-
+        #!/bin/bash
+        apt-get update
+
+```
+
+
 ## 참고
 - https://bosh.io/docs/runtime-config/
 - https://bosh.io/docs/addons-common/ 
