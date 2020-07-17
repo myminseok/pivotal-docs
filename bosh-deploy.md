@@ -52,29 +52,38 @@ mkdir -p ./workspace/bosh-1
 cd ./workspace/bosh-1
 git clone https://github.com/cloudfoundry/bosh-deployment
 ```
-(optional: your private dnses) local-dns.yml
+(optional: nsxt) https://bosh.io/docs/vsphere-cpi/#global
 ```
-~/bosh-1$ cat local-dns.yml
+./cpi-with-nsxt.yml
 
-- path: /networks/name=default/subnets/0/dns
+- path: /cloud_provider/properties/vcenter/nsxt?
   type: replace
-  value: [192.168.0.5,192.168.0.6]
-  
+  value:
+    host:
+    username:
+    password:
+    ca_cert: |
+       ----- 
+         
 ```
+
 vi deploy-bosh.sh
 ```
 bosh create-env ./bosh-deployment/bosh.yml \
     --state=state.json \
     --vars-store=creds.yml \
     -o ./bosh-deployment/vsphere/cpi.yml \
+    -o ./cpi-nsxt.yml \  <-- for nsxt
     -o ./bosh-deployment/jumpbox-user.yml \
     -o ./bosh-deployment/uaa.yml \
-    -o ./bosh-deployment/misc/config-server.yml \
-    -o ./local-dns.yml \                                 <- (optional) your private dnses
+    -o ./bosh-deployment/misc/dns.yml  \  <-- for air-gapped env
+    -o ./bosh-deployment/misc/ntp.yml  \  <-- for air-gapped env
     -v director_name=bosh \
     -v internal_cidr=10.10.10.0/24 \
     -v internal_gw=10.10.10.1 \
     -v internal_ip=10.10.10.200 \
+    -v internal_dns=[8.8.8.8] \
+    -v internal_ntp=[time1.google.com] \
     -v network_name="VM Network" \
     -v vcenter_dc=datacenter \
     -v vcenter_ds=pcfstore \
