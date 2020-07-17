@@ -62,10 +62,14 @@ git clone https://github.com/cloudfoundry/bosh-deployment
     host:
     username:
     password:
-    ca_cert: |
+    ca_cert: |                                     
        ----- 
          
 ```
+> nsxt.ca_cert:  
+>> - openssl s_client -host NSX-ADDRESS -port 443 -prexit -showcerts
+>> - https://docs.pivotal.io/platform/application-service/2-7/operating/vsphere-nsx-t.html#nsx-t-mode
+
 
 vi deploy-bosh.sh
 ```
