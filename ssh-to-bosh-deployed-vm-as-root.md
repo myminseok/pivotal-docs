@@ -1,4 +1,4 @@
-This document explains how to ssh into bosh deployed vms. and will explain how to get 'root' access to the vm.
+This document explains how to ssh into bosh deployed vms and how to get 'root' priviledge to the vm.
 
 1) ssh into jumpbox
 - where you can access the bosh
