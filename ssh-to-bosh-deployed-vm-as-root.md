@@ -3,7 +3,7 @@ This document explains how to ssh into bosh deployed vms and how to get 'root' p
 1) ssh into jumpbox
 - where you can access the bosh
 
-2) generate sha-512 password (on ubuntu vm)
+2) generate sha-512 password (on ubuntu vm). it is 'boshbosh' in the example.
 
 ```
 apt update
@@ -13,7 +13,7 @@ apt install whois -y
 $6$HbFxBfEFH/YR.$uqC2eeHS4CnczDXw1smtT.MJtCzM/X1mTygadE8DuOpNBy5xddB1mHxFytnSrp1v.LAs2DltRkyYzos8kkjf50
 ```
 
-3) get deployment manifest.yml from bosh.
+3) get deployment manifest.yml from bosh. 
 
 ```
 bosh -d <DEPLOYMENT> manifest > deployment.yml
@@ -51,7 +51,7 @@ vcap
 
 ```
 
-7) switch to root with the vcap password.
+7) switch to root with the vcap password. type in the password you set in the previous step.
 
 ```
 minio/77dffee3-0090-4412-872e-1a858aca7bc5:~$ sudo su
