@@ -1,12 +1,9 @@
 This document explains how to ssh into bosh deployed vms. and will explain how to get 'root' access to the vm.
 
-1) ssh into opsmanager VM
+1) ssh into jumpbox
+- where you can access the bosh
 
-2) get deployment manifest.yml
-
-bosh -d <DEPLOYMENT> manifest > deployment.yml
-
-3) generate sha-512 password (on ubuntu vm)
+2) generate sha-512 password (on ubuntu vm)
 
 ```
 apt update
@@ -14,6 +11,12 @@ apt install whois -y
 
 ~$ mkpasswd -s -m sha-512 boshbosh
 $6$HbFxBfEFH/YR.$uqC2eeHS4CnczDXw1smtT.MJtCzM/X1mTygadE8DuOpNBy5xddB1mHxFytnSrp1v.LAs2DltRkyYzos8kkjf50
+```
+
+3) get deployment manifest.yml from bosh.
+
+```
+bosh -d <DEPLOYMENT> manifest > deployment.yml
 ```
 
 4) set vcap password to the vm deployment
@@ -29,7 +32,6 @@ instance_groups:
       password: $6$HbFxBfEFH/YR.$uqC2eeHS4CnczDXw1smtT.MJtCzM/X1mTygadE8DuOpNBy5xddB1mHxFytnSrp1v.LAs2DltRkyYzos8kkjf50
 
 ```
-
 5) deploy the deployment.
 
 6) ssh into the deployment VM with opsman ssh key.
@@ -60,7 +62,6 @@ root
 minio/77dffee3-0090-4412-872e-1a858aca7bc5:/home/vcap#
 
 ```
-
 
 ## ref
 - https://community.pivotal.io/s/article/How-to-Override-Bosh-VCAP-password-of-an-on-demand-service?language=en_US.
