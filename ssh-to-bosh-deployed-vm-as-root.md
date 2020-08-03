@@ -1,8 +1,5 @@
 This document explains how to ssh into bosh deployed vms. and will explain how to get 'root' access to the vm.
 
-
-some contents are following this https://community.pivotal.io/s/article/How-to-Override-Bosh-VCAP-password-of-an-on-demand-service?language=en_US.
-
 1) ssh into opsmanager VM
 
 2) get deployment manifest.yml
@@ -63,4 +60,9 @@ root
 minio/77dffee3-0090-4412-872e-1a858aca7bc5:/home/vcap#
 
 ```
+
+
+## ref
+- https://community.pivotal.io/s/article/How-to-Override-Bosh-VCAP-password-of-an-on-demand-service?language=en_US.
+- https://starkandwayne.com/blog/how-to-lock-vcap-password-for-bosh-vms/
 
