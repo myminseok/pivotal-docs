@@ -40,7 +40,8 @@ curl -X DELETE $APP/foo -k
 *  https://docs.pivotal.io/p-cloud-cache/1-12/dev-instance-sharing.html
 *  https://docs.cloudfoundry.org/devguide/services/sharing-instances.html
 
-
+# spring cloud service registry
+- sample app(greeting): https://github.com/spring-cloud-services-samples/greeting/tree/master
 
 # test  mongodb cli 
 ```
