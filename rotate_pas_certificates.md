@@ -1,5 +1,18 @@
-참고: 
-https://docs.pivotal.io/pivotalcf/2-2/security/pcf-infrastructure/api-cert-rotation.html
+## Maestro compatibility table
+- https://docs.pivotal.io/ops-manager/2-10/security/pcf-infrastructure/maestro-tile-compatibility.html
+## IF ALL service tiles are compatable with Maestro=> Maestro
+- https://docs.pivotal.io/ops-manager/2-10/security/pcf-infrastructure/advanced-certificate-rotation.html#services-rotation 
+## Maestro incompatibile(TKGi)=>  Ops Manager API 
+- https://docs.pivotal.io/ops-manager/2-10/security/pcf-infrastructure/managing-certificates.html
+- service tls ca: https://docs.pivotal.io/ops-manager/2-10/security/pcf-infrastructure/services_tls_ca_rotate.html
+## Opsman 2.7-2.8, with Mysql, redis, rabbitmq, gemfire 
+- https://community.pivotal.io/s/article/Rotating-services-tls-ca-certificate-using-credhub-transitional-certificate-rotation-feature?language=en_US
+
+## Certs Expired already: 
+- How to rotate an already expired /services/tls_ca certificate: https://community.pivotal.io/s/article/How-to-rotate-and-already-expired-services-tls-ca-certificate?language=en_US
+
+
+### with Ops Manager API 
 
 ```
 # ssh into ops manager VM.
