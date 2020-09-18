@@ -125,7 +125,7 @@ bosh deploy \
 
 ```
 ## integrate with credhub
-- https://docs.pivotal.io/p-concourse/v5/advanced/integrate-credhub-uaa-bosh/
+- https://docs.pivotal.io/p-concourse/v6/advanced/integrate-credhub-uaa-bosh/
 
 ### concourse-credhub-vars.yml
 
