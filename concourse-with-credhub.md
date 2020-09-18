@@ -74,10 +74,12 @@ external_url: https://concourse.pcfdemo.net   <--- concourse access url
 external_host: concourse.pcfdemo.net
 network_name: concourse
 postgres_password: 
-web_ip: 10.10.10.210
+#web_ip: 10.10.10.210
 web_vm_type: medium
+#web_network_vm_extension: lb
 worker_vm_type: xlarge.disk
 worker_ephemeral_disk: 100GB_ephemeral_disk  <--- already set in bosh cloud-config
+azs: [z1]
 ```
 
 
@@ -113,11 +115,11 @@ bosh deploy \
 -o ./concourse-bosh-deployment/cluster/operations/backup-atc.yml \
 -o ./concourse-bosh-deployment/cluster/operations/basic-auth.yml \
 -o ./concourse-bosh-deployment/cluster/operations/privileged-http.yml \
--o ./concourse-bosh-deployment/cluster/operations/static-web.yml \
 -o ./concourse-bosh-deployment/cluster/operations/privileged-https.yml \
 -o ./concourse-bosh-deployment/cluster/operations/tls.yml \
 -o ./concourse-bosh-deployment/cluster/operations/tls-vars.yml  \
--o ./concourse-bosh-deployment/cluster/operations/worker-ephemeral-disk.yml 
+-o ./concourse-bosh-deployment/cluster/operations/worker-ephemeral-disk.yml \
+-o ./concourse-bosh-deployment/cluster/operations/web-network-extension.yml 
 
 ```
 ## integrate with credhub
