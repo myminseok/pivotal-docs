@@ -111,3 +111,10 @@ fly -t sandbox up -p hello-credhub
 fly -t sandbox tj -j hello-credhub/hello-credhub -w
 ```
 
+
+## worker disk
+- https://docs.pivotal.io/p-concourse/v5/troubleshooting/
+- https://vleue.com/docs/concourse-worker.html
+- https://medium.com/concourse-ci/suspicious-volume-usage-on-workers-72131cff9bfd
+- https://medium.com/concourse-ci/concourse-resource-volume-caching-7f4eb73be1a6
+- https://fruty.io/2018/03/28/operational-feedback-on-concourse-ci/
