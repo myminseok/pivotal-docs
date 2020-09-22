@@ -15,9 +15,10 @@ function services() {
 	for SERVICE in $ALL_SERVICES
 	do
 	echo "============================================================================="
-	echo "FOUND SERVICE in '$ORG' org, '$SPACE' space =>  '$SERVICE' service"
+	echo "FOUND SERVICE in '$ORG' org, '$SPACE' space "
+	echo "  service '$SERVICE' guid: $(cf service $SERVICE --guid)"
+	echo "  details      --------------------------------------------------------------"
 	echo "  $(cf service $SERVICE | awk 'NR >3 ')"
-	echo " guid: $(cf service $SERVICE --guid)"
 	echo "-----------------------------------------------------------------------------"
 	done
 }
