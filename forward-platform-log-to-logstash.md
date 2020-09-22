@@ -44,10 +44,16 @@ $ActionFileDefaultTemplate pcf_format
 
 $FileCreateMode 0644
 
-
-if ($rawmsg contains 'deployment=') then
+if ($rawmsg contains '/APP/PROC/WEB') then
 {
-  /var/log/pcf-tile.log;pcf_format
+  set $!rawmsg = $hostname & " "&procid & " " &msg;
+  /var/log/pcf-tile.log;
+}
+
+if ($rawmsg contains 'deployment="') then
+{
+  set $!rawmsg = $hostname & " "&programname & " " &msg;
+  /var/log/pcf-tile.log;
 }
 else if ( $rawmsg contains 'component":"Ops Manager') then
 {

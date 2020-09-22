@@ -1,7 +1,6 @@
 
 # bosh docs
 - https://ultimateguidetobosh.com/
-- http://bosh-docs.cfapps.io/
 - https://bosh.io/docs/dns/
 
 # sample-release download

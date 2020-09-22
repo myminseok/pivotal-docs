@@ -2,9 +2,14 @@
 https://github.com/pivotal-cf/identity-sample-apps
 
 # test rabbitmq 
-- guide: https://docs.pivotal.io/rabbitmq-cf/1-19/use.html
+- guide: https://docs.pivotal.io/rabbitmq-cf/1-20/index.html
 - app: https://github.com/rabbitmq/workloads/tree/master/resiliency#resilient-applications-in-java-handle-connection-failures-and-more
 - https://github.com/pivotal-cf/rabbit-example-app
+
+- BACKUP & recovery; https://docs.pivotal.io/rabbitmq-cf/1-19/troubleshoot.html#backup
+- network partition: https://www.rabbitmq.com/partitions.html
+
+
 ```
 git clone https://github.com/pivotal-cf/rabbit-example-app
 
@@ -22,6 +27,21 @@ curl -X DELETE $APP/foo -k
 
 ```
 
+# test gemfire
+- https://docs.pivotal.io/p-cloud-cache/1-12/
+- enable single instance upgrade: https://docs.pivotal.io/p-cloud-cache/1-12/upgrade.html#enable-individual-upgrades
+- limitation: https://docs.pivotal.io/p-cloud-cache/1-12/usage.html
+- sample app (session caching): https://docs.pivotal.io/p-cloud-cache/1-12/Spring-SessionState.html
+- sample app git: https://github.com/pivotal-cf/http-session-caching
+- gemfire service instance: session-replication tag: https://tanzu.vmware.com/application-modernization-recipes/replatforming/offload-http-sessions-with-spring-session-and-redis
+- backup: https://docs.pivotal.io/p-cloud-cache/1-12/backupandrestore.html
+- compaction: https://gemfire.docs.pivotal.io/910/geode/managing/disk_storage/compacting_disk_stores.html#compacting_disk_stores
+- instance sharing: bind-service, unbind-service, read/view only
+*  https://docs.pivotal.io/p-cloud-cache/1-12/dev-instance-sharing.html
+*  https://docs.cloudfoundry.org/devguide/services/sharing-instances.html
+
+# spring cloud service registry
+- sample app(greeting): https://github.com/spring-cloud-services-samples/greeting/tree/master
 
 # test  mongodb cli 
 ```

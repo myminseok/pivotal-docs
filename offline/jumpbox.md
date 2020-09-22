@@ -18,7 +18,19 @@ ubuntu@external-jumpbox:~/bosh-download$ apt-get download  build-essential zlibc
 ubuntu@external-jumpbox:~/bosh-download$  apt-get download libcurl3
 
 ```
-### (external jumpbox) install depencencies
+
+# cf cli
+```
+wget https://docs.cloudfoundry.org/cf-cli/install-go-cli.html#pkg-linux
+wget -O cf.deb https://cli.run.pivotal.io/stable?release=debian64&source=github
+```
+
+## Install git cli (jumpbox)
+https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+
+
+
+### (external jumpbox) install depencencies test
 
 ```
 sudo su
