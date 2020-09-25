@@ -4,7 +4,7 @@ there are two jumpboxes(internal, external)
 ## create EXTERNAL jumpbox 
 
 ### VM spec
-- Ubuntu 16.04 LTS, 64 bit  http://releases.ubuntu.com/xenial/
+- Ubuntu-server 16.04 LTS, 64 bit  http://releases.ubuntu.com/xenial/
 - 2cpu, 4gbmem, os disk 3gb, persistent disk 500GB - 1TB
 
 
