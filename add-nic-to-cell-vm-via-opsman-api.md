@@ -1,28 +1,9 @@
 Ops manager API를 통해 PAS diego_cell에 추가 network interface card를 추가하는 방법을 설명합니다. 
 - https://docs.pivotal.io/pivotalcf/2-6/opsman-api/#configuring-resources-for-a-job
 
-### Ops Manager VM에 ssh 접속하기
-```
-chmod 600 <opsmanager_ssh.keyfile>
-ssh -i <opsmanager_ssh.keyfile> ubuntu@<opsman.url>
-```
+### login to Ops Manager uaa
+[opsman_login_uaac](opsman_login_uaac.md)
 
-### uaac login
-```
-opsman$ uaac target https://<opsman.domain.url>/uaa --skip-ssl-validation
-Target: https://<opsman.domain.url>/uaa
-Context: admin, from client opsman
-
-opsman$  uaac token owner get
-Client ID:  opsman
-Client secret:
-User name:  admin
-Password:  <opsman ui admin password>
-
-Successfully fetched token via owner password grant.
-Context: admin, from client opsman
-
-```
 
 ### director network guid 조회
 ```
