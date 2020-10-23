@@ -1,3 +1,5 @@
+
+## test connectivity
 ```
 mongo --host IP:27017 -u root -p PASS
 
@@ -31,7 +33,7 @@ rs0:PRIMARY> show collections;
 
 ```
 
-# test  mongodump
+## test  mongodump
 https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/
 ```
 mongodump --host IP --port 27017 -u root -p PASS  --out=./backup
@@ -47,7 +49,7 @@ find ./backup/
 ./backup/admin/system.users.metadata.json
 ```
 
-# test mongorestore
+## test mongorestore
 ```
 mongorestore  --host IP --port 27017 --authenticationDatabase=admin  -u root -p PASS  ./backup
 2020-05-06T07:47:49.764+0000	preparing collections to restore from
