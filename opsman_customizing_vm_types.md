@@ -1,3 +1,5 @@
+referes to https://docs.pivotal.io/platform/2-10/opsman-api/#tag/VM-types/paths/~1api~1v0~1vm_types/put
+
 ### login to Ops Manager uaa
 [opsman_login_uaac](opsman_login_uaac.md)
 
