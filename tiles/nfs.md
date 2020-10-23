@@ -1,3 +1,3 @@
-https://docs.pivotal.io/application-service/2-9/devguide/services/using-vol-services.html
-create nfs service instance: https://docs.pivotal.io/application-service/2-9/devguide/services/using-vol-services.html#create-nfs
-sample app(pora): https://docs.pivotal.io/application-service/2-9/devguide/services/using-vol-services.html
+-guide: https://docs.pivotal.io/application-service/2-9/devguide/services/using-vol-services.html
+- create nfs service instance: https://docs.pivotal.io/application-service/2-9/devguide/services/using-vol-services.html#create-nfs
+- sample app(pora): https://docs.pivotal.io/application-service/2-9/devguide/services/using-vol-services.html
