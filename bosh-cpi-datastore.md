@@ -1,6 +1,9 @@
 - https://bosh.io/docs/cpi-config/
 - https://www.starkandwayne.com/blog/multi-cpi-bosh-one-bosh-to-rule-them-all/
 
+## relationship
+
+
 ```
 cpi <----- stemcell
     <----- datastore> vm disk
@@ -8,6 +11,7 @@ cpi <----- stemcell
     
 ```
 ## 1. Deploying bosh VM with no default cpi config.
+if you deploy an oss bosh deployment, there is no bosh configs at first. for example, Following command will create a director vm on datastore1. and no result for `bosh configs`. so, if you deploy a bosh release, then the release deployment will use cpi.json information to place vm and datastore
 
 ```
 bosh create-env bosh-deployment/bosh.yml \
@@ -36,9 +40,8 @@ bosh create-env bosh-deployment/bosh.yml \
     -v vcenter_disks=bosh-1-disks \
     -v vcenter_cluster=Cluster
  ```
-> above command will create a director vm on datastore1.
 
-- In the bosh vm, there is cpi config as following:
+- In the bosh vm, there is cpi config for vsphere_cpi as following:
 
 ```
 bosh/0:/var/vcap/jobs/vsphere_cpi/config# cat cpi.json
@@ -95,16 +98,15 @@ bosh/0:/var/vcap/jobs/vsphere_cpi/config# cat cpi.json
 }
 
 ```
-> if you deploy bosh release, then the deployment will use cpi.json information to place vm and datastore.
 
 
 
+## Defining bosh cpi-config for bosh release deployment
+- if you define bosh configs (`bosh update-cpi-config`, `bosh update-cloud-config`) as following, then It will overrides the `cpi.json` defined above, so the bosh release deployment will use the bosh configs.
 
-## Defining cpi-config for bosh release deployment
-- cpi.json in bosh vm is default cpi config used for deploying bosh releases by bosh. 
-- To use multi-cpis by overriding default cpi.json, you need to define cpi-config and cloud-config.
+####  cpi-config.yml
 
-``` cpi-config.yml
+``` 
 cpis:
 - name: cpi1
   properties:
@@ -123,12 +125,14 @@ cpis:
     enable_human_readable_name: true
     password: PASSWORD
     user: administrator@vsphere.local
-  type: vsphere
- 
-  
+  type: vsphere  
 ```
 
-``` cloud-config.yml
+```
+bosh update-cpi-config ./cpi-config.yml
+```
+####  cloud-config.yml
+``` 
 azs:
 - name: mgmt-az
   cpi: cpi1                     <===== map to cpi name in cpi-config.
@@ -173,6 +177,9 @@ compilation:
   vm_type: default
 ```
 
+```
+bosh update-cloud-config ./cloud-config.yml
+```
 
 ### upload temcells to the new CPIs
 
@@ -189,8 +196,6 @@ bosh-vsphere-esxi-ubuntu-xenial-go_agent  621.90*  ubuntu-xenial  -             
                                           621.90   ubuntu-xenial  cpi2                sc-1b0bc4c5-af53-4a2b-b21f-f30283f32974
 
 ```
-
-
 
 ## missing bosh stemcell
 
@@ -228,6 +233,9 @@ if bosh lost it's stemcell on vsphere, then empty 'stemcells' section in `state.
 ```
 
 
-## migrate bosh datestore
+## migrating bosh datestore procedure
 https://bosh.io/docs/vsphere-migrate-datastores/
     
+## change bosh cpi
+TBD
+
