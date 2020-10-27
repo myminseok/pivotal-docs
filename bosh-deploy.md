@@ -169,32 +169,9 @@ sudo ping 8.8.8.8
 
 
 ## cpi-config
-https://bosh.io/docs/vsphere-cpi/#cloud-config
-```
 
-cpis:
-- migrated_from:
-  - name: ""
-  name: 6552ba16572953313cea
-  properties:
-    datacenters:
-    - allow_mixed_datastores: true
-      clusters:
-      - cluster1: {}
-      datastore_pattern: datastore1  
-      disk_path: pcf_disk
-      name: datacenter
-      persistent_datastore_pattern: datastore1
-      template_folder: pcf_templates
-      vm_folder: pcf_vms
-    default_disk_type: preallocated
-    host:  
-    enable_human_readable_name: true
-    password:  
-    user: 
-  type: vsphere
+https://github.com/myminseok/pivotal-docs/blob/master/bosh-cpi-datastore.md
 
-```
 ## runtime-config
 
 ```
