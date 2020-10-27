@@ -9,13 +9,16 @@ there are two jumpboxes(internal, external)
 
 
 ### (external jumpbox) download files
-https://bosh.io/docs/cli-v2-install/
+
+# bosh cli
+https://bosh.io/docs/cli-v2-install/#ubuntu
 ```
 mkdir  /home/ubuntu/bosh-download && cd /home/ubuntu/bosh-download
-
 # download bosh dependency binaries
 ubuntu@external-jumpbox:~/bosh-download$ sudo apt-get update
-ubuntu@external-jumpbox:~/bosh-download$ apt-get download  build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt1-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
+
+sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
+
 ubuntu@external-jumpbox:~/bosh-download$  apt-get download libcurl3
 
 ```
