@@ -1,7 +1,7 @@
 - https://bosh.io/docs/cpi-config/
 - https://www.starkandwayne.com/blog/multi-cpi-bosh-one-bosh-to-rule-them-all/
 
-## 1. Deploy bosh VM and cpi config
+## 1. Deploying bosh VM
 
 ```
 bosh create-env bosh-deployment/bosh.yml \
@@ -32,7 +32,8 @@ bosh create-env bosh-deployment/bosh.yml \
  ```
 > above command will create a director vm on datastore1.
 
-## in the bosh vm, there is cpi config as following
+- In the bosh vm, there is cpi config as following:
+
 ```
 bosh/0:/var/vcap/jobs/vsphere_cpi/config# cat cpi.json
 
@@ -95,9 +96,9 @@ bosh/0:/var/vcap/jobs/vsphere_cpi/config# cat cpi.json
 
 
 
-## defining cpi-config for bosh release deployment
+## Defining cpi-config for bosh release deployment
 - cpi.json in bosh vm is default cpi config used for deploying bosh releases by bosh. 
-- To use multi-cpis, you need to define cpi-config and cloud-config.
+- To use multi-cpis by overriding default cpi.json, you need to define cpi-config and cloud-config.
 
 ``` cpi-config.yml
 cpis:
@@ -169,7 +170,7 @@ compilation:
 ```
 
 
-## stemcells bound to cpi.
+### bind Stemcells to cpi.
 
 - upload stemcells to the new cpis by `bosh upload-stemcell`
 - if multi-cpi, then `bosh upload-stemcell` will upload to all CPIs.
