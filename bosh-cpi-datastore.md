@@ -226,4 +226,8 @@ if bosh lost it's stemcell on vsphere, then empty 'stemcells' section in `state.
     "releases": []
     
 ```
+
+
+## migrate bosh datestore
+https://bosh.io/docs/vsphere-migrate-datastores/
     
