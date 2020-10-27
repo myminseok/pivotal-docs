@@ -169,7 +169,7 @@ sudo ping 8.8.8.8
 
 
 ## cpi-config
-
+https://bosh.io/docs/vsphere-cpi/#cloud-config
 ```
 
 cpis:
