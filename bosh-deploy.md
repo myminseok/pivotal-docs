@@ -104,7 +104,7 @@ bosh create-env ./bosh-deployment/bosh.yml \
 ```
 
 ### test bosh env
-ubuntu@jumpbox:~/workspace/bosh-1$ cat setup-boshenv.sh
+ubuntu@jumpbox:~/workspace/bosh-1$ cat bosh-env.txt
 ```
 #!/bin/bash
 
@@ -115,9 +115,15 @@ bosh int $SCRIPT_DIR/creds.yml  --path /director_ssl/ca > $SCRIPT_DIR/director.c
 export BOSH_CA_CERT=$SCRIPT_DIR/director.ca
 export BOSH_ENVIRONMENT=10.10.10.200
 
+bosh int $SCRIPT_DIR/creds.yml  --path /jumpbox_ssh/private_key > $SCRIPT_DIR/jumpbox_ssh.key
+chmod 600 $SCRIPT_DIR/jumpbox_ssh.key
+echo "ssh -i $SCRIPT_DIR/jumpbox_ssh.key jumpbox@$BOSH_ENVIRONMENT" > $SCRIPT_DIR/ssh_jumpbox.sh
+chmod +x $SCRIPT_DIR/ssh_jumpbox.sh
+
 ```
 
 ```
+source bosh-env.txt
 ubuntu@jumpbox:~/workspace/bosh-1$ bosh env
 Using environment '10.10.10.200' as client 'admin'
 
