@@ -7,7 +7,7 @@ cpi <----- stemcell
     <----- datastore> persistent_disk
     
 ```
-## 1. Deploying bosh VM
+## 1. Deploying bosh VM with no default cpi config.
 
 ```
 bosh create-env bosh-deployment/bosh.yml \
