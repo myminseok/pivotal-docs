@@ -92,41 +92,6 @@ bosh/0:/var/vcap/jobs/vsphere_cpi/config# cat cpi.json
 > if you deploy bosh release, then the deployment will use cpi.json information to place vm and datastore.
 
 
-## missing bosh stemcell
-
-if bosh lost it's stemcell on vsphere, then empty 'stemcells' section in `state.json', then redeploy bosh vm.
-
-```
-
-{
-    "director_id": "48719fd7-7649-49e6-7390-23f47f80b186",
-    "installation_id": "c42a252e-1871-4779-5ed4-19d525b0de72",
-    "current_vm_cid": "",
-    "current_stemcell_id": "",
-    "current_disk_id": "cdd9a15c-ea72-4acc-6df6-06a02d405fe0",
-    "current_release_ids": [],
-    "current_manifest_sha": "",
-    "disks": [
-        {
-            "id": "cdd9a15c-ea72-4acc-6df6-06a02d405fe0",
-            "cid": "disk-be05f888-7482-4ee7-b6ce-eed0b6763f1d",
-            "size": 65536,
-            "cloud_properties": {}
-        }
-    ],
-     "stemcells": [
-        {
-            "id": "c9103ae1-0feb-4c38-61c2-9eb4c522209e",
-            "name": "bosh-vsphere-esxi-ubuntu-xenial-go_agent",
-            "version": "621.85",
-            "api_version": 3,
-            "cid": "sc-8cf0729b-fb40-487e-a63b-a9228648fdff"
-        }
-    ],
-    "releases": []
-    
-    ```
-    
 
 
 ## Defining cpi-config for bosh release deployment
@@ -220,3 +185,39 @@ bosh-vsphere-esxi-ubuntu-xenial-go_agent  621.90*  ubuntu-xenial  -             
 ```
 
 
+
+## missing bosh stemcell
+
+if bosh lost it's stemcell on vsphere, then empty 'stemcells' section in `state.json', then redeploy bosh vm.
+
+```
+
+{
+    "director_id": "48719fd7-7649-49e6-7390-23f47f80b186",
+    "installation_id": "c42a252e-1871-4779-5ed4-19d525b0de72",
+    "current_vm_cid": "",
+    "current_stemcell_id": "",
+    "current_disk_id": "cdd9a15c-ea72-4acc-6df6-06a02d405fe0",
+    "current_release_ids": [],
+    "current_manifest_sha": "",
+    "disks": [
+        {
+            "id": "cdd9a15c-ea72-4acc-6df6-06a02d405fe0",
+            "cid": "disk-be05f888-7482-4ee7-b6ce-eed0b6763f1d",
+            "size": 65536,
+            "cloud_properties": {}
+        }
+    ],
+     "stemcells": [
+        {
+            "id": "c9103ae1-0feb-4c38-61c2-9eb4c522209e",
+            "name": "bosh-vsphere-esxi-ubuntu-xenial-go_agent",
+            "version": "621.85",
+            "api_version": 3,
+            "cid": "sc-8cf0729b-fb40-487e-a63b-a9228648fdff"
+        }
+    ],
+    "releases": []
+    
+```
+    
