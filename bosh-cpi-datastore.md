@@ -174,7 +174,7 @@ compilation:
 ```
 
 
-### bind Stemcells to cpi.
+### upload temcells to the new CPIs
 
 - upload stemcells to the new cpis by `bosh upload-stemcell`
 - if multi-cpi, then `bosh upload-stemcell` will upload to all CPIs.
