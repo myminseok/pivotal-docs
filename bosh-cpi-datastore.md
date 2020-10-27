@@ -1,4 +1,5 @@
-
+- https://bosh.io/docs/cpi-config/
+- https://www.starkandwayne.com/blog/multi-cpi-bosh-one-bosh-to-rule-them-all/
 
 ## 1. Deploy bosh VM and cpi config
 
@@ -184,4 +185,4 @@ bosh-vsphere-esxi-ubuntu-xenial-go_agent  621.90*  ubuntu-xenial  -             
 
 ```
 
-https://www.starkandwayne.com/blog/multi-cpi-bosh-one-bosh-to-rule-them-all/
+
