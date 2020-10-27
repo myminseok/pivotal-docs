@@ -1,6 +1,12 @@
 - https://bosh.io/docs/cpi-config/
 - https://www.starkandwayne.com/blog/multi-cpi-bosh-one-bosh-to-rule-them-all/
 
+```
+cpi <----- stemcell
+    <----- datastore> vm disk
+    <----- datastore> persistent_disk
+    
+```
 ## 1. Deploying bosh VM
 
 ```
