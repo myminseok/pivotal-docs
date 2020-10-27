@@ -43,7 +43,7 @@ Pivotal Cloud Foundry Documentation
 - [upgrade pas](platform-automation/upgrade-procedure.md)
 
 ## Backup
-- [backup-manual](backup-recovery.md)
+- [backup-manual](https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/backup-pcf-bbr.html#bbr-backup-director)
 - [backup director- platform-automation](platform-automation/bbr-backup.md)
 - [backup PAS- platform-automation](platform-automation/bbr-backup-pas.md)
 ## legacy
