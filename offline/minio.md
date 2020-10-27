@@ -32,7 +32,7 @@ deploy.sh
 bosh deploy -d minio manifests/manifest-dist-example.yml \
     -v minio_deployment_name=minio \
     -v minio_accesskey=admin \
-    -v minio_secretkey=CHANGEME!
+    -v minio_secretkey=---
 
 
 bosh vms
