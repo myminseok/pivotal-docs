@@ -10,10 +10,12 @@ there are two jumpboxes(internal, external)
 
 ### (external jumpbox) download files
 
-# bosh cli
+#  bosh cli dependency
 https://bosh.io/docs/cli-v2-install/#ubuntu
+
 ```
 mkdir  /home/ubuntu/bosh-download && cd /home/ubuntu/bosh-download
+
 # download bosh dependency binaries
 ubuntu@external-jumpbox:~/bosh-download$ sudo apt-get update
 
@@ -22,6 +24,13 @@ sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl l
 ubuntu@external-jumpbox:~/bosh-download$  apt-get download libcurl3
 
 ```
+https://github.com/cloudfoundry/bosh-cli/releases
+
+```
+wget https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.1/bosh-cli-6.4.1-linux-amd64
+
+```
+
 
 # cf cli
 ```
