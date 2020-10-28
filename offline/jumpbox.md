@@ -19,7 +19,7 @@ mkdir  /home/ubuntu/bosh-download && cd /home/ubuntu/bosh-download
 # download bosh dependency binaries
 ubuntu@external-jumpbox:~/bosh-download$ sudo apt-get update
 
-sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
+sudo apt-get download -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
 
 ubuntu@external-jumpbox:~/bosh-download$  apt-get download libcurl3
 
@@ -165,10 +165,10 @@ scp bosh-cache.tar.gz ubuntu@<INTERNAL-JUMPBOX>:/home/ubuntu/bosh-cache.tar.gz
 
 ### VM spec
 - Ubuntu 16.04 LTS, 64 bit  http://releases.ubuntu.com/xenial/
-- 2cpu, 4gbmem, os disk 3gb, persistent disk 100gb ~ 200gb
+- 2cpu, 4gbmem, os disk 10gb, persistent disk 100gb ~ 500gb
 
-
-### (internal jumpbox) install depencencies
+### NO internet
+##### (internal jumpbox, NO internet) install depencencies
 https://bosh.io/docs/cli-v2-install/
 ```
 cd /home/ubuntu
@@ -184,13 +184,39 @@ ubuntu@internal-jumpbox:~/bosh-download$  apt list --installed
 
 ```
 
-### (internal jumpbox) install bosh cli
+##### (internal jumpbox, NO internet) install bosh cli
 ```
 cd /home/ubuntu/bosh-1
 ubuntu@internal-jumpbox:~/bosh-1$ chmod +x bosh-cli-5.4.0-linux-amd64
 ubuntu@internal-jumpbox:~/bosh-1$ sudo cp bosh-cli-5.4.0-linux-amd64 /usr/local/bin/bosh
 ubuntu@internal-jumpbox:~/bosh-1$ bosh -v
 ```
+
+### (internal jumpbox, WITH internet) install bosh cli 
+
+https://bosh.io/docs/cli-v2-install/#ubuntu
+
+```
+ubuntu@internal-jumpbox: $ sudo apt-get update
+
+ubuntu@internal-jumpbox: $ sudo apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt-dev libxml2-dev libssl-dev libreadline6 libreadline6-dev libyaml-dev libsqlite3-dev sqlite3
+
+ubuntu@internal-jumpbox: $ sudo  apt-get download libcurl3  -y
+
+```
+https://github.com/cloudfoundry/bosh-cli/releases
+
+```
+wget https://github.com/cloudfoundry/bosh-cli/releases/download/v6.4.1/bosh-cli-6.4.1-linux-amd64
+chmod +x bosh-cli-6.4.1-linux-amd64
+sudo cp bosh-cli-6.4.1-linux-amd64 /usr/local/bin/bosh
+bosh -v
+
+
+```
+
+
+
 
 ### (internal jumpbox) deploy bosh director vm 
 https://bosh.io/docs/init-vsphere/
