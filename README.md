@@ -7,7 +7,7 @@ Pivotal Cloud Foundry Documentation
 
 # Jumpbox
 - [Setting up jumpbox(online)](setup-bbl-sandbox.md)
-- [jumpbox(offline)](setup-jumpbox-offline.md)
+- [jumpbox(offline)](offine/offline.md)
 - [bosh-deploy(create-env)](bosh-deploy.md)
 - [bbl-aws](bbl.md)
 - [bbl-azure](bbl-azure.md)
