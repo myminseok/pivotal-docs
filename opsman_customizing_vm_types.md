@@ -19,9 +19,9 @@ $ export UAA_ACCESS_TOKEN=
 #### extract vm_types
 ```
 
-$ curl "https://example.com/api/v0/vm_types" \
+$ curl -k "https://localhost/api/v0/vm_types" \
     -X GET \
-    -H "Authorization: Bearer UAA_ACCESS_TOKEN"
+    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" | jq . > vm_types.txt
    
    
   ===> 
@@ -42,9 +42,10 @@ $ curl "https://example.com/api/v0/vm_types" \
 #### customize the results and apply to opsman.
 
 ```
-curl "https://example.com/api/v0/vm_types" \
+
+curl -k "https://localhost/api/v0/vm_types" \
     -X PUT \
-    -H "Authorization: Bearer UAA_ACCESS_TOKEN" \
+    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
           "vm_types": [
@@ -63,6 +64,16 @@ curl "https://example.com/api/v0/vm_types" \
             }
           ]
         }'
+  
+  ## using file.
+  
+  
+  curl -k "https://localhost/api/v0/vm_types" \
+    -X PUT \
+    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" \
+    -H "Content-Type: application/json" \
+    --data-binary @vm_types.txt
+  
   
 ```
 
