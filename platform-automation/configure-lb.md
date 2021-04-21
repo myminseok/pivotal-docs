@@ -21,6 +21,41 @@ om -e env.yml -k curl --path /api/v0/staged/vm_extensions/tcp-lb-security-groups
       '{"name": "tcp-lb-security-groups", "cloud_properties": { "security_groups": ["tcp_lb_security_group", "vms_security_group"] }}'
 ```
 
+or edit director.yml 
+```
+om staged-director-config > director.yml
+```
+
+``` yaml
+az-configuration:
+- name: ap-northeast-2a
+
+... 
+
+vmextensions-configuration:
+- name: web-lb-security-groups
+  cloud_properties:
+    security_groups:
+    - web_lb_security_group
+    - vms_security_group
+- name: ssh-lb-security-groups
+  cloud_properties:
+    security_groups:
+    - ssh_lb_security_group
+    - vms_security_group
+- name: tcp-lb-security-groups
+ cloud_properties:
+    security_groups:
+    - tcp_lb_security_group
+    - vms_security_group
+vmtypes-configuration: {}
+```
+
+```
+om configure-director -c director.yml
+
+```
+
 ##  edit platform-automation-template/awstest/opsman/director.yml > vmextensions-configuration
 
 ``` yaml
