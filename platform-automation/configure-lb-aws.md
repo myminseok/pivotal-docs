@@ -5,7 +5,7 @@
 
 - https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-terraform.html
 - https://github.com/pivotal/paving 
-- (deprecated) https://network.pivotal.io/products/elastic-runtime/#/releases/668407 ( 2.6)
+- [platform-automation/terraforming-aws.md](platform-automation/terraforming-aws.md)
 
 #### official guide
 - https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html
