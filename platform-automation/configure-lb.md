@@ -1,6 +1,10 @@
 
 # (Only for public cloud) configure LB setting to opsman, director, TAS
 
+### terraforming on aws
+- https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-terraform.html
+
+
 #### official guide
 - https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html
 ####  prepare env.yml
