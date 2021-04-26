@@ -76,5 +76,3 @@ Apply complete! Resources: 93 added, 0 changed, 0 destroyed.
 backup terraform.tfstate to the safe place.
 
 
-```
-
