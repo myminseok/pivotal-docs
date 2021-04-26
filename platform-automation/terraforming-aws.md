@@ -12,20 +12,69 @@ terraform version
 + 0.13+ 
 ```
 
-## 
+## clone repo 
 ```
 git clone https://github.com/pivotal/paving
+```
 
+## remove needless files
+```
 cd paving/aws/
 
+rm -rf pks-*
+```
+
+
+
+## edit terraform.tfvars
+```
 cp terraform.tfvars.example terraform.tfvars
 
 vi terraform.tfvars
 
+-----------
+environment_name = "tas-test"
+
+access_key = "xxxx"
+secret_key = "xxxx"
+
+region = "ap-northeast-2"
+availability_zones = ["ap-northeast-2a","ap-northeast-2b","ap-northeast-2c"]
+
+hosted_zone = "pcfdemo.net."
+-----------
+```
+
+## terraforming
+```
 terraform init
 
 terraform plan -var-file terraform.tfvars -out=_plan | tee _output
 
-vi _output 
+# review  _output 
 
 ```
+
+## terraform apply
+```
+terraform apply
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+tls_private_key.ops-manager: Creating...
+random_integer.ops_manager_bucket_suffix: Creating...
+random_integer.pas_bucket_suffix: Creating...
+
+....
+
+Apply complete! Resources: 93 added, 0 changed, 0 destroyed.
+```
+backup terraform.tfstate to the safe place.
+
+
+```
+
