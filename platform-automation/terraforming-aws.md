@@ -49,7 +49,7 @@ hosted_zone = "pcfdemo.net."
 ```
 terraform init
 
-terraform plan -var-file terraform.tfvars -out=_plan | tee _output
+terraform plan | tee _output
 
 # review  _output 
 
@@ -74,5 +74,28 @@ random_integer.pas_bucket_suffix: Creating...
 Apply complete! Resources: 93 added, 0 changed, 0 destroyed.
 ```
 backup terraform.tfstate to the safe place.
+
+
+## extract output
+
+```
+terraform output  -state=./terraform.tfstate stable_config_opsmanager  | sed 's/}"/}/g' | sed 's/^"//g' | sed 's/\\"/"/g' | jq . > tmp_stable_config_opsmanager
+
+terraform output  -state=./terraform.tfstate  stable_config_pas   | sed 's/}"/}/g' | sed 's/^"//g' | sed 's/\\"/"/g'  | jq . > tmp_stable_config_pas
+```
+
+### extract ops_manager_ssh_private_key
+```
+jq .ops_manager_ssh_private_key ./_stable_config_opsmanager > tmp_stable_config_opsmanager
+
+cat tmp_stable_config_opsmanager
+"-----BEGIN RSA PRIVATE KEY-----\\nMIIJKAIBAAKCAgEAtb1NeLOuvr60IZfEUcZU
+...
+hCHX8rL6Zwb\\n1rf\\n-----END RSA PRIVATE KEY-----\\n"
+
+# copy the output and paste to printf command including the double quote
+
+printf -- PASTE_THE_SSH_KEY_CONTENT > ops_manager_ssh_private_key
+```
 
 
