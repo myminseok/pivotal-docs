@@ -9,7 +9,14 @@
 - https://docs.pivotal.io/p-cloud-cache/1-12/dev-instance-sharing.html
 - https://docs.cloudfoundry.org/devguide/services/sharing-instances.html
   
-## sample app (session caching):     
-- https://docs.pivotal.io/p-cloud-cache/1-12/Spring-SessionState.html
-- https://github.com/pivotal-cf/http-session-caching
+## session state caching
+### using tomcat app
+- guide: https://docs.pivotal.io/p-cloud-cache/1-13/Spring-SessionState.html#tomcat
+- guide: https://docs.pivotal.io/p-cloud-cache/1-13/session-caching.html
+- sample: https://github.com/pivotal-cf/http-session-caching
+### using spring session:
+- guide: https://docs.pivotal.io/p-cloud-cache/1-13/spring-session.html
+- sample(org.springframework.geode:spring-geode-starter-session): https://github.com/gemfire/spring-for-apache-geode-examples/tree/main/session-state
+
+### other
 - https://tanzu.vmware.com/application-modernization-recipes/replatforming/offload-http-sessions-with-spring-session-and-redis
