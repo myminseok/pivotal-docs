@@ -252,7 +252,7 @@ Doppler resources can require scaling to accommodate your overall log and metric
 ```
 Number of Doppler instances = doppler.ingress / 16 000
 ```
-^ where doppler.ingress represents the per-second rate of change of the ingress metric from the doppler source, summed over all VMs in your deployment. Using maximum values over a two-week period is a recommended approach for ingress-based capacity planning.
+> where doppler.ingress represents the per-second rate of change of the ingress metric from the doppler source, summed over all VMs in your deployment. Using maximum values over a two-week period is a recommended approach for ingress-based capacity planning.
 
 ## Traffic Controller
 Traffic Controller resources are usually scaled in line with Doppler resources. The recommended formula for determining the number of Traffic Controller instances is:
