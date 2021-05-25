@@ -240,3 +240,25 @@ $ ubuntu@opsman-jumpbox:~/logstash-1.5.6$ ./bin/logstash -f ./logstash.conf  --d
 now you are ready to analyize pcf logs
 
 ref: http://man7.org/linux/man-pages/man5/rsyslog.conf.5.html
+
+# Using nozzle
+https://docs.cloudfoundry.org/devguide/services/oms-nozzle.html
+
+# scaling doppler and TC
+https://docs.cloudfoundry.org/loggregator/log-ops-guide.html#scaling-nozzles
+
+## Doppler
+Doppler resources can require scaling to accommodate your overall log and metric volume. The recommended formula for estimating the number of Doppler instances you need to achieve a loss rate of < 1% is:
+```
+Number of Doppler instances = doppler.ingress / 16 000
+```
+^ where doppler.ingress represents the per-second rate of change of the ingress metric from the doppler source, summed over all VMs in your deployment. Using maximum values over a two-week period is a recommended approach for ingress-based capacity planning.
+
+## Traffic Controller
+Traffic Controller resources are usually scaled in line with Doppler resources. The recommended formula for determining the number of Traffic Controller instances is:
+```
+Number of Traffic Controller instances = Number of Doppler instances / 2
+```
+In addition, Traffic Controller resources can require scaling to accommodate the number of your log streams and Firehose subscriptions.
+
+
