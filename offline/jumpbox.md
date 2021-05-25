@@ -8,6 +8,15 @@ there are two jumpboxes(internal, external)
 - 2cpu, 4gbmem, os disk 3gb, persistent disk 500GB - 1TB
 
 
+
+### clis
+```
+bosh
+pivnet: https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivnet-linux-amd64-3.0.1
+om: https://github.com/pivotal-cf/om/releases/download/7.2.0/om-linux-7.2.0
+cf
+```
+
 ### (external jumpbox) download files
 
 #  bosh cli dependency
