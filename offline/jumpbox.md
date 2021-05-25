@@ -11,10 +11,11 @@ there are two jumpboxes(internal, external)
 
 ### clis
 ```
-bosh
+git
 pivnet: https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivnet-linux-amd64-3.0.1
 om: https://github.com/pivotal-cf/om/releases/download/7.2.0/om-linux-7.2.0
 cf
+bosh
 ```
 
 ### (external jumpbox) download files
