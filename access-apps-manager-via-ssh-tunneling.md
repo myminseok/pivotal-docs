@@ -21,16 +21,14 @@ ssh -L 443:localhost:8443 ubuntu@jumpbox
                                                3) nginx proxy to apps manager( nginx stream) 
                                                
 
-4) 
-
-in webbrowser
+4) on webbrowser
 https://apps.sys.data.kr
 
 ```
 
-### 0. (dev PC)  Establish VPN to Datacenter
+### 0. (Dev PC)  Establish VPN to Datacenter
 
-### 1. (dev PC) etc/hosts
+### 1. (Dev PC) etc/hosts
 ```
 127.0.0.1	apps.sys.data.kr
 127.0.0.1	login.sys.data.kr
@@ -38,13 +36,13 @@ https://apps.sys.data.kr
 127.0.0.1	apps.sys.data.kr
 ```
 
-### 2. (dev PC) as root
+### 2. (Dev PC) as root
 you have to open port 443 on localhost, use root for permission. ( apps manager forward the url port to 443 on webbrowser)
 ```
 ssh -L 443:localhost:8443 ubuntu@jumpbox-IP
 ```
 
-### 3. (jumpbox) nginx proxy
+### 3. (Jumpbox) nginx proxy
 - check connectivity to apps manager
 ```
 nc -zv aps.sys.data.kr 443
@@ -87,3 +85,6 @@ stream {
 ```
 /usr/sbin/nginx
 ```
+
+### 4. Access apps manager
+on webbrowser https://apps.sys.data.kr
