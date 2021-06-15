@@ -42,7 +42,7 @@ you have to open port 443 on localhost, use root for permission. ( apps manager 
 ssh -L 443:localhost:8443 ubuntu@jumpbox-IP
 ```
 
-### 3. (Jumpbox) nginx proxy
+### 3. (Jumpbox) setup nginx stream proxy
 - check connectivity to apps manager
 ```
 nc -zv aps.sys.data.kr 443
