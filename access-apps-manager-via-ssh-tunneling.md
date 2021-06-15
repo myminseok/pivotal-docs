@@ -1,8 +1,12 @@
 # access apps manager via ssh turnneling
+- assume that `Dev PC` have to use `VPN` to connect to the data center. and no direct access to TAS network.
 
 ```
-|------------- dev PC --------------------|============= jumpbox =================|------------ TAS apps-manager ------------|
+                          <-----        VPN  to Data center    ------->
+|------------- Dev PC --------------------|============= jumpbox =================|------------ TAS apps-manager ------------|
  
+0) establish VPN
+
 1) /etc/hosts
 127.0.0.1	apps.sys.data.kr
 127.0.0.1	login.sys.data.kr
@@ -23,6 +27,9 @@ in webbrowser
 https://apps.sys.data.kr
 
 ```
+
+### 0. (dev PC)  Establish VPN to Datacenter
+
 ### 1. (dev PC) etc/hosts
 ```
 127.0.0.1	apps.sys.data.kr
@@ -31,13 +38,27 @@ https://apps.sys.data.kr
 127.0.0.1	apps.sys.data.kr
 ```
 
-### 2. as root
+### 2. (dev PC) as root
 you have to open port 443 on localhost, use root for permission. ( apps manager forward the url port to 443 on webbrowser)
 ```
 ssh -L 443:localhost:8443 ubuntu@jumpbox-IP
 ```
 
 ### 3. (jumpbox) nginx proxy
+- check connectivity to apps manager
+```
+nc -zv aps.sys.data.kr 443
+Connection to aps.sys.data.kr 443 port [tcp/https] succeeded!
+
+ubuntu@192:~$ curl -k https://apps.sys.data.kr -H "host: apps.sys.data.kr"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Apps Manager</title>
+....
+
+```
+
 - compile nginx with stream and make install: reference to https://github.com/myminseok/nginx-stream
 - edit nginx.conf
 ```
@@ -62,7 +83,7 @@ stream {
 }
 ```
 
-- start nginx  (as root)
+- (jumpbox )  start nginx  (as root)
 ```
 /usr/sbin/nginx
 ```
