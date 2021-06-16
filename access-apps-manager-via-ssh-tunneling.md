@@ -17,6 +17,7 @@ ssh -L 127.0.0.2:443:localhost:8443 ubuntu@jumpbox-IP
 
 
                                                5) nginx proxy to apps manager( nginx stream) 
+					          forward 8443 -> apps manager
                                                
 
 6) access apps manager on webbrowser
@@ -86,6 +87,7 @@ ubuntu@192:~$ curl -k https://apps.sys.data.kr -H "host: apps.sys.data.kr"
 - edit nginx.conf
 ```
 root@192:/home/ubuntu# cat /etc/nginx/nginx.conf
+	
 user www-data;
 worker_processes 1;
 pid /run/nginx.pid;
@@ -97,7 +99,7 @@ events {
 
 stream {
     upstream tas-gorouter-ip {
-         server 172.16.25.106:443;  # <========== HA proxy or gorouter IP.
+         server 172.16.25.106:443;  # <========== HA proxy or gorouter IP
     }
     server {
        listen 8443 ;
