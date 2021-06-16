@@ -5,44 +5,69 @@
                           <-----        VPN  to Data center    ------->
 |------------- Dev PC --------------------|============= jumpbox =================|------------ TAS apps-manager ------------|
  
-0) establish VPN
+ 
+1) add alias localhost
 
-1) /etc/hosts
-127.0.0.1	apps.sys.data.kr
-127.0.0.1	login.sys.data.kr
-127.0.0.1	uaa.sys.data.kr
-127.0.0.1	apps.sys.data.kr
+2) edit /etc/hosts
 
+3) establish VPN
 
-2) as root
-ssh -L 443:localhost:8443 ubuntu@jumpbox
+4) establish ssh tunneling
+ssh -L 127.0.0.2:443:localhost:8443 ubuntu@jumpbox-IP
 
 
-                                               3) nginx proxy to apps manager( nginx stream) 
+                                               5) nginx proxy to apps manager( nginx stream) 
                                                
 
-4) on webbrowser
+6) access apps manager on webbrowser
 https://apps.sys.data.kr
 
 ```
 
-### 0. (Dev PC)  Establish VPN to Datacenter
 
-### 1. (Dev PC) etc/hosts
+
+### 1. (Dev PC, as root) add alias localhost
+this is not to break other system
 ```
-127.0.0.1	apps.sys.data.kr
-127.0.0.1	login.sys.data.kr
-127.0.0.1	uaa.sys.data.kr
-127.0.0.1	apps.sys.data.kr
+$ ifconfig lo0 alias 127.0.0.2
+
+$ ifconfig lo0
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
+	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
+	inet 127.0.0.2 netmask 0xff000000
+	nd6 options=201<PERFORMNUD,DAD
+	
+$ ping 127.0.0.2
+	
+```	
+
+for reboot
+
+```
+sudo crontab -e
+@reboot ifconfig lo0 alias 127.0.0.2
 ```
 
-### 2. (Dev PC) as root
+### 2. (Dev PC)  Establish VPN to Datacenter
+
+### 3. (Dev PC, as root) etc/hosts
+```
+127.0.0.2	apps.sys.data.kr
+127.0.0.2	login.sys.data.kr
+127.0.0.2	uaa.sys.data.kr
+127.0.0.2	apps.sys.data.kr
+```
+
+### 4. (Dev PC, as root)
 you have to open port 443 on localhost, use root for permission. ( apps manager forward the url port to 443 on webbrowser)
 ```
-ssh -L 443:localhost:8443 ubuntu@jumpbox-IP
+ssh -L 127.0.0.2:443:localhost:8443 ubuntu@jumpbox-IP
 ```
 
-### 3. (Jumpbox) setup nginx stream proxy
+### 5. (Jumpbox, as root) setup nginx stream proxy
 - check connectivity to apps manager
 ```
 nc -zv aps.sys.data.kr 443
@@ -81,10 +106,10 @@ stream {
 }
 ```
 
-- (jumpbox )  start nginx  (as root)
+- (Jumpbox, as root )  start nginx
 ```
 /usr/sbin/nginx
 ```
 
-### 4. Access apps manager
-on webbrowser https://apps.sys.data.kr
+### 6. Access apps manager on webbrowser 
+https://apps.sys.data.kr
