@@ -83,7 +83,7 @@ ubuntu@192:~$ curl -k https://apps.sys.data.kr -H "host: apps.sys.data.kr"
 
 ```
 
-- compile nginx with stream and make install: reference to https://github.com/myminseok/nginx-stream#compile-nginx-with-stream
+- compile nginx with stream and make install: reference to https://github.com/myminseok/nginx-stream
 - edit nginx.conf
 ```
 root@192:/home/ubuntu# cat /etc/nginx/nginx.conf
