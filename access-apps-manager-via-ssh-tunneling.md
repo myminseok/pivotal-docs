@@ -1,8 +1,8 @@
-# Access  TAS Apps-manager via Ssh Turnneling
-There is some private environment where the ssh is the only way to access. it means that `Dev PC` has no direct access to TAS network. and if there is some apps on target environment where you have to use web-brower, then it is problematic. you have to provide windows jumpbox where web-brower is included. it is tedious and resource consuming. Here we are introducing a way to access the target app with your local web brower with ssh turnneling and nginx stream proxy on ubuntu jumpbox. 
+# Access  TAS Apps-manager via Ssh Tunneling
+There is some private environment where the ssh is the only way to access. it means that `Dev PC` has no direct access to TAS network. and if there is some apps on target environment where you have to use web-brower, then it is problematic. you have to provide windows jumpbox where web-brower is included. it is tedious and resource consuming. Here we are introducing a way to access the target app with your local web brower with ssh tunneling and nginx stream proxy on ubuntu jumpbox. 
 
 ```
-                          <-----       ssh turnneling  to Data center    ------->
+                          <-----       ssh tunneling  to Data center    ------->
 |------------- Dev PC --------------------|============= jumpbox =================|------------ TAS apps-manager ------------|
  
  
