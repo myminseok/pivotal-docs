@@ -24,7 +24,7 @@ https://apps.sys.data.kr   ---> 127.0.0.2:443 ---(ssh tunnel)---> ubnutu-jumpbox
 
 ## 1. (Dev PC, as root) 
 
-### for Mac
+### For Mac
 - Establish VPN to Datacenter (if required)
 - add alias localhost : use `127.0.0.2` not to break other system
 ```
