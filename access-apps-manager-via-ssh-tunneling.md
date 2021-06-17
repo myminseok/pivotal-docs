@@ -52,23 +52,41 @@ sudo crontab -e
 @reboot ifconfig lo0 alias 127.0.0.2
 ```
 
-### 2. (Dev PC)  Establish VPN to Datacenter (if required)
+### 2. (Dev PC)  
 
-### 3. (Dev PC, as root) etc/hosts
+#### Mac
+- Establish VPN to Datacenter (if required)
+-  vi etc/hosts
 ```
 127.0.0.2	apps.sys.data.kr
 127.0.0.2	login.sys.data.kr
 127.0.0.2	uaa.sys.data.kr
-127.0.0.2	apps.sys.data.kr
 ```
-
-### 4. (Dev PC, as root)
-you have to open port 443 on localhost, use root for permission. ( apps manager forward the url port to 443 on webbrowser)
+- port forwarding: then you have to open port 443 on localhost, use root for permission. ( apps manager forward the url port to 443 on webbrowser)
 ```
 ssh -L 127.0.0.2:443:localhost:8443 ubuntu@jumpbox-IP
 ```
 
-### 5. (Jumpbox, as root) setup nginx stream proxy
+#### windows
+- Establish VPN to Datacenter (if required)
+- host setting as administrator
+```
+C:\Windows\System32\drivers\etc\host
+
+127.0.0.2	apps.sys.data.kr
+127.0.0.2	login.sys.data.kr
+127.0.0.2	uaa.sys.data.kr
+```
+- port forwarding
+```
+netsh interface portproxy add v4tov4 listenport=443 listenaddress=127.0.0.2 connectport=8443 connectaddress=jumpbox-IP
+netsh interface portproxy show v4tov4
+## to delete
+netsh interface portproxy delete v4tov4 listenport=443 listenaddress=127.0.0.1
+```
+
+
+### 3. (Jumpbox, as root) setup nginx stream proxy
 - check connectivity to apps manager
 ```
 nc -zv aps.sys.data.kr 443
