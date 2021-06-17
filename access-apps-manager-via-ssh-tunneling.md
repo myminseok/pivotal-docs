@@ -1,5 +1,5 @@
 # Access  TAS Apps-manager via Ssh Tunneling
-There is some private(airgapped) environment where the ssh is the only way to access. it means that `Dev PC` has no direct access to TAS network. and if there is some apps on target environment where you have to use web-brower, then normally you have to provide windows jumpboxes with web-brower included. it can be simple but if there are lots of students then it consumes resource and time to prepare. This doc explans how to enable accessing the target app with a single ubungu jumpbox. students can simply use local web brower to the target web app.
+There is some private(airgapped) environment where the ssh is the only way to access. it means that `Dev PC` has no direct access to TAS network. and if there is some apps on target environment where you have to use web-brower, then simply you have to provide windows jumpboxes or desktop jumpbox with web-brower included. it can be simple but if there are lots of students then it consumes cloud resource and time to setup. This doc explans how to enable accessing the target app with a single ubungu jumpbox. students can simply use local web brower to the target web app.
 
 ```
                           <-----       ssh tunneling  to Data center    ------->
