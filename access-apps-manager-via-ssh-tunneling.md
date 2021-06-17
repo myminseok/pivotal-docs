@@ -5,29 +5,28 @@ There is some private(airgapped) environment where the ssh is the only way to ac
                           <-----       ssh tunneling  to Data center    ------->
 |------------- Student PC --------------------|============= jumpbox(ubuntu) =================|------------ TAS ------------|
  
- 
-1) add alias localhost
-
-2) edit /etc/hosts
-
-3) establish VPN (if required)
-
-4) establish ssh tunneling
+1) PC setting
+- port forwarding
+- local dns
+- establish VPN (if required)
+- establish ssh tunneling
 ssh -L 127.0.0.2:443:localhost:8443 ubuntu@jumpbox-IP
 
+                                                2) jumpbox setting
+                                                - nginx stream: forward 8443 -> apps manager:443
 
-                                               5) nginx stream
-					          forward 8443 -> apps manager:443
-
-6) access apps manager on webbrowser
+- access apps manager on webbrowser
 https://apps.sys.data.kr   ---> 127.0.0.2:443 ---(ssh tunnel)---> ubnutu-jumpbox:8443 ---> nginx stream:8443 ---(forward to)-- TAS gorouter:443  
 
 ```
 
 
 
-### 1. (Dev PC, as root) add alias localhost
-this is not to break other system
+## 1. (Dev PC, as root) 
+
+### for Mac
+- Establish VPN to Datacenter (if required)
+- add alias localhost : use `127.0.0.2` not to break other system
 ```
 $ ifconfig lo0 alias 127.0.0.2
 
@@ -51,10 +50,6 @@ sudo crontab -e
 @reboot ifconfig lo0 alias 127.0.0.2
 ```
 
-### 2. (Dev PC)  
-
-#### Mac
-- Establish VPN to Datacenter (if required)
 -  vi etc/hosts
 ```
 127.0.0.2	apps.sys.data.kr
@@ -66,7 +61,7 @@ sudo crontab -e
 ssh -L 127.0.0.2:443:localhost:8443 ubuntu@jumpbox-IP
 ```
 
-#### windows
+### For Windows PC
 - Establish VPN to Datacenter (if required)
 - host setting as administrator
 ```
@@ -85,7 +80,7 @@ netsh interface portproxy delete v4tov4 listenport=443 listenaddress=127.0.0.1
 ```
 
 
-### 3. (Jumpbox, as root) setup nginx stream proxy
+## 2. (Jumpbox, as root) setup nginx stream proxy
 - check connectivity to apps manager
 ```
 nc -zv aps.sys.data.kr 443
@@ -130,5 +125,5 @@ stream {
 /usr/sbin/nginx
 ```
 
-### 6. Access apps manager on webbrowser 
+## 2. (Dev PC) Access apps manager on webbrowser 
 https://apps.sys.data.kr
