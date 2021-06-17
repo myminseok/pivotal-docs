@@ -16,9 +16,8 @@ There is some private(airgapped) environment where the ssh is the only way to ac
 ssh -L 127.0.0.2:443:localhost:8443 ubuntu@jumpbox-IP
 
 
-                                               5) nginx proxy to apps manager( nginx stream) 
-					          forward 8443 -> apps manager
-                                    https://apps.sys.data.kr           
+                                               5) nginx stream
+					          forward 8443 -> apps manager:443
 
 6) access apps manager on webbrowser
 https://apps.sys.data.kr   ---> 127.0.0.2:443 ---(ssh tunnel)---> ubnutu-jumpbox:8443 ---> nginx stream:8443 ---(forward to)-- TAS gorouter:443  
