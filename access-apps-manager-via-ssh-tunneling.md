@@ -3,7 +3,7 @@ There is some private(airgapped) environment where the ssh is the only way to ac
 
 ```
                           <-----       ssh tunneling  to Data center    ------->
-|------------- Dev PC --------------------|============= jumpbox(ubuntu) =================|------------ TAS apps-manager ------------|
+|------------- Student PC --------------------|============= jumpbox(ubuntu) =================|------------ TAS apps-manager ------------|
  
  
 1) add alias localhost
