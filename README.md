@@ -17,8 +17,8 @@ Pivotal Cloud Foundry Documentation
 - [concourse-with-credhub](concourse-with-credhub.md)
 - [concourse external worker](concourse-external-worker.md)
 - [bind users in concourse with PAS](concourse_with_cf_auth.md)
-- [minio-bosh-release](minio.md)
-- [harbor-bosh-release](harbor.md)
+- [minio-bosh-release](offline/minio.md)
+- [harbor-bosh-release](offline/harbor.md)
 
 # Installation manually
 - [PAS-installing manually](install-pas-on-aws.md)
