@@ -22,7 +22,8 @@ https://docs.pivotal.io/pivotalcf/2-5/opsman-api/#updating-single-iaas-configura
 
 #### fetch your director iaas_configurations.
 ```
-curl -k "https://localhost/api/v0/staged/director/iaas_configurations" -H "Authorization: Bearer $TOKEN"  | jq '.'
+curl -k "https://localhost/api/v0/staged/director/iaas_configurations" \
+ -H "Authorization: Bearer $TOKEN"  | jq '.'
 ```
 
 #### update your director iaas_configurations.
@@ -30,8 +31,12 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations" -H "Autho
 for tas 2.9 or older, use "human_readable_vm_names"
 
 ```
-curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba16572953313cea" -H "Authorization: Bearer $TOKEN" -H "content-type: applicaton/json" -X PUT   -H "Content-Type: application/json" \
--d '{
+curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba16572953313cea" \
+ -H "Authorization: Bearer $TOKEN" \
+ -H "content-type: applicaton/json" \
+ -X PUT   \
+ -H "Content-Type: application/json" \
+ -d '{
   "iaas_configuration":
     {
       "guid": "6552ba16572953313cea",
@@ -50,6 +55,8 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
       "disk_type": "thick"
     }
 }' -v
+
+## or -d @file
 
 * upload completely sent off: 704 out of 704 bytes
 < HTTP/1.1 200 OK
