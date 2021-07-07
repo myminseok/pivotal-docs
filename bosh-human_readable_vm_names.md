@@ -21,6 +21,9 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations" -H "Autho
 ```
 
 #### update your director iaas_configurations.
+
+for tas 2.9 or older, use "human_readable_vm_names"
+
 ```
 curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba16572953313cea" -H "Authorization: Bearer $TOKEN" -H "content-type: applicaton/json" -X PUT   -H "Content-Type: application/json" \
 -d '{
@@ -43,7 +46,6 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
     }
 }' -v
 
-for tas 2.9 or older, use "human_readable_vm_names"
 * upload completely sent off: 704 out of 704 bytes
 < HTTP/1.1 200 OK
 ...
