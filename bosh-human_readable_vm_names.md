@@ -17,7 +17,7 @@ export TOKEN=<YOUR-OPSMAN-UAA-TOKEN>
 
 ```
 
-### How to enable 'human_readable_vm_names' option to opsman
+### How to enable option to opsman
 https://docs.pivotal.io/pivotalcf/2-5/opsman-api/#updating-single-iaas-configuration
 
 #### fetch your director iaas_configurations.
