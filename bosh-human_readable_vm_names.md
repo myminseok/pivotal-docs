@@ -1,7 +1,9 @@
 
 Enabling human readable vm name for bosh managed VMs through Pivotal Cloud Foundry Ops Manager.
-- it tested on PCF 2.7+
-https://bosh.io/docs/vsphere-human-readable-names/#more-about-human-readable-names
+
+- https://bosh.io/docs/vsphere-human-readable-names/#more-about-human-readable-names
+- for tas 2.10+ use "enable_human_readable_name"
+- for tas 2.9 or older, use "human_readable_vm_names"
 
 ### get your opsman uaa token
 https://docs.pivotal.io/pivotalcf/2-5/customizing/opsman-users.html
