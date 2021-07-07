@@ -8,7 +8,10 @@ Enabling human readable vm name for bosh managed VMs through Pivotal Cloud Found
 ### get your opsman uaa token
 https://docs.pivotal.io/pivotalcf/2-5/customizing/opsman-users.html
 ```
-uaac context
+uaac target https://localhost/uaa
+uaac token owner get
+
+uaac contexts
 
 export TOKEN=<YOUR-OPSMAN-UAA-TOKEN>
 
