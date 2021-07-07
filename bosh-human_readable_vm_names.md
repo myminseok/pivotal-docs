@@ -43,6 +43,7 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
     }
 }' -v
 
+for tas 2.9 or older, use "human_readable_vm_names"
 * upload completely sent off: 704 out of 704 bytes
 < HTTP/1.1 200 OK
 ...
