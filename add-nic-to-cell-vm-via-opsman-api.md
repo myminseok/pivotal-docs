@@ -226,7 +226,7 @@ instance_groups:
 
 
 #troubleshooting
-Error: Instance group isolated_diego_cell_x must specify availability zone that matches availability zone if network NET-DB
+Error: Instance group isolated_diego_cell_x must specify availability zone that matches availability zone of network NET-DB
 
 NET-IS1 
 - AZ-IS1
