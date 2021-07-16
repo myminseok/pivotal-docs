@@ -81,11 +81,10 @@ ssh -i opsman.key ubuntu@opsmanager.mkim-tas.pcfdemo.net
 
 
 #### set vm_extensions 
-set vm_extension one of opsmanager API or director.yml
+there are two options for setting vm_extensions.
 - https://github.com/pivotal-cf/terraforming-aws/blob/master/ci/tasks/custom-vm-extensions.sh
 
-
-##### OPTION 1)set vm_extensions director.yml 
+##### OPTION 1) set vm_extensions to director.yml 
 extract director.yml 
 ```
 om -e env.yml staged-director-config --no-redact > director.yml
@@ -122,7 +121,7 @@ om -e env.yml configure-director -c director.yml
 
 ```
 
-##### OPTION 2)set vm_extensions to opsman API 
+##### OPTION 2) set vm_extensions to opsman API 
 
 ``` bash
 om -e env.yml -k  curl --path /api/v0/staged/vm_extensions/web-lb-security-groups -x PUT -d \
