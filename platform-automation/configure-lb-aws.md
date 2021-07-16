@@ -42,11 +42,12 @@ terraform output stable_config_opsmanager
 ```
 #### extract opsman ssh private key
 ```
-## terraform output에서 ops_manager_ssh_private_key의 값을 복사한다. 
+## copy ops_manager_ssh_private_key value 
 terraform output stable_config_opsmanager
 
 
-## convert RSA key format. make sure starting quote and ending quote with NO backslash '\'
+## convert RSA key format. 
+### !!! make sure starting quote and ending quote with NO backslash '\'
 
 printf -- "-----BEGIN RSA PRIVATE KEY-----\\nMIIJKQIBAAKCAgEA0MlZIK59WUoZzquwzun+IB
 ....
@@ -57,10 +58,10 @@ printf -- "-----BEGIN RSA PRIVATE KEY-----\\nMIIJKQIBAAKCAgEA0MlZIK59WUoZzquwzun
 #### (보안강화) opsmanager security group의 허용 inbound rule에서 myIP로 변경한다.
 - AWS console> EC2> security groups
 
-#### opsman VM 생성
-- network.pivotal.io에서 AWS region별 opsmanager AMI ID를 확인한다.
-- terraform으로 생성한  public network에 opsman vm을 생성한다. 전원을 켜고
-- terraform으로 생성된 opsman의 domain을 사용해서 접근한다. https://opsmanager.mkim-tas.pcfdemo.net
+#### create opsman VM
+- network.pivotal.io.  check opsmanager AMI ID for your AWS region
+- create opsman vm on public network which is created by paving.
+- access opsman via opsman domain which is created by paving. https://opsmanager.mkim-tas.pcfdemo.net
 
 #### ssh into opsman VM
 ```
