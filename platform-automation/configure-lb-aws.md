@@ -81,7 +81,7 @@ ssh -i opsman.key ubuntu@opsmanager.mkim-tas.pcfdemo.net
 
 
 #### set vm_extensions 
-there are two options for setting vm_extensions.
+there are two options for setting vm_extensions. use either one that works.
 - https://github.com/pivotal-cf/terraforming-aws/blob/master/ci/tasks/custom-vm-extensions.sh
 
 ##### OPTION 1) set vm_extensions to director.yml 
