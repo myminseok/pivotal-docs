@@ -54,6 +54,9 @@ printf -- "-----BEGIN RSA PRIVATE KEY-----\\nMIIJKQIBAAKCAgEA0MlZIK59WUoZzquwzun
 +sOr+LLfOb5mjwZvbL9scdy1YqVNM\\n-----END RSA PRIVATE KEY-----\\n"  > opsman.key
 
 
+### 
+chmod 600 opsman.key
+
 ```
 #### (보안강화) opsmanager security group의 허용 inbound rule에서 myIP로 변경한다.
 - AWS console> EC2> security groups
