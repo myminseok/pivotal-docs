@@ -1,10 +1,13 @@
 #  Jumpbox for air-gapped envirionment 
 there are two jumpboxes(internal, external)
+- other options: https://github.com/cloudfoundry/jumpbox-deployment
 
 ## create EXTERNAL jumpbox 
 
+
 ### VM spec
-- Ubuntu-server 16.04 LTS, 64 bit  http://releases.ubuntu.com/xenial/
+- Ubuntu-server 16.04 LTS, 20.04 , 64 bit  http://releases.ubuntu.com/xenial/
+- Ubuntu-server 20.04 LTS, 20.04 , 64 bit  http://releases.ubuntu.com/
 - 2cpu, 4gbmem, os disk 3gb, persistent disk 500GB - 1TB
 
 
@@ -79,10 +82,6 @@ id_rsa		id_rsa.pub
 
 
 ```
-
-## other options
-https://github.com/cloudfoundry/jumpbox-deployment
-
 
 ### clis
 ```
@@ -420,6 +419,24 @@ dpkg -i stable?release=debian64
 
 ```
 
+# install docker engine (option1)
+https://docs.docker.com/engine/install/ubuntu/
+```
+sudo apt update
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+sudo docker run hello-world
+sudo docker ps -a
+
+
+```
 
 # install docker engine env
 
