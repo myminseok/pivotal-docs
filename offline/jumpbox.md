@@ -22,6 +22,7 @@ mount /dev/sdc /store
 ## mount on VM boot
 ```
 ## copy UUID
+blkid
 ls -al /dev/disk/by-uuid/
 
 ## Edit fstab
