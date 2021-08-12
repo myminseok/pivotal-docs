@@ -153,6 +153,24 @@ Global
 
 ```
 
+or
+vi /etc/netplan/00-installer-config.yaml
+```
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    ens160:
+      addresses:
+      - 192.168.0.9/16
+      gateway4: 192.168.0.1
+      nameservers:
+        addresses:
+        - 127.0.0.1
+  version: 2
+
+```
+sudo netplan apply
+
 ## Core DNS
 - https://github.com/kubernetes/dns/blob/master/docs/specification.md
 - https://coredns.io/plugins/kubernetes/
