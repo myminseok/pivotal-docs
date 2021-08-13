@@ -103,3 +103,61 @@ Succeeded
 - opsman > director tile> director config > check `recreate-vm' 
 - apply change
 
+
+
+# Method 2)
+
+### edit env.yml
+
+### extract director.yml 
+```
+om -e env.yml staged-director-config --no-redact > director.yml
+```
+
+### edit director.yml
+```
+az-configuration:
+- name: AZ1
+  iaas_configuration_name: default
+  clusters:
+  - cluster: Cluster
+    drs_rule: MUST
+    #guid: 0efe8967216700b594b9
+    host_group: null
+    resource_pool: null
+    #  guid: 0f6de1676e51c1a01570
+iaas-configurations:
+- additional_cloud_properties: { "enable_human_readable_name":true}
+  bosh_disk_path: pcf_disk
+  bosh_template_folder: pcf_templates
+  bosh_vm_folder: pcf_vms
+...
+```
+### confiure director 
+```
+om -e env.yml configure-director -c director.yml
+```
+
+### verify configuration
+
+```
+# ssh into opsman vm
+uaac target https://localhost/uaa --skip-ssl-validation
+uaac token owner get
+
+uaac curl -k "https://localhost/api/v0/staged/director/iaas_configurations"
+{
+  "iaas_configurations": [
+    {
+      "guid": "cfe2469c4b2e0848dbd9",
+      "name": "default",
+      "additional_cloud_properties": {
+        "enable_human_readable_name": true
+      },
+      ...
+
+```
+### apply to director VM by clicking 'apply change' to director
+- will recreate director vm.
+
+
