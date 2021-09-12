@@ -455,6 +455,18 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 ```
 
+# docker-compose
+```
+##  install docker compose
+apt install docker-compose && apt remove docker-compose -y
+
+apt install python-pip -y
+# apt install python3-pip 
+
+
+pip install docker-compose
+```
+
 # troubleshooting: wget download failure
 ```
 wget https://cli.run.pivotal.io/stable?release=debian64&source=github
