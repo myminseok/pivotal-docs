@@ -16,8 +16,8 @@ there are two jumpboxes(internal, external)
 ```
 fdisk -l
 mkfs.ext4 /dev/sdc
-mkdir /store
-mount /dev/sdc /store
+mkdir /data
+mount /dev/sdc /data
 ```
 ## mount on VM boot
 ```
@@ -28,7 +28,7 @@ ls -al /dev/disk/by-uuid/
 ## Edit fstab
 vi  /etc/fstab
 ...
-UUID=466b17a6-245f-4d3f-a5b2-ffa741bc7834 /store ext4 defaults 0 0
+UUID=466b17a6-245f-4d3f-a5b2-ffa741bc7834 /data ext4 defaults 0 0
 
 ## success if nothing return.
 sudo mount -a
@@ -84,7 +84,7 @@ id_rsa		id_rsa.pub
 
 ```
 
-### clis
+### CLIs
 ```
 git
 pivnet: https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivnet-linux-amd64-3.0.1
