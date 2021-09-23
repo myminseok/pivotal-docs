@@ -498,3 +498,21 @@ Updating certificates in /etc/ssl/certs...
 wget https://cli.run.pivotal.io/stable?release=debian64&source=github
 ```
 
+
+## no password
+```
+vi /etc/sudoers
+
+
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+### ubuntu  ALL=(ALL) NOPASSWD: ALL #<---group sudo 다음에 작성해야함.
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+
+ubuntu  ALL=(ALL) NOPASSWD: ALL   #<======
+```
