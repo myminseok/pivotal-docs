@@ -15,6 +15,15 @@ vi /etc/ntp.conf
 # Use Ubuntu's ntp server as a fallback.
 #server ntp.ubuntu.com
 server 127.127.1.0
+fudge  127.127.1.0 stratum 10
+
+
+# If you want to listen to time broadcasts on your local subnet, de-comment the
+# next lines.  Please do this only if you trust everybody on the network!
+disable auth
+broadcastclient
+
+
 
 ```
 
