@@ -33,4 +33,5 @@ root@ubuntu:~# ntpdate -u localhost
  2 Dec 13:46:58 ntpdate[3135]: adjust time server 127.0.0.1 offset -0.000005 sec
  
 root@ubuntu:~# ntpdate -u 192.168.0.15
+ntpdate -d 192.168.0.15
 ```
