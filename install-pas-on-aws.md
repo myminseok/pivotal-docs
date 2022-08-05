@@ -7,7 +7,7 @@ https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf-aws-manual-config.html
 # AWS IAM 
 
 # AWS limit for IAM
-- VM instance: t2.micro => 50
+- EC2 VM instance: t2.micro => 50
 - Elastic IP:  5 +
 - vpc: 2 +
 
