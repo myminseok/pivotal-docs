@@ -37,8 +37,8 @@ vi terraform.tfvars
 -----------
 environment_name = "tas-test"
 
-access_key = "xxxx"
-secret_key = "xxxx"
+access_key = "ACCESS_KEY"
+secret_key = "SECRET_KEY"
 
 region = "ap-northeast-2"
 availability_zones = ["ap-northeast-2a","ap-northeast-2b","ap-northeast-2c"]
@@ -49,13 +49,13 @@ hosted_zone = "pcfdemo.net."
 
 ## terraforming
 ```
+cd paving/aws
+
 terraform init
 
-terraform plan | tee _output
-
-# review  _output 
-
+terraform plan -var-file terraform.tfvars
 ```
+
 
 ## terraform apply
 ```
@@ -104,4 +104,9 @@ hCHX8rL6Zwb\\n1rf\\n-----END RSA PRIVATE KEY-----\\n"
 printf -- PASTE_THE_SSH_KEY_CONTENT > ops_manager_ssh_private_key
 ```
 
+
+## destroy the installation (WARNING)
+```
+# terraform destroy -var-file terraform.tfvars
+```
 
