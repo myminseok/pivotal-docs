@@ -8,8 +8,10 @@
 ## download terraform cli.
 https://www.terraform.io/downloads.html
 ```
+brew install terraform
+```
+```
 terraform version 
-+ 0.13+ 
 ```
 
 ## clone repo 
