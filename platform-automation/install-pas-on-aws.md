@@ -10,7 +10,9 @@ https://docs.pivotal.io/ops-manager/2-10/install/aws-manual.html
 - https://docs.pivotal.io/ops-manager/2-10/install/policy-doc.html
 
 ## EC2 limit quota for TAS
-https://docs.pivotal.io/ops-manager/2-10/install/aws.html
+- https://docs.pivotal.io/ops-manager/2-10/install/aws.html
+- https://docs.pivotal.io/application-service/2-13/operating/scaling-ert-components.html
+
 ```
 vpc=> 1+
 Elastic LB: 2+  (TAS http, tcp)
