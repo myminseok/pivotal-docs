@@ -7,61 +7,11 @@
 - https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-terraform.html
 - [platform-automation/terraforming-aws.md](terraforming-aws.md)
 
-### terraforming on aws
-#### use https://github.com/pivotal/paving 
-
-```
-git clone https://github.com/pivotal/paving
-cd aws
-rm -rf pks-*
-cp terraform.tfvars.example terraform.tfvars 
-```
-
-####  edit paving/aws/terraform.tfvars
-```vi paving/aws/terraform.tfvars
-environment_name = "mkim-tas"
-
-access_key = "ACCESS_KEY"
-secret_key = "SECRET_KEY"
-
-region = "ap-northeast-2"
-availability_zones = ["ap-northeast-2a","ap-northeast-2b","ap-northeast-2c"]
-
-hosted_zone = "pcfdemo.net."
-```
-#### terraforming for LB, DNS, security groups
-```
-cd paving/aws
-terraform init
-terraform plan -var-file terraform.tfvars
-terraform apply -var-file terraform.tfvars
-terraform output stable_config_opsmanager
-
-# terraform destroy -var-file terraform.tfvars
-
-```
-#### extract opsman ssh private key
-```
-## copy ops_manager_ssh_private_key value 
-terraform output stable_config_opsmanager
-
-
-## convert RSA key format. 
-### !!! make sure starting quote and ending quote with NO backslash '\'
-
-printf -- "-----BEGIN RSA PRIVATE KEY-----\\nMIIJKQIBAAKCAgEA0MlZIK59WUoZzquwzun+IB
-....
-+sOr+LLfOb5mjwZvbL9scdy1YqVNM\\n-----END RSA PRIVATE KEY-----\\n"  > opsman.key
-
-
-### 
-chmod 600 opsman.key
-
-```
-#### (WARNING!!! ) change opsmanager security group > inbound rule to myIP from ALL
-- AWS console> EC2> security groups
+### [terraforming on aws](platform-automation/terraforming-aws.md)
 
 #### create opsman VM
+(WARNING!!! ) change opsmanager security group > inbound rule to myIP from ALL
+- AWS console> EC2> security groups
 - network.pivotal.io.  check opsmanager AMI ID for your AWS region
 - create opsman vm on public network which is created by paving.
 - access opsman via opsman domain which is created by paving. https://opsmanager.mkim-tas.pcfdemo.net
