@@ -50,6 +50,9 @@ hosted_zone = "pcfdemo.net."
 -----------
 ```
 
+## create hosted zone on route53.
+
+
 ## terraforming
 ```
 cd paving/aws
@@ -59,8 +62,8 @@ terraform init
 terraform plan -var-file terraform.tfvars
 ```
 
-
 ## terraform apply
+
 ```
 terraform apply
 
