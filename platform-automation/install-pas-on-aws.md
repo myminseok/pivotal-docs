@@ -16,7 +16,7 @@ https://docs.pivotal.io/ops-manager/2-10/install/aws-manual.html
 ```
 vpc=> 1+
 Elastic LB: 2+  (TAS http, tcp)
-Elastic IP: 5+ ( opsman, tas lb, ssh, tcp, sample app)
+Elastic IP: 5+ ( aws NAT, opsman, tas lb, ssh, tcp, sample app)
 EC2 VM instance => 
 t2.micro: 50
 c4.large: 5
