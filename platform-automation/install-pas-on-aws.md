@@ -8,6 +8,7 @@ https://docs.pivotal.io/ops-manager/2-10/install/aws-manual.html
 - https://docs.pivotal.io/ops-manager/2-10/aws/required-objects.html
 - https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-manual.html#create-iam
 - https://docs.pivotal.io/ops-manager/2-10/install/policy-doc.html
+- additonal iam policy: https://docs.pivotal.io/ops-manager/2-10/install/policy-doc.html#add-policies
 - route53: https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/access-control-managing-permissions.html
 ## EC2 limit quota for TAS
 - https://docs.pivotal.io/ops-manager/2-10/install/aws.html
