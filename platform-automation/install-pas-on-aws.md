@@ -5,6 +5,9 @@ https://docs.pivotal.io/ops-manager/2-10/install/aws-manual.html
 
 
 # AWS IAM 
+- https://docs.pivotal.io/ops-manager/2-10/aws/required-objects.html
+- https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-manual.html#create-iam
+- https://docs.pivotal.io/ops-manager/2-10/install/policy-doc.html
 
 ## EC2 limit quota for TAS
 https://docs.pivotal.io/ops-manager/2-10/install/aws.html
@@ -70,7 +73,7 @@ aws ec2 describe-availability-zones
 
 
 
-## AWS quick start
-https://aws-quickstart.github.io/quickstart-vmware-tanzu-application-platform/
-https://github.com/aws-quickstart/quickstart-vmware-tanzu-application-platform
+## ref) AWS quick start
+- https://aws-quickstart.github.io/quickstart-vmware-tanzu-application-platform/
+- https://github.com/aws-quickstart/quickstart-vmware-tanzu-application-platform
 
