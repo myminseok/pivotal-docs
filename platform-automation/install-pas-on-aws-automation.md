@@ -1,19 +1,11 @@
 **This document has been deprecated**
 
-## check aws resource quota(limit)
-extend resource limit of EC2:
-https://docs.pivotal.io/pivotalcf/2-3/customizing/aws.html
-```
-vpc=> 5 free
-vms=>
-t2.micro: 50
-c4.large: 20
-m4.large: 20
-r4.large: 20
-```
+
 ## prepare contron-plane(concourse)
 - [bbl-aws](bbl.md)
 - [concourse-with-credhub](concourse-with-credhub.md)
+
+##  (EC2 limit quota for TAS)[install-pas-on-aws.md]
 
 
 ## (for production env) prepare a wildcard domain for PAS foundation.

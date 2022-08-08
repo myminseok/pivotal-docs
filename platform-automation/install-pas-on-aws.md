@@ -6,11 +6,20 @@ https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf-aws-manual-config.html
 
 # AWS IAM 
 
-# EC2 limit quota for TAS
-- EC2 VM instance: t2.micro => 50
-- Elastic LB: 2  (TAS http, tcp)
-- Elastic IP: 5 ( opsman, tas lb, ssh, tcp, sample app)
-- vpc: 1 
+## EC2 limit quota for TAS
+https://docs.pivotal.io/pivotalcf/2-3/customizing/aws.html
+```
+vpc=> 5 ?
+Elastic LB: 2  (TAS http, tcp)
+Elastic IP: 5 ( opsman, tas lb, ssh, tcp, sample app)
+EC2 VM instance => 
+t2.micro: 50
+c4.large: 20
+m4.large: 20
+r4.large: 20
+
+```
+
 
 # EC2 limit quota for PKS
 - VPC 1개: opsman용 (control plane은 기존것 재활용)
