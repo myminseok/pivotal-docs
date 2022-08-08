@@ -14,9 +14,9 @@ Elastic LB: 2+  (TAS http, tcp)
 Elastic IP: 5+ ( opsman, tas lb, ssh, tcp, sample app)
 EC2 VM instance => 
 t2.micro: 50
-c4.large: 20
-m4.large: 20
-r4.large: 20
+c4.large: 5
+m4.large: 5
+r4.large: 5
 
 ```
 
