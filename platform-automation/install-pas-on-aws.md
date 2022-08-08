@@ -20,7 +20,15 @@ t2.micro: 50
 c4.large: 5
 m4.large: 5
 r4.large: 5
-
+```
+```
+micro: 15
+small: 1
+medium.mem: 1+
+medium.disk: 2+
+large.disk: 1+
+large: 1+
+xlarge.disk: 1+
 ```
 
 
