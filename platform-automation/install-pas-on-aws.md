@@ -69,3 +69,8 @@ aws ec2 describe-availability-zones
 ```
 
 
+
+## AWS quick start
+https://aws-quickstart.github.io/quickstart-vmware-tanzu-application-platform/
+https://github.com/aws-quickstart/quickstart-vmware-tanzu-application-platform
+
