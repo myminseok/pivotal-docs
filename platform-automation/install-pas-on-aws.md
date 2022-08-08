@@ -1,13 +1,13 @@
 
 
-# manually installing PAS guide
-https://docs.pivotal.io/pivotalcf/2-4/customizing/pcf-aws-manual-config.html
+# Manually installing PAS guide
+https://docs.pivotal.io/ops-manager/2-10/install/aws-manual.html
 
 
 # AWS IAM 
 
 ## EC2 limit quota for TAS
-https://docs.pivotal.io/pivotalcf/2-3/customizing/aws.html
+https://docs.pivotal.io/ops-manager/2-10/install/aws.html
 ```
 vpc=> 1+
 Elastic LB: 2+  (TAS http, tcp)
