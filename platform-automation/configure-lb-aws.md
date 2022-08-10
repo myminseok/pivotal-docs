@@ -51,8 +51,8 @@ vmextensions-configuration:
 - name: web-lb-security-groups
   cloud_properties:
     security_groups:
-    - web_lb_security_group
-    - vms_security_group
+    - web_lb_security_group <== update to the actual aws security group.
+    - vms_security_group    <== update to the actual aws security group.
 - name: ssh-lb-security-groups
   cloud_properties:
     security_groups:
@@ -76,6 +76,7 @@ om -e env.yml configure-director -c director.yml
 ``` bash
 om -e env.yml -k  curl --path /api/v0/staged/vm_extensions/web-lb-security-groups -x PUT -d \
       '{"name": "web-lb-security-groups", "cloud_properties": { "security_groups": ["web_lb_security_group", "vms_security_group"] }}'
+      
 Status: 200 OK
 
 om -e env.yml -k curl --path /api/v0/staged/vm_extensions/ssh-lb-security-groups -x PUT -d \
