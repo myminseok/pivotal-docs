@@ -25,9 +25,9 @@ https://docs.pivotal.io/pivotalcf/2-5/opsman-api/#updating-single-iaas-configura
 curl -k "https://localhost/api/v0/staged/director/iaas_configurations" \
  -H "Authorization: Bearer $TOKEN"  | jq '.'
 ```
-or
+or use om (https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/install_opsman.md#platform-automation-templateawstestopsmanenvyml)
 ```
-om -e env.yml -k curl /api/v0/staged/director/iaas_configurations
+om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations
 ```
 
 #### update your director iaas_configurations.
@@ -70,6 +70,32 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
 {"iaas_configuration":{"guid":"6552ba16572953313cea","name":"default","additional_cloud_properties":{"enable_human_readable_name":true},"vcenter_host":"....","datacenter":"....","ephemeral_datastores_string":".....","persistent_datastores_string":"....","vcenter_username":"....@....","bosh_vm_folder":"...","bosh_template_folder":"....","bosh_disk_path":"....","ssl_verification_enabled":false,"nsx_networking_enabled":false,"disk_type":"thick"}}
 
 ```
+
+or use om
+
+```
+om -e env.yml -k curl --path api/v0/staged/director/iaas_configurations/6552ba16572953313cea \
+ -x PUT   \
+ -d '{
+  "iaas_configuration":
+    {
+      "guid": "6552ba16572953313cea",
+      "name": "default",
+      "additional_cloud_properties": {"enable_human_readable_name":true},
+      "vcenter_host": "<vcenter.url>",
+      "datacenter": "<Datacentre>",
+      "ephemeral_datastores_string": "<pcfstore>",
+      "persistent_datastores_string": "<pcfstore>",
+      "vcenter_username": "<vcenter account>",
+      "bosh_vm_folder": "pcf_vms",
+      "bosh_template_folder": "pcf_templates",
+      "bosh_disk_path": "pcf_disk",
+      "ssl_verification_enabled": false,
+      "nsx_networking_enabled": false,
+      "disk_type": "thick"
+    }
+}'
+ ```
 ### apply to director VM by clicking 'apply change' to director
 - will recreate director vm.
 
