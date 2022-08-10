@@ -167,6 +167,8 @@ tcp_router:
 configure  director config in opsman VM.
 ```
 om -e env.yml   configure-product -c cf.yml
-
+```
+```
+configuring cf ...
 ```
 then apply TAS change. gorouter vm should be registered to web-lb target group automatically. diego-brain vm  to ssh-lb.
