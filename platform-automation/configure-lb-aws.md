@@ -112,7 +112,7 @@ awstest-tcp-tg-1024
 - example for `awstest` environment
 
 ```
-om -e env.yml staged-config -p cf  -c true -r false > cf.yml
+om -e env.yml staged-config -p cf  -r false  -c true > cf.yml
 ```
 vi cf.yml
 
