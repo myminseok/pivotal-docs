@@ -22,7 +22,7 @@ my-vpc:(10.0.0.0/16)
 - Route tables:     
   - route_table_public_1:
     - route table:
-      - 0.0.0.0/0 -> igw-1
+      - 0.0.0.0/0 -> igw-1. <---- should be ok without this setting.
     - subnet associations:
       - subnet-public-1
       
