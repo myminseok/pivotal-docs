@@ -111,8 +111,13 @@ awstest-tcp-tg-1024
 > https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html#aws-terraform
 - example for `awstest` environment
 
+
 ```
-om -e env.yml staged-config -p cf  -r false  -c true > cf.yml
+om -e env.yml staged-config -p cf  > cf.yml
+```
+
+```
+## om -e env.yml staged-config -p cf  -r false  -c true > cf.yml
 ```
 vi cf.yml
 
