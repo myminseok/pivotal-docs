@@ -25,6 +25,10 @@ https://docs.pivotal.io/pivotalcf/2-5/opsman-api/#updating-single-iaas-configura
 curl -k "https://localhost/api/v0/staged/director/iaas_configurations" \
  -H "Authorization: Bearer $TOKEN"  | jq '.'
 ```
+or
+```
+om -e env.yml -k curl /api/v0/staged/director/iaas_configurations
+```
 
 #### update your director iaas_configurations.
 
