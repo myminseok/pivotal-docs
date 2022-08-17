@@ -28,7 +28,10 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations" \
 or use om (https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/install_opsman.md#platform-automation-templateawstestopsmanenvyml)
 ```
 om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations
-```
+
+
+om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/GUID
+``
 
 #### update your director iaas_configurations.
 
