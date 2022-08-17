@@ -74,7 +74,7 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
 or use om
 
 ```
-om -e env.yml -k curl --path api/v0/staged/director/iaas_configurations/6552ba16572953313cea \
+om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/6552ba16572953313cea \
  -x PUT   \
  -d '{
   "iaas_configuration":
