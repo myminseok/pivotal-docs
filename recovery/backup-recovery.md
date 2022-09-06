@@ -50,4 +50,8 @@ https://github.com/pivotalservices/concourse-pipeline-samples/tree/master/concou
 
 
 
+# detecting lost SI in CF.
+
+https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/incident-response-guides/lost-cf-data.html
+
 
