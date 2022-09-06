@@ -60,8 +60,10 @@ https://github.com/pivotalservices/concourse-pipeline-samples/tree/master/concou
 https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/restore-pcf-bbr.html#compatibility
 
 
-## detecting lost SI in CF.
+## detecting orphand deployment(SI) in CF.
 
-https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/incident-response-guides/lost-cf-data.html
+https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/incident-response-guides/lost-cf-data.html#consolidating-environment
 
+https://docs.vmware.com/en/On-Demand-Services-SDK-for-VMware-Tanzu/0.42/on-demand-services-sdk/GUID-management.html#orphan-deployments
+[
 
