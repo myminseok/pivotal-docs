@@ -14,6 +14,7 @@ https://docs.pivotal.io/pivotalcf/2-3/customizing/backup-restore/backup-pcf-bbr.
 #### 백업 검증
 원본 환경말고 새로운 환경을 준비해서 백업을 이용해서 복구해보는 절차입니다.
 https://docs.pivotal.io/pivotalcf/2-3/customizing/backup-restore/backup-pcf-bbr.html#validate-backup
+https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/restore-pcf-bbr.html#compatibility
 
 
 ### concourse파이프라인을 이용한 자동백업
@@ -49,8 +50,12 @@ concourse-worker-tag: external_worker
 https://github.com/pivotalservices/concourse-pipeline-samples/tree/master/concourse-pipeline-patterns/time-triggered-pipelines/01-single-time-trigger
 
 
+# restore
+## backup validation by test restoring
+https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/restore-pcf-bbr.html#compatibility
 
-# detecting lost SI in CF.
+
+## detecting lost SI in CF.
 
 https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/incident-response-guides/lost-cf-data.html
 
