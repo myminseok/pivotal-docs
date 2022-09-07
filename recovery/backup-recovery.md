@@ -59,6 +59,15 @@ https://github.com/pivotalservices/concourse-pipeline-samples/tree/master/concou
 ## backup validation by test restoring
 https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/restore-pcf-bbr.html#compatibility
 
+## recreate vm and persistent disk
+- bosh vms : check persisent disk damage in vcenter
+- bosh -d cf-x is -i : get disk cid
+- bosh delete-vm vm-cid
+- delete persistent disk from vcenter manually
+- bosh cck : will choose to delete disk reference
+- bosh -d cf instances -i : see if the disk ref is deleted
+- bosh -d cf-x recreate instance-id : will recreate a new persistent disk
+- bosh -d cf-x cck : 
 
 ## detecting orphand deployment(SI) in CF.
 
