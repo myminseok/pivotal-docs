@@ -75,4 +75,5 @@ https://docs.pivotal.io/ops-manager/2-10/install/backup-restore/incident-respons
 
 https://docs.vmware.com/en/On-Demand-Services-SDK-for-VMware-Tanzu/0.42/on-demand-services-sdk/GUID-management.html#orphan-deployments
 [
-
+## converge
+https://bosh.io/docs/deployment-convergence/
