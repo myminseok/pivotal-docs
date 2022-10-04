@@ -31,7 +31,7 @@ om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations
 
 
 om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/GUID
-``
+```
 
 #### update your director iaas_configurations.
 
@@ -98,7 +98,10 @@ om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/6552ba1
       "disk_type": "thick"
     }
 }'
- ```
+ 
+```
+ ## or -d @file
+ 
 ### apply to director VM by clicking 'apply change' to director
 - will recreate director vm.
 
