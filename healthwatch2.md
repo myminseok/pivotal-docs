@@ -10,12 +10,18 @@ printf -- "YOUR-KEY" > healthwatch.tsdb.client.key
 printf -- "YOUR-CERT" > healthwatch.tsdb.cert.pem
 ```
 #### generate pkcs12 file
+put any passphrase to use later on for importing to browser
 ```
 openssl pkcs12 -export -out healthwatch.pfx -inkey healthwatch.tsdb.client.key -in healthwatch.tsdb.cert.pem
 ```
 #### register to firefox
 - address text box >  about:config >  proceed at risk > security.osclientcerts.autoreload = true 
-- address text box > about:preferences#privacy > cretificate > view certificate...> My Certtificate and load the pfx file 
+- address text box > about:preferences#privacy > cretificate > view certificate...> My Certtificate and load the pfx file to any category
+
+#### register to chrome
+- Settings > Manage Certificate > My Certtificate and load the pfx file to any category
+
+
 
 #### ssh tunnel to tsdb
 ```
