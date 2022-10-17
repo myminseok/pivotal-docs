@@ -19,12 +19,13 @@ openssl pkcs12 -export -out healthwatch.pfx -inkey healthwatch.tsdb.client.key -
 
 #### ssh tunnel to tsdb
 ```
-bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L opsman_vm_IP:9090:localhost:9090'
+bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L PUT_YOUR_OPSMAN_IP:9090:localhost:9090'
 ```
 #### windows PC
 c:\Windows\System32\Drivers\etc\hosts file
 ```
-192.168.160.200 prometheus
+PUT_YOUR_OPSMAN_IP prometheus
 ```
+
 
 https://prometheus:9090
