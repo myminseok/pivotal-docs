@@ -22,7 +22,7 @@ openssl pkcs12 -export -out healthwatch.pfx -inkey healthwatch.tsdb.client.key -
 bosh -d DEPLOYMENT-NAME ssh tsdb/0 --opts='-L opsman_vm_IP:9090:localhost:9090'
 ```
 #### windows PC
-/etc/hosts
+c:\Windows\System32\Drivers\etc\hosts file
 ```
 192.168.160.200 prometheus
 ```
