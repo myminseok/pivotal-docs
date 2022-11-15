@@ -439,6 +439,21 @@ sudo docker ps -a
 
 ```
 
+### add `docker` group to `ubuntu` user
+```
+sudo usermod -g docker ubuntu
+```
+re-login
+```
+id
+uid=1000(ubuntu) gid=998(docker) groups=998(docker),4(adm),20(dialout),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),117(netdev),118(lxd)
+
+
+docker ps
+
+
+```
+
 # install docker engine env
 
 - 외부에서 내려받은 다커 이미지를 내부 하버에 밀어넣기 위해 내부 점프박스에 다커 엔진이 필요하다. 
