@@ -469,6 +469,14 @@ root@TLKPCFJB1:/home/ubuntu# docker ps
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 
 ```
+# kind
+
+https://kind.sigs.k8s.io/docs/user/quick-start/#installing-from-release-binaries
+```
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+```
 
 # docker-compose
 ```
