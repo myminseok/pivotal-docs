@@ -53,6 +53,11 @@ https://confluence.jaytaala.com/display/TKB/Mount+drive+in+linux+and+set+auto-mo
 
 Following is optional settings 
 
+###  ifconfig
+
+```
+sudo apt install net-tools
+```
 *  generating ssh -key
 * for windows, use PuttyGen: https://www.ssh.com/ssh/putty/windows/puttygen
 ```
@@ -481,7 +486,8 @@ sudo mv ./kind /usr/local/bin/kind
 # docker-compose
 ```
 ##  install docker compose
-apt install docker-compose && apt remove docker-compose -y
+sudo apt install docker-compose -y
+&& apt remove docker-compose -y
 
 apt install python-pip -y
 # apt install python3-pip 
@@ -489,6 +495,46 @@ apt install python-pip -y
 
 pip install docker-compose
 ```
+
+
+# harbor( docker-compose)
+
+
+download: https://github.com/goharbor/harbor/releases
+
+wget https://github.com/goharbor/harbor/releases/download/v2.3.3/harbor-offline-installer-v2.3.3.tgz
+
+tar xf harbor-offline-installer-v2.3.3.tgz
+
+
+###  HTTPS harbor
+https://goharbor.io/docs/2.0.0/install-config/configure-https/
+
+
+cp harbor.yml.tmpl harbor.yml
+
+infra-harbor.lab.pcfdemo.net
+
+https:
+  # https port for harbor, default is 443
+  port: 443
+  # The path of cert and key files for nginx
+  certificate: /data/harbor-main/generate-self-signed-cert-new/domain.crt
+  private_key: /data/harbor-main/generate-self-signed-cert-new/domain.key
+
+
+/data/harbor-main/harbor# docker-compose version
+
+docker-compose version 1.26.2, build unknown
+docker-py version: 4.4.4
+CPython version: 2.7.17
+OpenSSL version: OpenSSL 1.1.1  11 Sep 2018
+
+sudo ./install.sh
+
+sudo chown -R ubuntu:ubuntu /data/
+
+docker-compose up
 
 # troubleshooting: wget download failure
 ```
