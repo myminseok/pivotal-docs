@@ -1,43 +1,74 @@
 
-# harbor( docker-compose)
+# Harbor( docker-compose)
 
-download: https://github.com/goharbor/harbor/releases
+## Preerquisites
+- docker-compose
+```
+/data/harbor-main/harbor# docker-compose version
+docker-compose version 1.26.2, build unknown
+docker-py version: 4.4.4
+CPython version: 2.7.17
+OpenSSL version: OpenSSL 1.1.1  11 Sep 2018
+```
+- should setup as ROOT and run as root.
+```
+sudo su
+```
 
+## download
+https://github.com/goharbor/harbor/releases
+```
 wget https://github.com/goharbor/harbor/releases/download/v2.3.3/harbor-offline-installer-v2.3.3.tgz
 
 tar xf harbor-offline-installer-v2.3.3.tgz
+```
 
+## download scripts
+```
+git clone https://github.com/myminseok/jumpbox-setup-main
+```
 
-###  HTTPS harbor
+## generate domain certificates
+
+```
+cd jumpbox-setup-main/harbor-main/generate-self-signed-cert-new
+```
+edit csr.conf
+```
+
+CN = pcfdemo.net
+```
+and generate.sh
+
+## harbor.yml
+```
+cp harbor.yml.tmpl harbor.yml
+```
+
+##  HTTPS 
 https://goharbor.io/docs/2.0.0/install-config/configure-https/
 
-
-cp harbor.yml.tmpl harbor.yml
-
-infra-harbor.lab.pcfdemo.net
-
+```
 https:
   # https port for harbor, default is 443
   port: 443
   # The path of cert and key files for nginx
   certificate: /data/harbor-main/generate-self-signed-cert-new/domain.crt
   private_key: /data/harbor-main/generate-self-signed-cert-new/domain.key
+```
 
-
-/data/harbor-main/harbor# docker-compose version
-
-docker-compose version 1.26.2, build unknown
-docker-py version: 4.4.4
-CPython version: 2.7.17
-OpenSSL version: OpenSSL 1.1.1  11 Sep 2018
-
+```
 sudo ./install.sh
 
 sudo chown -R ubuntu:ubuntu /data/
 
 docker-compose up
+```
 
-# troubleshooting: wget download failure
+
+# troubleshooting
+
+## wget download failure
 ```
 wget https://cli.run.pivotal.io/stable?release=debian64&source=github
 
@@ -50,7 +81,7 @@ To connect to cli.run.pivotal.io insecurely, use `--no-check-certificate'
 
 ```
 
-how to import ABC corp certificate
+## how to import ABC corp certificate
 ```
 1) export ABC corp cert(DER format)
 2) copy to External jumpbox (ubuntu)
