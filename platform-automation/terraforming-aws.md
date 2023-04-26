@@ -3,7 +3,6 @@
 ## docs
 - https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-terraform.html
 - https://github.com/pivotal/paving 
-- (deprecated) https://network.pivotal.io/products/elastic-runtime/#/releases/668407 ( 2.6)
 
 ## download terraform cli.
 https://www.terraform.io/downloads.html
