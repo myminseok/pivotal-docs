@@ -3,14 +3,15 @@
 # Manually installing PAS guide
 https://docs.pivotal.io/ops-manager/2-10/install/aws-manual.html
 
-# AWS IAM 
+# Prerequisites
+#### AWS IAM 
 - https://docs.pivotal.io/ops-manager/2-10/aws/required-objects.html
 - https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-manual.html#create-iam
 - https://docs.pivotal.io/ops-manager/2-10/install/policy-doc.html
 - additonal iam policy: https://docs.pivotal.io/ops-manager/2-10/install/policy-doc.html#add-policies
 - route53: https://docs.aws.amazon.com/ko_kr/Route53/latest/DeveloperGuide/access-control-managing-permissions.html
 
-## EC2 limit quota for TAS
+#### EC2 limit quota for TAS
 - https://docs.pivotal.io/ops-manager/2-10/install/aws.html
 - https://docs.pivotal.io/application-service/2-13/operating/scaling-ert-components.html
 
@@ -35,7 +36,7 @@ xlarge.disk: 1+
 ```
 
 
-# EC2 limit quota for PKS
+#### EC2 limit quota for PKS
 - VPC 1개: opsman용 (control plane은 기존것 재활용)
 - EC2: ops manager: m4 large *1
     bosh director: m4 large *1
@@ -47,11 +48,12 @@ xlarge.disk: 1+
 
 2. PKS Api domain: api.pks.domain.com (pivotal container service VM으로 연결)
 
-# Prepare DNS hosted zone
+
+#### Prepare DNS hosted zone
 - will host TAS domain records: *.sys.TAS-DOMAIN. *.apps.TAS-DOMAIN. opsman-domain(optional)
 - recommends to use Route53
 
-# aws cli:
+### aws cli:
 [aws cli guide](https://aws.amazon.com/cli/?sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=google&sc_medium=english_command_line_b&sc_content=aws_cli_p&sc_detail=aws%20cli&sc_category=command_line&sc_segment=211466232633&sc_matchtype=p&sc_Country=KR&s_kwcid=AL!4422!3!211466232633!p!!g!!aws%20cli&ef_id=Wx6C2wAAAJp261dN:20180620131114:s)
 
 ```
@@ -60,10 +62,7 @@ pip install --upgrade pip setuptools
 pip install awscli
 
 ```
-
-
-# check aws cli:
-
+check aws cli:
 ```
 aws ec2 describe-availability-zones 
 {
