@@ -1,6 +1,6 @@
 
 
-# Manually installing PAS guide
+# Installing TAS Manually
 https://docs.pivotal.io/ops-manager/2-10/install/aws-manual.html
 
 # Prerequisites
