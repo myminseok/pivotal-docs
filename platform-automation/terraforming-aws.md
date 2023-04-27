@@ -26,11 +26,11 @@ rm -rf pks-*
 ```
 
 ## WARNING!!! change opsmanager security group 
-In our current configuration, we are using the Ops Manager VM as the jumpbox. The Ops Manager VM is deployed in the public subnet with a configuration (var.ops_manager_allowed_ips) to restrict it by IP.
+In our current configuration, we are using the Ops Manager VM as the jumpbox. The Ops Manager VM is deployed in the public subnet with a configuration (var.ops_manager_allowed_ips) to restrict it by IP in `variables.tf` file before terraform plan.
 ```
 variable "ops_manager_allowed_ips" {
   description = "IPs allowed to communicate with Ops Manager."
-  default     = ["0.0.0.0/24"] <--- modify this to your IP CIDR before terraform plan. ie) ["199.247.169.0/24"]
+  default     = ["0.0.0.0/24"] <--- modify this to your IP CIDR. ie) ["199.247.169.0/24"]
   type        = list
 }
 ```
