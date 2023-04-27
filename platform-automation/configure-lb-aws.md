@@ -3,18 +3,17 @@
 
 
 ## official guide
-- https://docs.pivotal.io/platform/application-service/2-9/operating/configure-lb.html
+- https://docs.pivotal.io/application-service/2-10/operating/configure-lb.html
 - https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-terraform.html
-- [platform-automation/terraforming-aws.md](terraforming-aws.md)
 
-### [terraforming on aws](platform-automation/terraforming-aws.md)
+### [terraforming on aws via paving](terraforming-aws.md)
 
 #### create opsman VM
-(WARNING!!! ) change opsmanager security group > inbound rule to myIP from ALL
+(SECURITY WARNING!!! ) change opsmanager security group > inbound rule to myIP from ALL(0.0.0.0/0)
 - AWS console> EC2> security groups
 - network.pivotal.io.  check opsmanager AMI ID for your AWS region
 - create opsman vm on public network which is created by paving.
-- access opsman via opsman domain which is created by paving. https://opsmanager.mkim-tas.pcfdemo.net
+- access opsman via opsman domain which is created by paving. ie) https://opsmanager.mkim-tas.pcfdemo.net
 
 #### ssh into opsman VM
 ```
@@ -28,9 +27,11 @@ ssh -i opsman.key ubuntu@opsmanager.mkim-tas.pcfdemo.net
 
 ####  download om linux cli
 - https://github.com/pivotal-cf/om/releases
+```
+wget https://github.com/pivotal-cf/om/releases/download/7.9.0/om-linux-amd64-7.9.0
+```
 
-
-#### set vm_extensions 
+#### set vm_extensions for loadbalancer, security groups
 there are two options for setting vm_extensions. use either one that works.
 - https://github.com/pivotal-cf/terraforming-aws/blob/master/ci/tasks/custom-vm-extensions.sh
 
@@ -71,7 +72,7 @@ om -e env.yml configure-director -c director.yml
 
 ```
 
-##### OPTION 2) set vm_extensions to opsman API 
+##### OPTION 2) set vm_extensions via opsman API 
 
 ``` bash
 om -e env.yml -k  curl --path /api/v0/staged/vm_extensions/web-lb-security-groups -x PUT -d \
@@ -88,7 +89,7 @@ om -e env.yml -k curl --path /api/v0/staged/vm_extensions/tcp-lb-security-groups
 
 
 
-## set lb config to  TAS tile
+## set lb config to TAS tile
 
 #### check terraform output 
 example for `awstest` environment
