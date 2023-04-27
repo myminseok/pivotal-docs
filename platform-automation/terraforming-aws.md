@@ -26,7 +26,17 @@ rm -rf pks-*
 ```
 
 ## WARNING!!! change opsmanager security group 
-In our current configuration, we are using the Ops Manager VM as the jumpbox. The Ops Manager VM is deployed in the public subnet with a configuration (var.ops_manager_allowed_ips) to restrict it by IP. If you want to use a jumpbox instead, you may deploy ops manager in the management subnet
+In our current configuration, we are using the Ops Manager VM as the jumpbox. The Ops Manager VM is deployed in the public subnet with a configuration (var.ops_manager_allowed_ips) to restrict it by IP.
+```
+variable "ops_manager_allowed_ips" {
+  description = "IPs allowed to communicate with Ops Manager."
+  default     = ["0.0.0.0/24"] <--- modify this to your IP CIDR before terraform plan. ie) ["199.247.169.0/24"]
+  type        = list
+}
+```
+
+
+If you want to use a jumpbox instead, you may deploy ops manager in the management subnet
 - https://github.com/pivotal/paving#jumpbox
 - AWS console> EC2 > security groups > inbound rule to myIP from ALL
 
