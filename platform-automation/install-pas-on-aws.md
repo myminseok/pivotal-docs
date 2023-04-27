@@ -84,9 +84,9 @@ aws ec2 describe-availability-zones
 }
 ```
 
-## [Terraforming AWS resources for TAS installation](terraforming-aws.md)
 
 ## Install TAS
+- [Terraforming AWS resources](terraforming-aws.md)
 - [Provision opsmanager VM ](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/aws-index.html)
 - [Configure TAS tile](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html)
 - [Configure TAS tile with loadbalancer](configure-lb-aws.md)
