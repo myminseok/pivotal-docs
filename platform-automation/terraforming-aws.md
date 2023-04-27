@@ -3,7 +3,7 @@
 ## docs
 - https://docs.pivotal.io/ops-manager/2-10/aws/prepare-env-terraform.html
 - https://github.com/pivotal/paving 
-- [install-pas-on-aws](platform-automation/install-pas-on-aws.md)
+- [install-pas-on-aws](install-pas-on-aws.md)
 
 ## download terraform cli.
 https://www.terraform.io/downloads.html
@@ -126,4 +126,4 @@ printf -- PASTE_THE_SSH_KEY_CONTENT > ops_manager_ssh_private_key
 # terraform destroy -var-file terraform.tfvars
 ```
 
-continue on [install-pas-on-aws](platform-automation/install-pas-on-aws.md)
+continue on [install-pas-on-aws](install-pas-on-aws.md)
