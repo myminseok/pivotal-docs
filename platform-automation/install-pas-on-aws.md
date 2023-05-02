@@ -83,8 +83,9 @@ aws ec2 describe-availability-zones
 > - Paste the opsmanager root CA
 - TAS tile > networking > TLS termination point: select `gorouter`
 - TAS tile > networking > Gorouter behavior for client certificate validation >  The Gorouter requests but does not require client certificates
+#### Configure TAS tile - AWS ELB
 - TAS tile > resource config> HAProxy: 0
-#### [Configure TAS tile - AWS ELB](configure-lb-aws.md)
+- [Configure TAS tile - AWS ELB](configure-lb-aws.md)
 #### apply chanage tas tile.
 
 ## optional reference) AWS quick start
