@@ -65,31 +65,17 @@ pip install awscli
 check aws cli:
 ```
 aws ec2 describe-availability-zones 
-{
-    "AvailabilityZones": [
-        {
-            "State": "available", 
-            "ZoneName": "ap-northeast-2a", 
-            "Messages": [], 
-            "RegionName": "ap-northeast-2"
-        }, 
-        {
-            "State": "available", 
-            "ZoneName": "ap-northeast-2c", 
-            "Messages": [], 
-            "RegionName": "ap-northeast-2"
-        }
-    ]
-}
 ```
 
 
 ## Install TAS
 - [Terraforming AWS resources](terraforming-aws.md)
 - [Provision opsmanager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/aws-index.html)
-- [Configure TAS tile - general](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html)
-- [Configure TAS tile - AWS ELB](configure-lb-aws.md)
-- apply chanage tas tile.
+> * [change IP/PORT of opsman vm](../change-ip-port-opsman.md)
+- Configure TAS tile
+> * [Configure TAS tile - official docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html)
+> * [Configure TAS tile - AWS ELB](configure-lb-aws.md)
+> apply chanage tas tile.
 
 ## optional reference) AWS quick start
 - https://aws-quickstart.github.io/quickstart-vmware-tanzu-application-platform/
