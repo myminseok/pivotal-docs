@@ -74,16 +74,18 @@ aws ec2 describe-availability-zones
 - [Provision opsmanager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/aws-index.html)
 - optional - [change IP/PORT of opsman vm](../change-ip-port-opsman.md)
 - Opsman UI> director tile> director config: [Include OpsManager Root CA in Trusted Certs](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/vsphere-config.html#step-7-security-pane-7)
-#### Configure TAS tile
+#### Configure TAS tile - general
 - [Configure TAS tile - official docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html)
-- opsman UI> TAS tile> networking> [Certificates and private keys for the Gorouter and HAProxy> add](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html#configure-networking-4)
-- Certificate Authorities trusted by the Gorouter and HAProxy:
+#### Configure TAS tile - domain certificates
+- TAS tile > networking > [Certificates and private keys for the Gorouter and HAProxy> add](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html#configure-networking-4)
+- TAS tile > networking > Certificate Authorities trusted by the Gorouter and HAProxy:
 > - [Retrieve the Ops Manager Root CA as a File Through the Ops Manager UI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#retrieve-the-ops-manager-root-ca-as-a-file-through-the-ops-manager-ui-4) 
 > - Paste the opsmanager root CA
-- TLS termination point: select `gorouter`
-- Gorouter behavior for client certificate validation >  The Gorouter requests but does not require client certificates
+- TAS tile > networking > TLS termination point: select `gorouter`
+- TAS tile > networking > Gorouter behavior for client certificate validation >  The Gorouter requests but does not require client certificates
+- TAS tile > resource config> HAProxy: 0
 #### [Configure TAS tile - AWS ELB](configure-lb-aws.md)
-> apply chanage tas tile.
+#### apply chanage tas tile.
 
 ## optional reference) AWS quick start
 - https://aws-quickstart.github.io/quickstart-vmware-tanzu-application-platform/
