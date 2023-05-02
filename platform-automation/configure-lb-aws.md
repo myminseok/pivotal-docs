@@ -100,8 +100,7 @@ om -e env.yml -k curl --path /api/v0/staged/vm_extensions/tcp-lb-security-groups
 ```
 
 
-
-## set lb config to TAS tile
+## Set lb config to TAS tile
 
 #### check terraform output 
 example for `awstest` environment
@@ -175,11 +174,6 @@ tcp_router:
     - alb:awstest-tcp-tg-1026
     - alb:awstest-tcp-tg-1027
     - alb:awstest-tcp-tg-1028
-    - alb:awstest-tcp-tg-1029
-    - alb:awstest-tcp-tg-1030
-    - alb:awstest-tcp-tg-1031
-    - alb:awstest-tcp-tg-1032
-    - alb:awstest-tcp-tg-1033
 ```
 
 configure  director config in opsman VM.
@@ -189,4 +183,8 @@ om -e env.yml   configure-product -c cf.yml
 ```
 configuring cf ...
 ```
-then apply TAS change. gorouter vm should be registered to web-lb target group automatically. diego-brain vm  to ssh-lb.
+then apply TAS change. 
+
+now gorouter vm should be registered to web-lb target group automatically. diego-brain vm  to ssh-lb.
+
+
