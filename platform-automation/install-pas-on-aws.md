@@ -53,7 +53,7 @@ xlarge.disk: 1+
 - will host TAS domain records: *.sys.TAS-DOMAIN. *.apps.TAS-DOMAIN. opsman-domain(optional)
 - recommends to use Route53
 
-### aws cli on jumpbox or local PC:
+#### aws cli on jumpbox or local PC:
 [aws cli guide](https://aws.amazon.com/cli/?sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=google&sc_medium=english_command_line_b&sc_content=aws_cli_p&sc_detail=aws%20cli&sc_category=command_line&sc_segment=211466232633&sc_matchtype=p&sc_Country=KR&s_kwcid=AL!4422!3!211466232633!p!!g!!aws%20cli&ef_id=Wx6C2wAAAJp261dN:20180620131114:s)
 
 ```
@@ -69,12 +69,20 @@ aws ec2 describe-availability-zones
 
 
 ## Install TAS
-- [Terraforming AWS resources](terraforming-aws.md)
+#### [Terraforming AWS resources](terraforming-aws.md)
+#### Provision opsmanager VM
 - [Provision opsmanager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/aws-index.html)
-> * [change IP/PORT of opsman vm](../change-ip-port-opsman.md)
-- Configure TAS tile
-> * [Configure TAS tile - official docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html)
-> * [Configure TAS tile - AWS ELB](configure-lb-aws.md)
+- optional - [change IP/PORT of opsman vm](../change-ip-port-opsman.md)
+- Opsman UI> director tile> director config: [Include OpsManager Root CA in Trusted Certs](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/vsphere-config.html#step-7-security-pane-7)
+#### Configure TAS tile
+- [Configure TAS tile - official docs](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html)
+- opsman UI> TAS tile> networking> [Certificates and private keys for the Gorouter and HAProxy> add](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html#configure-networking-4)
+- Certificate Authorities trusted by the Gorouter and HAProxy:
+> - [Retrieve the Ops Manager Root CA as a File Through the Ops Manager UI](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/security-pcf-infrastructure-managing-certificates.html#retrieve-the-ops-manager-root-ca-as-a-file-through-the-ops-manager-ui-4) 
+> - Paste the opsmanager root CA
+- TLS termination point: select `gorouter`
+- Gorouter behavior for client certificate validation >  The Gorouter requests but does not require client certificates
+#### [Configure TAS tile - AWS ELB](configure-lb-aws.md)
 > apply chanage tas tile.
 
 ## optional reference) AWS quick start
