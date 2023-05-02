@@ -1,4 +1,8 @@
 ## Set IP/PORT on opsman VM manually 
+
+reference: https://community.pivotal.io/s/article/Pivotal-Cloud-Foundry-Being-Associated-with-Internal-IP-Rather-than-FQDN?language=en_US
+
+
 In ops manager VM as root, 
 
 interfaces
