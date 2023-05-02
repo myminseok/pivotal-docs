@@ -49,11 +49,11 @@ xlarge.disk: 1+
 2. PKS Api domain: api.pks.domain.com (pivotal container service VM으로 연결)
 
 
-#### Prepare DNS hosted zone
+#### Prepare DNS(hosted zone)
 - will host TAS domain records: *.sys.TAS-DOMAIN. *.apps.TAS-DOMAIN. opsman-domain(optional)
 - recommends to use Route53
 
-### aws cli:
+### aws cli on jumpbox or local PC:
 [aws cli guide](https://aws.amazon.com/cli/?sc_channel=PS&sc_campaign=acquisition_KR&sc_publisher=google&sc_medium=english_command_line_b&sc_content=aws_cli_p&sc_detail=aws%20cli&sc_category=command_line&sc_segment=211466232633&sc_matchtype=p&sc_Country=KR&s_kwcid=AL!4422!3!211466232633!p!!g!!aws%20cli&ef_id=Wx6C2wAAAJp261dN:20180620131114:s)
 
 ```
@@ -86,9 +86,9 @@ aws ec2 describe-availability-zones
 
 ## Install TAS
 - [Terraforming AWS resources](terraforming-aws.md)
-- [Provision opsmanager VM ](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/aws-index.html)
-- [Configure TAS tile](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html)
-- [Configure TAS tile with loadbalancer](configure-lb-aws.md)
+- [Provision opsmanager VM](https://docs.vmware.com/en/VMware-Tanzu-Operations-Manager/2.10/vmware-tanzu-ops-manager/aws-index.html)
+- [Configure TAS tile - general](https://docs.vmware.com/en/VMware-Tanzu-Application-Service/2.13/tas-for-vms/configure-pas.html)
+- [Configure TAS tile - AWS ELB](configure-lb-aws.md)
 - apply chanage tas tile.
 
 ## optional reference) AWS quick start
