@@ -52,3 +52,4 @@ Pivotal Cloud Foundry Documentation
 
 # tips
 - https://guides.github.com/features/mastering-markdown/
+- https://github.com/vmware-tanzu/vmotion-migration-tool-for-bosh-deployments
