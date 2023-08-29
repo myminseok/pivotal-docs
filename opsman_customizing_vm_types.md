@@ -74,7 +74,12 @@ curl -k "https://localhost/api/v0/vm_types" \
     -H "Content-Type: application/json" \
     --data-binary @vm_types.txt
   
-  
+```
+
+### using om cli
+```
+ om -e env.yml curl -p /api/v0/vm_types
+ om -e env.yml curl -p /api/v0/vm_types -x PUT -d @vm_types.txt
 ```
 
 now there is a new 'bigger' vm types in opsma UI.
