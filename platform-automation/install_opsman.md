@@ -7,6 +7,7 @@
 - [get pipeline template](/platform-automation/get-pipeline-template.md)
 - [set credhub variables](/platform-automation/set-credhub-variables.md)
 - [download depencencies](/platform-automation/download_dependencies.md)
+- download vcenter CA: Direct URL to download the Certificate is https://vCenter_FQDN/certs/download.zip.
 
 ## Prepare pipeline parameters
 - pipeline parameters should be set to concourse-credhub or set directly to pipeline.
