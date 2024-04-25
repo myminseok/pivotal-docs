@@ -67,7 +67,7 @@ addons:
 ###  bosh의 runtime-config를 갱신합니다.
 
 ```
-$ bosh update-runtime-config ./ulimit-runtime-config.yml
+$ bosh update-runtime-config --name=runtimeconfig-osconf ./ulimit-runtime-config.yml
 
 # 갱신내용을 확인합니다.
 $ bosh runtime-config
@@ -160,14 +160,14 @@ web/928d0c17-663c-41a1-b4ca-c5039140335e:~$ ulimit -n
 
 https://bosh.io/releases/github.com/cloudfoundry/os-conf-release?all=1
 ```
-bosh upload-release --sha1 6946056ad69ae378cb89c9ef76daf66370a7dc6a \
-  https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.0.0
+bosh upload-release --sha1 daf34e35f1ac678ba05db3496c4226064b99b3e4 \
+  "https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.2.1"
 ```
 
 ```
 releases:
 - name: os-conf
-  version: 22.0.0
+  version: 22.2.1
   
 addons:
 - name: os-configuration
@@ -178,7 +178,12 @@ addons:
       script: |-
         #!/bin/bash
         apt-get update
-
+  - name: post-deploy-script
+    release: os-conf
+    properties:
+      script: |-
+        #!/bin/bash
+        apt-get update
 ```
 
 
