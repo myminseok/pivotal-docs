@@ -184,6 +184,7 @@ Address=192.168.40.11/24
 [Network]
 DNS=192.168.0.5
 ```
+reference to https://github.com/cloudfoundry/bosh-agent/blob/c9ac8bea3d784e75fc86a06ea5324eb0c71ff5e6/platform/net/ubuntu_net_manager.go#L431
 
 #### updated VM config by monit.
 and monit will create following custom network config.
