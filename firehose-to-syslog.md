@@ -42,7 +42,7 @@ origin:"garden-linux" eventType:ValueMetric timestamp:1542179043567849619 deploy
 PAS에 firehose-to-syslog app을 배포해서 loggregator의 수집내용을 외부의 syslog서버로 보냅니다.
 https://github.com/cloudfoundry-community/firehose-to-syslog
 
-### syslog 서버 준비
+#### syslog 서버 준비
 VM을 생성하고 rsyslog서버를 실행합니다. syslog서버는 udp, tcp, 514포트로 준비합니다.
 참고 ubuntu기준 http://yallalabs.com/linux/how-to-setup-a-centralized-log-server-using-rsyslog-on-ubuntu-16-04-lts/
 ```
@@ -67,7 +67,7 @@ authpriv.* ?TmplAuth
 logger -s " This is my Rsyslog client "
 ```
 
-### push app
+#### push app
 https://github.com/cloudfoundry-community/firehose-to-syslog
 ``` git clone https://github.com/cloudfoundry-community/firehose-to-syslog
 cd firehose-to-syslog
@@ -107,6 +107,27 @@ SYSLOG_ENDPOINT: 외부에 준비된 syslog 서버 IP
 SYSLOG_PROTOCOL: tcp/udp/tcp+tls
 ```
    
+sample.
+```
+applications:
+- name: firehose-to-syslog
+  health-check-type: process
+  env:
+    GOPACKAGENAME: github.com/cloudfoundry-community/firehose-to-syslog
+    API_ENDPOINT: http://api.sys.ds.lab
+    DEBUG: true
+    DOPPLER_ENDPOINT: wss://doppler.sys.ds.lab:443
+    EVENTS: LogMessage,ValueMetric,Error,ContainerMetric
+    FIREHOSE_CLIENT_ID: metricbeat
+    FIREHOSE_CLIENT_SECRET: xxxx
+    FIREHOSE_SUBSCRIPTION_ID: firehose-to-syslog-app
+    LOG_EVENT_TOTALS: true
+    LOG_EVENT_TOTALS_TIME: 10s
+    SKIP_SSL_VALIDATION: true
+    SYSLOG_ENDPOINT: 10.1.4.8:514
+    SYSLOG_PROTOCOL: tcp  # tcp/udp/tcp+tls
+```
+
 ```
 cf login -a https://api.[your cf system domain] -u [your id] --skip-ssl-validation
 cf push firehose-to-syslog --no-route
