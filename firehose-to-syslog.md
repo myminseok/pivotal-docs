@@ -194,3 +194,5 @@ then
 service rsyslog restart
 service rsyslog status
 ```
+#### Generating logs with sample apps
+https://github.com/myminseok/hello-python-logs
