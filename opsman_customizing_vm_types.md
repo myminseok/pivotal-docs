@@ -11,7 +11,7 @@ $ uaac contexts
 
 ## copy access token and export to 
 
-$ export UAA_ACCESS_TOKEN=
+$ export TOKEN=
 
 ```
 
@@ -21,7 +21,7 @@ $ export UAA_ACCESS_TOKEN=
 
 $ curl -k "https://localhost/api/v0/vm_types" \
     -X GET \
-    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" | jq . > vm_types.txt
+    -H "Authorization: Bearer $TOKEN" | jq . > vm_types.txt
    
    
   ===> 
@@ -45,7 +45,7 @@ $ curl -k "https://localhost/api/v0/vm_types" \
 
 curl -k "https://localhost/api/v0/vm_types" \
     -X PUT \
-    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" \
+    -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
     -d '{
           "vm_types": [
@@ -70,7 +70,7 @@ curl -k "https://localhost/api/v0/vm_types" \
   
   curl -k "https://localhost/api/v0/vm_types" \
     -X PUT \
-    -H "Authorization: Bearer $UAA_ACCESS_TOKEN" \
+    -H "Authorization: Bearer $TOKEN" \
     -H "Content-Type: application/json" \
     --data-binary @vm_types.txt
   
