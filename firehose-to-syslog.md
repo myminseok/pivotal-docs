@@ -175,7 +175,7 @@ $InputTCPServerRun 514
 
 ...
 
-#
+
 # Include all config files in /etc/rsyslog.d/
 ## add this before #IncludeConfig.
 ## remove this after testing to prevent any further unwanted filtering.
@@ -183,6 +183,8 @@ $InputTCPServerRun 514
 :msg, contains, "INFO" stop
 #:msg, regex, "HTTP/1.* 200" stop
 #:msg, regex, "HTTP/1.* 206" stop
+
+
 $IncludeConfig /etc/rsyslog.d/*.conf
 
 ```
