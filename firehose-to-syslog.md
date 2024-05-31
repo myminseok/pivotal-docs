@@ -180,7 +180,6 @@ $InputTCPServerRun 514
 ## add this before #IncludeConfig
 :msg, contains, "DEBUG" stop
 :msg, contains, "INFO" stop
-:msg, contains, "GET" stop
 $IncludeConfig /etc/rsyslog.d/*.conf
 
 ```
