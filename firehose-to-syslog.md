@@ -167,3 +167,7 @@ rsyslog filter in  /etc/rsyslog.conf will filter unuseful logs.
 $IncludeConfig /etc/rsyslog.d/*.conf
 
 ```
+```
+service rsyslog restart
+service rsyslog status
+```
