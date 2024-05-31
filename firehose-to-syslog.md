@@ -154,4 +154,16 @@ Nov 14 16:23:44 10.10.12.51  2018-11-14T07:23:44Z c5cdf522-0ea3-4658-5932-b56b d
 Nov 14 16:23:45 10.10.12.51  2018-11-14T07:23:45Z c5cdf522-0ea3-4658-5932-b56b doppler[17]: {"cf_origin":"firehose","deployment":"cf","event_type":"ValueMetric","ip":"10.10.12.37","job":"diego_cell","job_index":"4c976cec-a48b-4c91-be38-77f697e415ce","level":"info","msg":"","name":"CapacityRemainingMemory","origin":"rep","time":"2018-11-14T07:23:45Z","unit":"MiB","value":5172}
 
 ```
-    
+### rsyslog filter
+rsyslog filter in  /etc/rsyslog.conf will filter unuseful logs.
+```
+...
+#
+# Include all config files in /etc/rsyslog.d/
+#
+:msg, contains, "DEBUG" stop
+:msg, contains, "INFO" stop
+:msg, contains, "GET" stop
+$IncludeConfig /etc/rsyslog.d/*.conf
+
+```
