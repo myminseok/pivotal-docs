@@ -181,8 +181,8 @@ $InputTCPServerRun 514
 ## remove this after testing to prevent any further unwanted filtering.
 :msg, contains, "DEBUG" stop
 :msg, contains, "INFO" stop
-:msg, regex, "HTTP/1.* 200" stop
-:msg, regex, "HTTP/1.* 206" stop
+#:msg, regex, "HTTP/1.* 200" stop
+#:msg, regex, "HTTP/1.* 206" stop
 $IncludeConfig /etc/rsyslog.d/*.conf
 
 ```
