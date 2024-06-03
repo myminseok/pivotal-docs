@@ -20,8 +20,6 @@ cp iaas_configs iaas_config_guid
 ```
 vi iaas_config_guid
 ```
-{
-  "iaas_configuration":
     {
       "guid": "6552ba16572953313cea",
       "name": "default",
@@ -38,7 +36,7 @@ vi iaas_config_guid
       "nsx_networking_enabled": false,
       "disk_type": "thick"
     }
-}
+
 ```
 ### apply iaas_config_guid
 ```
