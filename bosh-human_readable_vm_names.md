@@ -5,6 +5,115 @@ Enabling human readable vm name for bosh managed VMs through Pivotal Cloud Found
 - for tas 2.9+(bosh vsphere cpi 53+) use "enable_human_readable_name"
 - for tas 2.8 or older, use "human_readable_vm_names"
 
+## Using OM
+
+### prepare env.yml
+https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/install_opsman.md#platform-automation-templateawstestopsmanenvyml
+
+### fetch opsman config
+```
+om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations > iaas_configs
+```
+### prepare  iaas_config_guid
+```
+cp iaas_configs iaas_config_guid
+```
+vi iaas_config_guid
+```
+{
+  "iaas_configuration":
+    {
+      "guid": "6552ba16572953313cea",
+      "name": "default",
+      "additional_cloud_properties": {"enable_human_readable_name":true},
+      "vcenter_host": "<vcenter.url>",
+      "datacenter": "<Datacentre>",
+      "ephemeral_datastores_string": "<pcfstore>",
+      "persistent_datastores_string": "<pcfstore>",
+      "vcenter_username": "<vcenter account>",
+      "bosh_vm_folder": "pcf_vms",
+      "bosh_template_folder": "pcf_templates",
+      "bosh_disk_path": "pcf_disk",
+      "ssl_verification_enabled": false,
+      "nsx_networking_enabled": false,
+      "disk_type": "thick"
+    }
+}
+```
+### apply iaas_config_guid
+```
+export GUID=6552ba16572953313cea
+om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/$GUID -x PUT -d @iaas_config_guid
+```
+or
+```
+om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/$GUID \
+ -x PUT   \
+ -d '{
+  "iaas_configuration":
+    {
+      "guid": "6552ba16572953313cea",
+      "name": "default",
+      "additional_cloud_properties": {"enable_human_readable_name":true},
+      "vcenter_host": "<vcenter.url>",
+      "datacenter": "<Datacentre>",
+      "ephemeral_datastores_string": "<pcfstore>",
+      "persistent_datastores_string": "<pcfstore>",
+      "vcenter_username": "<vcenter account>",
+      "bosh_vm_folder": "pcf_vms",
+      "bosh_template_folder": "pcf_templates",
+      "bosh_disk_path": "pcf_disk",
+      "ssl_verification_enabled": false,
+      "nsx_networking_enabled": false,
+      "disk_type": "thick"
+    }
+}'
+ 
+```
+
+
+### apply to director VM by clicking 'apply change' to director only
+- will recreate director vm.
+
+### check director setting.
+```
+bosh cpi-config
+Using environment '10.10.10.21' as client 'ops_manager'
+
+cpis:
+- migrated_from:
+  - name: ""
+  name: 6552ba16572953313cea
+  properties:
+    datacenters:
+    - allow_mixed_datastores: true
+      clusters:
+      - cluster1: {}
+      - cluster2: {}
+      datastore_pattern:  
+      disk_path: pcf_disk
+      name: datacenter
+      persistent_datastore_pattern:  
+      template_folder: pcf_templates
+      vm_folder: pcf_vms
+    default_disk_type: preallocated
+    host:  
+    enable_human_readable_name: true
+    password:  
+    user: 
+  type: vsphere
+
+Succeeded
+```
+### now apply to bosh deployment by recreating vms.
+- opsman > director tile> director config > check `recreate-vm' 
+- apply change
+
+
+
+
+## Using CURL
+ 
 ### get your opsman uaa token
 https://docs.pivotal.io/pivotalcf/2-5/customizing/opsman-users.html
 ```
@@ -17,20 +126,10 @@ export TOKEN=<YOUR-OPSMAN-UAA-TOKEN>
 
 ```
 
-### How to enable option to opsman
-https://docs.pivotal.io/pivotalcf/2-5/opsman-api/#updating-single-iaas-configuration
-
-#### fetch your director iaas_configurations.
+### fetch your director iaas_configurations.
 ```
 curl -k "https://localhost/api/v0/staged/director/iaas_configurations" \
  -H "Authorization: Bearer $TOKEN"  | jq '.'
-```
-or use om (https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/install_opsman.md#platform-automation-templateawstestopsmanenvyml)
-```
-om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations
-
-
-om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/GUID
 ```
 
 #### update your director iaas_configurations.
@@ -38,7 +137,15 @@ om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/GUID
 for tas 2.8 or older older, use "human_readable_vm_names"
 
 ```
-curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba16572953313cea" \
+export GUID=6552ba16572953313cea
+curl -k "https://localhost/api/v0/staged/director/iaas_configurations/$GUID " \
+ -H "Authorization: Bearer $TOKEN" \
+ -H "content-type: applicaton/json" \
+ -X PUT   \
+ -H "Content-Type: application/json" \
+ -d @iaas_config
+
+curl -k "https://localhost/api/v0/staged/director/iaas_configurations/$GUID " \
  -H "Authorization: Bearer $TOKEN" \
  -H "content-type: applicaton/json" \
  -X PUT   \
@@ -74,35 +181,7 @@ curl -k "https://localhost/api/v0/staged/director/iaas_configurations/6552ba1657
 
 ```
 
-or use om
-
-```
-om -e env.yml -k curl --path /api/v0/staged/director/iaas_configurations/6552ba16572953313cea \
- -x PUT   \
- -d '{
-  "iaas_configuration":
-    {
-      "guid": "6552ba16572953313cea",
-      "name": "default",
-      "additional_cloud_properties": {"enable_human_readable_name":true},
-      "vcenter_host": "<vcenter.url>",
-      "datacenter": "<Datacentre>",
-      "ephemeral_datastores_string": "<pcfstore>",
-      "persistent_datastores_string": "<pcfstore>",
-      "vcenter_username": "<vcenter account>",
-      "bosh_vm_folder": "pcf_vms",
-      "bosh_template_folder": "pcf_templates",
-      "bosh_disk_path": "pcf_disk",
-      "ssl_verification_enabled": false,
-      "nsx_networking_enabled": false,
-      "disk_type": "thick"
-    }
-}'
- 
-```
- ## or -d @file
- 
-### apply to director VM by clicking 'apply change' to director
+### apply to director VM by clicking 'apply change' to director only
 - will recreate director vm.
 
 ### check director setting.
