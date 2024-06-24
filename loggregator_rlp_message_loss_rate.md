@@ -3,8 +3,10 @@
 ## Dropped Message metrics / logs
 the number of Doppler VMs scale limit - 40 VMs. We don't recommend scaling out beyond this number.
 One approach to identifying applications that have a particularly large number of logs/metrics would be to use the Log Cache cf CLI plugin and the cf log-meta command:
+```
 $ cf install-plugin -r CF-Community "log-cache"
 $ cf log-meta --noise --sort-by rate
+```
 This will only show the counts of logs and metrics that have successfully made it to Log Cache but could give an idea of applications that have a particularly large number of metrics.
 
 #### Tools (cf plugin)
