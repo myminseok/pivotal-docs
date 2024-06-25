@@ -195,7 +195,6 @@ https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/app-
 ### Configure Aggregate syslog drain destinations
 https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/configure-pas.html#configure-system-logging-optional-17
 ```
-so following is suggestion for now..
 Deactivate Enable V1 Firehose.
 Activate Enable V2 Firehose.
 Deactivate Do not forward app logs to the Firehose.
