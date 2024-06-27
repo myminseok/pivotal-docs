@@ -200,4 +200,6 @@ Activate Enable V2 Firehose.
 Deactivate Do not forward app logs to the Firehose.
 Configure Aggregate syslog drain destinations.
 ```
+### KPI
+https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/monitoring-key-cap-scaling.html#firehose-performance-scaling-indicators-1
 
