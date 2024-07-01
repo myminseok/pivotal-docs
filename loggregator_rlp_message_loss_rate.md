@@ -203,3 +203,7 @@ Configure Aggregate syslog drain destinations.
 ### KPI
 https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/monitoring-key-cap-scaling.html#firehose-performance-scaling-indicators-1
 
+### Understanding Log Loss in TAS-For-VMS Firehose
+https://knowledge.broadcom.com/external/article/298119/understanding-log-loss-in-tasforvms-fire.html
+
+
