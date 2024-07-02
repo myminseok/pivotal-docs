@@ -93,21 +93,20 @@ applications:
     SYSLOG_ENDPOINT: <your syslog server IP>:514
     SYSLOG_PROTOCOL: udp  # tcp/udp/tcp+tls
     CERT_PEM: ./log_cache_nozzle_client_tls_cert.pem 
-
-=== 파라미터 가이드===
-FIREHOSE_CLIENT_ID:  opsmanager> PAS> credentials> Healthwatch Firehose Credentials>id
-FIREHOSE_CLIENT_SECRET: opsmanager> PAS> credentials> Healthwatch Firehose Credentials> secret
-CERT_PEM: opsmanager> PAS> credentials>log_cache_nozzle_client_tls_cert > private_key_pem의 내용을 별도 파일로 작성후, chmod 600 ./log_cache_nozzle_client_tls_cert.pem 
-
-   -----BEGIN RSA PRIVATE KEY-----
-   xxx
-   -----END RSA PRIVATE KEY-----
-   
-SYSLOG_ENDPOINT: 외부에 준비된 syslog 서버 IP
-SYSLOG_PROTOCOL: tcp/udp/tcp+tls
 ```
+> === 파라미터 가이드===
+> EVENTS: metric만 보낼 경우 ValueMetric,ContainerMetric
+> FIREHOSE_CLIENT_ID:  opsmanager> PAS> credentials> Healthwatch Firehose Credentials>id
+> FIREHOSE_CLIENT_SECRET: opsmanager> PAS> credentials> Healthwatch Firehose Credentials> secret
+> CERT_PEM: opsmanager> PAS> credentials>log_cache_nozzle_client_tls_cert > private_key_pem의 내용을 별도 파일로 작성후, chmod 600  ./log_cache_nozzle_client_tls_cert.pem 
+>   -----BEGIN RSA PRIVATE KEY-----
+>   xxx
+>   -----END RSA PRIVATE KEY-----   
+> SYSLOG_ENDPOINT: 외부에 준비된 syslog 서버 IP
+> SYSLOG_PROTOCOL: tcp/udp/tcp+tls
+> 
    
-sample.
+예를 들어, metric만 보낼 경우 ValueMetric,ContainerMetric
 ```
 applications:
 - name: firehose-to-syslog
@@ -117,10 +116,10 @@ applications:
     API_ENDPOINT: http://api.sys.ds.lab
     DEBUG: true
     DOPPLER_ENDPOINT: wss://doppler.sys.ds.lab:443
-    EVENTS: LogMessage,ValueMetric,Error,ContainerMetric
-    FIREHOSE_CLIENT_ID: metricbeat
+    EVENTS: ValueMetric,ContainerMetric
+    FIREHOSE_CLIENT_ID: firehose_client
     FIREHOSE_CLIENT_SECRET: xxxx
-    FIREHOSE_SUBSCRIPTION_ID: firehose-to-syslog-app
+    FIREHOSE_SUBSCRIPTION_ID: firehose-to-syslog-metric
     LOG_EVENT_TOTALS: true
     LOG_EVENT_TOTALS_TIME: 10s
     SKIP_SSL_VALIDATION: true
