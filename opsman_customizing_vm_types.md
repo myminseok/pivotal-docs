@@ -77,6 +77,10 @@ curl -k "https://localhost/api/v0/vm_types" \
 ```
 
 ### using om cli
+#### env.yml
+https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-configuring-env.html
+
+#### add vm type
 ```
  om -e env.yml curl -p /api/v0/vm_types
  om -e env.yml curl -p /api/v0/vm_types -x PUT -d @vm_types.txt
