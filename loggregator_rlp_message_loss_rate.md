@@ -206,4 +206,40 @@ https://docs.vmware.com/en/VMware-Tanzu-Application-Service/4.0/tas-for-vms/moni
 ### Understanding Log Loss in TAS-For-VMS Firehose
 https://knowledge.broadcom.com/external/article/298119/understanding-log-loss-in-tasforvms-fire.html
 
+### Understanding log-cache
+log-cache design: https://knowledge.broadcom.com/external/article/298280/understanding-logcache.html
+identify noisy sources: https://knowledge.broadcom.com/external/article?articleNumber=298122
+```
+
+cf log-meta
+Retrieving log cache metadata as admin...
+ 
+Retrieving app and service names as admin...
+ 
+Source                                Source Type  Count   Expired   Cache Duration
+app-usage-scheduler                   application  100000  492411    173h24m14s
+gorouter                              platform     100000  257337312 1m2s
+appA                                  application  35582   1618173   3h50m55s
+....data removed for brevity
+
+It gives us 5 columns:
+ 
+
+Source - The name of the source
+Source Type - The type of the source (application / platform / unknown) unknown indicates the app has been deleted from the foundation. 
+Count - The number of messages available in the cache currently for that source-id
+Expired - The number of messages that have been expired from the cache for that source-id. Maximum number of envelopes is configured as 100000. Therefore Count is never more than 100000, because older envelopes are dropped.
+Cache Duration - The amount of time between the very first and very last message for that source-id
+In this example, we can see app-usage-scheduler has reached it's max per source of 100,000 messages. This means all new messages will trigger a push and pop action that will push out the oldest messages and pop on the newest messages. Every time a message gets pushed out, it is expired and the expired count goes up. This is the desired behavior of log-cache. We want all source-id's to able to reach the max per source and expire the old ones as new ones come in.
+
+
+Gorouter does the same thing, but one difference is that it is a platform component. Also note how the cache duration is 1m2s. This means that Gorouter has logged 100,000 messages in 1m2s. There is a lot of http activity going on here and Gorouter would be considered a "more active" logger than appA or app-usage-scheduler.
+
+appA is a little bit different though. We can see that it has 35582 messages available but 1618173 have expired. This tells us that the log-cache is expiring messages before that unique source reached its max per source limit of 100000. This means that those messages were victims of the truncation loop mentioned earlier in this KB.
+
+
+When log-cache prunes old messages for source-id's that haven't reached a max per source limit, this typically means that there are too many active source-id's on that specific Log Cache node and/or there are not enough Log Cache hosting VMs for the log-cache to spread out it's source-ids more evenly and/or we need to vertically scale the Log Cache hosting VMs.
+
+```
+
 
