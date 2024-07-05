@@ -93,10 +93,12 @@ applications:
     LOG_EVENT_TOTALS_TIME: 10s
     SKIP_SSL_VALIDATION: true
     SYSLOG_ENDPOINT: <your syslog server IP>:514
-    SYSLOG_PROTOCOL: udp  # tcp/udp/tcp+tls
+    SYSLOG_PROTOCOL: udp
     CERT_PEM: ./log_cache_nozzle_client_tls_cert.pem 
 ```
 > === 파라미터 가이드===
+> instances: mulplier * number of loggregator_trafficcontroller VM. scale out has better performance than scale up.
+> memory: 1G for cpu entitlement.
 > EVENTS: metric만 보낼 경우 ValueMetric,ContainerMetric
 > FIREHOSE_CLIENT_ID:  opsmanager> PAS> credentials> Healthwatch Firehose Credentials>id
 > FIREHOSE_CLIENT_SECRET: opsmanager> PAS> credentials> Healthwatch Firehose Credentials> secret
@@ -113,6 +115,8 @@ applications:
 applications:
 - name: firehose-to-syslog
   health-check-type: process
+  instances: 6
+  memory: 1G
   env:
     GOPACKAGENAME: github.com/cloudfoundry-community/firehose-to-syslog
     API_ENDPOINT: http://api.sys.ds.lab
@@ -126,7 +130,7 @@ applications:
     LOG_EVENT_TOTALS_TIME: 10s
     SKIP_SSL_VALIDATION: true
     SYSLOG_ENDPOINT: 10.1.4.8:514
-    SYSLOG_PROTOCOL: tcp  # tcp/udp/tcp+tls
+    SYSLOG_PROTOCOL: udp
 ```
 
 ```
