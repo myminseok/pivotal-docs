@@ -78,6 +78,8 @@ vi manifest.yml
 applications:
 - name: firehose-to-syslog
   health-check-type: process
+  instances: 6
+  memory: 1G
   env:
     GOPACKAGENAME: github.com/cloudfoundry-community/firehose-to-syslog
     API_ENDPOINT: https://api.[your cf system domain]
