@@ -181,6 +181,20 @@ output.logstash:
 #pipelining: 2
 
 ```
+## Firehose v1/v2
+- https://knowledge.broadcom.com/external/article/297461/consuming-logsmetrics-through-the-extern.html
+  
+The Loggregator Firehose, which exposes application logs and application or component metrics, is accessible through a few different APIs:
+- The V1 Firehose API (wss://doppler.SYSTEM_DOMAIN), which is  provided by the Traffic Controller. Historically, this has been used by most integrations.
+- The internal V2 Firehose API (over gRPC), which is provided by the Reverse Log Proxy (RLP). This has been present since at least Tanzu Application Service (TAS) for VMs 2.0, and is used by many internal components such as Log Cache, Healthwatch and Syslog Adapters.
+- The external V2 Firehose API (https://log-stream.SYSTEM_DOMAIN), which is provided by the RLP Gateway. This was added in TAS for VMs 2.4, and some integrations have switched to it.
+
+You may experience the following issues with integrations that use the external V2 Firehose API:
+- Overall throughput is lower - considerably fewer logs/metrics per second are able to reach their destination with the same amount of system resources.
+- High CPU and memory usage on the nozzles/firehose consumers and the Traffic Controller VMs.
+- Loss of logs when clients disconnect. This occurs, at minimum, every 14 minutes as the RLP Gateway refreshes connections. This loss will be exacerbated by any additional load balancers in front of the foundation's Gorouter.
+
+The first two issues are due to the conversion to and from JSON involved in logs/metrics transport through the RLP Gateway.
 
 ### firehose-to-syslog
 https://github.com/cloudfoundry-community/firehose-to-syslog
