@@ -1,5 +1,10 @@
 
+customizing routes on bosh deployed VM
+===============
 this document explains how to add network route config using os-release runtime-config.
+
+optionally there is a custom bosh release which is doing the same output, but more structured way here https://github.com/myminseok/custom-vm-release
+
 
 ### Upload release
 https://bosh.io/releases/github.com/cloudfoundry/os-conf-release?all=1
