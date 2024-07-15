@@ -1,14 +1,21 @@
 
-#### ssh into opsman VM
+
+# diego_cell swap status
+
+####  verify status
+ssh into opsman VM
 ```
 chmod 600 opsman.key 
 ssh -i opsman.key ubuntu@opsmanager.mkim-tas.pcfdemo.net
 
 ```
-####  create env.yml for om
+
+download om linux cli
+- https://github.com/pivotal-cf/om/releases
+  
+create env.yml for om
 This file contains properties for targeting and logging into the Ops Manager API. 
-#### env.yml
-https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-configuring-env.html
+- sample: https://docs.vmware.com/en/Platform-Automation-Toolkit-for-VMware-Tanzu/5.1/vmware-automation-toolkit/GUID-docs-how-to-guides-configuring-env.html
 
 ``` yaml
 ---
@@ -20,12 +27,7 @@ username:
 password: 
 decryption-passphrase: 
 ```
-
-#### download om linux cli
-- https://github.com/pivotal-cf/om/releases
-  
-#### check swap status on diegocell
-
+check swap status on diegocell
 ```
 $ bosh -d cf-54c9c2f906b6aba996cd ssh diego_cell/0
 
@@ -34,14 +36,16 @@ diego_cell/d097fe0e-0357-4698-b887-c0af632417a8:~$ free -m
 Mem:          32168        5893        2940        1723       23334       23614
 Swap:         32167           8       32159
 ```
-#### check swap config (via om cli)
+
+#### download product config (via om cli)
 
 ```
 om -e env.yml products
 
 om -e env.yml staged-config -p cf > cf.yml
 ```
-check swap status
+
+review swap status config
 ``` yaml
 resource-config:
   diego_cell:
@@ -64,7 +68,7 @@ resource-config:
 }
 ```
 
-#### (optional) check swap via opsmanager product config  (using opsman api) 
+#### (optional) download swap via opsmanager product config  (using opsman api) 
 fetch product guid
 ```
 om -e env.yml curl -p /api/v0/staged/products
@@ -107,6 +111,8 @@ save output and edit
   "swap_as_percent_of_memory_size": "automatic" 0 # <=== set to 0
 }
 ```
+
+#### update swap config (using curl)
 
 update using curl instead of om cli.
 ```
