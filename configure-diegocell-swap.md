@@ -28,10 +28,7 @@ decryption-passphrase:
 
 ```
 $ bosh -d cf-54c9c2f906b6aba996cd ssh diego_cell/0
-```
 
-free
-```
 diego_cell/d097fe0e-0357-4698-b887-c0af632417a8:~$ free -m
               total        used        free      shared  buff/cache   available
 Mem:          32168        5893        2940        1723       23334       23614
