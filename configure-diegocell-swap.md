@@ -2,7 +2,7 @@
 
 # diego_cell swap status
 
-####  verify status
+##  verify status
 ssh into opsman VM
 ```
 chmod 600 opsman.key 
@@ -37,7 +37,9 @@ Mem:          32168        5893        2940        1723       23334       23614
 Swap:         32167           8       32159
 ```
 
-#### download product config (via om cli)
+## download product config 
+
+#### using om cli
 
 ```
 om -e env.yml products
@@ -68,7 +70,7 @@ resource-config:
 }
 ```
 
-#### (optional) download swap via opsmanager product config  (using opsman api) 
+#### (optional) using opsman api) 
 fetch product guid
 ```
 om -e env.yml curl -p /api/v0/staged/products
@@ -112,7 +114,7 @@ save output and edit
 }
 ```
 
-#### update swap config (using curl)
+## update swap config (using curl)
 
 update using curl instead of om cli.
 ```
