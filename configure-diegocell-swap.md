@@ -44,41 +44,57 @@ Swap:         32167           8       32159
 ```
 
 #### configure swap via opsmanager product config 
+fetch product guid
 ```
-om -e env.yml staged-config -p cf  > cf.yml
+om -e env.yml curl -p /api/v0/staged/products
 ```
-
+fetch product diegocell job id.
 ```
-## om -e env.yml staged-config -p cf  -r false  -c true > cf.yml
+om -e env.yml curl -p /api/v0/staged/products/cf-edc5e09298dc349e5048/jobs
 ```
-vi cf.yml
-
+fetch resource_config of diegocell job.
+```
+om -e env.yml curl -p /api/v0/staged/products/cf-edc5e09298dc349e5048/jobs/diego_cell-5153f061269326de270f/resource_config
+```
+save output and edit
 ``` yaml
-...
-
-diego_cell:
-  ...
+{
   "instance_type": {
-    "id": "2xlarge"
+    "id": "automatic"
   },
-  "instances": 3, 
-  "additional_networks": [],
-  "nsx_security_groups": null,
-  "nsx_lbs": [],
+  "instances": 12,
+  "additional_networks": [
+    {
+      "guid": "346ee68001f288a9f5f8"
+    },
+    {
+      "guid": "ff728d01eb0cb2aacbfa"
+    }
+  ],
+  "nsx": {
+    "security_groups": [],
+    "lbs": []
+  },
+  "nsxt": {
+    "ns_groups": [],
+    "vif_type": null,
+    "lb": {
+      "server_pools": []
+    }
+  },
   "additional_vm_extensions": [],
-  "swap_as_percent_of_memory_size": 0 # <=== set to 0
-...
+  "swap_as_percent_of_memory_size": "automatic" 0 # <=== set to 0
+}
+```
 
+update using curl instead of om cli.
 ```
-#### product config 
-configure  director config in opsman VM.
+curl -k https://<opsman.domain.url>/api/v0/staged/products/cf-7b6a32f059ba9157bb8f/jobs/diego_cell-0bbd3e7931b651cfc62c/resource_config \
+-H "Authorization: bearer $UAA_TOKEN" \
+-X PUT \
+-H "Content-type: application/json" \
+-d@resource_config_deigocell.txt -k -vv
 ```
-om -e env.yml   configure-product -c cf.yml
-```
-```
-configuring cf ...
-```
-then apply TAS change. 
 
 
 
