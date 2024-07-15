@@ -37,13 +37,13 @@ Mem:          32168        5893        2940        1723       23334       23614
 Swap:         32167           8       32159
 ```
 
-## download product config 
-
-#### using om cli
+## download product config and update using om cli
 
 ```
 om -e env.yml products
-
+```
+download config
+```
 om -e env.yml staged-config -p cf > cf.yml
 ```
 
@@ -70,7 +70,39 @@ resource-config:
 }
 ```
 
-#### (optional) using opsman api) 
+edit swap to 0
+
+```
+
+``` yaml
+resource-config:
+  diego_cell:
+    max_in_flight: 4%
+    additional_networks: []
+    additional_vm_extensions: []
+    instance_type:
+      id: automatic
+    instances: 4
+    nsx:
+      lbs: []
+      security_groups: []
+    nsxt:
+      lb:
+        server_pools: []
+      ns_groups: []
+      vif_type: null
+    swap_as_percent_of_memory_size: 0 
+
+}
+```
+and update product config
+```
+om -e env.yml configure-product -c cf.yml
+```
+and apply change opsman.
+
+## (optional) download product config and update using CURL cli
+
 fetch product guid
 ```
 om -e env.yml curl -p /api/v0/staged/products
@@ -110,20 +142,19 @@ save output and edit
     }
   },
   "additional_vm_extensions": [],
-  "swap_as_percent_of_memory_size": "automatic" 0 # <=== set to 0
+  "swap_as_percent_of_memory_size": "automatic" 
 }
 ```
 
-## update swap config (using curl)
-
-update using curl instead of om cli.
+update swap config and  update using curl 
 ```
 curl -k https://<opsman.domain.url>/api/v0/staged/products/cf-7b6a32f059ba9157bb8f/jobs/diego_cell-0bbd3e7931b651cfc62c/resource_config \
--H "Authorization: bearer $UAA_TOKEN" \
+-H "Authorization: bearer $OPSMAN_UAA_TOKEN" \
 -X PUT \
 -H "Content-type: application/json" \
 -d@resource_config_deigocell.txt -k -vv
 ```
+and apply change opsman.
 
 
 
