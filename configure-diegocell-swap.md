@@ -23,16 +23,11 @@ decryption-passphrase:
 
 #### download om linux cli
 - https://github.com/pivotal-cf/om/releases
+  
 #### check swap status on diegocell
 
 ```
-diego cell 접속
 $ bosh -d cf-54c9c2f906b6aba996cd ssh diego_cell/0
-```
-
-Type the following command to show swap usage summary by device
-```
-swapon -s
 ```
 
 free
