@@ -34,8 +34,37 @@ diego_cell/d097fe0e-0357-4698-b887-c0af632417a8:~$ free -m
 Mem:          32168        5893        2940        1723       23334       23614
 Swap:         32167           8       32159
 ```
+#### check swap config (via om cli)
 
-#### configure swap via opsmanager product config 
+```
+om -e env.yml products
+
+om -e env.yml staged-config -p cf > cf.yml
+```
+check swap status
+``` yaml
+resource-config:
+  diego_cell:
+    max_in_flight: 4%
+    additional_networks: []
+    additional_vm_extensions: []
+    instance_type:
+      id: automatic
+    instances: 4
+    nsx:
+      lbs: []
+      security_groups: []
+    nsxt:
+      lb:
+        server_pools: []
+      ns_groups: []
+      vif_type: null
+    swap_as_percent_of_memory_size: automatic
+
+}
+```
+
+#### (optional) check swap via opsmanager product config  (using opsman api) 
 fetch product guid
 ```
 om -e env.yml curl -p /api/v0/staged/products
