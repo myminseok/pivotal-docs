@@ -36,4 +36,23 @@ this sample dashboard is tested on
 
 
 
+## troubleshooting
+#### fetch sample app data from  metric-store
+https://docs.vmware.com/en/Metric-Store/1.6/metric-store/GUID-using.html
 
+```
+ubuntu@nh-opsmanager:~$ curl -H "Authorization: $TOKEN"  -G https://metric-store.SYS_DOMAIN/api/v1/query --data-urlencode "query=http_duration_seconds_bucket" -k 
+```
+
+#### see if the same output from metric-store VM directly.
+ssh into metric-store deployment> metric-store/0 and go to /var/vcap/jobs/metric-store/config
+```
+metric-store/039975eb-1f8c-40a7-be5b-99b4af94219c:/var/vcap/jobs/metric-store/config# 
+```
+run command and fetch app metric.
+```
+curl -k --cert ./certs/metric_store.crt --key ./certs/metric_store.key --cacert ./certs/metric_store_ca.crt https://localhost:8080/api/v1/query --data-urlencode "query=http_duration_seconds_bucket" 
+```
+
+#### customizing chart in grafana
+https://grafana.com/blog/2020/06/23/how-to-visualize-prometheus-histograms-in-grafana/
