@@ -120,14 +120,16 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "ms"
         },
         "overrides": []
       },
@@ -161,12 +163,12 @@
           "expr": "http_duration_seconds_bucket{organization_name=~\"$org\", space_name=~\"$space\", app_name=\"$app\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "{{le}}",
+          "legendFormat": "{{le}} bucket",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "http_duration_seconds_bucket",
+      "title": "http_duration_seconds_bucket_raw_data",
       "type": "timeseries"
     },
     {
@@ -216,7 +218,7 @@
           "exponent": 0.5,
           "fill": "dark-orange",
           "mode": "scheme",
-          "reverse": false,
+          "reverse": true,
           "scale": "exponential",
           "scheme": "Oranges",
           "steps": 25
@@ -238,6 +240,7 @@
           "yHistogram": false
         },
         "yAxis": {
+          "axisLabel": "percentile bucket",
           "axisPlacement": "left",
           "reverse": false
         }
@@ -261,7 +264,7 @@
           "refId": "A"
         }
       ],
-      "title": "http_duration_seconds_bucket_95_last_5m",
+      "title": "http_duration_seconds_bucket_histogran_95_percentile",
       "type": "heatmap"
     },
     {
@@ -278,7 +281,7 @@
           "custom": {
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "requests",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
@@ -313,7 +316,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -528,6 +532,6 @@
   "timezone": "",
   "title": "App Dashboard-MetricStore",
   "uid": "hw2-app-details",
-  "version": 37,
+  "version": 41,
   "weekStart": ""
 }

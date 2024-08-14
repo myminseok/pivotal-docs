@@ -36,9 +36,18 @@ this sample dashboard is tested on
 3. update Name and UID and Import
 4. edit the panel(chart) and adjust the datasource created above.
 
+#### Dashboard config
+
+1. http_duration_seconds_bucket_histogran_95_percentile
+- Query: sum(rate(http_duration_seconds_bucket{organization_name=~"$org", space_name=~"$space", app_name="$app"}[$__interval])) by (le)
+- Chart: Heatmap
 
 
-## troubleshooting
+2. http_total per min
+- Query: sum(increase(http_total{organization_name=~"$org", space_name=~"$space", app_name="$app"}[$__interval]))
+- Chart: Time series
+
+## Troubleshooting
 #### fetch sample app data from  metric-store
 https://docs.vmware.com/en/Metric-Store/1.6/metric-store/GUID-using.html
 
