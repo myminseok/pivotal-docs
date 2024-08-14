@@ -1,9 +1,11 @@
-## Sample App Monitoring Dashboard using Metric-store as datasource
+## Sample App Dashboard using Metric-store as a prometheus datasource in grafana
 
+NOTE: this custom healthwatch dashboard is experimental and intended to show how to integrate metric-store with grafana.
+the histogram chart doesn't reflect actual histogram chart yet and is required to set more tuning.
 
 
 ![image](./healthwatch2_app_dashboard2_metricstore3.png)
-
+![image](./healthwatch2_app_dashboard2_metricstore4.png)
 
 this sample dashboard is tested on 
 - Healthwatch for TAS 2.2.8 
