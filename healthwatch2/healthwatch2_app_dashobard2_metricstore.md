@@ -3,8 +3,10 @@
 NOTE: this custom healthwatch dashboard is experimental and intended to show how to integrate metric-store with grafana.
 the histogram chart doesn't reflect actual histogram chart yet and is required more tuning.
 
-
+#### dashboard screenshot
+compare between custom grafana dashboard and app metric
 ![image](./healthwatch2_app_dashboard2_metricstore3.png)
+
 ![image](./healthwatch2_app_dashboard2_metricstore4.png)
 
 this sample dashboard is tested on 
