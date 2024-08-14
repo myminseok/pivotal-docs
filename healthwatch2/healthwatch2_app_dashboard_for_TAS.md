@@ -9,7 +9,7 @@ this sample dashboard is tested on
 
 ## How to apply
 
-import [healthwatch2_app_dashboard.json](healthwatch2_app_dashboard.json) file to healthwatch grafana UI.
+import [healthwatch2_app_dashboard.json](healthwatch2_app_dashboard_for_tas.json) file to healthwatch grafana UI.
 
 1. goto browse > New > Import from Grafana UI.
 2. copy and paste contents of [healthwatch2_app_dashboard.json](healthwatch2_app_dashboard.json) and load.
