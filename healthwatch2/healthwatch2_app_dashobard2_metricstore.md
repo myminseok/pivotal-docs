@@ -38,7 +38,7 @@ this sample dashboard is tested on
 3. update Name and UID and Import
 4. edit the panel(chart) and adjust the datasource created above.
 
-#### Dashboard config
+#### Dashboard Chart Config
 
 1. http_duration_seconds_bucket_histogran_95_percentile
 - Query: sum(rate(http_duration_seconds_bucket{organization_name=~"$org", space_name=~"$space", app_name="$app"}[$__interval])) by (le)
@@ -67,5 +67,5 @@ run command and fetch app metric.
 curl -k --cert ./certs/metric_store.crt --key ./certs/metric_store.key --cacert ./certs/metric_store_ca.crt https://localhost:8080/api/v1/query --data-urlencode "query=http_duration_seconds_bucket" 
 ```
 
-#### customizing chart in grafana
+#### [Reference] Customizing chart in grafana
 https://grafana.com/blog/2020/06/23/how-to-visualize-prometheus-histograms-in-grafana/
