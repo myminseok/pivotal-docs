@@ -74,3 +74,6 @@ curl -k --cert ./certs/metric_store.crt --key ./certs/metric_store.key --cacert 
 #### [Reference] Customizing chart in grafana
 - https://prometheus.io/docs/practices/histograms/
 - https://grafana.com/blog/2020/06/23/how-to-visualize-prometheus-histograms-in-grafana/
+
+#### http request latency in gorouter log.
+http request latency is logged into gorouter VM. and can be filtered by requested domain. then you can check the specific metric in app metric UI or this custom dashboard.
