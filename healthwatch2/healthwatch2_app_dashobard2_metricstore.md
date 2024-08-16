@@ -3,15 +3,20 @@
 NOTE: this custom healthwatch dashboard is experimental and intended to show how to integrate metric-store with grafana.
 the histogram chart doesn't reflect actual histogram chart yet and is required more tuning.
 
-#### dashboard screenshot
-compare between custom grafana dashboard and app metric
-![image](./healthwatch2_app_dashboard2_metricstore3.png)
+#### this sample dashboard is tested on 
+- Healthwatch for TAS 2.2.8 
+- Healthwatch Exporter for TAS 2.2.8
+
+#### custom dashboard screenshot
+custom grafana dashboard can show http request latency for all apps (there might be performance issues in loading if too many apps are there)
+![image](./healthwatch2_app_dashboard2_metricstore5.png)
 
 ![image](./healthwatch2_app_dashboard2_metricstore4.png)
 
-this sample dashboard is tested on 
-- Healthwatch for TAS 2.2.8 
-- Healthwatch Exporter for TAS 2.2.8
+percentile chart is experimental
+![image](./healthwatch2_app_dashboard2_metricstore3.png)
+
+
 
 ## How to apply
 
@@ -68,4 +73,5 @@ curl -k --cert ./certs/metric_store.crt --key ./certs/metric_store.key --cacert 
 ```
 
 #### [Reference] Customizing chart in grafana
-https://grafana.com/blog/2020/06/23/how-to-visualize-prometheus-histograms-in-grafana/
+- https://prometheus.io/docs/practices/histograms/
+- https://grafana.com/blog/2020/06/23/how-to-visualize-prometheus-histograms-in-grafana/
