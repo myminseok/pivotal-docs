@@ -598,9 +598,9 @@
         },
         "definition": "query_result(container_age)",
         "hide": 0,
-        "includeAll": true,
+        "includeAll": false,
         "label": "Deployment",
-        "multi": true,
+        "multi": false,
         "name": "deployment",
         "options": [],
         "query": {
@@ -633,9 +633,9 @@
         },
         "definition": "query_result(container_age{deployment=~\"$deployment\"})",
         "hide": 0,
-        "includeAll": true,
+        "includeAll": false,
         "label": "org",
-        "multi": true,
+        "multi": false,
         "name": "org",
         "options": [],
         "query": {
