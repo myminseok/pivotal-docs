@@ -1,22 +1,25 @@
+1. ssh into opsman vm and sudo -i
+
+2. vi /etc/tempest.d/tempest-web
+
 ```
-# ssh into opsman vm
-sudo -i
+#!/bin/bash
+# shellcheck disable=SC1090
+source "$(cd "$(dirname "${0}")" && pwd)/common-env"
+exec >> "${LOG_DIR}/tempest-web.log" 2>&1
 
-vi /etc/tempest.d/tempest-web
-
-
-## tail -f /var/log/opsmanager/tempest-web.log
-export EXCON_DEBUG="true"
-
+## === START for debugging ===
 export BOSH_LOG_LEVEL=DEBUG
 export BOSH_LOG_PATH=/tmp/bosh_init.debug
+export EXCON_DEBUG="true"
+## === END for debugging ===
 
-
-service tempest-web restart
+export RAILS_ENV=production
+...
 ```
+3. service tempest-web restart
 
-```
+4. apply change in opsman UI 
 
-tail -f /var/log/opsmanager/tempest-web.log
-tail -f /tmp/bosh_init.debug
-```
+5. tail -f /tmp/bosh_init.debug in opsman VM.
+
