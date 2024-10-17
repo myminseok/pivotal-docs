@@ -1,5 +1,5 @@
 
-script will fetch all app list running on each diegocell VM under the given deployment.
+script [fetch_diegocell_apps.sh](fetch_diegocell_apps.sh) will fetch all app list running on each diegocell VM under the given deployment.
 tested on TAS 4.x
 
 ### how to run
