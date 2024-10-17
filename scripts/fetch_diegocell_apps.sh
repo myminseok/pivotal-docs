@@ -28,10 +28,10 @@ while IFS= read line || [ -n "$line" ]; do
     bosh -d $DEPLOYMENT ssh ${instance} -c "sudo; source /var/vcap/jobs/cfdot/bin/setup ; cfdot actual-lrps> /tmp/diego_cell_cfdot_actual_lrps.json"
  
     # copy the json to local directory
-    bosh -d $DEPLOYMENT scp ${instance}:/tmp/diego_cell_cfdot_actual_lrps.json "${DEPLOYMENT}_${instance}_${ip}_cfdot_actual_lrps.json"
+    bosh -d $DEPLOYMENT scp ${instance}:/tmp/diego_cell_cfdot_actual_lrps.json "./diego_cell_cfdot_actual_lrps_${DEPLOYMENT}_${ip}.json"
 
     # parse app,space,org name from the json.
-    jq ".metric_tags| [.app_name, .space_name, .organization_name ]" ./${DEPLOYMENT}_${instance}_${ip}_cfdot_actual_lrps.json 
+    jq ".metric_tags| [.app_name, .space_name, .organization_name ]" ./diego_cell_cfdot_actual_lrps_${DEPLOYMENT}_${ip}.json
 
 done < ./tmp_diego_cell_ip_${DEPLOYMENT}.txt
 
