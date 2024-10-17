@@ -8,9 +8,10 @@ tested on TAS 4.x
 ```
 source ~/.profile
 bosh env
+bosh ds --column=Name
 ```
 
-3. run the scripts with deployment name
+3. download the script and run with deployment name
 ```
 ./fetch_diegocell_apps.sh cf-edc5e09298dc349e5048
 ```
