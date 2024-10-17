@@ -27,3 +27,17 @@ bosh ds --column=Name
 ```
 jq ".metric_tags| [.app_name, .space_name, .organization_name ]" ./diego_cell_cfdot_actual_lrps_cf-edc5e09298dc349e5048_10.1.2.3.json
 ```
+```
+...
+[
+  "spring",
+  "EDU",
+  "TEST_ORG"
+]
+[
+  "gateway",
+  "b2f9f392-561a-4d98-baa0-e55c2dac6b46",
+  "p-spring-cloud-gateway-service"
+]
+
+```
