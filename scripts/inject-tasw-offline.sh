@@ -1,16 +1,20 @@
+# Alternative to winfs-injector-0.25.0 for air-gapped environment
+# tested for pas-windows-4.0.24-build.2.pivotal
+# Prerequisites
+# Install tools on workstation 
+# - apt install zip
+# - apt install go
+# - bosh cli (https://github.com/cloudfoundry/bosh-cli/releases)
+# Download resources on workstation
+# 1) imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar /tmp/windowsfs/windows2016fs:2019.0.165.tar
+# 2) Download https://s3.amazonaws.com/windows2019fs-release/fc5fd197-4d20-4c24-5d12-d57e93a4f8f0 to /tmp/windowsfs/
+# pas-windows-4.0.24-build.2.pivotal
+
 #!/usr/bin/env bash
 set -e
 set -u
 set -x
 set -o pipefail
-
-
-# Alternative to winfs-injector-0.25.0 for air-gapped environment
-
-# Prerequisites
-## tested for pas-windows-4.0.24-build.2.pivotal
-## imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar /tmp/windowsfs/windows2016fs:2019.0.165.tar
-## Download https://s3.amazonaws.com/windows2019fs-release/fc5fd197-4d20-4c24-5d12-d57e93a4f8f0 to /tmp/windowsfs/
 
 
 # Crack the tile open into the tasw directory
