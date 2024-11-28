@@ -1,5 +1,6 @@
-## Alternative script 'to winfs-injector-0.25.0' for air-gapped environment
-## tested for pas-windows-4.0.24-build.2.pivotal only
+## Alternative script 'to winfs-injector-0.25.0' for air-gapped environment. 
+## it does not use hydrate but does the same with script. 
+## tested for pas-windows-4.0.24-build.2.pivotal only. 
 ## Prerequisites
 ## Install tools on workstation 
 ## - apt install zip
