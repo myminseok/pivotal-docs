@@ -4,7 +4,7 @@
 ## Prerequisites
 ## Install tools on workstation 
 ## - apt install zip
-## - apt install go
+## - apt install go (optional)
 ## - bosh cli (https://github.com/cloudfoundry/bosh-cli/releases)
 ## Download resources on workstation
 ## 1) imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar /tmp/windowsfs/windows2016fs:2019.0.165.tar
