@@ -5,6 +5,7 @@
 ## Install tools on workstation 
 ## - apt install zip
 ## - bosh cli (https://github.com/cloudfoundry/bosh-cli/releases)
+## - imgpkg cli (https://carvel.dev/imgpkg/)
 ## Download resources on workstation
 ## 1) imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar /tmp/windowsfs/windows2016fs:2019.0.165.tar
 ## 2) Download https://s3.amazonaws.com/windows2019fs-release/fc5fd197-4d20-4c24-5d12-d57e93a4f8f0 to /tmp/windowsfs/
