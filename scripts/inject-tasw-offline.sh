@@ -106,5 +106,5 @@ zip -r "../pas-windows-injected.pivotal" .
 popd
 
 # Cleanup
-#rm -rf ./tasw
-#rm /tmp/metadata-ops.yml
+rm -rf ./tasw
+rm /tmp/metadata-ops.yml
