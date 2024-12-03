@@ -1,0 +1,13 @@
+/var/log/rsyslog-tas/*.log
+{
+	su syslog syslog
+	daily
+	rotate 2
+	nodateext
+	size 5M
+	missingok
+	notifempty
+	delaycompress
+	compress
+}
+
