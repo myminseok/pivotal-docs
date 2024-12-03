@@ -75,7 +75,7 @@ ubuntu@opsmanager-3-0# tail -f /var/log/rsyslog-tas/192.168.0.90_syslog_2024-12-
 ```
 
 
-## setup logrotate for the rsyslog files.
+## setup logrotate config
 
 create [/etc/logrotate.d/logrotate-tas](logrotate-tas) configuration
 
