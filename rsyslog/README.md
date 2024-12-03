@@ -30,7 +30,7 @@ $template SysLogName,"/var/log/rsyslog-tas/%fromhost-ip%_syslog_%$YEAR%-%$MONTH%
 #
 $IncludeConfig /etc/rsyslog.d/*.conf
 ```
-
+above config will not log `auth.log`, but syslog already includes auth log in it.
 ```
 service rsyslog restart
 ```
