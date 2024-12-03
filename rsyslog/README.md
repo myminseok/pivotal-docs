@@ -108,12 +108,12 @@ drwxrwxr-x 13 root   syslog   4096 Dec  3 08:08 ../
 -rw-r-----  1 syslog syslog 214600 Dec  3 08:21 192.168.0.90_syslog_2024-12-03.log.1
 ```
 
-update size to 5M and restart logroteate service.
+update size to 5M and restart logroteate service. 
 ```
 /var/log/rsyslog-tas/*.log
 {
 	su syslog syslog
-  daily
+        daily
 	rotate 5
 	nodateext
 	size 5M
