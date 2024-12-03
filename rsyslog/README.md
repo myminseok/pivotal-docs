@@ -1,6 +1,6 @@
 ## configure rsyslog server on opsmanager VM.
 
-vi /etc/rsyslog.conf
+edit /etc/[rsyslog.conf](rsyslog.conf)
 
 ```
 ...
@@ -70,6 +70,7 @@ ubuntu@opsmanager-3-0# tail -f /var/log/rsyslog-tas/192.168.0.90_syslog_2024-12-
 
 ## setup logrotate for the rsyslog files.
 note that size is 5K for testing purpose
+create [/etc/logrotate.d/logrotate-tas](logrotate-tas)
 ```
 root@opsmanager-3-0:/etc/logrotate.d# cat logrotate-tas
 /var/log/rsyslog-tas/*.log
