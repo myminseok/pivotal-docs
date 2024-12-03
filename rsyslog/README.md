@@ -1,4 +1,11 @@
-## configure rsyslog server on opsmanager VM.
+this guide describes how to forward syslog from bosh deployed VM to remote rsyslog server.
+
+syslog includes
+- /var/vcap/sys/log/*
+- /var/vcap/*
+
+  
+## Configure rsyslog server on opsmanager VM.
 
 edit /etc/[rsyslog.conf](rsyslog.conf)
 
