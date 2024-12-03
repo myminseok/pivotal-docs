@@ -2,7 +2,7 @@
 {
 	su syslog syslog
 	daily
-	rotate 2
+	rotate 5
 	nodateext
 	size 5M
 	missingok
