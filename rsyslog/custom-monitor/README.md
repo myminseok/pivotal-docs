@@ -19,7 +19,7 @@ Note that this custom setup can be reverted on VM reboot or other events.
 bosh -d cf-f30f16d0a030d67be63a scp ./setup-custom-monitor.sh diego_cell:/tmp
 ```
 
-3. execute the setup script; it will set custom-monitor service as a system service.
+3. execute the setup script; it will set custom-monitor service as a system service. this command can be run multiple times with no side-effects.
 
 ```
 bosh -d cf-f30f16d0a030d67be63a ssh diego_cell -c "sudo cp /tmp/setup-custom-monitor.sh  /root/; sudo sh /root/setup-custom-monitor.sh"
