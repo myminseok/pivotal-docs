@@ -24,7 +24,8 @@ $InputTCPServerRun 514
 
 $template SysLogName,"/var/log/rsyslog-tas/%fromhost-ip%_syslog_%$YEAR%-%$MONTH%-%$DAY%.log"
 *.*;auth,authpriv.none ?SysLogName
-
+$template KernLogName,"/var/log/rsyslog-tas/%fromhost-ip%_kernlog_%$YEAR%-%$MONTH%-%$DAY%.log"
+kern.* ?KernLogName
 #
 # Include all config files in /etc/rsyslog.d/
 #
