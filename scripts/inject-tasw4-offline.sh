@@ -1,15 +1,19 @@
-## Alternative script 'to winfs-injector-0.25.0' for air-gapped environment. 
-## it does not use hydrate but does the same with script. 
-## tested for pas-windows-4.0.24-build.2.pivotal only. 
-## Prerequisites
-## Install tools on workstation 
-## - apt install zip
-## - bosh cli (https://github.com/cloudfoundry/bosh-cli/releases)
-## - imgpkg cli (https://carvel.dev/imgpkg/)
-## Download resources on workstation
-## 1) imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar /tmp/windowsfs/windows2016fs:2019.0.165.tar
-## 2) Download https://s3.amazonaws.com/windows2019fs-release/fc5fd197-4d20-4c24-5d12-d57e93a4f8f0 to /tmp/windowsfs/
-## 3) pas-windows-4.0.24-build.2.pivotal
+# README
+# This is an alternative script to 'winfs-injector-0.25.0' for air-gapped environment. 
+# 'winfs-injector' uses `hydrator` internally to download all windowsfs layers and dependencies from internet and packages to pivotal tile. 
+# this script does not require internet outbound connection as it doesnot use hydrate but does the same with script with pre-downloaded resources
+# tested for pas-windows-4.0.24-build.2.pivotal only. 
+# tested on Linux VM or Mac OS.
+#
+# Prerequisites
+# Install tools on workstation 
+# - apt install zip
+# - bosh cli (https://github.com/cloudfoundry/bosh-cli/releases)
+# - imgpkg cli (https://carvel.dev/imgpkg/)
+# Download resources on workstation
+# 1) imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar /tmp/windowsfs/windows2016fs:2019.0.165.tar
+# 2) Download https://s3.amazonaws.com/windows2019fs-release/fc5fd197-4d20-4c24-5d12-d57e93a4f8f0 to /tmp/windowsfs/
+# 3) pas-windows-4.0.24-build.2.pivotal
 
 #!/usr/bin/env bash
 set -e
@@ -24,21 +28,13 @@ tasw_tiles='pas-windows-4.0.24-build.2.pivotal'
 tasw_tile="${tasw_tiles=[0]}"
 unzip "$tasw_tile" -d ./tasw
 
-# Download all the image layers from Docker and Microsoft into the blobs directory as a tgz
-# originally, this should be done by './src/code.cloudfoundry.org/hydrator/bin/hydrate' 
-# but it requires internet outbound connection as the hydrator is hardcoded to use https://registry.hub.docker.com
-# Following code is alternative for air-gapped env and does the samething with hydrate but no need iternet connection.
-## as prerequisites, download docker image from internet and upload to internal repo as following commands:
-## imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar /tmp/windowsfs/windows2016fs:2019.0.165.tar
-## imgpkg copy --tar windows2016fs:2019.0.165.tar --to-repo INTERRNAL_DOCKER_REPO/cloudfoundry/windows2016fs
-
+# repackage all the image layers from pre-downloaded resources under /tmp/windowsfs/
 pushd ./tasw/embed/windowsfs-release
 if [ `uname` == "Linux" ]; then
   TAG="$(cat ./config/blobs.yml | grep 'windows2019fs/windows2016fs-' |  grep -oP '\d*\.\d*\.\d*')"
 else
   TAG="$(cat ./config/blobs.yml | grep 'windows2019fs/windows2016fs-' |  grep -o '\d*\.\d*\.\d*')"
 fi
-# ./src/code.cloudfoundry.org/hydrator/bin/hydrate download -image cloudfoundry/windows2016fs -tag "$TAG" -outputDir ./blobs/windows2019fs
 popd
 
 mkdir -p /tmp/blobs/windows2019fs/blobs/sha256
@@ -52,9 +48,8 @@ done
 
 
 ## creates metadata file that is supposed to be created by hydrator
-
-## 1) write config
-## downloader provides diffIds https://github.com/cloudfoundry/hydrator/blob/27f4e1335b72ffb08629419371e6fb90801f9db0/downloader/downloader.go#L66
+## 1) write diffIds config file 
+## https://github.com/cloudfoundry/hydrator/blob/27f4e1335b72ffb08629419371e6fb90801f9db0/downloader/downloader.go#L66
 ## https://github.com/cloudfoundry/hydrator/blob/27f4e1335b72ffb08629419371e6fb90801f9db0/oci-directory/write.go#L19
 ## the same info can be obtained from manifest.json that is packaged in windowsfs/windows2016fs:2019.0.165.tar  after "imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar windows2016fs:2019.0.165.tar"
 file_name="ad507d36bfa040e3b82ccf681fffd7872d63f69984bc60af0590f8a162e8d7b9"
@@ -68,8 +63,8 @@ if [ "x$actual_hash" != "x$file_name" ]; then
     exit 1
 fi
 
-## 2) write manifest that points to config file
-## downloader provides layers https://github.com/cloudfoundry/hydrator/blob/27f4e1335b72ffb08629419371e6fb90801f9db0/downloader/downloader.go#L66
+## 2) write manifest that points to diffIds config file above
+## https://github.com/cloudfoundry/hydrator/blob/27f4e1335b72ffb08629419371e6fb90801f9db0/downloader/downloader.go#L66
 ## https://github.com/cloudfoundry/hydrator/blob/27f4e1335b72ffb08629419371e6fb90801f9db0/oci-directory/write.go#L19
 ## the same info can be obtained from manifest.json that is packaged in windowsfs/windows2016fs:2019.0.165.tar  after "imgpkg copy -i cloudfoundry/windows2016fs:2019.0.165 --to-tar windows2016fs:2019.0.165.tar"
 file_name="817f551aeb16ca932aa3ee7b09e8e818042c0650c87711faae17e4900b5e6f5b"
@@ -83,7 +78,7 @@ if [ "x$actual_hash" != "x$file_name" ]; then
     exit 1
 fi
 
-## 3) index.json that points to manifest
+## 3) index.json that points to the above manifest
 echo '{"schemaVersion":2,"manifests":[{"mediaType":"application/vnd.oci.image.manifest.v1+json","digest":"sha256:817f551aeb16ca932aa3ee7b09e8e818042c0650c87711faae17e4900b5e6f5b","size":5416,"platform":{"architecture":"amd64","os":"windows"}}]}' \
 > /tmp/blobs/windows2019fs/index.json
 
