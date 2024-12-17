@@ -13,8 +13,9 @@ Note that this custom setup can be reverted on VM reboot or other events.
 0. make sure the syslog forwarding setup to external rsyslog servier is done. refer to: [READMD.md](..//README.md)
 
 1. customize the [setup-custom-monitor.sh](setup-custom-monitor.sh)
+you can add any metric you want to [the script here](https://github.com/myminseok/pivotal-docs/blob/641074a37857bef0bb2827fe8533ae93ae0266c7/rsyslog/custom-monitor/setup-custom-monitor.sh#L7) 
 
-2. copy setup script into target instance_group where syslog forwarind is set.
+3. copy setup script into target instance_group where syslog forwarind is set.
 ```
 bosh -d cf-f30f16d0a030d67be63a scp ./setup-custom-monitor.sh diego_cell:/tmp
 ```
