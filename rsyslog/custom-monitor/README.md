@@ -1,6 +1,6 @@
-this guide describes how to collect system metric and forward to external log server via rsyslog.
+this guide describes how to collect system info process info and metric for troubleshooting and forward to external log server via rsyslog.
 
-## following metric can be collected every 10 second but it can be customizable:
+## following system info can be collected every 10 second but it can be customizable:
 - top 2 process with high cpu usage : ps aux --sort -rss 
 - top 2 process with high memory usage every 10 second: ps -eo %cpu,%mem,rss,pid,user,command | sort -r 
 - disk usage: df -h
@@ -10,7 +10,7 @@ this guide describes how to collect system metric and forward to external log se
 Note that this custom setup can be reverted on VM reboot or other events.
 
 ## How to setup
-0. make sure syslog forwarding to external rsyslog servier set to the deployment
+0. make sure the syslog forwarding setup to external rsyslog servier is done. refer to: [READMD.md](..//README.md)
 
 1. customize the [setup-custom-monitor.sh](setup-custom-monitor.sh)
 
