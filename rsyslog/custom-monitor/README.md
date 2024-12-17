@@ -1,6 +1,6 @@
-this guide describes how to collect system info process info and metric for troubleshooting and forward to external log server via rsyslog.
+This guide describes how to collect system info process info and metric for troubleshooting and forward to external log server via rsyslog.
 
-## following system info can be collected every 10 second but it can be customizable:
+## Following system info can be collected every 10 second but it can be customizable:
 - top 2 process with high cpu usage : ps aux --sort -rss 
 - top 2 process with high memory usage every 10 second: ps -eo %cpu,%mem,rss,pid,user,command | sort -r 
 - disk usage: df -h
