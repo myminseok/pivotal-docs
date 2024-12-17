@@ -107,6 +107,7 @@ drwxrwxr-x 13 root   syslog   4096 Dec  3 08:08 ../
 -rw-r-----  1 syslog syslog 146843 Dec  3 08:21 127.0.0.1_syslog_2024-12-03.log.1
 -rw-r-----  1 syslog syslog      0 Dec  3 08:21 192.168.0.90_syslog_2024-12-03.log
 -rw-r-----  1 syslog syslog 214600 Dec  3 08:21 192.168.0.90_syslog_2024-12-03.log.1
+-rw-r-----  1 syslog syslog      0 Dec  3 08:21 192.168.0.90_kernlog_2024-12-03.log
 ```
 
 update size to 5M and restart logroteate service. 
