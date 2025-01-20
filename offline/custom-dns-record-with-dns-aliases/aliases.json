@@ -1,0 +1,9 @@
+{
+    "apps.sys.lab.pcfdemo.net":["192.168.0.80"],
+    "api.sys.lab.pcfdemo.net":["192.168.0.80"],
+    "login.sys.lab.pcfdemo.net":["192.168.0.80"],
+    "uaa.sys.lab.pcfdemo.net":["192.168.0.80"],
+    "log-cache.sys.lab.pcfdemo.net":["192.168.0.80"],
+    "app-usage.sys.lab.pcfdemo.net":["192.168.0.80"],
+    "search-server.sys.lab.pcfdemo.net":["192.168.0.80"]
+    }
