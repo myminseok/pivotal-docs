@@ -1,29 +1,40 @@
 # README
+#
 # This is an alternative script to 'winfs-injector-0.26.0' for air-gapped environment. 
 # 'winfs-injector' uses `hydrator` internally to download all windowsfs layers and dependencies from internet and packages to pivotal tile. 
 # this script does not require internet outbound connection as it doesnot use hydrate but does the same with script with pre-downloaded resources
-# tested for pas-windows-6.0.5-build.2.pivotal only. 
+# should support as-windows-6.0.X-build.2.pivotal(tested for pas-windows-6.0.5-build.2.pivotal, pas-windows-6.0.6-build.2.pivotal only)
 # tested on Linux VM or Mac OS.
 #
+# This script will inject windows2016fs:2019.0.167 which is default dependency from windows tile. 
+#
 # Prerequisites
+#
 # Install tools on workstation 
 # - install go (latest)
 # - install zip (latest)
 # - bosh cli (latest, tested on version 7.8.2) (https://github.com/cloudfoundry/bosh-cli/releases)
 # - imgpkg cli (latest, tested on version 0.43.1) (https://carvel.dev/imgpkg/)
+#
 # Download resources on workstation
-# 1) pas-windows-6.0.5-build.2.pivotal
+# 1) pas-windows-6.0.x-build.2.pivotal
 # 2) imgpkg copy -i cloudfoundry/windows2016fs:2019.0.167 --to-tar /tmp/windowsfs/windows2016fs:2019.0.167.tar
-# 3) Download golang-1.22-windows package: wget https://s3.amazonaws.com/windows2019fs-release/1d3bd634-0e80-4a91-7970-5eee8b0d6ce2 to /tmp/windowsfs/
-#    NOTE: golang-1.22-windows from pas-windows-6.0.5-build.2.pivotal does not match as it has different hash digest required.
-# WARNING: delete bosh local cache for complete offline testing : rm -rf ~/.bosh
+# NOTE: golang-1.22-windows from pas-windows-6.0.5-build.2.pivotal will be reused. so no need to download from s3.
+#
+# How to Run
+# WARNING: for complete offline testing, delete bosh local cache for complete offline testing : rm -rf ~/.bosh
+# 1) locate files: 
+# CURRENT_DIRECTORY/pas-windows-6.0.5-build.2.pivotal
+# CURRENT_DIRECTORY/inject-tasw6-offline.sh 
+# /tmp/windowsfs/windows2016fs:2019.0.167.tar
+# 2) update this script for source file version: tasw_tiles='pas-windows-6.0.5-build.2.pivotal'
+# 3) run this script. then output will be created under current directory something line "injected-pas-windows-6.0.6-build.2.pivotal"
 
 #!/usr/bin/env bash
 set -e
 set -u
 set -x
 set -o pipefail
-
 
 # Crack the tile open into the tasw directory
 #tasw_tiles=(./pas-windows-*.pivotal)
@@ -32,9 +43,7 @@ tasw_tile="${tasw_tiles=[0]}"
 rm -rf ./tasw
 unzip "$tasw_tile" -d ./tasw
 
-
 # repackage all the image layers from pre-downloaded resources under /tmp/windowsfs/
-
 ## fetch target windowsfs version
 ## manually modifying version will break "bosh create" step(unable to find required files)
 ## TAG=2019.0.167
@@ -46,6 +55,7 @@ else
 fi
 popd
 
+rm -rf /tmp/windows2019fs_tar
 mkdir -p /tmp/windows2019fs_tar/blobs/sha256
 tar xvf /tmp/windowsfs/windows2016fs:2019.0.167.tar -C /tmp/windows2019fs_tar/blobs/sha256
 
@@ -83,7 +93,6 @@ if [ "x$actual_hash" != "x$file_name" ]; then
     exit 1
 fi
 
-
 ## 4) write diffIds config file 
 ## pas-windows-6.0.5-build.2.pivotal-injected/releases/windows2019fs-2.67.0.tgz/windows2016fs-2019.0.167.tgz/blobs/sha256/a04dc9c99773acb6521f3412054001b0f190711453944e0f45c82c6825f58a62
 ## https://github.com/cloudfoundry/hydrator/blob/27f4e1335b72ffb08629419371e6fb90801f9db0/downloader/downloader.go#L66
@@ -101,7 +110,6 @@ if [ "x$actual_hash" != "x$file_name" ]; then
 fi
 
 
-
 # tar release and place under bosh release
 pushd /tmp/windows2019fs_tar
 tar zcvf /tmp/windows2016fs-$TAG.tgz *
@@ -111,8 +119,32 @@ pushd ./tasw/embed/windowsfs-release
 mkdir -p ./blobs/windows2019fs
 mv /tmp/windows2016fs-$TAG.tgz ./blobs/windows2019fs
 rm -rf /tmp/windows2019fs_tar
+popd
 
-# Update the bosh blobstore to be local and not use S3
+
+
+## fetch golang-1.22-windows.tgz from pas-windows-6.0.5-build.2.pivotal
+pushd ./tasw/releases/
+diego_tgzs=$(find . -name "diego*.tgz")
+diego_tgz=${diego_tgzs=[0]}
+mkdir -p /tmp/windowsfs-golang
+tar xvf ./$diego_tgz -C /tmp/windowsfs-golang
+golang_tgzs=$(find /tmp/windowsfs-golang -name "golang-*-windows.tgz")
+golang_tgz=${golang_tgzs=[0]}
+cp $golang_tgz /tmp/windowsfs/a8759efa-bd04-41c9-778f-7fbc98b3fe82
+rm -rf /tmp/windowsfs-golang
+popd 
+
+
+pushd ./tasw/embed/windowsfs-release
+# modify meta to reuse golang-1.22-windows from pas-windows-6.0.5-build.2.pivotal instead of download from s3.
+# and it should also be matched with ./.final_builds/packages/golang-1.22-windows/index.yml
+cat << EOF > ./packages/golang-1.22-windows/spec.lock
+name: golang-1.22-windows
+fingerprint: d58174aba07bdc1913cba21648c64b8716d80b6be58bba2b53a37599aa806a0c
+EOF
+
+# Update the bosh blobstore to be local and not use S3 (https://s3.amazonaws.com/windows2019fs-release/1d3bd634-0e80-4a91-7970-5eee8b0d6ce2)
 cat << EOF > ./config/final.yml
 ---
 name: windows2019fs
