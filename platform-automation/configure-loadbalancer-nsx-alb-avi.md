@@ -44,8 +44,7 @@ Tested on:
 - Application Profile: System-SSL-Application
 - Pool: tas-web-pool( previously created)
 - SSL Profile: system-standard
-- Advanced tab> Service Engine Group> Default-Group (select intended to use)
-
+- Advanced tab> Service Engine Group> Default-Group (any group to use)
 ### 3. Configure loadbalancer on TAS tile
 there is no explaination on NSX-ALB on [TAS tile documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/configure-lb.html) yet
 
