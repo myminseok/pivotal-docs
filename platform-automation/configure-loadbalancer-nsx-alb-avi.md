@@ -1,7 +1,7 @@
 
 
 ## Operations Manager v3.0.34+LTS-T adds support for AVI Load Balancer on vSphere
-- release note : https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/release-notes.html
+- [release note](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/release-notes.html)
 
 Tested on:
 - opsman 3.0.37
@@ -12,12 +12,12 @@ Tested on:
 ## How to Integrating
 
 ### 1. Configuring Bosh Director 
-- https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/vsphere-config.html
+- [tanzu-ops-manager document](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/vsphere-config.html)
 #### set one of authentication methods
-- token: generating access token from avi controller: https://techdocs.broadcom.com/us/en/vmware-security-load-balancing/avi-load-balancer/avi-load-balancer/30-2/vmware-avi-load-balancer-administration-guide/vmware-nsx-advanced-load-balancer-administration-guide-30-2--ditamap/user-authentication-and-authorization/generate-the-authorization-token.html
-- basic auth for avi which is disabled by default. should enable from avi controller manually. https://techdocs.broadcom.com/us/en/vmware-security-load-balancing/avi-load-balancer/avi-load-balancer/30-2/vmware-avi-load-balancer-administration-guide/vmware-nsx-advanced-load-balancer-administration-guide-30-2--ditamap/user-authentication-and-authorization/http-basic-auth-for-api-queries.html#:~:text=By%20default%2C%20HTTP%20basic%20authentication%20is%20disabled%2E
+- token: [generating access token from avi controller](https://techdocs.broadcom.com/us/en/vmware-security-load-balancing/avi-load-balancer/avi-load-balancer/30-2/vmware-avi-load-balancer-administration-guide/vmware-nsx-advanced-load-balancer-administration-guide-30-2--ditamap/user-authentication-and-authorization/generate-the-authorization-token.html)
+- basic auth for avi which is disabled by default. should [enable from avi controller manually](https://techdocs.broadcom.com/us/en/vmware-security-load-balancing/avi-load-balancer/avi-load-balancer/30-2/vmware-avi-load-balancer-administration-guide/vmware-nsx-advanced-load-balancer-administration-guide-30-2--ditamap/user-authentication-and-authorization/http-basic-auth-for-api-queries.html)
 
-#### apply director change:
+#### Apply director change:
 - there is no change on NSX-ALB side
 - director is ready to api call on NSX-ALB
 
@@ -47,12 +47,11 @@ Tested on:
 - Advanced tab> Service Engine Group> Default-Group (select intended to use)
 
 ### 3. Configure loadbalancer on TAS tile
-there is no comment explaining on NSX-ALB on TAS tile documentation yet.
-- https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/configure-lb.html
+there is no explaination on NSX-ALB on [TAS tile documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/configure-lb.html) yet
 
 #### TAS tile > Resource config> Router:
 - AVI LOAD BALANCER CONFIGURATION Pools: tas-web-pool (previously created)
 - Logical Load Balancer: do not set.
-#### apply change tas tile:
+#### Apply change tas tile:
 - bosh director will add vm extension for router vm.
 - bosh director will register the created VM to the NSX-ALB target pool on creating VM only.
