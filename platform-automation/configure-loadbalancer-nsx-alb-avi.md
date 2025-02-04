@@ -33,11 +33,11 @@ Tested on:
 - SSL > SSL Profile: System-Standard
 
 #### NSX-ALB > Applications> VS VIP> create
-- name : tas-web-vsvip
+- name : tas-web-vsvip (any name)
 - VIPs> add: Auto-Allocate, V4 only, Network, subnet. and no  need to click add and "save"
 
 #### NSX-ALB > Applications> Virtual Services > create > advanced setup
-- name: tas-web
+- name: tas-web (any name)
 - VS VIP: tas-web-vsvip (previously created)
 - Services: 443(SSL)
 - TCP/UDP Profile: System-TCP-Proxy
