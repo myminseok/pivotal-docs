@@ -6,9 +6,10 @@
 Tested on:
 - opsman 3.0.37
 - TAS tile: v6.0.11
+- NSX-ALB: 22.1.7
 
 
-### configuring
+### How to Integrating
 
 #### 1. Configuring Bosh Director 
 - https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/vsphere-config.html
