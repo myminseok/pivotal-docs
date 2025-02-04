@@ -9,22 +9,22 @@ Tested on:
 - NSX-ALB: 22.1.7
 
 
-### How to Integrating
+## How to Integrating
 
-#### 1. Configuring Bosh Director 
+### 1. Configuring Bosh Director 
 - https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/vsphere-config.html
-- set one of NSX-ALB auth:
+#### set one of authentication methods
 - token: generating access token from avi controller: https://techdocs.broadcom.com/us/en/vmware-security-load-balancing/avi-load-balancer/avi-load-balancer/30-2/vmware-avi-load-balancer-administration-guide/vmware-nsx-advanced-load-balancer-administration-guide-30-2--ditamap/user-authentication-and-authorization/generate-the-authorization-token.html
 - basic auth for avi which is disabled by default. should enable from avi controller manually. https://techdocs.broadcom.com/us/en/vmware-security-load-balancing/avi-load-balancer/avi-load-balancer/30-2/vmware-avi-load-balancer-administration-guide/vmware-nsx-advanced-load-balancer-administration-guide-30-2--ditamap/user-authentication-and-authorization/http-basic-auth-for-api-queries.html#:~:text=By%20default%2C%20HTTP%20basic%20authentication%20is%20disabled%2E
 
-- apply director change:
-** there is no change on NSX-ALB side
-** director is ready to api call on NSX-ALB
+#### apply director change:
+- there is no change on NSX-ALB side
+- director is ready to api call on NSX-ALB
 
 
-#### 2. Create VS pool on NSX-ALB controller
+### 2. Create VS pool on NSX-ALB controller
 
-##### NSX-ALB > Applications> Pools > create pool
+#### NSX-ALB > Applications> Pools > create pool
 - name: tas-web-pool (any name)
 - default server port: 443
 - Loadbalancer Algorithm: Round Robin
@@ -32,11 +32,11 @@ Tested on:
 - Health Monitor> add: System-TCP. (System-HTTPS doesn't work)
 - SSL > SSL Profile: System-Standard
 
-##### NSX-ALB > Applications> VS VIP> create
+#### NSX-ALB > Applications> VS VIP> create
 - name : tas-web-vsvip
 - VIPs> add: Auto-Allocate, V4 only, Network, subnet. and no  need to click add and "save"
 
-##### NSX-ALB > Applications> Virtual Services > create > advanced setup
+#### NSX-ALB > Applications> Virtual Services > create > advanced setup
 - name: tas-web
 - VS VIP: tas-web-vsvip (previously created)
 - Services: 443(SSL)
@@ -46,14 +46,13 @@ Tested on:
 - SSL Profile: system-standard
 - Advanced tab> Service Engine Group> Default-Group (select intended to use)
 
-#### 3. Configure loadbalancer on TAS tile
+### 3. Configure loadbalancer on TAS tile
 there is no comment explaining on NSX-ALB on TAS tile documentation yet.
 - https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/configure-lb.html
 
-Configuring:
-- TAS tile > Resource config> Router:
-** AVI LOAD BALANCER CONFIGURATION Pools: tas-web-pool (previously created)
-** Logical Load Balancer: do not set.
-- apply change tas tile:
-** director will add vm extension for router vm.
-** director will add VM info to target pool on NSX-ALB side on creating router VM.
+#### TAS tile > Resource config> Router:
+- AVI LOAD BALANCER CONFIGURATION Pools: tas-web-pool (previously created)
+- Logical Load Balancer: do not set.
+#### apply change tas tile:
+- bosh director will add vm extension for router vm.
+- bosh director will register the created VM to the NSX-ALB target pool on creating VM only.
