@@ -1,9 +1,8 @@
-
-
-## Operations Manager v3.0.34+LTS-T adds support for AVI Load Balancer on vSphere
+## NSX-ALB(Avi) Loadbalancer ingegration with TAS
+Operations Manager v3.0.34+LTS-T adds support for AVI Load Balancer on vSphere
 - [release note](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/release-notes.html)
 
-Tested on:
+this doc is tested on:
 - opsman 3.0.37
 - TAS tile: v6.0.11
 - NSX-ALB: 22.1.7
