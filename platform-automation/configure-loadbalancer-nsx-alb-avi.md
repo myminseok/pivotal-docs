@@ -58,6 +58,8 @@ there is no explaination on NSX-ALB on [TAS tile documentation](https://techdocs
 #### For routers) TAS tile > Resource config> Router
 - AVI LOAD BALANCER CONFIGURATION Pools: tas-web-pool (previously created)
 - Logical Load Balancer: do not set.
+  
 #### Apply change tas tile:
 - bosh director will add vm extension for vms
-- bosh director will register the created VM to the NSX-ALB target pool on creating VM only.
+- bosh director will register the created VM to the NSX-ALB target pool on creating VM.
+- note that the VM will be de-registerd from the pool by bosh on deleting VM.
