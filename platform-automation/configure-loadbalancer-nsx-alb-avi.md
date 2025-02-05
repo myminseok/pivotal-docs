@@ -51,7 +51,7 @@ you have to create each VS pool for the specific TAS component VMs. for example
 - Advanced tab> Service Engine Group> Default-Group (any group to use)
 
 after VS is created, TAS domain record should point to the VIP on DNS.
-
+- api.sys.TAS-DOMAIN -> VS vip.
 ### 3. Configure loadbalancer on TAS tile
 there is no explaination on NSX-ALB on [TAS tile documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/configure-lb.html) yet
 
