@@ -15,6 +15,7 @@ Tested on:
 - [tanzu-ops-manager document](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-operations-manager/3-0/tanzu-ops-manager/vsphere-config.html)
 #### set one of authentication methods
 - token: [generating access token from avi controller](https://techdocs.broadcom.com/us/en/vmware-security-load-balancing/avi-load-balancer/avi-load-balancer/30-2/vmware-avi-load-balancer-administration-guide/vmware-nsx-advanced-load-balancer-administration-guide-30-2--ditamap/user-authentication-and-authorization/generate-the-authorization-token.html)
+- AVI Appliance CA Cert: needs to add root CA with intermediate chain cert. (try download one from web browser)
 - basic auth for avi which is disabled by default. should [enable from avi controller manually](https://techdocs.broadcom.com/us/en/vmware-security-load-balancing/avi-load-balancer/avi-load-balancer/30-2/vmware-avi-load-balancer-administration-guide/vmware-nsx-advanced-load-balancer-administration-guide-30-2--ditamap/user-authentication-and-authorization/http-basic-auth-for-api-queries.html)
 
 #### Apply director change:
