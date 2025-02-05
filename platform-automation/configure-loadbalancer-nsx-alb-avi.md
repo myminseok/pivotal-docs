@@ -48,9 +48,10 @@ Tested on:
 ### 3. Configure loadbalancer on TAS tile
 there is no explaination on NSX-ALB on [TAS tile documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/configure-lb.html) yet
 
-#### TAS tile > Resource config> Router:
+#### TAS tile > Resource config:
+- choose component to set loadbalancer config such as Router, Diego-brain
 - AVI LOAD BALANCER CONFIGURATION Pools: tas-web-pool (previously created)
 - Logical Load Balancer: do not set.
 #### Apply change tas tile:
-- bosh director will add vm extension for router vm.
+- bosh director will add vm extension for vms
 - bosh director will register the created VM to the NSX-ALB target pool on creating VM only.
