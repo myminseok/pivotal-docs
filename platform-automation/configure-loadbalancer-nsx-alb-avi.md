@@ -23,8 +23,11 @@ Tested on:
 
 
 ### 2. Create VS pool on NSX-ALB controller
+you have to create each VS pool for the specific TAS component VMs. for example
+- for routers, 443 port pool
+- for ssh(diego-brain), 2222 port pool
 
-#### NSX-ALB > Applications> Pools > create pool
+#### For routers) NSX-ALB > Applications> Pools > create pool
 - name: tas-web-pool (any name)
 - default server port: 443
 - Loadbalancer Algorithm: Round Robin
@@ -32,11 +35,11 @@ Tested on:
 - Health Monitor> add: System-TCP. (System-HTTPS doesn't work)
 - SSL > SSL Profile: System-Standard
 
-#### NSX-ALB > Applications> VS VIP> create
+#### For routers) NSX-ALB > Applications> VS VIP> create
 - name : tas-web-vsvip (any name)
 - VIPs> add: Auto-Allocate, V4 only, Network, subnet. and no  need to click add and "save"
 
-#### NSX-ALB > Applications> Virtual Services > create > advanced setup
+#### For routers) NSX-ALB > Applications> Virtual Services > create > advanced setup
 - name: tas-web (any name)
 - VS VIP: tas-web-vsvip (previously created)
 - Services: 443(SSL)
@@ -48,8 +51,7 @@ Tested on:
 ### 3. Configure loadbalancer on TAS tile
 there is no explaination on NSX-ALB on [TAS tile documentation](https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/tanzu-platform-for-cloud-foundry/6-0/tpcf/configure-lb.html) yet
 
-#### TAS tile > Resource config:
-- choose component to set loadbalancer config such as Router, Diego-brain
+#### For routers) TAS tile > Resource config> Router
 - AVI LOAD BALANCER CONFIGURATION Pools: tas-web-pool (previously created)
 - Logical Load Balancer: do not set.
 #### Apply change tas tile:
