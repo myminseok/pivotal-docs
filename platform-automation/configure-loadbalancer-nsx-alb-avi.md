@@ -37,8 +37,7 @@ you have to create each VS pool for the specific TAS component VMs. for example
 
 #### For routers) NSX-ALB > Applications> VS VIP> create
 - name : tas-web-vsvip (any name)
-- Default-Cloud on vcenter.
-- VIPs> add: Auto-Allocate, V4 only, Network, subnet. and no  need to click add and "save"
+- VIPs> add: Cloud(Default-Cloud on vCenter), Auto-Allocate IP, V4 only, Network, subnet. and no  need to click add and "save"
 
 #### For routers) NSX-ALB > Applications> Virtual Services > create > advanced setup
 - name: tas-web (any name)
