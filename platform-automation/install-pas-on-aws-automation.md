@@ -16,6 +16,7 @@
 *.uaa.system.<your domain>
 *.login.system.<your domain>
 ```
+*.apps.lab.pcfdemo.net,*.sys.lab.pcfdemo.net,*.uaa.sys.lab.pcfdemo.net,*.login.sys.lab.pcfdemo.net
 
 ## sign up for network.pivotal.io 
 get pivnet_token
