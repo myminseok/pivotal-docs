@@ -4,6 +4,9 @@
 ## #1   running   2025-02-19T06:12:30Z   0.3%   219.3M of 1G   224.8M of 1G   0/s of 16K/s
 ## #2   running   2025-02-19T06:17:06Z   0.0%   0 of 0         0 of 0         0/s of 0/s     insufficient resources: memory
 ##
+## understanding health checks : https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html
+## readiness-health-check-type: If the readiness health check fails, then the route to the app instance is removed. https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html#readiness-health-check-type
+##
 ## tested on ubuntu
 ## sudo apt install jq
 
