@@ -177,3 +177,23 @@ uaac curl -k "https://healthwatch-api.SYSTEM-DOMAIN/v1/alert-configurations?q=or
 
 ```
 
+
+## add healthwatch user to TAS uaa 
+
+
+### add a user
+
+```
+## ssh into opsmanager VM (as ubuntu)
+
+uaac target https://uaa.<YOUR-PAS-SYS-DOMAIN> --ca-cert /var/tempest/workspaces/default/root_ca_certificate
+
+## Admin Client Credentials: opsman ui> pas tile > credentials> UAA Admin Client Credentials
+uaac token client get admin -s <UAA-Admin Client Credentials>
+
+uaac user add healthwatchadmin -p PASSWORD --emails healthwatchadmin@example.com
+
+uaac member add healthwatch.admin healthwatchadmin
+```
+
+ref: [add-user-to-uaa.md](../add-user-to-uaa.md)
