@@ -8,7 +8,7 @@ This guide describes how to collect system info process info and metric for trou
 - network port connectivity: nc -zv TARGET_VM_IP 5671
 
 ## Warning:
-Note that this custom setup can be reverted on VM reboot or other events.
+Note that this custom setup can be reverted on VM reboot or other events. but already generated logs should be available on syslog
 
 ## How to setup
 0. make sure the syslog forwarding setup to external rsyslog servier is done. refer to: [READMD.md](..//README.md)
