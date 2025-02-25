@@ -5,6 +5,7 @@ This guide describes how to collect system info process info and metric for trou
 - top 2 process with high memory usage every 10 second: ps -eo %cpu,%mem,rss,pid,user,command | sort -r 
 - disk usage: df -h
 - sshd daemon status
+- network port connectivity: nc -zv TARGET_VM_IP 5671
 
 ## Warning:
 Note that this custom setup can be reverted on VM reboot or other events.
