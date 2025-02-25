@@ -6,6 +6,7 @@ This guide describes how to collect VM information to syslog on the vm where thi
 - disk usage: df -h
 - sshd daemon status
 - network port connectivity: nc -zv TARGET_VM_IP 5671
+- and many more
 
 ## Warning:
 Note that this custom setup can be reverted on VM reboot or other events. but already generated logs should be available on syslog
