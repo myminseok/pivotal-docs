@@ -1,6 +1,6 @@
 This guide describes how to collect VM information to syslog on the vm where this script is running on and optionally forward to external log server via rsyslog.
 
-## collects following sample system info periodically to syslog via custom script:
+## collects system info to syslog via custom script periodically, for example:
 - top 2 process with high cpu usage : ps aux --sort -rss 
 - top 2 process with high memory usage every 10 second: ps -eo %cpu,%mem,rss,pid,user,command | sort -r 
 - disk usage: df -h
