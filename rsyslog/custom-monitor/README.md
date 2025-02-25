@@ -11,7 +11,6 @@ This guide describes how to collect system info process info and metric for trou
 Note that this custom setup can be reverted on VM reboot or other events. but already generated logs should be available on syslog
 
 ## How to setup
-0. make sure the syslog forwarding setup to external rsyslog servier is done. refer to: [READMD.md](..//README.md)
 
 1. customize the [setup-custom-monitor.sh](setup-custom-monitor.sh)
 - you can add any metric you want to [the script here](https://github.com/myminseok/pivotal-docs/blob/641074a37857bef0bb2827fe8533ae93ae0266c7/rsyslog/custom-monitor/setup-custom-monitor.sh#L7) 
@@ -74,8 +73,9 @@ root@opsmanager-3-0:/var/log/rsyslog-tas# tail -f 192.168.0.76_syslog_2024-12-17
 2024-12-17T10:08:12.778414+00:00 192.168.0.76 root             └─639 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
 ```
 
+6. to forward syslog, make sure the syslog forwarding setup to external rsyslog servier is done. refer to: [READMD.md](..//README.md)
 
-6. diable the custom-monitor service if donot need
+7. diable the custom-monitor service if donot need
 ```
 bosh -d cf-f30f16d0a030d67be63a ssh diego_cell -c "sudo systemctl stop custom-monitor.service"
 ```
