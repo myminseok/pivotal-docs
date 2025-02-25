@@ -1,4 +1,4 @@
-This guide describes how to collect system info process info and metric for troubleshooting and forward to external log server via rsyslog.
+This guide describes how to collect VM information to syslog on the vm where this script is running on and optionally forward to external log server via rsyslog.
 
 ## Following system info can be collected every 10 second but it can be customizable:
 - top 2 process with high cpu usage : ps aux --sort -rss 
