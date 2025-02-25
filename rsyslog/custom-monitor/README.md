@@ -74,9 +74,9 @@ root@opsmanager-3-0:/var/log/rsyslog-tas# tail -f 192.168.0.76_syslog_2024-12-17
 2024-12-17T10:08:12.778414+00:00 192.168.0.76 root             └─639 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
 ```
 
-6. to forward syslog, make sure the syslog forwarding setup to external rsyslog servier is done. refer to: [READMD.md](..//README.md)
+6. to forward syslog, setup syslog forwarding to external rsyslog servier. refer to: [READMD.md](..//README.md)
 
-7. diable the custom-monitor service if donot need
+7. may diable the custom-monitor service if do not need
 ```
 bosh -d cf-f30f16d0a030d67be63a ssh diego_cell -c "sudo systemctl stop custom-monitor.service"
 ```
