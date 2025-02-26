@@ -111,6 +111,35 @@ opsman-configuration:
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/configuring-auth.html
 - [platform-automation-template/awstest/opsman/auth.yml](https://github.com/myminseok/platform-automation-template/blob/master/awstest/opsman/auth.yml)
 
+
+## director config
+#### Available host
+```
+CIDR Range 	192.168.40.0/30
+Netmask 	255.255.255.252
+Wildcard Bits 	0.0.0.3
+First IP 	192.168.40.0
+Last IP(broadcast) 	192.168.40.3
+Available host: 1
+=> total host(4) - First IP - Last IP(broadcast)  - Gateway == 1
+```
+#### Create Network
+```
+TAS-network ==> Available host : 6
+
+=> subnet 1:
+--> vSphere Network Name: tkg_mgmt_pg-192.168.40.1
+--> CIDR: 192.168.40.0/29  ==> Available host : 5
+--> reserved IP ranges: 192.168.40.0-192.168.40.1
+--> gateway: 192.168.40.1
+
+=> subnet 1:
+--> vSphere Network Name: nsx_alb_management_pg-192.168.10.1
+--> CIDR: 192.168.10.0/30 => Available host : 1
+--> reserved IP ranges: 1192.168.10.0-192.168.10.1
+--> gateway: 192.168.10.1
+```
+
 #### platform-automation-template/awstest/opsman/director.yml
 - official guide: https://docs.pivotal.io/platform-automation/v4.3/how-to-guides/creating-a-director-config-file.html
 - [platform-automation-template/awstest/opsman/director.yml](https://github.com/myminseok/platform-automation-template/blob/master/awstest/opsman/director.yml)
