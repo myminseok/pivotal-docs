@@ -13,8 +13,8 @@
 # Install tools on workstation 
 # - install go (latest)
 # - install zip (latest)
-# - bosh cli (latest, tested on version 7.8.6) (https://github.com/cloudfoundry/bosh-cli/releases)
-# - imgpkg cli (latest, tested on version 0.44.0) (https://carvel.dev/imgpkg/)
+# - bosh cli (latest, tested on version 7.8.2) (https://github.com/cloudfoundry/bosh-cli/releases)
+# - imgpkg cli (latest, tested on version 0.43.1) (https://carvel.dev/imgpkg/)
 #
 # Download resources on workstation
 # 1) pas-windows-6.0.x-build.2.pivotal
