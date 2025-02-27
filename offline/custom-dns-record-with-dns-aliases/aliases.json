@@ -1,9 +1,12 @@
 {
-    "apps.sys.lab.pcfdemo.net":["192.168.0.80"],
-    "api.sys.lab.pcfdemo.net":["192.168.0.80"],
-    "login.sys.lab.pcfdemo.net":["192.168.0.80"],
-    "uaa.sys.lab.pcfdemo.net":["192.168.0.80"],
-    "log-cache.sys.lab.pcfdemo.net":["192.168.0.80"],
-    "app-usage.sys.lab.pcfdemo.net":["192.168.0.80"],
-    "search-server.sys.lab.pcfdemo.net":["192.168.0.80"]
-    }
+    "apps.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "api.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "login.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "uaa.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "log-cache.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "app-usage.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "autoscale.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "nfsbroker.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "smbbroker.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "search-server.sys.lab.pcfdemo.net":["192.168.0.70"]
+}
