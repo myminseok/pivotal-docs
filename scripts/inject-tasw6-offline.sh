@@ -3,7 +3,7 @@
 # This is an alternative script to 'winfs-injector-0.26.0' for air-gapped environment. 
 # 'winfs-injector' uses `hydrator` internally to download all windowsfs layers and dependencies from internet and packages to pivotal tile. 
 # this script does not require internet outbound connection as it doesnot use hydrate but does the same with script with pre-downloaded resources
-# should support as-windows-6.0.X-build.2.pivotal(tested for pas-windows-6.0.5-build.2.pivotal, pas-windows-6.0.6-build.2.pivotal only)
+# should support tas-windows-6.0.X-build.2.pivotal(tested for pas-windows-6.0.5-build.2.pivotal, pas-windows-6.0.6-build.2.pivotal only)
 # tested on Linux VM or Mac OS.
 #
 # This script will inject windows2016fs:2019.0.167 which is default dependency from windows tile. 
