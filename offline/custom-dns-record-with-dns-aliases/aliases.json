@@ -8,5 +8,6 @@
     "autoscale.sys.lab.pcfdemo.net":["192.168.0.70"],
     "nfsbroker.sys.lab.pcfdemo.net":["192.168.0.70"],
     "smbbroker.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "metrics.sys.lab.pcfdemo.net":["192.168.0.70"],
     "search-server.sys.lab.pcfdemo.net":["192.168.0.70"]
 }
