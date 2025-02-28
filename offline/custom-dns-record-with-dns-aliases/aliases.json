@@ -5,9 +5,11 @@
     "uaa.sys.lab.pcfdemo.net":["192.168.0.70"],
     "log-cache.sys.lab.pcfdemo.net":["192.168.0.70"],
     "app-usage.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "search-server.sys.lab.pcfdemo.net":["192.168.0.70"],
     "autoscale.sys.lab.pcfdemo.net":["192.168.0.70"],
     "nfsbroker.sys.lab.pcfdemo.net":["192.168.0.70"],
     "smbbroker.sys.lab.pcfdemo.net":["192.168.0.70"],
     "metrics.sys.lab.pcfdemo.net":["192.168.0.70"],
-    "search-server.sys.lab.pcfdemo.net":["192.168.0.70"]
+    "metric-store.sys.lab.pcfdemo.net":["192.168.0.80"],
+    "log-store.sys.lab.pcfdemo.net":["192.168.0.80"]
 }
