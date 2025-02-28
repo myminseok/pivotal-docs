@@ -10,6 +10,7 @@
     "nfsbroker.sys.lab.pcfdemo.net":["192.168.0.70"],
     "smbbroker.sys.lab.pcfdemo.net":["192.168.0.70"],
     "metrics.sys.lab.pcfdemo.net":["192.168.0.70"],
-    "metric-store.sys.lab.pcfdemo.net":["192.168.0.80"],
-    "log-store.sys.lab.pcfdemo.net":["192.168.0.80"]
+    "metric-store.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "log-store.sys.lab.pcfdemo.net":["192.168.0.70"],
+    "grafana.sys.lab.pcfdemo.net":["192.168.0.70"]
 }
