@@ -22,6 +22,7 @@ export TARGET_DS='pas-windows-7a03715687d2f7514359'
 5. After testing, you should remove this workaround and continue with the permanent change in external DNS servers. [remove-dns-aliases.sh](remove-dns-aliases.sh)
 
 #### for windows tile
+it would required for 'install HWC buildpack errand'
 0. ssh into bosh enabled VM (such as opsmanager)
 1. edit [aliases.json](aliases.json)
 2. find target deployment.
