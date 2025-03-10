@@ -13,6 +13,7 @@
 # Install tools on workstation 
 # - install go (latest)
 # - install zip (latest)
+# - install git (latest)
 # - bosh cli (latest, tested on version 7.8.2) (https://github.com/cloudfoundry/bosh-cli/releases)
 # - imgpkg cli (latest, tested on version 0.43.1) (https://carvel.dev/imgpkg/)
 #
