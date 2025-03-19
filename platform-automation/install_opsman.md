@@ -245,3 +245,17 @@ https://learn.hashicorp.com/consul/cloud-integrations/consul-pcf
 
 
 
+## add extra users
+
+```
+
+userdel -r appsadmin
+
+addgroup appsadmin
+
+useradd   -s /bin/bash  -m --home-dir=/home/appsadmin -G appsadmin -g appsadmin  appsadmin 
+
+# for ssh with key.
+usermod -g bosh_sshers appsadmin
+
+```
