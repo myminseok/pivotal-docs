@@ -135,3 +135,18 @@ power management:
 rabbitmq-server/9995b4a7-0675-409d-8482-1b979cdb9ded:~$ cat /proc/cpuinfo | grep avx512f
 rabbitmq-server/9995b4a7-0675-409d-8482-1b979cdb9ded:~$
 ```
+
+### Reference
+https://github.com/torvalds/linux/blob/master/arch/x86/include/asm/cpufeatures.h
+```
+#define X86_FEATURE_AVX			( 4*32+28) /* "avx" Advanced Vector Extensions */   ==> 156
+
+#define X86_FEATURE_AVX512F		( 9*32+16) /* "avx512f" AVX-512 Foundation */  => 304
+
+#define X86_FEATURE_AVX512DQ		( 9*32+17) /* "avx512dq" AVX-512 DQ (Double/Quad granular) Instructions */
+
+#define X86_FEATURE_AVX512_FP16		(18*32+23) /* "avx512_fp16" AVX512 FP16 */
+```
+
+option 1(bosh level update) was not abled to be applied on vsphere esxi7.
+https://linuxconfig.org/how-to-set-kernel-boot-parameters-on-linux
