@@ -9,6 +9,8 @@ featMask.vm.cpuid.AVX512F="Max:0"
 featMask.vm.cpuid.AVX512FP16="Max:0"
 Perform a full power cycle of the VM (shut down and restart) for the changes to take effect.
 ```
+Just powering off the VM will revert back the vmx change back to original contents. it should be Hard Stop and power on for the changes to take effect
+
 ## How to apply
 
 1. disable bosh resurrection from opsman VM.
