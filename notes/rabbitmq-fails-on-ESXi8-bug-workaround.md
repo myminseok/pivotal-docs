@@ -130,6 +130,6 @@ cache_alignment	: 64
 address sizes	: 43 bits physical, 48 bits virtual
 power management:
 
-rabbitmq-server/9995b4a7-0675-409d-8482-1b979cdb9ded:~$ cat /proc/cpuinfo | grep avx
+rabbitmq-server/9995b4a7-0675-409d-8482-1b979cdb9ded:~$ cat /proc/cpuinfo | grep avx512f
 rabbitmq-server/9995b4a7-0675-409d-8482-1b979cdb9ded:~$
 ```
