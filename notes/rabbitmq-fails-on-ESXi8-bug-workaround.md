@@ -1,5 +1,5 @@
 ## workaround for rabbitmq for TAS failure due to ESXi 8.0.2 bug.
-this document addresses missing part from the KB on applying the Option 2 sugggested by [KB](https://knowledge.broadcom.com/external/article/390336/workaround-for-all-rabbitmq-running-on-v.html) 
+this document describes more details on applying the Option 2 sugggested by [KB](https://knowledge.broadcom.com/external/article/390336/workaround-for-all-rabbitmq-running-on-v.html) 
 ```
 Option 2: Modify the VMX File Settings
 
@@ -9,7 +9,7 @@ featMask.vm.cpuid.AVX512F="Max:0"
 featMask.vm.cpuid.AVX512FP16="Max:0"
 Perform a full power cycle of the VM (shut down and restart) for the changes to take effect.
 ```
-Just powering off the VM will revert back the vmx change back to original contents on next powering on. it should be Hard Stop and power on for the changes to take effect
+NOTE that on esxi 7, Just powering off the VM will revert back the vmx change back to original contents on next powering on. it should be Hard Stop and power on for the changes to take effect
 
 ## How to apply
 
@@ -94,8 +94,7 @@ watch diff rabbitmq-server_service-instance-1d5b13b2-a9ff-481c-b2c9-62f8db748_aa
 -featMask.vm.cpuid.AVX="Max:0"
 ```
 
-6. Perform a full power cycle of the VM (Hard Stop and power on) for the changes to take effect
-   WARNIG: just powering  off will revert the vmx change back to original. 
+6. Perform a full power cycle of the VM (Hard Stop and power on) for the changes to take effect.  NOTE that on esxi 7,  just powering  off will revert the vmx change back to original. 
 ```
 vCenter > rabbitmq VM > Actions> Power > Hard Stop
 vCenter > rabbitmq VM > Actions> Power > Power on
