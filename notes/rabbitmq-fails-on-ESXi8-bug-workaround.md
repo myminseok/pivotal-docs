@@ -1,4 +1,4 @@
-## workaround for rabbitmq for TAS failure due to ESXi 8.0.2 bug.
+## Workaround for rabbitmq for TAS failure due to ESXi 8.0.2 bug.
 this document describes more details on applying the Option 2 sugggested by [KB](https://knowledge.broadcom.com/external/article/390336/workaround-for-all-rabbitmq-running-on-v.html) 
 ```
 Option 2: Modify the VMX File Settings
