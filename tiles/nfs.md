@@ -64,3 +64,29 @@ drwxr-xr-x 3 root   root          4096 Apr 22 06:09 ..
 ```
 
 ref: https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nfs-mount-on-ubuntu-20-04
+
+###  create service on TAS
+```
+➜  ~ cf enable-service-access nfsbroker
+Enabling access to all plans of service offering nfsbroker for all orgs as admin...
+Service offering 'nfsbroker' not found.
+FAILED
+
+➜  ~ cf enable-service-access nfs
+Enabling access to all plans of service offering nfs for all orgs as admin...
+OK
+
+cf m
+Getting all service offerings from marketplace in org test / space test as admin...
+
+offering         plans                   description                                                                              broker
+app-autoscaler   standard                Scales bound applications in response to load                                            app-autoscaler
+nfs              Existing                Existing NFSv3 and v4 volumes (see: https://code.cloudfoundry.org/nfs-volume-release/)   nfsbroker
+
+
+cf create-service nfs Existing mynfs -c '{"share":"192.168.0.6/data/nfs_data"}'
+Creating service instance mynfs in org test / space test as admin...
+
+Service instance mynfs created.
+OK
+```
