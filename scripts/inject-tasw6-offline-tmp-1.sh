@@ -58,7 +58,7 @@ popd
 
 rm -rf /tmp/windows2019fs_tar
 mkdir -p /tmp/windows2019fs_tar/blobs/sha256
-tar xvf /tmp/windowsfs/windows2016fs_2019.0.167.tar -C /tmp/windows2019fs_tar/blobs/sha256
+tar xvf ./windows2016fs_2019.0.167.tar -C /tmp/windows2019fs_tar/blobs/sha256
 
 FILES=$(ls -al /tmp/windows2019fs_tar/blobs/sha256/*.tar.gz| awk '{print $9}')
 for i in $FILES; do 
@@ -137,48 +137,3 @@ rm -rf /tmp/windowsfs-golang
 popd 
 
 
-pushd /tmp/tasw/embed/windowsfs-release
-# modify meta to reuse golang-1.22-windows from pas-windows-6.0.5-build.2.pivotal instead of download from s3.
-# and it should also be matched with ./.final_builds/packages/golang-1.22-windows/index.yml
-cat << EOF > ./packages/golang-1.22-windows/spec.lock
-name: golang-1.22-windows
-fingerprint: d58174aba07bdc1913cba21648c64b8716d80b6be58bba2b53a37599aa806a0c
-EOF
-
-# Update the bosh blobstore to be local and not use S3 (https://s3.amazonaws.com/windows2019fs-release/1d3bd634-0e80-4a91-7970-5eee8b0d6ce2)
-cat << EOF > ./config/final.yml
----
-name: windows2019fs
-blobstore:
-  provider: local
-  options:
-    blobstore_path: /tmp/windowsfs
-EOF
-
-# Create a dev release
-bosh create-release --name=windows2019fs --version=$TAG --force --tarball "../../releases/windows2019fs-$TAG.tgz"
-popd
-
-# Remove our working content so we don't bloat the tile
-pushd /tmp/tasw
-rm -rf ./embed
-
-# Add the windows2019fs release to the tile's list of releases
-cat << EOF > /tmp/metadata-ops.yml
-- type: replace
-  path: /releases/-
-  value: 
-    file: windows2019fs-$TAG.tgz
-    name: windows2019fs
-    version: $TAG
-EOF
-bosh interpolate ./metadata/metadata.yml --ops-file /tmp/metadata-ops.yml > ./metadata/metadata-new.yml
-mv -f ./metadata/metadata-new.yml ./metadata/metadata.yml
-
-# Repackage the tile with rootfs fully hydrated
-zip -r "../injected-$tasw_tile" .
-popd
-
-# Cleanup
-rm -rf /tmp/tasw
-rm /tmp/metadata-ops.yml

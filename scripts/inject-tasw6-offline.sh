@@ -145,6 +145,7 @@ name: golang-1.22-windows
 fingerprint: d58174aba07bdc1913cba21648c64b8716d80b6be58bba2b53a37599aa806a0c
 EOF
 
+mkdir -p /tmp/windowsfs
 # Update the bosh blobstore to be local and not use S3 (https://s3.amazonaws.com/windows2019fs-release/1d3bd634-0e80-4a91-7970-5eee8b0d6ce2)
 cat << EOF > ./config/final.yml
 ---
