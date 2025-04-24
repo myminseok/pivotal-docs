@@ -54,8 +54,8 @@ popd
 
 # Remove our working content so we don't bloat the tile
 pushd /tmp/tasw
-# rm -rf /tmp/taswembed
-## just for backup just in case of re-running this script.
+## move instead of delete, just for backup just in case of re-running this script.
+#rm -rf ./embed
 rm -rf /tmp/embed
 mv /tmp/tasw/embed /tmp
 
