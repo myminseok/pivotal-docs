@@ -54,7 +54,9 @@ popd
 
 # Remove our working content so we don't bloat the tile
 pushd /tmp/tasw
-rm -rf ./embed
+# rm -rf /tmp/taswembed
+## just for backup just in case of re-running this script.
+mv /tmp/tasw/embed /tmp
 
 # Add the windows2019fs release to the tile's list of releases
 cat << EOF > /tmp/metadata-ops.yml
@@ -69,6 +71,5 @@ bosh interpolate ./metadata/metadata.yml --ops-file /tmp/metadata-ops.yml > ./me
 mv -f ./metadata/metadata-new.yml ./metadata/metadata.yml
 
 # Repackage the tile with rootfs fully hydrated
-zip -r "../injected-$tasw_tile" .
-echo "file created at /tmp/injected-pas-windows-6.0.6-build.2.pivotal"
+zip -r ~/"injected-$tasw_tile" .
 popd
