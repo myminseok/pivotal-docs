@@ -70,4 +70,5 @@ mv -f ./metadata/metadata-new.yml ./metadata/metadata.yml
 
 # Repackage the tile with rootfs fully hydrated
 zip -r "../injected-$tasw_tile" .
+echo "file created at /tmp/injected-pas-windows-6.0.6-build.2.pivotal"
 popd

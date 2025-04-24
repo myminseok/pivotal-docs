@@ -37,6 +37,8 @@ set -u
 set -x
 set -o pipefail
 
+mkdir -p /tmp/windowsfs
+
 # Crack the tile open into the tasw directory
 tasw_tile='pas-windows-6.0.5-build.2.pivotal'
 rm -rf /tmp/tasw

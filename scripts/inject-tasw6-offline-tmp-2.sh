@@ -31,6 +31,9 @@
 # 2) update this script for source file version: tasw_tiles='pas-windows-6.0.5-build.2.pivotal'
 # 3) run this script. then output will be created under current directory something line "injected-pas-windows-6.0.6-build.2.pivotal"
 
+
+## this script will consume around max 9GB at ~/.bosh folder
+
 #!/usr/bin/env bash
 set -e
 set -u
