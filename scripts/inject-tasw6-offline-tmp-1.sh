@@ -41,6 +41,7 @@ mkdir -p /tmp/windowsfs
 
 # Crack the tile open into the tasw directory
 tasw_tile='pas-windows-6.0.5-build.2.pivotal'
+rm -rf ~/.bosh
 rm -rf /tmp/tasw
 unzip "$tasw_tile" -d /tmp/tasw
 
