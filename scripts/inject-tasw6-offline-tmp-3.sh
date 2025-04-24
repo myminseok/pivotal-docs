@@ -71,7 +71,3 @@ mv -f ./metadata/metadata-new.yml ./metadata/metadata.yml
 # Repackage the tile with rootfs fully hydrated
 zip -r "../injected-$tasw_tile" .
 popd
-
-# Cleanup
-rm -rf /tmp/tasw
-rm /tmp/metadata-ops.yml
