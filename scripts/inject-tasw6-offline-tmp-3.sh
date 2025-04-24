@@ -55,7 +55,8 @@ popd
 # Remove our working content so we don't bloat the tile
 pushd /tmp/tasw
 ## move embed folder instead of delete, just for backup just in case of re-running this script.
-#rm -rf ./embed
+## run this command to rollback :   mv /tmp/embed /tmp/tasw
+
 rm -rf /tmp/embed
 mv /tmp/tasw/embed /tmp
 
