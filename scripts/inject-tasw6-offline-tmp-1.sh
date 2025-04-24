@@ -38,9 +38,7 @@ set -x
 set -o pipefail
 
 # Crack the tile open into the tasw directory
-#tasw_tiles=(./pas-windows-*.pivotal)
-tasw_tiles='pas-windows-6.0.5-build.2.pivotal'
-tasw_tile="${tasw_tiles=[0]}"
+tasw_tile='pas-windows-6.0.5-build.2.pivotal'
 rm -rf /tmp/tasw
 unzip "$tasw_tile" -d /tmp/tasw
 

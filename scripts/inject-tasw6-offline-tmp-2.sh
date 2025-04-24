@@ -37,8 +37,7 @@ set -u
 set -x
 set -o pipefail
 
-tasw_tiles='pas-windows-6.0.5-build.2.pivotal'
-tasw_tile="${tasw_tiles=[0]}"
+tasw_tile='pas-windows-6.0.5-build.2.pivotal'
 
 # repackage all the image layers from pre-downloaded resources under /tmp/windowsfs/
 ## fetch target windowsfs version
