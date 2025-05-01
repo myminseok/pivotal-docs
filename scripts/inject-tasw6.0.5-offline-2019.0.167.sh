@@ -180,7 +180,11 @@ popd
 
 # Remove our working content so we don't bloat the tile
 pushd $TMP_TASW
-rm -rf ./embed
+## move embed folder instead of delete, just for backup just in case of re-running this script.
+#rm -rf ./embed
+rm -rf /tmp/embed
+mv $TMP_TASW/embed /tmp
+
 
 # Add the windows2019fs release to the tile's list of releases
 cat << EOF > /tmp/metadata-ops.yml
