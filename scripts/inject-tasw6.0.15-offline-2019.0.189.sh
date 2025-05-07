@@ -62,7 +62,7 @@ unzip "$tasw_tile" -d $TMP_TASW
 # repackage all the image layers from pre-downloaded resources under $TMP_LOCAL_BLOB
 ## fetch target windowsfs version
 ## manually modifying version will break "bosh create" step(unable to find required files)
-## TAG=2019.0.167
+## TAG=2019.0.189
 pushd $TMP_TASW/embed/windowsfs-release
 if [ `uname` == "Linux" ]; then
   TAG="$(cat ./config/blobs.yml | grep 'windows2019fs/windows2016fs-' |  grep -oP '\d*\.\d*\.\d*')"
