@@ -1,4 +1,4 @@
-## Uploading stemcells via opsmanager API
+## Uploading a stemcell via opsmanager API
 
 1. Get opsman uaa access token
 ```
@@ -58,10 +58,7 @@ check logs from opsmanager vm
 
 ```
 root@opsmanager-3-0:  tail -f  /var/log/opsmanager/production.log
-==> /var/log/opsmanager/access.log <==
-192.168.0.6 - - [08/May/2025:00:58:41 +0000] "POST /api/v0/stemcells HTTP/1.1" 200 248 "-" "curl/7.68.0"
 
-==> /var/log/opsmanager/production.log <==
 I, [2025-05-08T01:00:18.261009 #1219]  INFO -- : [5322bb20-65dd-4d5b-b4c8-afbbf12fac32] Started POST "/api/v0/stemcells" for 192.168.0.6 at 2025-05-08 01:00:18 +0000
 I, [2025-05-08T01:00:18.263615 #1219]  INFO -- : [5322bb20-65dd-4d5b-b4c8-afbbf12fac32] Processing by Api::V0::StemcellsController#create as */*
 I, [2025-05-08T01:00:18.263690 #1219]  INFO -- : [5322bb20-65dd-4d5b-b4c8-afbbf12fac32]   Parameters: {"stemcell"=>{"floating"=>"false", "file"=>{"path"=>"/var/tempest/tmp/0000000019", "original_filename"=>"bosh-vsphere-esxi-ubuntu-jammy-go_agent-1.651.tgz"}}}
