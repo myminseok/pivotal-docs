@@ -40,10 +40,10 @@ for example,
 ```
 export TOKEN="xxx"
 
-curl -k https://192.168.0.50/api/v0/available_products  \
+curl  https://192.168.0.50/api/v0/available_products  \
   -X POST \
   -H "Authorization: Bearer $TOKEN"  \
-  -F 'product[file]=@/Users/kminseok/Downloads/_files/TAS6/postgres-1.2.2-build.1.pivotal'
+  -F 'product[file]=@/Users/kminseok/Downloads/_files/TAS6/postgres-1.2.2-build.1.pivotal' -k
 
 ...
 

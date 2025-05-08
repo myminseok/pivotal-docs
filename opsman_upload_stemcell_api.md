@@ -24,6 +24,10 @@ ubuntu@opsmanager-3-0:~$ uaac contexts
 ubuntu@opsmanager-3-0:~$  export TOKEN="eyJqa3UiOiJodHRwczovL3VhYS5zeXMubGFiLnBjZmRlbW8ubmV0L3Rva2VuX2tleXMiLCJraWQiOiJrZXktMSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJhZG1pbiIsImlzcyI6Imh0dHBzOi8vdWFhLxxx"
 
 
+export TOKEN="xxx"
+export OPSMAN_IP=""
+curl -k https://$OPSMAN_IP/api/v0/diagnostic_report   -H "Authorization: Bearer $TOKEN"  
+
 ```
 
 2. upload stemcell
@@ -31,18 +35,18 @@ ubuntu@opsmanager-3-0:~$  export TOKEN="eyJqa3UiOiJodHRwczovL3VhYS5zeXMubGFiLnBj
 during the api call, there is no output until it uploads completely. check logs from opsman vm under /var/log/opsmanager/production.log
 
 ```
-curl "https://example.com/api/v0/stemcells" \
+curl "https://$OPSMAN_IP/api/v0/stemcells" \
     -X POST \
-    -H "Authorization: Bearer UAA_ACCESS_TOKEN" \
+    -H "Authorization: Bearer $TOKEN" \
     -F 'stemcell[floating]=false' \
-    -F 'stemcell[file]=@/path/to/stemcell/bosh-stemcell-3468.24-vsphere-esxi-ubuntu-trusty-go_agent.tgz' \
+    -F 'stemcell[file]=@/path/to/stemcell/bosh-stemcell-3468.24-vsphere-esxi-ubuntu-trusty-go_agent.tgz' -k
    
 ```
 for example,
 ```
 export TOKEN="xxx"
 
-curl -k https://192.168.0.50/api/v0/stemcells  \
+curl -k https://$OPSMAN_IP/api/v0/stemcells  \
   -X POST \
   -H "Authorization: Bearer $TOKEN"  \
   -F 'stemcell[floating]=false' \
