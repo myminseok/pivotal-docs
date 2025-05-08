@@ -39,11 +39,11 @@ curl "https://example.com/api/v0/available_products" \
 for example,
 ```
 export TOKEN="xxx"
-
-curl  https://192.168.0.50/api/v0/available_products  \
+export OPSMAN_IP=""
+curl  https://$OPSMAN_IP/api/v0/available_products  \
   -X POST \
   -H "Authorization: Bearer $TOKEN"  \
-  -F 'product[file]=@/Users/kminseok/Downloads/_files/TAS6/postgres-1.2.2-build.1.pivotal' -k
+  -F 'product[file]=@/path/to/postgres-1.2.2-build.1.pivotal' -k
 
 ...
 
