@@ -50,10 +50,12 @@ winrootfs_tar_file="windows2016fs_2019.0.189.tar"
 
 #======================
 SCRIPTDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-TMP_TASW="/tmp/tasw_tile"
-TMP_WINFS="/tmp/windows2019fs_tar"
-TMP_LOCAL_BLOB="/tmp/windowsfs_local_blob"
 
+TMP_HOME="/tmp"
+TMP_TASW="$TMP_HOME/tasw_tile"
+TMP_WINFS="$TMP_HOME/windows2019fs_tar"
+TMP_LOCAL_BLOB="$TMP_HOME/windowsfs_local_blob"
+TMP_TMP="$TMP_HOME/tasw_tmp"
 
 rm -rf $TMP_TASW
 unzip "$tasw_tile" -d $TMP_TASW
@@ -132,13 +134,14 @@ fi
 
 
 # tar release and place under bosh release
+mkdir -p $TMP_TMP
 pushd $TMP_WINFS
-tar zcvf /tmp/windows2016fs-$TAG.tgz *
+tar zcvf $TMP_TMP/windows2016fs-$TAG.tgz *
 popd
 
 pushd $TMP_TASW/embed/windowsfs-release
 mkdir -p ./blobs/windows2019fs
-mv /tmp/windows2016fs-$TAG.tgz ./blobs/windows2019fs
+mv $TMP_TMP/windows2016fs-$TAG.tgz ./blobs/windows2019fs
 rm -rf $TMP_WINFS
 popd
 
@@ -184,12 +187,12 @@ popd
 pushd $TMP_TASW
 ## move embed folder instead of delete, just for backup just in case of re-running this script.
 #rm -rf ./embed
-rm -rf /tmp/embed
-mv $TMP_TASW/embed /tmp
+rm -rf $TMP_TMP/embed
+mv $TMP_TASW/embed $TMP_TMP
 
 
 # Add the windows2019fs release to the tile's list of releases
-cat << EOF > /tmp/metadata-ops.yml
+cat << EOF > $TMP_TMP/metadata-ops.yml
 - type: replace
   path: /releases/-
   value: 
@@ -197,7 +200,7 @@ cat << EOF > /tmp/metadata-ops.yml
     name: windows2019fs
     version: $TAG
 EOF
-bosh interpolate ./metadata/metadata.yml --ops-file /tmp/metadata-ops.yml > ./metadata/metadata-new.yml
+bosh interpolate ./metadata/metadata.yml --ops-file $TMP_TMP/metadata-ops.yml > ./metadata/metadata-new.yml
 mv -f ./metadata/metadata-new.yml ./metadata/metadata.yml
 
 # Repackage the tile with rootfs fully hydrated
@@ -206,4 +209,4 @@ popd
 
 # Cleanup
 rm -rf $TMP_TASW
-rm /tmp/metadata-ops.yml
+rm $TMP_TMP/metadata-ops.yml
