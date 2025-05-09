@@ -17,7 +17,14 @@ export EXCON_DEBUG="true"
 export RAILS_ENV=production
 ...
 ```
-3. service tempest-web restart
+3. 
+```
+service tempest-web restart
+
+service tempest-web stop && service tempest-web start 
+
+service nginx restart
+```
 
 4. apply change in opsman UI 
 
