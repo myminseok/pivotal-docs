@@ -26,7 +26,7 @@ https://github.com/myminseok/pivotal-docs/blob/master/platform-automation/bbr-ba
 
 
 #### Cancel queued tasks in bosh director
-https://community.pivotal.io/s/article/How-to-Cancel-All-Queued-BOSH-Tasks-Using-director-ctl
+https://knowledge.broadcom.com/external/article/293826/how-to-cancel-all-queued-bosh-tasks-usin.html
 ```
 
 # ssh into bosh director VM
