@@ -1,12 +1,12 @@
 
-===============
+
 this document explains how to update job config from the bosh deployed vm using [os-conf-release](https://github.com/cloudfoundry/os-conf-release) by leveraging bosh [runtime-config](https://bosh.io/docs/runtime-config/). also it would be useful to understand how [bosh job lifecycle works](https://bosh.io/docs/job-lifecycle/)
 
 
 ## How to apply
 following example explains how to update `/var/vcap/jobs/pas-exporter/config/bpm.yml` file from PAS-exporter gauge VM in healthwath exporter deployment in particular, replace `-XX:MaxRAMPercentage=80.0` (default) to any number as preferred
 
-#### Create runtime-config
+### Create runtime-config
 create a `osconf_healthwatch_exporter.yml` as following.
 
 ```
@@ -41,7 +41,7 @@ addons:
         sh $CUSTOM_SCRIPT_PATH
 ```
 
-#### create a runtime-config
+### create a runtime-config
 ```
 bosh update-runtime-config --name=osconf_healthwatch_exporter ./osconf_healthwatch_exporter.yml
 ```
@@ -62,7 +62,7 @@ ID   Type     Name                                      Team  Created At
 59*  runtime  osconf_healthwatch_exporter               -     2025-08-28 07:08:10 UTC
 ```
 
-#### upload os-conf release to bosh-director
+### upload os-conf release to bosh-director
 
 ```
 wget https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=23.0.0
@@ -75,7 +75,7 @@ bosh releases | grep os-conf
 os-conf                        	23.0.0             	a1905d6
 
 ```
-#### apply change the healthwatch exporter deployment from opsmanager UI or bosh cli.
+### apply change the healthwatch exporter deployment from opsmanager UI or bosh cli.
 
 now bosh deploy should include the new runtime config into the deployment. 
 
