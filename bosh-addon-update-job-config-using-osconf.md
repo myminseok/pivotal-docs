@@ -86,3 +86,43 @@ bosh -d p-healthwatch2-pas-exporter-def848648904f0938bce deploy ./healthwatch-ex
 during the apply change, the `pre-start-script` job from the runtime config above will create `/var/vcap/jobs/pre-start-script/bin/pre-start` file in the target deployment and it run before the jobs are starting by [bosh job lifecycle design](https://bosh.io/docs/job-lifecycle/)
 and it updates `/var/vcap/jobs/pas-exporter/config/bpm.yml` file with new value.
 
+```
+pas-exporter-gauge/85734dc6-62ea-4127-bf20-1b224092e89b:~$ cat /var/vcap/jobs/pas-exporter/config/bpm.yml
+---
+processes:
+- name: pas-exporter
+  executable: "/var/vcap/packages/pas-exporter/bin/pas-exporter"
+  env:
+    DEPLOYMENT: p-healthwatch2-pas-exporter-def848648904f0938bce
+    ENABLE_COUNTERS: 'false'
+    ENABLE_GAUGES: true
+    ENABLE_TIMERS: 'false'
+    ENABLE_SPIKE_TIMERS: 'true'
+    ENABLE_CONTAINER_METRICS: true
+    DISABLE_RABBIT_PER_OBJECT_METRICS: 'false'
+    GOROUTER_LATENCY_METRICS_STRATEGY: GAUGE
+    EXPORTER_CA_CERT_PATH: "/var/vcap/jobs/pas-exporter/config/certs/exporter-ca.pem"
+    EXPORTER_EGRESS_PORT: 9090
+    EXPORTER_SERVER_CERT_PATH: "/var/vcap/jobs/pas-exporter/config/certs/exporter-certificate.pem"
+    EXPORTER_SERVER_KEY_PATH: "/var/vcap/jobs/pas-exporter/config/certs/exporter-certificate-pkcs8.key"
+    INSTANCE_ID: 85734dc6-62ea-4127-bf20-1b224092e89b
+    IP: 192.168.0.79
+    JAVA_HOME: "/var/vcap/packages/openjdk"
+    JAVA_OPTS: "-Dio.netty.native.workdir=/var/vcap/data/pas-exporter/netty-workdir
+      -XX:MaxRAMPercentage=60.0"
+    JOB: pas-exporter-gauge
+    RLP_CA_CERT_PATH: "/var/vcap/jobs/pas-exporter/config/certs/rlp-ca.pem"
+    RLP_CLIENT_CERT_PATH: "/var/vcap/jobs/pas-exporter/config/certs/rlp-certificate.pem"
+    RLP_CLIENT_KEY_PATH: "/var/vcap/jobs/pas-exporter/config/certs/rlp-certificate-pkcs8.key"
+    RLP_HOST: q-s0.loggregator-trafficcontroller.network.cf-05c0b7494ba8ddb50eb8.bosh
+    RLP_PORT: 8082
+    RLP_SERVER_NAME: reverselogproxy
+    EXPIRATION_SECONDS: '300'
+    SKIP_CUSTOM_APP_METRICS: false
+  additional_volumes:
+  - path: "/var/vcap/data/pas-exporter/netty-workdir"
+    writable: true
+    allow_executions: true
+  hooks:
+    pre_start: "/var/vcap/jobs/pas-exporter/bin/pre-start.sh"
+    ```
