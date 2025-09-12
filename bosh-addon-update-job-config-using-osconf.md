@@ -12,7 +12,7 @@ create a `osconf_healthwatch_exporter.yml` as following.
 ```
 releases:
 - name: os-conf
-  version: 23.0.0                                         #<===== 1) should match the release version.
+  version: 22.3.1                                        #<===== 1) should match the release version.
 
 addons:
 - name: os-configuration
@@ -64,15 +64,25 @@ ID   Type     Name                                      Team  Created At
 
 ### upload os-conf release to bosh-director
 
+#### tanzu opsmanager VM
 ```
-wget https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=23.0.0
-```
-
-```
-bosh upload-release ./os-conf-release\?v\=23.0.0
+bosh upload-release /var/tempest/internal_releases/os-conf
 
 bosh releases | grep os-conf
-os-conf                        	23.0.0             	a1905d6
+os-conf                        	22.3.1*             	b6900bc
+
+```
+
+#### from oss release
+```
+wget https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.3.1
+```
+
+```
+bosh upload-release ./os-conf-release\?v\=22.3.1
+
+bosh releases | grep os-conf
+os-conf                        	22.3.1            	a1905d6
 
 ```
 ### apply change the healthwatch exporter deployment from opsmanager UI or bosh cli.
