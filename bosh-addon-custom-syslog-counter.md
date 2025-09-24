@@ -1,9 +1,8 @@
 
 
-this document explains how to update job config from the bosh deployed vm using [os-conf-release](https://github.com/cloudfoundry/os-conf-release) by leveraging bosh [runtime-config](https://bosh.io/docs/runtime-config/). also it would be useful to understand how [bosh job lifecycle works](https://bosh.io/docs/job-lifecycle/)
 
+This document explains how to count `platform log volume per minute` as a `gauge` metric from bosh deployed vm, in particular for gorouter and display on grafana in healthwatch by leveraging [os-conf-release](https://github.com/cloudfoundry/os-conf-release) and [runtime-config](https://bosh.io/docs/runtime-config/). also it would be useful to understand how [bosh job lifecycle works](https://bosh.io/docs/job-lifecycle/)
 
-This document explains how to count `platform log volume per minute` as a `gauge` metric from bosh deployed vm, in particular for gorouter and display on grafana in healthwatch
 
 ## How to apply
 
