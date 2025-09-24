@@ -138,6 +138,7 @@ os-conf                        	22.3.1            	b6900bc
 now bosh deploy should include the new runtime config into the deployment. 
 
 ```
+bosh  -d cf-05c0b7494ba8ddb50eb8 manifest > cf.yml
 bosh  -d cf-05c0b7494ba8ddb50eb8 deploy ./cf.yml
 ```
 
