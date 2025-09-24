@@ -185,6 +185,16 @@ root       31692       1  0 02:09 ?        00:00:00 python3 -m http.server --dir
 root       33393    4034  0 02:21 pts/0    00:00:00 grep --color=auto python3
 ```
 
+and http://127.0.0.1:10000/metrics should provide the exact the same contents from `/var/vcap/jobs/custom-syslog-counter/config/metrics`
+```
+curl http://127.0.0.1:10000/metrics
+# HELP custom_vm_syslog_line_min counted under /var/vcap/sys/log
+# TYPE custom_vm_syslog_line_min counter
+custom_vm_syslog_line_min 145
+
+```
+
+
 ```
 router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# cat /var/vcap/jobs/custom-syslog-counter/config/prom_scraper_config.yml
 ---
@@ -194,9 +204,6 @@ instance_id: b58a0b0e-5122-4ce2-b877-7ba8a2cda970
 scheme: http
 server_name: router
 ```
-
-
-
 
 ```
 router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# monit summary
@@ -217,6 +224,7 @@ Process 'otel-collector'            running
 System 'system_b58a0b0e-5122-4ce2-b877-7ba8a2cda970' running
 ```
 
+and this should be scaped from `prom_scraper` job which is indicated by the increased`scrape_targets_total` number
 
 ```
 router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# curl -k https://localhost:14821/metrics --cacert /var/vcap/jobs/prom_scraper/config/certs/scrape.crt --cert /var/vcap/jobs/prom_scraper/config/certs/scrape.crt --key /var/vcap/jobs/prom_scraper/config/certs/scrape.key
@@ -225,8 +233,9 @@ router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# curl -k https://localhost:14821/m
 
 # HELP scrape_targets_total Total number of scrape targets identified from prom scraper config files.
 # TYPE scrape_targets_total counter
-scrape_targets_total 7
+scrape_targets_total 7                   #<===== it is increased from 6 to 7 in my lab.
 ```
+
 
 then, the metric `custom_vm_syslog_line_min` should be available from grafana dashboard.
 
