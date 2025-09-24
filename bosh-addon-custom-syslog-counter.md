@@ -117,7 +117,7 @@ ID   Type     Name                                      Team  Created At
 bosh upload-release /var/tempest/internal_releases/os-conf
 
 bosh releases | grep os-conf
-os-conf                        	22.3.1*             	b6900bc
+os-conf                        	22.3.1             	b6900bc
 
 ```
 
@@ -130,7 +130,7 @@ wget https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.3.1
 bosh upload-release ./os-conf-release\?v\=22.3.1
 
 bosh releases | grep os-conf
-os-conf                        	22.3.1            	a1905d6
+os-conf                        	22.3.1            	b6900bc
 
 ```
 ### apply change to deployment from opsmanager UI or bosh cli.
