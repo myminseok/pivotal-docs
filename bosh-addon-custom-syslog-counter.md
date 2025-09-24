@@ -229,3 +229,6 @@ scrape_targets_total 7
 ```
 
 then, the metric `custom_vm_syslog_line_min` should be available from grafana dashboard.
+
+![image](./bosh-addon-custom-syslog-counter1.png)
+![image](./bosh-addon-custom-syslog-counter2.png)
