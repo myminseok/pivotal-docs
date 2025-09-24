@@ -42,7 +42,8 @@ addons:
         #!/bin/bash
         set -e
         JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
-        ##                                               #<===== 4) customize filtering and counting logic below. make sure to escape any \$ sign
+        ##                                               #<===== 4) customize filtering and counting logic below. 
+        ##                                                          make sure to escape any $ sign
         SEARCH_BY_MIN=\$(date +"%Y-%m-%dT%H:%M")
         line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | wc -l) 
         # line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | grep "vcap_request_id" | wc -l)
