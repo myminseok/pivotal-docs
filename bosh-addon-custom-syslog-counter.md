@@ -72,14 +72,14 @@ addons:
         cd $JOB_CONFIG_PATH
         set +e && killall python3 2>/dev/null
         set -e
-        nohup python3 -m http.server --directory /var/vcap/jobs/custom-syslog-counter/config  10000 >> /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log 2>&1 &
+        nohup python3 -m http.server --directory $JOB_CONFIG_PATH$  10000 >> $LOG_PATH/custom_syslog_counter.log 2>&1 &
 
         ## to activate the custom metric
         chown -R root:vcap $JOB_CONFIG_PATH
 
         ## adding to crontab
         ####  run every 30 seconds, this prevents any delayed metric collection.
-        CRON_JOB="* * * * * sleep 30; /var/vcap/jobs/custom-syslog-counter/config/custom_syslog_counter.sh >> /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log 2>&1"
+        CRON_JOB="* * * * * sleep 30; $JOB_CONFIG_PATH/custom_syslog_counter.sh >> $LOG_PATH/custom_syslog_counter.log 2>&1"
         #### Check if the cron job already exists to prevent duplicates
         if ! crontab -l | grep -Fq "$CRON_JOB"; then
             # Add the cron job
@@ -145,7 +145,8 @@ bosh  -d cf-05c0b7494ba8ddb50eb8 manifest > cf.yml
 bosh  -d cf-05c0b7494ba8ddb50eb8 deploy ./cf.yml
 ```
 
-during the apply change, the `pre-start-script` job from the runtime config above will create `/var/vcap/jobs/pre-start-script/bin/pre-start` file in the target deployment and it run before the jobs are starting by [bosh job lifecycle design](https://bosh.io/docs/job-lifecycle/)
+during the apply change, the `pre-start-script` job from the runtime config above will create `/var/vcap/jobs/pre-start-script/bin/pre-start` file in the target deployment and it run before the jobs are starting by [bosh job lifecycle design](https://bosh.io/docs/job-lifecycle/).
+after `pre-start-script`, all job will be restarted including `prom_scraper`, so that it will be scraping the new metric.
 
 
 
