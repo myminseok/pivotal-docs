@@ -37,12 +37,12 @@ addons:
         mkdir -p $JOB_CONFIG_PATH
         mkdir -p $LOG_PATH
 
-        ## create script.
+        ## create a collector script.
         cat >  $JOB_CONFIG_PATH/custom_syslog_counter.sh <<EOF
         #!/bin/bash
         set -e
         JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
-        ##                                                  #<===== 4) customize filtering and counting logic below
+        ##                                               #<===== 4) customize filtering and counting logic below. make sure to escape any \$ sign
         SEARCH_BY_MIN=\$(date +"%Y-%m-%dT%H:%M")
         line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | wc -l) 
         # line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | grep "vcap_request_id" | wc -l)
@@ -57,7 +57,7 @@ addons:
         ## test run
         $JOB_CONFIG_PATH/custom_syslog_counter.sh
 
-        ## configure prom_scraper
+        ## configure prom_scraper for custom-syslog-counter
         cat >  $JOB_CONFIG_PATH/prom_scraper_config.yml <<EOF
         ---
         port: 10000
