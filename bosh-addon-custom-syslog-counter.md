@@ -112,7 +112,7 @@ ID   Type     Name                                      Team  Created At
 
 ### upload os-conf release to bosh-director
 
-#### tanzu opsmanager VM
+#### os-conf from tanzu opsmanager VM
 ```
 bosh upload-release /var/tempest/internal_releases/os-conf
 
@@ -121,7 +121,7 @@ os-conf                        	22.3.1             	b6900bc
 
 ```
 
-#### from oss release
+#### os-conf from public repo
 ```
 wget https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=22.3.1
 ```
