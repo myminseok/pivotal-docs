@@ -44,7 +44,8 @@ addons:
         JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
         ##                                               #<===== 4) customize filtering and counting logic below. 
         ##                                                          make sure to escape any $ sign
-        SEARCH_BY_MIN=\$(date +"%Y-%m-%dT%H:%M")
+        ## SEARCH_BY_MIN=\$(date +"%Y-%m-%dT%H:%M")
+        SEARCH_BY_MIN=\$(date +"%Y-%m-%dT%H:%M" --date "2 minute ago") #<===== to make sure all logs to be written to disk and then count. adjust the delayed time depending on system's load.
         line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | wc -l) 
         # line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | grep "vcap_request_id" | wc -l)
 
