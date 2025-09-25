@@ -48,11 +48,19 @@ VM을 생성하고 rsyslog서버를 실행합니다. syslog서버는 udp, tcp, 5
 ```
 [root@logserver ~]# vi /etc/rsyslog.d/tmpl.conf
 
-$template TmplAuth, "/var/log/client_logs/%HOSTNAME%/%PROGRAMNAME%.log"
-$template TmplMsg, "/var/log/client_logs/%HOSTNAME%/%PROGRAMNAME%.log"
+$template TmplAuth, "/var/log/tas_logs/%HOSTNAME%/%PROGRAMNAME%.log"
+$template TmplMsg, "/var/log/tas_logs/%HOSTNAME%/%PROGRAMNAME%.log"
 
 authpriv.* ?TmplAuth
 *.info;mail.none;authpriv.none;cron.none ?TmplMsg
+
+vi /etc/rsyslog.d/custom-rules.conf
+if ($app-name == "route_registrar") then stop
+if ($app-name == "otel-collector") then stop
+if ($app-name == "audisp-syslog") then stop
+if ($programname startswith "vcap.") then stop
+if ($msg contains "DEBUG") then stop
+
 
 
 [root@logserver ~]# sudo ufw allow 514/tcp
