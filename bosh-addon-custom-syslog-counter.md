@@ -225,7 +225,7 @@ Process 'otel-collector'            running
 System 'system_b58a0b0e-5122-4ce2-b877-7ba8a2cda970' running
 ```
 
-and this should be scaped from `prom_scraper` job which is indicated by the increased`scrape_targets_total` number
+and this should be discoverd by `prom_scraper` job which is indicated by the increased`scrape_targets_total` number
 
 ```
 router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# curl -k https://localhost:14821/metrics --cacert /var/vcap/jobs/prom_scraper/config/certs/scrape.crt --cert /var/vcap/jobs/prom_scraper/config/certs/scrape.crt --key /var/vcap/jobs/prom_scraper/config/certs/scrape.key
