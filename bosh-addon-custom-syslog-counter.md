@@ -235,6 +235,16 @@ router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# curl -k https://localhost:14821/m
 scrape_targets_total 7                   #<===== it is increased from 6 to 7 in my lab.
 ```
 
+#### check logs
+ tail -f /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log
+``` 
+run by cron or manual: 2025-09-29T10:28 1        #<=====  measuring count by cron every 1 minute
+127.0.0.1 - - [29/Sep/2025 10:30:04] "GET /metrics HTTP/1.1" 200 -  #<===== scraped by prometheus 
+run by cron or manual: 2025-09-29T10:29 1
+127.0.0.1 - - [29/Sep/2025 10:31:04] "GET /metrics HTTP/1.1" 200 -
+```
+
+
 ## grafana dashboard
 then, the metric `custom_vm_syslog_line_min` should be available from grafana dashboard.
 
