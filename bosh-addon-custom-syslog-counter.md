@@ -73,7 +73,7 @@ addons:
         cd $JOB_CONFIG_PATH
         set +e && killall python3 2>/dev/null
         set -e
-        nohup python3 -m http.server --directory $JOB_CONFIG_PATH$  10000 >> $LOG_PATH/custom_syslog_counter.log 2>&1 &
+        nohup python3 -m http.server --directory $JOB_CONFIG_PATH  10000 >> $LOG_PATH/custom_syslog_counter.log 2>&1 &
 
         ## to activate the custom metric
         chown -R root:vcap $JOB_CONFIG_PATH
