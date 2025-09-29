@@ -238,7 +238,7 @@ router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# curl -k https://localhost:14821/m
 scrape_targets_total 7                   #<===== it is increased from 6 to 7 in my lab.
 ```
 
-
+## grafana dashboard
 then, the metric `custom_vm_syslog_line_min` should be available from grafana dashboard.
 
 it has following metadata:
@@ -254,6 +254,17 @@ sum(custom_vm_syslog_line_min)
 
 ![image](./bosh-addon-custom-syslog-counter1.png)
 ![image](./bosh-addon-custom-syslog-counter2.png)
+
+
+## VM resource consumption
+
+```
+router/1ebd2b5c-b269-44cb-a06f-9ebf8b82f939:/var/vcap/bosh_ssh/bosh_b85c34a5b56b41c# 
+
+ps -eo %cpu,%mem,pid,pgid,tid,user,rss,cmd --sort %cpu | grep http.server
+ 0.3  0.8   13272   13190   13272 root     17372 python3 -m http.server --directory /var/vcap/jobs/custom-syslog-counter/config 10000
+ 0.0  0.1   13822   13821   13822 root      2236 grep --color=auto http.server
+```
 
 
 
