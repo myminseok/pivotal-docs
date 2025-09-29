@@ -27,8 +27,8 @@ addons:
     release: os-conf
     properties:
       script: |-
-        #!/bin/bash                                      #<===== make sure no space above
-        
+        #!/bin/bash
+        ## <===== make sure no space above
         JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
         LOG_PATH=/var/vcap/sys/log/custom-syslog-counter
         if [ -d $JOB_CONFIG_PATH ]; then
