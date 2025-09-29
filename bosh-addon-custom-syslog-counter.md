@@ -53,7 +53,7 @@ addons:
         echo "# HELP custom_vm_syslog_line_min counted under /var/vcap/sys/log" > \$JOB_CONFIG_PATH/metrics
         echo "# TYPE custom_vm_syslog_line_min gauge" >> \$JOB_CONFIG_PATH/metrics
         echo "custom_vm_syslog_line_min \$line_count" >> \$JOB_CONFIG_PATH/metrics
-        echo "\$SEARCH_BY_MIN \$line_count"
+        echo "run by cron or manual: \$SEARCH_BY_MIN \$line_count"
         EOF
         
         chmod +x $JOB_CONFIG_PATH/custom_syslog_counter.sh
@@ -80,18 +80,15 @@ addons:
         chown -R root:vcap $JOB_CONFIG_PATH
 
         ## adding to crontab
-        ####  run every 30 seconds, this prevents any delayed metric collection.
-        CRON_JOB="* * * * * sleep 30; $JOB_CONFIG_PATH/custom_syslog_counter.sh >> $LOG_PATH/custom_syslog_counter.log 2>&1"
-        #### Check if the cron job already exists to prevent duplicates
-        if ! crontab -l | grep -Fq "$CRON_JOB"; then
-            # Add the cron job
-            (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
-            echo "Cron job added successfully."
-        else
-            echo "Cron job already exists."
-        fi
-
+        #### run every 1 minute minimum by cron design
+        #### note that adding with following script doesn't work from unknown reason
+        #### (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
+        CRON_JOB="* * * * * root $JOB_CONFIG_PATH/custom_syslog_counter.sh >> $LOG_PATH/custom_syslog_counter.log 2>&1"
+        cat >  /etc/cron.d/custom_syslog_counter <<EOF
+        $CRON_JOB
+        EOF
         systemctl restart cron
+        echo "Cron job added to /etc/cron.d/custom_syslog_counter. (this is not shown by crontab -l)"  >> $LOG_PATH/custom_syslog_counter.log
 ```
 
 ### create a runtime-config
@@ -167,10 +164,10 @@ echo "custom_vm_syslog_line_min $line_count" >> $JOB_CONFIG_PATH/metrics
 echo "$SEARCH_KEYWORD $line_count"
 ```
 
-
+note that this is not shown by crontab -l
 ```
-router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# crontab -l
-* * * * * sleep 30; /var/vcap/jobs/custom-syslog-counter/config/custom_syslog_counter.sh >> /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log 2>&1
+router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# cat  /etc/cron.d/custom_syslog_counter
+* * * * * root sleep 30; /var/vcap/jobs/custom-syslog-counter/config/custom_syslog_counter.sh >> /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log 2>&1
 ```
 
 ```
@@ -265,7 +262,3 @@ ps -eo %cpu,%mem,pid,pgid,tid,user,rss,cmd --sort %cpu | grep http.server
  0.3  0.8   13272   13190   13272 root     17372 python3 -m http.server --directory /var/vcap/jobs/custom-syslog-counter/config 10000
  0.0  0.1   13822   13821   13822 root      2236 grep --color=auto http.server
 ```
-
-
-
-
