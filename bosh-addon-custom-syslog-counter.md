@@ -81,7 +81,7 @@ addons:
 
         ## adding to crontab
         #### run every 1 minute minimum by cron design
-        #### note that adding with following script doesn't work from unknown reason
+        #### note that adding with following script doesn't work for unknown reason
         #### (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
         CRON_JOB="* * * * * root $JOB_CONFIG_PATH/custom_syslog_counter.sh >> $LOG_PATH/custom_syslog_counter.log 2>&1"
         cat >  /etc/cron.d/custom_syslog_counter <<EOF
