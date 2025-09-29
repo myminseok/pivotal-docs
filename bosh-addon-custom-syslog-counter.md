@@ -28,7 +28,8 @@ addons:
     properties:
       script: |-
         #!/bin/bash
-        ## <===== make sure no space above
+        ## <===== make sure no space above the /bin/bash
+
         JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
         LOG_PATH=/var/vcap/sys/log/custom-syslog-counter
         if [ -d $JOB_CONFIG_PATH ]; then
@@ -64,9 +65,9 @@ addons:
         ---
         port: 10000
         source_id: "custom_syslog_counter"
-        instance_id: $(hostname)
+        instance_id: $(cat /var/vcap/instance/id)
         scheme: http
-        server_name: $(hostname -A | awk -F'.' '{print $2}')
+        server_name: $(cat /var/vcap/instance/name)
         EOF
 
         ## run server serving syslog count metric.
@@ -240,5 +241,20 @@ scrape_targets_total 7                   #<===== it is increased from 6 to 7 in 
 
 then, the metric `custom_vm_syslog_line_min` should be available from grafana dashboard.
 
+it has following metadata:
+```
+{__name__="custom_vm_syslog_line_min", deployment="cf-05c0b7494ba8ddb50eb8", exported_job="router", index="1ebd2b5c-b269-44cb-a06f-9ebf8b82f939", instance="192.168.0.66:9090", ip="192.168.0.100", job="healthwatch-pas-exporter", product="VMware Tanzu Application Service", scrape_instance_group="pas-exporter-counter", source_id="custom_syslog_counter", system_domain="sys.lab.pcfdemo.net"}
+```
+
+if you want to summarize all metrics, use following promql:
+
+```
+sum(custom_vm_syslog_line_min)
+```
+
 ![image](./bosh-addon-custom-syslog-counter1.png)
 ![image](./bosh-addon-custom-syslog-counter2.png)
+
+
+
+
