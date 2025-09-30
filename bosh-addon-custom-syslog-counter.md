@@ -79,10 +79,8 @@ addons:
         ## to activate the custom metric
         chown -R root:vcap $JOB_CONFIG_PATH
 
-        ## adding to crontab
+        ## adding to system crontab
         #### run every 1 minute minimum by cron design
-        #### note that adding with following script doesn't work for unknown reason
-        #### (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
         CRON_JOB="* * * * * root $JOB_CONFIG_PATH/custom_syslog_counter.sh >> $LOG_PATH/custom_syslog_counter.log 2>&1"
         cat >  /etc/cron.d/custom_syslog_counter <<EOF
         $CRON_JOB
@@ -164,10 +162,10 @@ echo "custom_vm_syslog_line_min $line_count" >> $JOB_CONFIG_PATH/metrics
 echo "$SEARCH_KEYWORD $line_count"
 ```
 
-note that this is not shown by crontab -l
+note that system crontab configuration is not shown by crontab -l command (user crontab command)
 ```
 router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# cat  /etc/cron.d/custom_syslog_counter
-* * * * * root sleep 30; /var/vcap/jobs/custom-syslog-counter/config/custom_syslog_counter.sh >> /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log 2>&1
+* * * * * root /var/vcap/jobs/custom-syslog-counter/config/custom_syslog_counter.sh >> /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log 2>&1
 ```
 
 ```
@@ -178,10 +176,8 @@ custom_vm_syslog_line_min 145
 ```
 
 ```
-router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# ps -ef | grep python3
-root         514       1  0 01:28 ?        00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# ps -ef | grep http.server
 root       31692       1  0 02:09 ?        00:00:00 python3 -m http.server --directory /var/vcap/jobs/custom-syslog-counter/config 10000
-root       33393    4034  0 02:21 pts/0    00:00:00 grep --color=auto python3
 ```
 
 and http://127.0.0.1:10000/metrics should provide the exact the same contents from `/var/vcap/jobs/custom-syslog-counter/config/metrics`
