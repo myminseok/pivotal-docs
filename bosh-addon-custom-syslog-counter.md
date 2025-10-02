@@ -259,6 +259,32 @@ sum(custom_vm_syslog_line_min)
 ![image](./bosh-addon-custom-syslog-counter2.png)
 
 
+
+## Calculate sum of all values during a specific period across of all instances
+To calculate the sum of all values for gauge metric, `custom_vm_syslog_line_min`, `prometheus API` can be solution as described in the prometheus documentation.(https://prometheus.io/docs/prometheus/latest/querying/api/#range-queries)
+
+
+Alternatively, grafana dashboard can be used to visualize the value. for example, following the procedure describes how to calculate total for `yesterday` metrics:
+0. go to grafana dashboard, create a new graph go into graph edit mode.
+1. new Dashboard
+2. add a new panel 
+3. type in promql as following
+```promql
+sum(sum_over_time(custom_vm_syslog_line_min[24h]))
+```
+- > calculates the sum of all values recorded for the metric over the `24-hour period`. 
+- > The outer sum() is to aggregate across all instances
+4. configure time range to yesterday by clicking time range dropdown list and double click yesterday from the calendar. it will set `from` and `to` field. and click `apply time range`
+5. from `Time Series` graph configuration, go to `Legend` section:
+- > check `Visibility`
+- > click `Table` mode
+- > from `Values` drop down list, select `Last`
+the `last` value is the `total` of all values during the period. and it will be displayed on `legend` area as table with following configuration:
+
+![image](./bosh-addon-custom-syslog-counter3.png)
+![image](./bosh-addon-custom-syslog-counter4.png)
+
+
 ## VM resource consumption
 
 ```
