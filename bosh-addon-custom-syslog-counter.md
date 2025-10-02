@@ -54,6 +54,15 @@ addons:
         echo "# TYPE custom_vm_syslog_line_min gauge" >> \$JOB_CONFIG_PATH/metrics
         echo "custom_vm_syslog_line_min \$line_count" >> \$JOB_CONFIG_PATH/metrics
         echo "run by cron or manual: \$SEARCH_BY_MIN \$line_count"
+        
+        ## run server serving syslog count metric.
+        WEB_PROCESS=\$(ps -ef | grep "http.server" | grep -v "grep" | wc -l)
+        if [ \$WEB_PROCESS -eq 0 ]; then
+           echo "Not found a python3 web server. starting server ..."
+           set -e
+           nohup python3 -m http.server --directory $JOB_CONFIG_PATH  10000 >> $LOG_PATH/custom_syslog_counter.log 2>&1 &
+        fi
+
         EOF
         
         chmod +x $JOB_CONFIG_PATH/custom_syslog_counter.sh
@@ -69,12 +78,6 @@ addons:
         scheme: http
         server_name: $(cat /var/vcap/instance/name)
         EOF
-
-        ## run server serving syslog count metric.
-        cd $JOB_CONFIG_PATH
-        set +e && killall python3 2>/dev/null
-        set -e
-        nohup python3 -m http.server --directory $JOB_CONFIG_PATH  10000 >> $LOG_PATH/custom_syslog_counter.log 2>&1 &
 
         ## to activate the custom metric
         chown -R root:vcap $JOB_CONFIG_PATH
