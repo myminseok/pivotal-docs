@@ -295,11 +295,9 @@ router/3956b231-0ec5-4dd9-9d76-c68a01604813: stderr | Connection to 192.168.0.70
 router/1ebd2b5c-b269-44cb-a06f-9ebf8b82f939: stdout | #custom-syslog-counter 1ebd2b5c-b269-44cb-a06f-9ebf8b82f939 452
 router/1ebd2b5c-b269-44cb-a06f-9ebf8b82f939: stderr | Connection to 192.168.0.100 closed.
 ...
+```
 
 To get grand total among vms, run following bosh command :
-
-```
-following 
 ```
 export SEARCH_DATE="2025-10-06"
 bosh -d cf-05c0b7494ba8ddb50eb8 ssh router "grep -a \"$SEARCH_DATE\" /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log  \
