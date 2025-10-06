@@ -266,7 +266,7 @@ sum(custom_vm_syslog_line_min)
 ## Calculate sum of all values during a specific period across of all instances
 
 
-### [method 1] calculates from custom_syslog_counter log.
+## [method 1 - recommended] calculates from custom_syslog_counter log.
 each custom_syslog_counter process logs it's metric to log file every 1 minute. 
 
 tail -f /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log
@@ -307,7 +307,7 @@ bosh -d cf-05c0b7494ba8ddb50eb8 ssh router "grep -a \"$SEARCH_DATE\" /var/vcap/s
 
 
 
-#### [ Do not use ] calculates using  sum_over_time()
+### [ Do not use ] calculates using  sum_over_time()
 ```
 NOTE that following method doesn't work for `custom_vm_syslog_line_min` due to it's metric design. source metric is designed for 1 minute metric, but prometheus stores/displays the same metric every 15 seconds. so applying other function such as `sum_over_time` will calculates 4 times more number than actual metric.
 ```
