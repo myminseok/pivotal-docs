@@ -160,7 +160,7 @@ JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
 SEARCH_KEYWORD=$(date +"%Y-%m-%dT%H:%M" --date "1 minute ago")
 line_count=$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "$SEARCH_KEYWORD" | wc -l)
 echo "# HELP custom_vm_syslog_line_min counted under /var/vcap/sys/log" > $JOB_CONFIG_PATH/metrics
-echo "# TYPE custom_vm_syslog_line_min counter" >> $JOB_CONFIG_PATH/metrics
+echo "# TYPE custom_vm_syslog_line_min gauge" >> $JOB_CONFIG_PATH/metrics
 echo "custom_vm_syslog_line_min $line_count" >> $JOB_CONFIG_PATH/metrics
 echo "$SEARCH_KEYWORD $line_count"
 ```
@@ -174,7 +174,7 @@ router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# cat  /etc/cron.d/custom_syslog_co
 ```
 router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# cat /var/vcap/jobs/custom-syslog-counter/config/metrics
 # HELP custom_vm_syslog_line_min counted under /var/vcap/sys/log
-# TYPE custom_vm_syslog_line_min counter
+# TYPE custom_vm_syslog_line_min gauge
 custom_vm_syslog_line_min 145
 ```
 
@@ -187,7 +187,7 @@ and http://127.0.0.1:10000/metrics should provide the exact the same contents fr
 ```
 curl http://127.0.0.1:10000/metrics
 # HELP custom_vm_syslog_line_min counted under /var/vcap/sys/log
-# TYPE custom_vm_syslog_line_min counter
+# TYPE custom_vm_syslog_line_min gauge
 custom_vm_syslog_line_min 145
 
 ```
@@ -252,7 +252,7 @@ it has following metadata:
 {__name__="custom_vm_syslog_line_min", deployment="cf-05c0b7494ba8ddb50eb8", exported_job="router", index="1ebd2b5c-b269-44cb-a06f-9ebf8b82f939", instance="192.168.0.66:9090", ip="192.168.0.100", job="healthwatch-pas-exporter", product="VMware Tanzu Application Service", scrape_instance_group="pas-exporter-counter", source_id="custom_syslog_counter", system_domain="sys.lab.pcfdemo.net"}
 ```
 
-if you want to summarize all metrics, use following promql:
+if you want to summarize all metrics among instances, use following promql:
 
 ```
 sum(custom_vm_syslog_line_min)
@@ -264,8 +264,57 @@ sum(custom_vm_syslog_line_min)
 
 
 ## Calculate sum of all values during a specific period across of all instances
-To calculate the sum of all values for gauge metric, `custom_vm_syslog_line_min`, `prometheus API` can be solution as described in the prometheus documentation.(https://prometheus.io/docs/prometheus/latest/querying/api/#range-queries)
 
+
+### [method 1] calculates from custom_syslog_counter log.
+each custom_syslog_counter process logs it's metric to log file every 1 minute. 
+
+tail -f /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log
+``` 
+run by cron or manual: 2025-09-29T10:28 100        #<=====  measuring count by cron every 1 minute
+127.0.0.1 - - [29/Sep/2025 10:30:04] "GET /metrics HTTP/1.1" 200 -  #<===== scraped by prometheus 
+run by cron or manual: 2025-09-29T10:29 50
+127.0.0.1 - - [29/Sep/2025 10:31:04] "GET /metrics HTTP/1.1" 200 -
+```
+
+to calculate the sum of total value for gauge metric for any specific date, run following bosh command: it will logs the output of each vm.
+```
+export SEARCH_DATE="2025-10-06"
+
+bosh -d cf-05c0b7494ba8ddb50eb8 ssh router "grep -a \"$SEARCH_DATE\" /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log  \
+| awk '{print \$7}' | awk -vname=\$(cat /var/vcap/instance/id) '{n += \$1}; END{ print \"#custom-syslog-counter \" name ,  n}' "
+```
+
+```
+router/1ebd2b5c-b269-44cb-a06f-9ebf8b82f939: stderr | Unauthorized use is strictly prohibited. All access and activity
+router/1ebd2b5c-b269-44cb-a06f-9ebf8b82f939: stderr | is subject to logging and monitoring.
+router/3956b231-0ec5-4dd9-9d76-c68a01604813: stderr | Unauthorized use is strictly prohibited. All access and activity
+router/3956b231-0ec5-4dd9-9d76-c68a01604813: stderr | is subject to logging and monitoring.
+router/3956b231-0ec5-4dd9-9d76-c68a01604813: stdout | #custom-syslog-counter 3956b231-0ec5-4dd9-9d76-c68a01604813 6837
+router/3956b231-0ec5-4dd9-9d76-c68a01604813: stderr | Connection to 192.168.0.70 closed.
+router/1ebd2b5c-b269-44cb-a06f-9ebf8b82f939: stdout | #custom-syslog-counter 1ebd2b5c-b269-44cb-a06f-9ebf8b82f939 452
+router/1ebd2b5c-b269-44cb-a06f-9ebf8b82f939: stderr | Connection to 192.168.0.100 closed.
+...
+
+To get grand total among vms, run following bosh command :
+
+```
+following 
+```
+export SEARCH_DATE="2025-10-06"
+bosh -d cf-05c0b7494ba8ddb50eb8 ssh router "grep -a \"$SEARCH_DATE\" /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log  \
+| awk '{print \$7}' | awk -vname=\$(cat /var/vcap/instance/id) '{n += \$1}; END{ print \"#custom-syslog-counter \" name ,  n}' " \
+| grep "#custom-syslog-counter" | awk '{print $6}' | awk '{n += $1}; END{print n}'
+```
+
+
+
+#### [ Do not use ] calculates using  sum_over_time()
+```
+NOTE that following method doesn't work for `custom_vm_syslog_line_min` due to it's metric design. source metric is designed for 1 minute metric, but prometheus stores/displays the same metric every 15 seconds. so applying other function such as `sum_over_time` will calculates 4 times more number than actual metric.
+```
+
+To calculate the sum of all values for gauge metric, `custom_vm_syslog_line_min`, `prometheus API` can be solution as described in the prometheus documentation.(https://prometheus.io/docs/prometheus/latest/querying/api/#range-queries)
 
 Alternatively, grafana dashboard can be used to visualize the value. for example, following the procedure describes how to calculate total for `yesterday` metrics:
 0. go to grafana dashboard, create a new graph go into graph edit mode.
