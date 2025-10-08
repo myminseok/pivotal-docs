@@ -307,7 +307,8 @@ sum(custom_vm_syslog_line_min)
 ## Calculate sum of all values during a specific period across of all instances
 
 ### [method 1 - recommended] use `custom_vm_syslog_line_daily_total` metric
-On calculating `custom_vm_syslog_line_min` every minute, the script add it up into `custom_vm_syslog_line_daily_total` for the day. it will reset on next day midnight with system time (GMT+0). so the total generated lines for the day will be the last value of `custom_vm_syslog_line_daily_total` metric for the day.
+On calculating `custom_vm_syslog_line_min` every minute, the script add it up into `custom_vm_syslog_line_daily_total` for the day. it will reset on next day midnight with system time (GMT+0). so the total generated lines for the day will be the last value of `custom_vm_syslog_line_daily_total` metric for the day. 
+note that it is free from log retention pressure in particular less then 1 day as it is counting total on the fly instead of relying on logs from /var/vcap/sys/log folder.
 
 ```
 {__name__="custom_vm_syslog_line_daily_total", deployment="cf-05c0b7494ba8ddb50eb8", exported_job="router", index="1ebd2b5c-b269-44cb-a06f-9ebf8b82f939", instance="192.168.0.79:9090", ip="192.168.0.100", job="healthwatch-pas-exporter", product="VMware Tanzu Application Service", scrape_instance_group="pas-exporter-gauge", source_id="custom_syslog_counter", system_domain="sys.lab.pcfdemo.net"}
