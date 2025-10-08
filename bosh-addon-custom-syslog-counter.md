@@ -33,7 +33,7 @@ addons:
         JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
         LOG_PATH=/var/vcap/sys/log/custom-syslog-counter
         if [ -d $JOB_CONFIG_PATH ]; then
-            rm -rf $JOB_CONFIG_PATH
+          rm -rf $JOB_CONFIG_PATH
         fi
         mkdir -p $JOB_CONFIG_PATH
         mkdir -p $LOG_PATH
@@ -43,28 +43,53 @@ addons:
         #!/bin/bash
         set -e
         JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
-        ##                                               #<===== 4) customize filtering and counting logic below. 
+        ##                                               #<===== 4) customize filtering and counting logic below.
         ##                                                          make sure to escape any $ sign
-        ## SEARCH_BY_MIN=\$(date +"%Y-%m-%dT%H:%M")
+
+        ## measure  custom_vm_syslog_line_min
+        # SEARCH_BY_MIN=\$(date +"%Y-%m-%dT%H:%M")
         SEARCH_BY_MIN=\$(date +"%Y-%m-%dT%H:%M" --date "1 minute ago") #<===== to make sure all logs to be written to disk and then count. adjust the delayed time depending on system's load.
-        line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | wc -l) 
+        line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | wc -l)
         # line_count=\$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "\$SEARCH_BY_MIN" | grep "vcap_request_id" | wc -l)
+        echo "custom_vm_syslog_line_min: \$SEARCH_BY_MIN \$line_count"
+
+        ## measure custom_vm_syslog_line_daily_total
+        CURRENT_DATE=\$(date +"%Y-%m-%d")
+        if [ ! -f \$JOB_CONFIG_PATH/daily_total ]; then
+          echo "Create file \$JOB_CONFIG_PATH/daily_total"
+          echo "\$CURRENT_DATE 0" > \$JOB_CONFIG_PATH/daily_total
+        fi
+        date_from_file=\$(cat \$JOB_CONFIG_PATH/daily_total | awk '{print \$1}')
+        if [ "\$date_from_file" != "\$CURRENT_DATE" ]; then
+          echo "New date, Reset metric \$JOB_CONFIG_PATH/daily_total"
+          echo "\$CURRENT_DATE 0" > \$JOB_CONFIG_PATH/daily_total
+        fi
+        current_total=\$(cat \$JOB_CONFIG_PATH/daily_total | awk '{print \$2}')
+        if [ "\$current_total" == "" ]; then
+          echo "Empty metric, Reset metric \$JOB_CONFIG_PATH/daily_total"
+          current_total="0"
+        fi
+        daily_total=\$( echo \$line_count  | awk -vtotal=\$current_total '{total += \$1}; END{print total}')
+        echo "\$CURRENT_DATE \$daily_total" > \$JOB_CONFIG_PATH/daily_total
+        echo "daily_total: \$CURRENT_DATE \$daily_total"
 
         echo "# HELP custom_vm_syslog_line_min counted under /var/vcap/sys/log" > \$JOB_CONFIG_PATH/metrics
         echo "# TYPE custom_vm_syslog_line_min gauge" >> \$JOB_CONFIG_PATH/metrics
         echo "custom_vm_syslog_line_min \$line_count" >> \$JOB_CONFIG_PATH/metrics
-        echo "run by cron or manual: \$SEARCH_BY_MIN \$line_count"
-        
+        echo "# HELP custom_vm_syslog_line_daily_total" >> \$JOB_CONFIG_PATH/metrics
+        echo "# TYPE custom_vm_syslog_line_daily_total gauge" >> \$JOB_CONFIG_PATH/metrics
+        echo "custom_vm_syslog_line_daily_total \$daily_total" >> \$JOB_CONFIG_PATH/metrics
+
         ## run server serving syslog count metric.
         WEB_PROCESS=\$(ps -ef | grep "http.server" | grep -v "grep" | wc -l)
         if [ \$WEB_PROCESS -eq 0 ]; then
-           echo "Not found a python3 web server. starting server ..."
-           set -e
-           nohup python3 -m http.server --directory $JOB_CONFIG_PATH  10000 >> $LOG_PATH/custom_syslog_counter.log 2>&1 &
+        echo "Not found a python3 web server. starting server ..."
+        set -e
+        nohup python3 -m http.server --directory $JOB_CONFIG_PATH  10000 >> $LOG_PATH/custom_syslog_counter.log 2>&1 &
         fi
 
         EOF
-        
+
         chmod +x $JOB_CONFIG_PATH/custom_syslog_counter.sh
         ## test run
         $JOB_CONFIG_PATH/custom_syslog_counter.sh
@@ -157,12 +182,20 @@ router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# cat /var/vcap/jobs/custom-syslog-
 #!/bin/bash
 set -e
 JOB_CONFIG_PATH=/var/vcap/jobs/custom-syslog-counter/config
-SEARCH_KEYWORD=$(date +"%Y-%m-%dT%H:%M" --date "1 minute ago")
-line_count=$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "$SEARCH_KEYWORD" | wc -l)
+## measure  custom_vm_syslog_line_min
+SEARCH_BY_MIN=$(date +"%Y-%m-%dT%H:%M" --date "1 minute ago") #<===== to make sure all logs to be written to disk and then count. adjust the delayed time depending on system's load.
+line_count=$(find /var/vcap/sys/log/gorouter -name "*.log" | xargs grep -a "$SEARCH_BY_MIN" | wc -l)
+
+## measure custom_vm_syslog_line_daily_total
+CURRENT_DATE=$(date +"%Y-%m-%d")
+daily_total=$( echo $line_count  | awk -vtotal=$current_total '{total += $1}; END{print total}')
+
 echo "# HELP custom_vm_syslog_line_min counted under /var/vcap/sys/log" > $JOB_CONFIG_PATH/metrics
 echo "# TYPE custom_vm_syslog_line_min gauge" >> $JOB_CONFIG_PATH/metrics
 echo "custom_vm_syslog_line_min $line_count" >> $JOB_CONFIG_PATH/metrics
-echo "$SEARCH_KEYWORD $line_count"
+echo "# HELP custom_vm_syslog_line_daily_total" >> $JOB_CONFIG_PATH/metrics
+echo "# TYPE custom_vm_syslog_line_daily_total gauge" >> $JOB_CONFIG_PATH/metrics
+echo "custom_vm_syslog_line_daily_total $daily_total" >> $JOB_CONFIG_PATH/metrics
 ```
 
 note that system crontab configuration is not shown by crontab -l command (user crontab command)
@@ -175,7 +208,10 @@ router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# cat  /etc/cron.d/custom_syslog_co
 router/3956b231-0ec5-4dd9-9d76-c68a01604813:~# cat /var/vcap/jobs/custom-syslog-counter/config/metrics
 # HELP custom_vm_syslog_line_min counted under /var/vcap/sys/log
 # TYPE custom_vm_syslog_line_min gauge
-custom_vm_syslog_line_min 145
+custom_vm_syslog_line_min 1
+# HELP custom_vm_syslog_line_daily_total
+# TYPE custom_vm_syslog_line_daily_total gauge
+custom_vm_syslog_line_daily_total 146
 ```
 
 ```
@@ -237,10 +273,15 @@ scrape_targets_total 7                   #<===== it is increased from 6 to 7 in 
 #### check logs
  tail -f /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log
 ``` 
-run by cron or manual: 2025-09-29T10:28 1        #<=====  measuring count by cron every 1 minute
+custom_vm_syslog_line_min: 2025-09-29T10:28 1        #<=====  measuring count by cron every 1 minute
+daily_total: 2025-09-29 143
 127.0.0.1 - - [29/Sep/2025 10:30:04] "GET /metrics HTTP/1.1" 200 -  #<===== scraped by prometheus 
-run by cron or manual: 2025-09-29T10:29 1
+custom_vm_syslog_line_min: 2025-09-29T10:29 1
+daily_total: 2025-09-29 144
 127.0.0.1 - - [29/Sep/2025 10:31:04] "GET /metrics HTTP/1.1" 200 -
+
+
+
 ```
 
 
@@ -265,8 +306,21 @@ sum(custom_vm_syslog_line_min)
 
 ## Calculate sum of all values during a specific period across of all instances
 
+### [method 1 - recommended] use `custom_vm_syslog_line_daily_total` metric
+On calculating `custom_vm_syslog_line_min` every minute, the script add it up into `custom_vm_syslog_line_daily_total` for the day. it will reset on next day midnight with system time (GMT+0). so the total generated lines for the day will be the last value of `custom_vm_syslog_line_daily_total` metric for the day.
 
-## [method 1 - recommended] calculates from custom_syslog_counter log.
+```
+{__name__="custom_vm_syslog_line_daily_total", deployment="cf-05c0b7494ba8ddb50eb8", exported_job="router", index="1ebd2b5c-b269-44cb-a06f-9ebf8b82f939", instance="192.168.0.79:9090", ip="192.168.0.100", job="healthwatch-pas-exporter", product="VMware Tanzu Application Service", scrape_instance_group="pas-exporter-gauge", source_id="custom_syslog_counter", system_domain="sys.lab.pcfdemo.net"}
+```
+if you want to summarize all metrics among instances, use following promql:
+```
+sum(custom_vm_syslog_line_daily_total)
+```
+
+![image](./bosh-addon-custom-syslog-counter3.png)
+
+
+### [method 2 ] calculates daily total from custom_syslog_counter log.
 each custom_syslog_counter process logs it's metric to log file every 1 minute. 
 
 tail -f /var/vcap/sys/log/custom-syslog-counter/custom_syslog_counter.log
@@ -331,8 +385,6 @@ sum(sum_over_time(custom_vm_syslog_line_min[24h]))
 - > from `Values` drop down list, select `Last`
 the `last` value is the `total` of all values during the period. and it will be displayed on `legend` area as table with following configuration:
 
-![image](./bosh-addon-custom-syslog-counter3.png)
-![image](./bosh-addon-custom-syslog-counter4.png)
 
 
 ## VM resource consumption
