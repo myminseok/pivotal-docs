@@ -18,9 +18,11 @@ addons:
 - name: os-configuration
   include:
     deployments:
-    - cf-05c0b7494ba8ddb50eb8                             #<===== 2) replace with actual deployment name
+    - cf-05c0b7494ba8ddb50eb8                             #<===== 2) replace with actual deployment name list (no error arise even with no existing name)
+    - p-isolation-segment-is1-7b2174cae92b12796f0a
     instance_groups:
-    - router                                              #<===== 3) make sure the target instance groups(VM)
+    - router                                              #<===== 3) make sure the target instance group(VM) list (no error arise even with no existing name)
+    - isolated_router_is1
 
   jobs:
   - name: pre-start-script
