@@ -54,20 +54,24 @@ drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.3956b231-0ec
 
 
 ```
+$ ./2_analysis_logs.sh
+
+a_fetch_cf7_request_id_from_nginx_access_logs.sh
 STARTING: gathering all entries from nginx-access.log ...
   making cache file for entries (timestamp, cf cli version, vcap_request_id) from nginx-access.log
-COMPLETED: gathering all entries from nginx-access.log : total (   53993) ./tmp/output_3_fetch_cf7_request_id_from_nginx_access_logs.txt
-Elapsed time: 3 seconds
+COMPLETED: gathering all entries from nginx-access.log : total (   53991) ./tmp/output_a_fetch_cf7_request_id_from_nginx_access_logs.txt
+Elapsed time: 2 seconds
 
+b_fetch_users_from_security_events_logs.sh
 STARTING: gathering all entries(timestamp, suser, suid, vcap_request_id) from security_events.log...
-COMPLETED: gathering all entries from security_events.log:  (  129892) ./tmp/output_4_fetch_users_from_security_events_logs.txt
-Elapsed time: 3 seconds
+COMPLETED: gathering all entries from security_events.log:  (  129892) ./tmp/output_b_fetch_users_from_security_events_logs.txt
+Elapsed time: 4 seconds
 
+c_find_cf7_user.sh
 STARTING: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log) ...
-  total source entries from ./tmp/output_4_fetch_users_from_security_events_logs.txt :   129892
-  total entries from nginx-access.log file (cf cli v7) ./tmp/output_3_fetch_cf7_request_id_from_nginx_access_logs.txt :    53993
-   (  129892/389/2) skipping 'admin' previously gathered
-COMPLETED: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log): total (2)  ./tmp/output_c_find_cf7_user.txt
+  total users input entries from ./tmp/output_b_fetch_users_from_security_events_logs.txt :   129892
+  total cf cli input entries from  ./tmp/output_a_fetch_cf7_request_id_from_nginx_access_logs.txt :    53991
+COMPLETED: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log): total (       4)  ./tmp/output_c_find_cf7_user.txt
 ```
 
 analyzied result will be saved into ./tmp/output_c_find_cf7_user.txt. it shows username, user_guid and cf cli version.
@@ -82,9 +86,10 @@ drwxr-xr-x@  9 kminseok  staff   288B Nov 13 20:33 .
 drwxr-xr-x@ 12 kminseok  staff   384B Nov 13 20:30 ..
 drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.1ebd2b5c-b269-44cb-a06f-9ebf8b82f939.2025-11-12-06-50-27
 drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.3956b231-0ec5-4dd9-9d76-c68a01604813.2025-11-12-06-50-30
--rw-r--r--@  1 kminseok  staff   7.4M Nov 13 20:33 output_a_fetch_cf7_request_id_from_nginx_access_logs.txt
--rw-r--r--@  1 kminseok  staff    21M Nov 13 20:33 output_b_fetch_users_from_security_events_logs.txt
--rw-r--r--@  1 kminseok  staff   387B Nov 13 20:34 output_c_find_cf7_user.txt
+-rw-r--r--@  1 kminseok  staff   6.5M 11월 13 22:57 output_a_fetch_cf7_request_id_from_nginx_access_logs.txt
+-rw-r--r--@  1 kminseok  staff    20M 11월 13 22:57 output_b_fetch_users_from_security_events_logs.txt
+-rw-r--r--@  1 kminseok  staff   7.5K 11월 13 23:01 output_c_find_cf7_user_tmp.txt
+-rw-r--r--@  1 kminseok  staff   346B 11월 13 22:57 output_c_find_cf7_user.txt
 ```
 
 #### Step 3. (optional) Fetch user info
@@ -138,17 +143,30 @@ Elapsed time: 3 seconds
 Mapping the vcap_request_id from security_events_log to cf cli version from nginx-access.log file on cloud controller vm logs.
 
 ```
-./c_find_cf7_user.sh
+$ ./c_find_cf7_user.sh
+
 STARTING: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log) ...
-  total input entries from ./tmp/output_b_fetch_users_from_security_events_logs.txt :      487
-  total input entries from  ./tmp/output_a_fetch_cf7_request_id_from_nginx_access_logs.txt:    53993
-   (     487/487/2) skipping 'admin' previously gathered
-COMPLETED: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log): total (2)  ./tmp/output_c_find_cf7_user.txt
+  total users input entries from ./tmp/output_b_fetch_users_from_security_events_logs.txt :   129892
+  total cf cli input entries from  ./tmp/output_a_fetch_cf7_request_id_from_nginx_access_logs.txt :    53991
+COMPLETED: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log): total (       4)  ./tmp/output_c_find_cf7_user.txt
 ```
 
 sample outputs shows username, user_guid and cf cli version.
 ```
-[2025-11-12T03:59:59.276504 suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 cs2=2bce10c9-7985-4a0e-61c9-c569b1dff5a5::1cf0573d-256c-46b9-9f01-1411777db46d "cf7/7.7.14+c88114b.2024-09-20
-[2025-11-12T03:24:36.343727 suser=admin suid=2328dd36-9e29-4835-822b-afaf39efdc37 cs2=a9b801ed-3f70-484c-541a-c089991d8048::c9bacc9a-9c0d-44a0-a2cf-eb0442bd7fa6 "cf/7.7.14+c88114b.2024-09-20
+$ cat ./tmp/output_c_find_cf7_user.txt
+
+suser=admin suid=2328dd36-9e29-4835-822b-afaf39efdc37 "cf/7.7.14+c88114b.2024-09-20
+suser=admin suid=2328dd36-9e29-4835-822b-afaf39efdc37 "cf7/7.7.14+c88114b.2024-09-20
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf/7.7.14+c88114b.2024-09-20
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20
 ```
 
+for more info with timestamp;
+```
+$ cat ./tmp/output_c_find_cf7_user_tmp.txt
+...
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:55:25
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:59:58
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:59:59
+...
+```
