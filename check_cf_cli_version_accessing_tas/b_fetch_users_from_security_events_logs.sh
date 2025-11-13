@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set +x
 
 #### input: exploded bosh logs files under ./tmp after running 1_explode_bosh_logs.sh
 #### output: - ./tmp/output_b_fetch_users_from_security_events_logs.txt

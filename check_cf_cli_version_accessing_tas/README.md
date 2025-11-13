@@ -16,8 +16,14 @@ bosh -d cf-05c0b7494ba8ddb50eb8 logs cloud_controller
 #### Step 1. Explode the logs 
 [1_explode_bosh_logs.sh](1_explode_bosh_logs.sh) explodes bosh logs *.tgz file under ./tmp in current directory. it can takes bosh logs tgz file or path
 ```
-./2_explode_bosh_logs.sh cf-05c0b7494ba8ddb50eb8.cloud_controller-20251112-064240-583066083.tgz
+./1_explode_bosh_logs.sh cf-05c0b7494ba8ddb50eb8.cloud_controller-20251112-064240-583066083.tgz
 ```
+or
+
+```
+./1_explode_bosh_logs.sh .
+```
+it will explode the archive into ./tmp folder. 
 re-running script will overwrite the same contents to the ./tmp folder.
 
 #### Step 2. Analysis the bosh logs.

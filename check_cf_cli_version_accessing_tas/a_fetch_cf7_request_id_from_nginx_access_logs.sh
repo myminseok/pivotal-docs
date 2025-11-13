@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set +x
 
 #### input: exploded bosh logs files under ./tmp after running 1_explode_bosh_logs.sh
 #### output: ./tmp/output_a_fetch_cf7_request_id_from_nginx_access_logs.txt

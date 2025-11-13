@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set +x
 
 work_dir="./tmp"
 
