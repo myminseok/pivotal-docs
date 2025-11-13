@@ -75,12 +75,7 @@ STARTING: mapping from vcap_request_id(cc_security_events_log) to cf cli version
 COMPLETED: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log): total (       4)  ./tmp/output_c_find_cf7_user.txt
 ```
 
-analyzied result will be saved into ./tmp/output_c_find_cf7_user.txt. it shows username, user_guid and cf cli version.
-```
-[2025-11-12T03:59:59.276504 suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 cs2=2bce10c9-7985-4a0e-61c9-c569b1dff5a5::1cf0573d-256c-46b9-9f01-1411777db46d "cf7/7.7.14+c88114b.2024-09-20
-[2025-11-12T03:24:36.343727 suser=admin suid=2328dd36-9e29-4835-822b-afaf39efdc37 cs2=a9b801ed-3f70-484c-541a-c089991d8048::c9bacc9a-9c0d-44a0-a2cf-eb0442bd7fa6 "cf/7.7.14+c88114b.2024-09-20
-```
-
+and following output files should be created.
 ```
 $ ls -alh ./tmp   
 
@@ -90,9 +85,20 @@ drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.1ebd2b5c-b26
 drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.3956b231-0ec5-4dd9-9d76-c68a01604813.2025-11-12-06-50-30
 -rw-r--r--@  1 kminseok  staff   6.5M 11월 13 22:57 output_a_fetch_cf7_request_id_from_nginx_access_logs.txt
 -rw-r--r--@  1 kminseok  staff    20M 11월 13 22:57 output_b_fetch_users_from_security_events_logs.txt
--rw-r--r--@  1 kminseok  staff   7.5K 11월 13 23:01 output_c_find_cf7_user_tmp.txt
 -rw-r--r--@  1 kminseok  staff   346B 11월 13 22:57 output_c_find_cf7_user.txt
 ```
+
+analyzied result will be saved into ./tmp/output_c_find_cf7_user.txt. it shows username, user_guid and cf cli version.
+```
+$ cat ./tmp/output_c_find_cf7_user.txt
+
+suser=admin suid=2328dd36-9e29-4835-822b-afaf39efdc37 "cf/7.7.14+c88114b.2024-09-20
+suser=admin suid=2328dd36-9e29-4835-822b-afaf39efdc37 "cf7/7.7.14+c88114b.2024-09-20
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf/7.7.14+c88114b.2024-09-20
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20
+
+```
+
 
 #### Step 3. (optional) Fetch user info
 
