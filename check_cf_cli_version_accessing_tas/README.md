@@ -15,7 +15,7 @@ bosh -d cf-05c0b7494ba8ddb50eb8 logs cloud_controller
 
 now the bosh log archive file is located as following.
 ```
-ls -al
+$ ls -al
 
 drwxr-xr-x@ 12 kminseok  staff       384 Nov 13 20:30 .
 drwxr-xr-x@ 54 kminseok  staff      1728 Nov 12 16:39 ..
@@ -37,12 +37,13 @@ drwxr-xr-x@ 54 kminseok  staff      1728 Nov 12 16:39 ..
 or
 
 ```
-./1_explode_bosh_logs.sh .
+$ ./1_explode_bosh_logs.sh .
 ```
 it will explode the archive into ./tmp folder. 
 re-running script will overwrite the same contents to the ./tmp folder.
 ```
-ls -alh ./tmp   
+$ ls -alh ./tmp   
+
 drwxr-xr-x@  9 kminseok  staff   288B Nov 13 20:33 .
 drwxr-xr-x@ 12 kminseok  staff   384B Nov 13 20:30 ..
 drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.1ebd2b5c-b269-44cb-a06f-9ebf8b82f939.2025-11-12-06-50-27
@@ -81,7 +82,8 @@ analyzied result will be saved into ./tmp/output_c_find_cf7_user.txt. it shows u
 ```
 
 ```
-ls -alh ./tmp   
+$ ls -alh ./tmp   
+
 drwxr-xr-x@  9 kminseok  staff   288B Nov 13 20:33 .
 drwxr-xr-x@ 12 kminseok  staff   384B Nov 13 20:30 ..
 drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.1ebd2b5c-b269-44cb-a06f-9ebf8b82f939.2025-11-12-06-50-27
@@ -96,11 +98,11 @@ drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.3956b231-0ec
 
 fetch additional user info using user_guid info gathered above.
 ```
- cf curl /v3/users/GUID| jq .
+$ cf curl /v3/users/GUID| jq .
 ```
 
 ```
- cf curl /v3/users/f898a594-ddc8-4257-b9c7-b3b30338e800 | jq .
+$ cf curl /v3/users/f898a594-ddc8-4257-b9c7-b3b30338e800 | jq .
 
   "guid": "f898a594-ddc8-4257-b9c7-b3b30338e800",
   "created_at": "2025-04-16T08:10:58Z",
@@ -119,7 +121,8 @@ From the nginx-access.log on the cloud controller VM logs, filter cf cli version
 * a_fetch_cf7_request_id_from_nginx_access_logs.sh, b_fetch_users_from_security_events_logs.sh can be run in parallel as there is no dependency between them.
 
 ```
-./a_fetch_cf7_request_id_from_nginx_access_logs.sh
+$ ./a_fetch_cf7_request_id_from_nginx_access_logs.sh
+
 STARTING: gathering all entries from nginx-access.log ...
   making cache file for entries (timestamp, cf cli version, vcap_request_id) from nginx-access.log
 COMPLETED: gathering all entries from nginx-access.log : total (   53993) ./tmp/output_a_fetch_cf7_request_id_from_nginx_access_logs.txt
@@ -133,7 +136,8 @@ From the security_events.log, fetch user info by mapping the vcap_request_id. al
 * a_fetch_cf7_request_id_from_nginx_access_logs.sh, b_fetch_users_from_security_events_logs.sh can be run in parallel as there is no dependency between them.
 
 ```
-./b_fetch_users_from_security_events_logs.sh
+$ ./b_fetch_users_from_security_events_logs.sh
+
 STARTING: gathering all entries(timestamp, suser, suid, vcap_request_id) from security_events.log...
 COMPLETED: gathering all entries from security_events.log:  (  129892) ./tmp/output_b_fetch_users_from_security_events_logs.txt
 Elapsed time: 3 seconds
@@ -164,6 +168,7 @@ suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.20
 for more info with timestamp;
 ```
 $ cat ./tmp/output_c_find_cf7_user_tmp.txt
+
 ...
 suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:55:25
 suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:59:58
