@@ -12,13 +12,9 @@ work_dir="./tmp"
 script_filename=$(basename $0 ".sh" )
 OUTPUT_FILE="$work_dir/output_$script_filename.txt"
 
-echo "STARTING: gathering all entries(timestamp, suser, suid, vcap_request_id) from security_events.log..."
+echo "STARTING: gathering all entries (vcap_request_id, username, user_guid, timestamp) and sorted by vcap_request_id from security_events.log..."
 
-## gather all entries, sort by latest events first.
-# find $work_dir -name "security_events.log*" | xargs egrep -a 'suser=[a-zA-Z0-9]' \
-# | grep -v -e "suser=system_services" -e "suser=healthwatch_sli_test" -e "suser=push_apps_manager"  -e "suser=MYSQL" \
-# | awk  '{print $10 " " $11 " " $2 " "  $19}' | grep cs2   | sort -r > $OUTPUT_FILE
-
+## gather all entries (vcap_request_id, username, user_guid, timestamp), and sorted by vcap_request_id
 find $work_dir -name "security_events.log*" | xargs egrep -a 'suser=[a-zA-Z0-9]' \
 | grep -v -e "suser=system_services" -e "suser=healthwatch_sli_test" -e "suser=push_apps_manager"  -e "suser=MYSQL" \
 | awk  '{print $19 " " $10 " " $11 " "  $2}' | grep cs2  |sed 's/cs2=//' | sort  > $OUTPUT_FILE
