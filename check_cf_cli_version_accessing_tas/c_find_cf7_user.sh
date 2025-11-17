@@ -26,7 +26,9 @@ fi
 echo "  total users input entries from $INPUT_SECURITY_FILE : $(cat $INPUT_SECURITY_FILE | wc -l)"
 echo "  total cf cli input entries from  $TMP_CF_ACCESS_FILE : $(cat $TMP_CF_ACCESS_FILE | wc -l)"
 
-join -1 1 -2 1 $INPUT_SECURITY_FILE $TMP_CF_ACCESS_FILE | awk '{print $2 " " $3 " " $5 " " $6 }' | sort | uniq > $TMP_OUTPUT_FILE
+## join and print except request_id($1)
+join -1 1 -2 1 $INPUT_SECURITY_FILE $TMP_CF_ACCESS_FILE | awk '{print $2 " " $3 " " $4 " "  $5 }' | sort | uniq > $TMP_OUTPUT_FILE
+## print except timestamp($4) to deduplicate
 cat $TMP_OUTPUT_FILE| awk '{print $1 " " $2 " " $3  }' | sort | uniq > $OUTPUT_FILE
 
 entry_count=$(cat $OUTPUT_FILE | wc -l)
