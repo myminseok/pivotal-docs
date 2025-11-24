@@ -9,7 +9,7 @@ work_dir="./tmp"
 script_filename=$(basename $0 ".sh" )
 INPUT_SECURITY_FILE="$work_dir/output_b_fetch_users_from_security_events_logs.txt"
 TMP_CF_ACCESS_FILE="$work_dir/output_a_fetch_cf7_request_id_from_nginx_access_logs.txt"
-TMP_OUTPUT_FILE="$work_dir/output_${script_filename}_tmp.txt"
+TMP_OUTPUT_FILE="$work_dir/output_${script_filename}_join.txt"
 OUTPUT_FILE="$work_dir/output_${script_filename}.txt"
 
 echo "STARTING: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log) ..."
@@ -27,7 +27,7 @@ echo "  total users input entries from $INPUT_SECURITY_FILE : $(cat $INPUT_SECUR
 echo "  total cf cli input entries from  $TMP_CF_ACCESS_FILE : $(cat $TMP_CF_ACCESS_FILE | wc -l)"
 
 ## join and print except request_id($1)
-join -1 1 -2 1 $INPUT_SECURITY_FILE $TMP_CF_ACCESS_FILE | awk '{print $2 " " $3 " " $4 " "  $5 }' | sort | uniq > $TMP_OUTPUT_FILE
+join -1 1 -2 1 $INPUT_SECURITY_FILE $TMP_CF_ACCESS_FILE | awk '{print $2 " " $3 " " $4 " "  $5 " vcap_request_id:" $1}' | sort | uniq > $TMP_OUTPUT_FILE
 ## print except timestamp($4) to deduplicate
 cat $TMP_OUTPUT_FILE| awk '{print $1 " " $2 " " $3  }' | sort | uniq > $OUTPUT_FILE
 

@@ -1,8 +1,9 @@
 
-Following document describes how to list up any cf cli accessing the platform with old version, such as cf cli version 7.
+Following document describes how to list up any cf cli accessing the platform with old version, such as cf cli version 7 or 6
 
+- Tested on TAS 6.
+- These scripts can be run on Ubuntu or Mac OS.
 
-Tested on TAS 6
 
 ## Procedure
 
@@ -29,7 +30,7 @@ drwxr-xr-x@ 54 kminseok  staff      1728 Nov 12 16:39 ..
 ```
 
 
-#### Step 1. Explode the logs 
+#### Step 1. Explode/Expands the cloud controller bosh logs 
 [1_explode_bosh_logs.sh](1_explode_bosh_logs.sh) explodes bosh logs *.tgz file under ./tmp in current directory. it can takes bosh logs tgz file or path
 ```
 ./1_explode_bosh_logs.sh cf-05c0b7494ba8ddb50eb8.cloud_controller-20251112-064240-583066083.tgz
@@ -86,6 +87,7 @@ drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.3956b231-0ec
 -rw-r--r--@  1 kminseok  staff   6.5M 11월 13 22:57 output_a_fetch_cf7_request_id_from_nginx_access_logs.txt
 -rw-r--r--@  1 kminseok  staff    20M 11월 13 22:57 output_b_fetch_users_from_security_events_logs.txt
 -rw-r--r--@  1 kminseok  staff   346B 11월 13 22:57 output_c_find_cf7_user.txt
+-rw-r--r--@  1 kminseok  staff    54K Nov 24 10:14 output_c_find_cf7_user_join.txt
 ```
 
 analyzied result will be saved into ./tmp/output_c_find_cf7_user.txt. it shows username, user_guid and cf cli version.
@@ -97,6 +99,17 @@ suser=admin suid=2328dd36-9e29-4835-822b-afaf39efdc37 "cf7/7.7.14+c88114b.2024-0
 suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf/7.7.14+c88114b.2024-09-20
 suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20
 
+```
+
+for more information such as timestamp and vcap_request_id which can be used to trace back to the original logs.
+```
+$ cat ./tmp/output_c_find_cf7_user_join.txt
+
+...
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:47:38 vcap_request_id:08fa0626-0f16-4b6a-4c6b-a0c22461e6da::f9675241-e087-4c4c-b304-791c37e86ecc
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:47:38 vcap_request_id:47942433-3220-4232-4289-ec466ecea8e8::b92ebcc8-0546-4be9-bd1e-ef9f80caa4a3
+suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:47:38 vcap_request_id:634c0136-57b0-427d-41e9-3f90c18a85b5::5a3cd065-617a-4f12-a339-688db9fd80d9
+...
 ```
 
 
@@ -118,6 +131,28 @@ $ cf curl /v3/users/f898a594-ddc8-4257-b9c7-b3b30338e800 | jq .
   "origin": "uaa",
 
 ```
+
+## How to trace other cf cli version.
+To trace other cf cli version, then modify the grep filter expression in [2_analysis_logs.sh](2_analysis_logs.sh).
+
+example cf version scheme:
+```
+cf8 version: 8.14.1+2bcb856.2025-06-10 
+cf7 version: 7.7.14+c88114b.2024-09-20
+```
+
+edit the grep expression as following:
+```
+#!/bin/bash
+set +x
+...
+
+echo "STARTING: gathering all entries (vcap_request_id, cf cli version, timestamp) and sorted by vcap_request_id from nginx-access.log..."
+find $work_dir -name "nginx-access.log*" | xargs egrep -a 'cf/7|cf7/7|cf/6|cf6/6|cf/8|cf8/8' | awk -F 'vcap_request_id:' '{print $2 " " $1}' | awk '{print $1 " " $13 " " $5}' | sort > $OUTPUT_FILE
+...
+```
+note that the -a option to prevent any errors and forces egrep to process the binary file as if it were a regular text file, allowing it to search for matches
+
 
 ## Detailed Explanation for each script.
 
@@ -161,7 +196,7 @@ STARTING: mapping from vcap_request_id(cc_security_events_log) to cf cli version
 COMPLETED: mapping from vcap_request_id(cc_security_events_log) to cf cli version(cc_nginx-access.log): total (       4)  ./tmp/output_c_find_cf7_user.txt
 ```
 
-sample outputs shows username, user_guid and cf cli version.
+sample outputs shows username, user_guid and cf cli version:
 ```
 $ cat ./tmp/output_c_find_cf7_user.txt
 
@@ -171,13 +206,3 @@ suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf/7.7.14+c88114b.202
 suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20
 ```
 
-for more info with timestamp;
-```
-$ cat ./tmp/output_c_find_cf7_user_tmp.txt
-
-...
-suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:55:25
-suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:59:58
-suser=appsadmin suid=f898a594-ddc8-4257-b9c7-b3b30338e800 "cf7/7.7.14+c88114b.2024-09-20 [12/Nov/2025:03:59:59
-...
-```
