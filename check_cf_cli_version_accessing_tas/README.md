@@ -40,7 +40,7 @@ or
 ```
 $ ./1_explode_bosh_logs.sh .
 ```
-it will explode the archive into ./tmp folder. 
+it will explode all of the *.tgz bosh logs files under ./tmp folder. 
 re-running script will overwrite the same contents to the ./tmp folder.
 ```
 $ ls -alh ./tmp   
