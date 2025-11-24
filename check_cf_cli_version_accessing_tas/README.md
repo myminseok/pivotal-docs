@@ -180,7 +180,7 @@ note that the -a option to prevent any errors and forces egrep to process the bi
 ## Detailed Explanation for each script.
 
 #### [a_fetch_cf7_request_id_from_nginx_access_logs.sh](a_fetch_cf7_request_id_from_nginx_access_logs.sh)
-From the nginx-access.log on the cloud controller VM logs, filter cf cli version and fetch vcap_request_id  by 'cf/7|cf7/7' string.
+From the nginx-access.log on the cloud controller VM logs, filter cf cli version and fetch vcap_request_id  by matching 'cf/7|cf7/7' string.
 
 * a_fetch_cf7_request_id_from_nginx_access_logs.sh, b_fetch_users_from_security_events_logs.sh can be run in parallel as there is no dependency between them.
 
