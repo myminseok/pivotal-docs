@@ -1,9 +1,9 @@
 
-Following document describes how to list up any cf cli accessing the platform with old version, such as cf cli version 7 or 6
+Following document describes how to list up any cf cli accessing the platform with old version, such as cf cli version 7 or 6.
+it traces user's access logs in cloud_controller VMs in cloud foundry deployment. and matches cf cli version and list up user's name and guid. so it is limited to trace the remained logs in the VMs. it can also trace all archived logs if it is exploded by script or manually.
 
 - Tested on TAS 6.
 - These scripts can be run on Ubuntu or Mac OS.
-
 
 ## Procedure
 
@@ -50,10 +50,15 @@ drwxr-xr-x@ 12 kminseok  staff   384B Nov 13 20:30 ..
 drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.1ebd2b5c-b269-44cb-a06f-9ebf8b82f939.2025-11-12-06-50-27
 drwxr-xr-x@ 15 kminseok  staff   480B Nov 12 15:50 cloud_controller.3956b231-0ec5-4dd9-9d76-c68a01604813.2025-11-12-06-50-30
 ```
+please don't change the ./tmp folder name as it is hard coded in the following scripts.
 
 #### Step 2. Analysis the bosh logs.
 [2_analysis_logs.sh](2_analysis_logs.sh) will execute other subscripts at once and results the final output. optionally each scripts can be run separately. 
 
+it searches all named logs files under current ./tmp folder regardless of folder depth. 
+- "nginx-access.log*"
+- "security_events.log*"
+and then exracts information.
 
 ```
 $ ./2_analysis_logs.sh
