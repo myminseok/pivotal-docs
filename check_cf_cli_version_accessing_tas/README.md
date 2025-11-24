@@ -156,7 +156,7 @@ $ cf curl /v3/users/f898a594-ddc8-4257-b9c7-b3b30338e800 | jq .
 ```
 
 ## How to trace other cf cli version.
-To trace other cf cli version, then modify the grep filter expression in [2_analysis_logs.sh](2_analysis_logs.sh).
+To trace other cf cli version, then modify the grep filter expression in [a_fetch_cf7_request_id_from_nginx_access_logs.sh](a_fetch_cf7_request_id_from_nginx_access_logs.sh)
 
 example cf version scheme:
 ```
