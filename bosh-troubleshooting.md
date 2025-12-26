@@ -45,3 +45,14 @@ irb(main):002:0> Bosh::Director::Models::Task.where(state: "cancelling").update(
 
 ```
 
+#### locks
+
+```
+sudo -i
+monit stop all
+monit start postgres
+/var/vcap/packages/postgres-xxx/bin/psql -U vcap bosh
+select * from locks;
+delete from locks where id=xxxx;
+monit start all
+```
