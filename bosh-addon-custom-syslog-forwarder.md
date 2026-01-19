@@ -2,6 +2,8 @@
 forwarding platform logs to additional syslog remotes using syslog-release is described in this [syslog-release document](https://github.com/cloudfoundry/syslog-release/blob/main/examples/example-custom-rules.md#forwarding-to-additional-remotes)
 This document describe a solution how to achive above goal.
 
+Tested on TAS 10.2.5
+
 ## How to apply
 
 #### Opsman UI> TAS tile> System logging > Custom rsyslog configuration
@@ -9,7 +11,7 @@ This document describe a solution how to achive above goal.
 ```
 if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")
 ```
->> add/replace keyword list to filter logs to forward (OR condition)
+>> add/replace keyword list to filter logs to forward (OR condition), contains_i directive ignores case
 >> replace syslog remote IP/PORT.
 >> StreamDriverMode: "0" for non tls
 >> Template: default from tanzu.
