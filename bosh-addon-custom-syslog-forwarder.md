@@ -118,14 +118,15 @@ bosh -d cf-605f23577312b57a2f91 manifest > cf.ym
 bosh -d cf-605f23577312b57a2f91 deploy ./cf.yml
 ```
 
-during the apply change, the `pre-start-script` job from the runtime config above will create `/var/vcap/jobs/pre-start-script/bin/pre-start` file in the target deployment and it run before the jobs are starting by [bosh job lifecycle design](https://bosh.io/docs/job-lifecycle/).
-
 
 ### Changes from the target VM.
 
-## 36-custom.conf file should be created under /etc/rsyslog.d folder 
+during the apply change, the `pre-start-script` job will be applied into `/var/vcap/jobs/pre-start-script/bin/pre-start` file in the target deployment and it run before the jobs are starting by [bosh job lifecycle design](https://bosh.io/docs/job-lifecycle/). then it would create `/etc/rsyslog.d/36-custom.conf`
+
+
 ```
-uaa/b5a1e009-1258-4d09-9882-28faa829fabb:/etc/rsyslog.d# ll
+
+uaa/b5a1e009-1258-4d09-9882-28faa829fabb:/etc/rsyslog.d# ls -al /etc/rsyslog.d
 total 44
 drwxr-xr-x  2 root root 4096 Jan 19 02:31 ./
 drwxr-xr-x 86 root root 4096 Jan 19 01:47 ../
@@ -144,13 +145,8 @@ drwxr-xr-x 86 root root 4096 Jan 19 01:47 ../
 ## (WIP) VM resource consumption
 
 ```
-
 ps -eo %cpu,%mem,pid,pgid,tid,user,rss,cmd --sort %cpu
-
 ```
-
-
-
 
 ## How to delete the addon from deployment
 multi steps are required to remove config files non bosh standard location other than /var/vcap folder.
@@ -208,7 +204,7 @@ bosh configs
 ```
 and re-deploy the deployment.
 ```
-bosh -d cf-605f23577312b57a2f91 manifest > cf.ym
+bosh -d cf-605f23577312b57a2f91 manifest > cf.yml
 bosh -d cf-605f23577312b57a2f91 deploy ./cf.yml
 ```
 #### Troubleshooting
