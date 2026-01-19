@@ -12,7 +12,7 @@ if you are trying to apply two "pre-start-script" jobs from os-conf to a deploym
 
 ### [option2] using customer bosh release
 above limit can be overcome by creating custom bosh release with unique job name.
-please refer to [custom-release](https://github.com/myminseok/custom-release/tree/main
+please refer to [custom-release](https://github.com/myminseok/custom-release/tree/main) and [sample runtime-config](https://github.com/myminseok/custom-release/blob/main/runtimeconfig.yml)
 
 ## How to apply
 #### Create runtime-config
@@ -69,7 +69,7 @@ EOF
 bosh update-runtime-config --name=custom_syslog_forwarder_addon ./custom_syslog_forwarder.yml
 ```
 
-verify the created addon config.
+verify the created addon config `custom_syslog_forwarder_addon`.
 ```
 ubuntu@opsmanager-3-0:~/workspace$ bosh configs
 Using environment '192.168.0.55' as client 'ops_manager'
@@ -85,7 +85,7 @@ ID    Type     Name                                                          Tea
 ```
 
 ### Upload os-conf release to bosh-director
-skip following steps if there is os-conf release in bosh-director.
+NOTE: skip following steps if there is os-conf release in bosh-director.
 
 #### os-conf from tanzu opsmanager VM
 ```
