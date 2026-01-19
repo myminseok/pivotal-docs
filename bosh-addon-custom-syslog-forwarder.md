@@ -1,14 +1,13 @@
-## BOSH add-on results in error Colocated job is already added to the instance group
+# platform log forwarding to multiple external syslog endpoint 
+forwarding platform logs to additional syslog remotes using syslog-release is described in this [syslog-release document](https://github.com/cloudfoundry/syslog-release/blob/main/examples/example-custom-rules.md#forwarding-to-additional-remotes)
+This document describe a solution how to achive above goal.
 
-additonal VM configuration outside of tanzu product requires custom scripting leveraging bosh pre-start as decribed in bosh job lifecycle design[bosh job lifecycle works](https://bosh.io/docs/job-lifecycle/).
-
-this can be achieved by leveraging [runtime-config](https://bosh.io/docs/runtime-config/) 
-
-
-## Consideration
+## Consideration (os-conf vs custom release)
 
 ### [option1] using os-conf bosh release
 the simplist option is using `pre-start-script` of [os-conf-release](https://github.com/cloudfoundry/os-conf-release) bosh relase but if the job is alreay deployed, then it is not possible to deploy another job with the same name on the same VM in a deployment.
+
+* BOSH add-on results in error Colocated job is already added to the instance group
 if you are trying to apply two "pre-start-script" jobs from os-conf to a deployment, errors are thrown as described in [KB](https://knowledge.broadcom.com/external/article/387226/bosh-addon-results-in-error-colocated-jo.html)
 
 ### [option2] using customer bosh release
