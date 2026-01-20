@@ -2,7 +2,7 @@
 forwarding platform logs to additional syslog remotes using syslog-release is described in this [syslog-release document](https://github.com/cloudfoundry/syslog-release/blob/main/examples/example-custom-rules.md#forwarding-to-additional-remotes)
 This document describe a solution how to achive above goal.
 
-Tested on TAS 10.2.5
+Tested on TAS 10.2.5, opsman 3.3
 
 ## How to apply
 
@@ -34,6 +34,17 @@ refer to the rainer script document https://www.rsyslog.com/doc/configuration/fi
 
 apply change TAS tile.
 
+
+### BOSH tile
+
+it is also applicable to bosh tile as well.
+```
+if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG", "director_api", "audisp", "auditd" ]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")
+```
+>> added more keyword to prevent forwaring logs. such as director_api, audisp-syslog, auditd
+
+
+
 #### Changes on target VM
 
 the configuration is injected into `30-syslog-release-custom-rules.conf` file.
@@ -61,6 +72,9 @@ if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($m
 if ($programname startswith "vcap.") then stop
 if ($msg contains "DEBUG") then stop
 ```
+
+
+
 
 ## Filtered logs
 
