@@ -27,8 +27,8 @@ if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($m
 also add filter to prevent `vcap.agent` logs.
 ```
 if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG"]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")
-
 ``` 
+
 refer to the rainer script document https://www.rsyslog.com/doc/configuration/filters.html
 
 
@@ -83,4 +83,3 @@ no logs due to "DEBUG" filter.
 
 
 
-Jan 20 03:49:06 192.168.0.75 vcap.agent[759] 2026/01/20 03:49:06 CEF:0|CloudFoundry|BOSH|1|agent_api|get_task|1|duser=director.8b119442-a732-49c3-8eef-383edfe0c9cc.7c0ddeaa-0942-403c-bf24-e6b21ce2d7f4.dccbc449-3505-4819-8b0d-724a098ba4de src=192.168.0.55 spt=4222 shost=7c0ddeaa-0942-403c-bf24-e6b21ce2d7f4
