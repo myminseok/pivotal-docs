@@ -17,8 +17,7 @@ if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] then actio
 >> Template: default from tanzu.
 
 
-if `Do not forward debug logs` option checked, then add following additional filter to prevent forwarding DEBUG logs.
-this is to apply the same filter as the default syslog endpoint.
+if `Do not forward debug logs` option checked, then add additional filter to prevent forwarding DEBUG logs. this is because if the option checked, then `if ($msg contains "DEBUG") then stop` filter is added AFTER additnal remote endpoint by platform.
 ```
 if not($msg contains ["DEBUG"]) and  $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")
 ```
