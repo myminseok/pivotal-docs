@@ -72,7 +72,7 @@ if default system logging is not configured with TLS or TLS CA cert configured o
 
 In this scenario, following steps can inject cert. it applies both BOSH, TAS tile and other tiles.(and verified on bosh, TAS)
 
-1. add your additional syslog endpoint CA cert on BOSh tile > Security > Trusted Certificates
+1. add your additional syslog endpoint CA cert on BOSH tile > Security > Trusted Certificates
 => it will be uploaded to "/etc/ssl/certs/ca-certificates.crt" on each deployed VM.
 
 2. configure additional endpoints with following Custom rsyslog configuration:
@@ -81,6 +81,7 @@ In this scenario, following steps can inject cert. it applies both BOSH, TAS til
 > * target and StreamDriverPermittedPeers property value should be matched
 > * CA file location of the default syslog endpoint is /var/vcap/jobs/syslog_forwarder/config/ca_cert.pem 
 
+3. apply change bosh and tiles
 
 ## Filtered logs
 
