@@ -9,25 +9,18 @@ Tested on TAS 10.2.5, opsman 3.3
 #### Opsman UI> TAS tile> System logging > Custom rsyslog configuration
 
 add/replace keyword list in OR condition to forward 
-```
-if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")
-```
->> contains_i directive ignores case
->> replace syslog remote IP/PORT.
->> StreamDriverMode: "0" for non tls
->> Template: default from tanzu.
+> ```if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")```
+> * contains_i directive ignores case
+> * replace syslog remote IP/PORT.
+> * StreamDriverMode: "0" for non tls
+> * Template: default from tanzu.
 
 
 if `Do not forward debug logs` option checked, then add additional filter to prevent forwarding DEBUG logs. this is because if the option checked, then `if ($msg contains "DEBUG") then stop` filter is added AFTER additnal remote endpoint by platform.
-```
-if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG"]) then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")
-
-```
+> ```if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG"]) then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")```
 
 also add filter to prevent `vcap.agent` logs.
-```
-if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG"]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")
-``` 
+> ```if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG"]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")``` 
 
 refer to the rainer script document https://www.rsyslog.com/doc/configuration/filters.html
 
@@ -38,10 +31,8 @@ apply change TAS tile.
 ### BOSH tile
 
 it is also applicable to bosh tile as well.
-```
-if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG", "director_api", "audisp", "auditd" ]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")
-```
->> added more keyword to prevent forwaring logs. such as director_api, audisp-syslog, auditd
+> ```if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG", "director_api", "audisp", "auditd" ]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList" Target="192.168.0.6"  Port="514"  StreamDriverMode="0" Template="SyslogForwarderTemplate")```
+> * added more keyword to prevent forwaring logs. such as director_api, audisp-syslog, auditd
 
 
 
@@ -85,12 +76,10 @@ In this scenario, following steps can inject cert. it applies both BOSH, TAS til
 => it will be uploaded to "/etc/ssl/certs/ca-certificates.crt" on each deployed VM.
 
 2. configure additional endpoints with following Custom rsyslog configuration:
-```
-if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG"]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList"  Template="SyslogForwarderTemplate" Target="logs.example.com"  Port="514"   StreamDriver="gtls"  StreamDriverMode="1" StreamDriverAuthMode="x509/name"  StreamDriverPermittedPeers="logs.example.com" streamDriver.CAFile="/etc/ssl/certs/ca-certificates.crt" )
-```
-> make sure the streamDriver.CAFile property that has dot on it's name.
-> target and StreamDriverPermittedPeers property value should be matched
-> CA file location of the default syslog endpoint is /var/vcap/jobs/syslog_forwarder/config/ca_cert.pem 
+> ```if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG"]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList"  Template="SyslogForwarderTemplate" Target="logs.example.com"  Port="514"   StreamDriver="gtls"  StreamDriverMode="1" StreamDriverAuthMode="x509/name"  StreamDriverPermittedPeers="logs.example.com" streamDriver.CAFile="/etc/ssl/certs/ca-certificates.crt" )```
+> * make sure the streamDriver.CAFile property that has dot on it's name.
+> * target and StreamDriverPermittedPeers property value should be matched
+> * CA file location of the default syslog endpoint is /var/vcap/jobs/syslog_forwarder/config/ca_cert.pem 
 
 
 ## Filtered logs
