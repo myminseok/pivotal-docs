@@ -63,10 +63,16 @@ if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($m
 if ($programname startswith "vcap.") then stop
 if ($msg contains "DEBUG") then stop
 ```
-
-
 ## TLS syslog endpoint
 
+#### TLS with Anonymous mode 
+
+1. configure additional endpoints with following Custom rsyslog configuration:
+> ```if $msg contains_i ["audit", "user=", "ssh", "v3/roles", "password" ] and not($msg contains ["DEBUG"]) and not ($programname startswith "vcap.")  then action(type="omfwd" protocol="tcp" queue.type="linkedList"  Template="SyslogForwarderTemplate" Target="logs.example.com"  Port="514"   StreamDriver="gtls"  StreamDriverMode="1" StreamDriverAuthMode="anon" )```
+
+2. apply change bosh and tiles
+
+## TLS syslog endpoint with Auth
 
 if default system logging is not configured with TLS or TLS CA cert configured on the default system logging on tiles is not compatible with additonal syslog endpoint, then there is no available CA file on the deployed VMs.
 
@@ -80,6 +86,9 @@ In this scenario, following steps can inject cert. it applies both BOSH, TAS til
 > * make sure the streamDriver.CAFile property that has dot on it's name.
 > * target and StreamDriverPermittedPeers property value should be matched
 > * CA file location of the default syslog endpoint is /var/vcap/jobs/syslog_forwarder/config/ca_cert.pem 
+
+
+
 
 3. apply change bosh and tiles
 
