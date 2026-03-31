@@ -4,6 +4,9 @@ reference:
 https://knowledge.broadcom.com/external/article/293601/pivotal-cloud-foundry-being-associated-w.html#:~:text=When%20it%20is%20accessed%20via,Reboot%20the%20Operations%20Manager%20VM.
 
 
+for director IP update, see https://github.com/vmware-tanzu-labs/bosh-agent-ip-changer
+
+
 for safety, take a snapshot for the opsman VM on vsphere UI
 
 
