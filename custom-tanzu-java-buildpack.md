@@ -9,7 +9,7 @@ for example,  Java buildpack offline v4.85.0 + AppD agent 24.11.0_36469
 
 
 ## Prerequisites
-1) prepare a linux jumpbox: this guild will use tanzu opsmanager v3.2.1 as a jumpbox.
+1) prepare a linux jumpbox: this guide will use tanzu opsmanager v3.2.1 as a jumpbox.
   - latest ruby installed 
   - accessible  https://rubygems.org/ or equivalent to install bundle
 
@@ -43,7 +43,6 @@ wget https://local-appd-repo.apps.lab.pcfdemo.net/appdynamics/appdynamics-24.11.
 
 
 ###  [Step2]  [linux jumpbox] Build custom tanzu java buildpack 
-this guild will use tanzu opsmanager v3.2.1 as a jumpbox.
 
 download Java buildpack offline v4.85.0 ONLINE version from (tanzu portal)[https://support.broadcom.com/group/ecx/productfiles?subFamily=Java%20Buildpack&displayGroup=Java%20Buildpack&release=4.85.0&os=&servicePk=536879&language=EN] (offline version can not download external agent bits) 
 
