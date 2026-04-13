@@ -108,7 +108,8 @@ version 2.3.0.
 
 ### [Step4] [linux jumpbox] Bundle exec 
 
-set trust ca certs for internal repo app only if the local repo is running on tanzu platform TAS
+set trust CA certs(not domain certs) for the internal repo app from step1 above running on self-signed CA.
+for example, app running on tanzu platform TAS, with self-signed CA certs. export env variable as follows:
 ```
 ubuntu@opsman321:~/custom-java-buildpack-v4.85.0-appd$ export SSL_CERT_FILE=/var/tempest/workspaces/default/root_ca_certificate
 ```
