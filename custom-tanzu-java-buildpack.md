@@ -44,13 +44,42 @@ wget https://local-appd-repo.apps.lab.pcfdemo.net/appdynamics/appdynamics-24.11.
 
 ###  [Step2]  [linux jumpbox] Build custom tanzu java buildpack 
 
-download Java buildpack offline v4.85.0 ONLINE version from (tanzu portal)[https://support.broadcom.com/group/ecx/productfiles?subFamily=Java%20Buildpack&displayGroup=Java%20Buildpack&release=4.85.0&os=&servicePk=536879&language=EN] (offline version can not download external agent bits) 
+download Java buildpack offline v4.85.0 ONLINE and OFFLINE version from (tanzu portal)[https://support.broadcom.com/group/ecx/productfiles?subFamily=Java%20Buildpack&displayGroup=Java%20Buildpack&release=4.85.0&os=&servicePk=536879&language=EN] (offline version can not download external agent bits) 
+
+unzip files.
 
 ```
+ubuntu@opsman321:~$ mkdir java-buildpack-offline-v4.85  
+ubuntu@opsman321:~$ unzip java-buildpack-offline-v4.85.0.zip -d java-buildpack-offline-v4.85
+
 ubuntu@opsman321:~$ mkdir custom-java-buildpack-v4.85.0-appd  
 ubuntu@opsman321:~$ unzip java-buildpack-v4.85.0.zip -d custom-java-buildpack-v4.85.0-appd
-ubuntu@opsman321:~$ cd custom-java-buildpack-v4.85.0-appd
 ```
+replace online cached resources (./custom-java-buildpack-v4.85.0-appd/resources) with ./java-buildpack-offline-v4.85/resources 
+
+```
+ubuntu@opsman321:~$ rm -rf ./custom-java-buildpack-v4.85.0-appd/resources 
+ubuntu@opsman321:~$ mv ./java-buildpack-offline-v4.85/resources ./custom-java-buildpack-v4.85.0-appd/
+```
+
+
+```
+ubuntu@opsman321:~/custom-java-buildpack-v4.85.0-appd$ ls -al
+
+drwxr-xr-x  2 ubuntu ubuntu     4096 Oct 14  2025 bin
+drwxrwxr-x  3 ubuntu ubuntu     4096 Apr 15 04:41 build
+drwxr-xr-x  2 ubuntu ubuntu     4096 Oct 14  2025 config
+-rw-r--r--  1 ubuntu ubuntu      251 Oct 14  2025 Gemfile
+-rw-r--r--  1 ubuntu ubuntu     1644 Oct 14  2025 Gemfile.lock
+drwxr-xr-x  3 ubuntu ubuntu     4096 Oct 14  2025 lib
+-rw-r--r--  1 ubuntu ubuntu    11358 Oct 14  2025 LICENSE
+-rw-r--r--  1 ubuntu ubuntu      636 Oct 14  2025 NOTICE
+-rw-r--r--  1 ubuntu ubuntu     1776 Oct 14  2025 Rakefile
+drwxr-xr-x  2 ubuntu ubuntu     4096 Oct 14  2025 rakelib
+drwxr-xr-x 11 ubuntu ubuntu     4096 Apr 15 04:39 resources
+```
+
+
 
 and edit ./custom-java-buildpack-v4.85.0-appd/config/app_dynamics_agent.yml
 
@@ -105,7 +134,6 @@ version 2.3.0.
 ```
 
 
-
 ### [Step4] [linux jumpbox] Bundle exec 
 
 set trust CA certs(not domain certs) for the internal repo app from step1 above running on self-signed CA.
@@ -114,7 +142,7 @@ for example, app running on tanzu platform TAS, with self-signed CA certs. expor
 ubuntu@opsman321:~/custom-java-buildpack-v4.85.0-appd$ export SSL_CERT_FILE=/var/tempest/workspaces/default/root_ca_certificate
 ```
 
-goto to download and unziped buildpack folder and run build command.
+goto to download and unziped buildpack folder and run build command. it will use the cached bits(from offline buildpack) instead of downloading from internet.
 
 ```
 ubuntu@opsman321:~/custom-java-buildpack-v4.85.0-appd$bundle exec rake clean package OFFLINE=true PINNED=true
