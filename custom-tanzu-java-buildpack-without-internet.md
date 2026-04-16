@@ -32,6 +32,24 @@ ubuntu@opsman321:~$ unzip java-buildpack-offline-v4.85.0.zip -d custom-java-buil
 
 ### [Step2] Replace AppD agent 24.11.0_36469 cached resources from java-buildpack-offline-v4.80.0
 
+
+edit ./custom-java-buildpack-v4.85.0-appd-manual/config/app_dynamics_agent.yml
+
+```
+---
+version: 24.11.0_36469
+repository_root: "{default.repository.root}/appdynamics"
+default_application_name: $(jq -r -n "$VCAP_APPLICATION | .space_name + \":\" + .application_name
+  | @sh")
+default_node_name: $(jq -r -n "\"$APPD_CF_NODE_PREFIX\" + ($VCAP_APPLICATION | .application_name)
+  + \":$CF_INSTANCE_INDEX\" | @sh")
+default_tier_name: 
+default_unique_host_name: $(jq -r -n "$VCAP_APPLICATION | .application_id + \":$CF_INSTANCE_INDEX\"
+  | @sh")
+
+```
+
+and replace the cached resources for Appd Agent.
 ```
 ubuntu@opsman321:~$ rm -rf custom-java-buildpack-v4.85.0-appd-manual/resources/cache/7f15506ae439cdd4f66a7c0e124a31562f5ca58987fbba305c6965a0eb4ba8ae*
 ubuntu@opsman321:~$ cp -r java-buildpack-offline-v4.80.0/resources/cache/d2b4087d4e8bf4f409d7064af712d8cecd7dd8beecf799017eb7e7f9ae21647a* custom-java-buildpack-v4.85.0-appd-manual/resources/cache/
