@@ -15,7 +15,6 @@ this will repackage Java buildpack offline v4.85.0 + AppD agent 24.11.0_36469 (f
 ## Procedure
 
 ### [Step1] prepare tanzu Java buildpack offline v4.85.0 ONLINE and OFFLINE 
-
 download Java buildpack offline v4.85.0 ONLINE and OFFLINE version from (tanzu portal)[https://support.broadcom.com/group/ecx/productfiles?subFamily=Java%20Buildpack&displayGroup=Java%20Buildpack&release=4.85.0&os=&servicePk=536879&language=EN] (offline version can not download external agent bits) 
 
 unzip files.
@@ -108,32 +107,51 @@ Uploading files...
 Waiting for API to complete processing files...
 
 Staging app and tracing logs...
-   Downloading java_buildpack_offline_485_appd...
-   Downloaded java_buildpack_offline_485_appd (1.4G)
-   Cell b2ef2ef8-30e7-4339-9a9f-02ac3fc92eb8 creating container for instance 7ed65fba-868b-422c-acf7-3e629dc55245
+   Downloading java_buildpack_offline_485_appd_manual...
+   Downloaded java_buildpack_offline_485_appd_manual (1.5G)
+   Cell b2ef2ef8-30e7-4339-9a9f-02ac3fc92eb8 creating container for instance 225eaef2-2eaa-4bb4-8bac-8b2618742838
    Security group rules were updated
-   Cell b2ef2ef8-30e7-4339-9a9f-02ac3fc92eb8 successfully created container for instance 7ed65fba-868b-422c-acf7-3e629dc55245
+   Cell b2ef2ef8-30e7-4339-9a9f-02ac3fc92eb8 successfully created container for instance 225eaef2-2eaa-4bb4-8bac-8b2618742838
    Downloading app package...
    Downloaded app package (51.6M)
    -----> Java Buildpack v4.85.0 (offline) | https://github.gwd.broadcom.net/TNZ/java-buildpack#23ed3f3
    -----> Downloading Jvmkill Agent 1.17.0_RELEASE from https://java-buildpack.cloudfoundry.org/jvmkill/jammy/x86_64/jvmkill-1.17.0-RELEASE.so (found in cache)
-   -----> Downloading Open Jdk JRE 17.0.18_10 from https://storage.googleapis.com/java-buildpack-dependencies/openjdk/jammy/x86_64/bellsoft-jre17.0.18%2B10-linux-amd64.tar.gz (found in cache)
+   -----> Downloading Open Jdk JRE 17.0.16_12 from https://storage.googleapis.com/java-buildpack-dependencies/openjdk/jammy/x86_64/bellsoft-jre17.0.16%2B12-linux-amd64.tar.gz (found in cache)
    Expanding Open Jdk JRE to .java-buildpack/open_jdk_jre (1.2s)
    JVM DNS caching disabled in lieu of BOSH DNS caching
    -----> Downloading Open JDK Like Memory Calculator 3.13.0_RELEASE from https://java-buildpack.cloudfoundry.org/memory-calculator/jammy/x86_64/memory-calculator-3.13.0-RELEASE.tar.gz (found in cache)
    Loaded Classes: 27237, Threads: 250
-   -----> Downloading AppDynamics Agent 24.11.0_36469 from https://local-appd-repo.apps.lab.pcfdemo.net/appdynamics/appdynamics-24.11.0-36469.tar.gz (found in cache)
-   Expanding AppDynamics Agent to .java-buildpack/app_dynamics_agent (0.4s)
+   -----> Downloading AppDynamics Agent 24.11.0_36469 from https://storage.googleapis.com/java-buildpack-dependencies/appdynamics/appdynamics-24.11.0-36469.tar.gz (found in cache)
+   Expanding AppDynamics Agent to .java-buildpack/app_dynamics_agent (0.5s)
    -----> Downloading Client Certificate Mapper 2.0.1 from https://storage.googleapis.com/java-buildpack-dependencies/client-certificate-mapper/client-certificate-mapper-2.0.1.jar (found in cache)
    -----> Downloading Container Security Provider 1.20.0_RELEASE from https://storage.googleapis.com/java-buildpack-dependencies/container-security-provider/container-security-provider-1.20.0-RELEASE.jar (found in cache)
    [JavaMain]                       WARN  Dependency versions have passed end-of-support date: {"spring-boot - 2.4.0"=>"2023-02-23"}, an operator may prevent staging of this app
    Exit status 0
    Uploading droplet, build artifacts cache...
-   Uploading build artifacts cache...
    Uploading droplet...
+   Uploading build artifacts cache...
    Uploaded build artifacts cache (129B)
 
 Waiting for app spring-music-485 to start...
+
+Instances starting...
+Instances starting...
+Instances starting...
+Instances starting...
+Instances starting...
+Instances starting...
+Instances starting...
+Instances starting...
+Instances starting...
+
+name:              spring-music-485
+requested state:   started
+routes:            spring-music.apps.lab.pcfdemo.net
+last uploaded:     Thu 16 Apr 09:48:57 KST 2026
+stack:             cflinuxfs4
+buildpacks:
+	name                                     version                                                                      detect output   buildpack name
+	java_buildpack_offline_485_appd_manual   v4.85.0-offline-https://github.gwd.broadcom.net/TNZ/java-buildpack#23ed3f3   java            java
 
 ```
 
