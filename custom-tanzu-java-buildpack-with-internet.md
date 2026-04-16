@@ -46,8 +46,16 @@ wget https://local-appd-repo.apps.lab.pcfdemo.net/appdynamics/appdynamics-24.11.
 
 download Java buildpack offline v4.85.0 ONLINE and OFFLINE version from (tanzu portal)[https://support.broadcom.com/group/ecx/productfiles?subFamily=Java%20Buildpack&displayGroup=Java%20Buildpack&release=4.85.0&os=&servicePk=536879&language=EN] (offline version can not download external agent bits) 
 
-unzip files.
+verify the md5 value for the downloaded file 
+```
+md5sum java-buildpack-offline-v4.85.0.zip
+01c831bb29c9e8d4471cb23ca5dd0363
 
+md5sum java-buildpack-v4.85.0.zip
+4502f8a6105887918adfe81fab36cc95
+```
+
+and unzip files.
 ```
 ubuntu@opsman321:~$ mkdir java-buildpack-offline-v4.85  
 ubuntu@opsman321:~$ unzip java-buildpack-offline-v4.85.0.zip -d java-buildpack-offline-v4.85
