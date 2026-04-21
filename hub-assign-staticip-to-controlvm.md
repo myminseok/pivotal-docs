@@ -13,6 +13,8 @@ Please note that the static_ip bosh configuration will be reverted/removed on ne
 
 configure bosh cloud config with static IP list to be assigned to bosh deployed vms.
 
+note that the ip list should be in the network range in bosh cloud-config.
+
 ```
 bosh cloud-config > cloud-config.yml
 ```
