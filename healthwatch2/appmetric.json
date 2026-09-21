@@ -53,7 +53,7 @@
         "type": "prometheus",
         "uid": "ecacad46-400c-43b2-ae99-20afbb70c4f8"
       },
-      "description": "The number of incoming TCP connections to the log-store.",
+      "description": "The number of incoming TCP connections to the logstore.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -111,7 +111,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 14,
         "x": 0,
         "y": 3
@@ -150,6 +150,110 @@
         }
       ],
       "title": "appmetric> ingress_connection_count(gauge)> log-store",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P1809F7CD0C75ACF3"
+      },
+      "description": "The number of outgoing TCP connections from the router.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 14,
+        "x": 0,
+        "y": 8
+      },
+      "id": 190,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last"
+          ],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P1809F7CD0C75ACF3"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "egress_connection_count{source_id=\"router\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{ip}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "appmetric> egress_connection_count(gauge)> router on logstore",
       "type": "timeseries"
     },
     {
@@ -218,7 +322,7 @@
         "h": 5,
         "w": 14,
         "x": 0,
-        "y": 9
+        "y": 13
       },
       "id": 179,
       "options": {
@@ -325,7 +429,7 @@
         "h": 6,
         "w": 14,
         "x": 0,
-        "y": 14
+        "y": 18
       },
       "id": 177,
       "options": {
@@ -431,7 +535,7 @@
         "h": 4,
         "w": 14,
         "x": 0,
-        "y": 20
+        "y": 24
       },
       "id": 181,
       "options": {
@@ -535,7 +639,7 @@
         "h": 4,
         "w": 14,
         "x": 0,
-        "y": 24
+        "y": 28
       },
       "id": 183,
       "options": {
@@ -602,6 +706,6 @@
   "timezone": "",
   "title": "AppMetric",
   "uid": "acba9785-fbcf-4e28-931a-1a8de8f124d5",
-  "version": 12,
+  "version": 15,
   "weekStart": ""
 }
