@@ -49,21 +49,20 @@ cd java-spring-security
 ./mvnw spring-boot:run
 ```
 
-open https://localhost:8080/actuator
-open https://localhost:8080/actuator/prometheus
+open http://localhost:8080/actuator
+open http://localhost:8080/actuator/prometheus
 
 ```
 ...
-# TYPE process_cpu_usage gauge
-process_cpu_usage 6.216144214545778E-4
 # HELP process_files_max_files The maximum file descriptor count
 # TYPE process_files_max_files gauge
-process_files_max_files 16384.0
+process_files_max_files 1048576.0
 # HELP process_files_open_files The open file descriptor count
 # TYPE process_files_open_files gauge
-process_files_open_files 66.0
+process_files_open_files 62.0
 ...
 ```
+
 
 ## Push to Tanzu platform
 
@@ -84,6 +83,20 @@ rebuild and push
 ./gradlew assemble
 cf push
 ```
+
+open https://APP_DOMAIN/actuator/prometheus
+
+```
+...
+# HELP process_files_max_files The maximum file descriptor count
+# TYPE process_files_max_files gauge
+process_files_max_files 16384.0
+# HELP process_files_open_files The open file descriptor count
+# TYPE process_files_open_files gauge
+process_files_open_files 66.0
+...
+```
+
 
 ## Register the custom metric endpoint to platform 
 ```
