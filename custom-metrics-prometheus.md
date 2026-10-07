@@ -36,6 +36,7 @@ management:
   endpoint:
     health:
       show-details: always
+    prometheus.enabled: true
 
 ```
 
@@ -76,6 +77,7 @@ management:
   endpoint:
     health:
       show-details: "when_authorized" # Hide details for public access
+    prometheus.enabled: true
 ```
 
 rebuild and push
@@ -103,14 +105,24 @@ process_files_open_files 66.0
 ## cf install-plugin -r CF-Community "metric-registrar"
 
 cf register-metrics-endpoint actuator-test /actuator/prometheus --internal-port 8080
-
 ```
+
+## verify registered metric
+```
+## cf install-plugin -r CF-Community "log-cache"
+
+cf tail -c metrics actuator-test  -f | grep files
+   2026-10-07T16:45:10.58+0900 [actuator-test/0] GAUGE process_files_max_files:16384.000000
+   2026-10-07T16:45:10.58+0900 [actuator-test/0] GAUGE process_files_open_files:64.000000
+
+
+cf tail -t gauge  actuator-test -f | grep files
 
 
 ## Register custom metric on appmetric UI
 add a chart by clicking "+" button. and add one of metric name from /actuator/prometneus endpoint into query.
 ```
-process_files_open_file{source_id="$sourceId"}
+process_files_max_files{source_id="$sourceId"}
 ```
 
 
