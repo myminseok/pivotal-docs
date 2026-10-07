@@ -116,4 +116,6 @@ process_files_open_file{source_id="$sourceId"}
 
 ## Reference
 
+https://techdocs.broadcom.com/us/en/vmware-tanzu/platform/elastic-application-runtime/10-2/eart/metric-registrar-using.html
+
 https://blogs.vmware.com/tanzu/out-of-the-box-application-observability-with-spring-boot-pivotal-cloud-foundry/
