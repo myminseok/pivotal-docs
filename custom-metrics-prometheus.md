@@ -36,13 +36,17 @@ management:
   endpoint:
     health:
       show-details: always
-    prometheus.enabled: true
 
 ```
 
 ref: https://github.com/pivotal-cf/metric-registrar-examples
 
 run app locally.
+
+If you strictly want to use only spring-boot-starter-actuator with no extra Micrometer registry dependencies at all, it is not natively possible to get them into Loggregator.
+By default, the Spring Boot Actuator uses a SimpleMeterRegistry which only holds metric values in the application's local memory (viewable if you hit the /actuator/metrics HTTP endpoint manually). To continuously stream those metrics into Cloud Foundry's Loggregator system, you must provide Micrometer with an exporter (like StatsD or Prometheus) that speaks a protocol Cloud Foundry understands.
+
+
 
 ```
 cd java-spring-security
@@ -77,7 +81,7 @@ management:
   endpoint:
     health:
       show-details: "when_authorized" # Hide details for public access
-    prometheus.enabled: true
+    prometheus.enabled: true # Ensure the prometheus endpoint is enabled, expose metrics to log-cache
 ```
 
 rebuild and push
